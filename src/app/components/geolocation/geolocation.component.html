@@ -1,0 +1,16 @@
+<button (click)="getLocation()">Empezar Jornada Laboral</button>
+
+@if (position) {
+<h2>
+  Fecha: {{ position.timestamp | date : "MMM dd, h:mm:ss a" }} <br />
+  tu ubicacion es: {{ position.coords.latitude }},
+  {{ position.coords.longitude }}
+</h2>
+<h3>Mas o menos {{ (position.coords.accuracy / 1000).toFixed(2) }} kms</h3>
+<a [href]="googlemapurl" target="_blank" rel="noopener noreferrer">
+  Ver en el mapa
+</a>
+
+} @else {
+<p>{{ message }}</p>
+}
