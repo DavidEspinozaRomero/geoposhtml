@@ -1,0 +1,121 @@
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="companyModal"
+  tabindex="-1"
+  aria-labelledby="companyModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="companyModalLabel">Modal title</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="companyForm">
+          <div class="mb-3">
+            <label for="nameInput" class="form-label"
+              >Nombre de la sociedad</label
+            >
+            <input
+              type="text"
+              id="nameInput"
+              class="form-control"
+              placeholder="Google S.A."
+              formControlName="name"
+              [ngClass]="{
+                'is-invalid': isValidControl(companyForm, 'name')
+              }"
+            />
+            @if(isValidControl(companyForm, 'name')){
+            <small class="text-danger">
+              <!-- {{ companyForm.get("name")?.errors | json }} -->
+              El nombre debe ser mayor de 3 caracteres
+            </small>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="accountInput" class="form-label"
+              >Cuenta De Cotización</label
+            >
+            <input
+              type="text"
+              id="accountInput"
+              class="form-control"
+              placeholder="12345678A"
+              formControlName="account"
+              [ngClass]="{
+                'is-invalid': isValidControl(companyForm, 'account')
+              }"
+            />
+            @if(isValidControl(companyForm, 'account')){
+            <small class="text-danger">
+              <!-- {{ companyForm.get("name")?.errors | json }} -->
+              El account debe ser mayor de 3 caracteres
+            </small>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="cifInput" class="form-label">CIF</label>
+            <input
+              type="text"
+              id="cifInput"
+              class="form-control"
+              placeholder="12345678A"
+              formControlName="cif"
+              [ngClass]="{
+                'is-invalid': isValidControl(companyForm, 'cif')
+              }"
+            />
+            @if(isValidControl(companyForm, 'cif')){
+            <small class="text-danger">
+              <!-- {{ companyForm.get("name")?.errors | json }} -->
+              El cif ingresado no es valido
+            </small>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="addressInput" class="form-label"
+              >Dirección Fiscal</label
+            >
+            <input
+              type="text"
+              id="addressInput"
+              class="form-control"
+              placeholder="Ciudad - Calle Falsa 123"
+              formControlName="address"
+              [ngClass]="{
+                'is-invalid': isValidControl(companyForm, 'address')
+              }"
+            />
+            @if(isValidControl(companyForm, 'address')){
+            <small class="text-danger">
+              <!-- {{ companyForm.get("name")?.errors | json }} -->
+              La dirección no es válida o es demasiado corta minimo 5 caracteres
+            </small>
+            }
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          #btnClose
+        >
+          Cerrar
+        </button>
+        <button type="button" class="btn btn-primary" (click)="onSubmit()">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

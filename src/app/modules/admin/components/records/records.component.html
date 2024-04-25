@@ -1,0 +1,117 @@
+<h1>Registros</h1>
+
+<!-- seccion de filtros -->
+<div class="row">
+  <div class="col">
+    <div class="form-floating">
+      <input id="inputDate" type="date" #inputDate (change)="(inputDate)" />
+      <label for="inputDate"> Fecha </label>
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-floating">
+      <input
+        id="inputEmployee"
+        type="text"
+        class="form-control"
+        placeholder="Nombre o Usuario"
+        #inputEmployee
+        (keyup)="(inputEmployee)"
+      />
+      <label for="inputEmployee"> Nombre/Usuario/Nombre de la Sociedad </label>
+    </div>
+  </div>
+  <div class="col">
+    <select
+      class="form-select"
+      aria-label="Default select example"
+      #inputIncidents
+      (change)="(inputIncidents)"
+    >
+      <option selected value="">Todos</option>
+      <option value="sinIncidencias">Sin Incidencias</option>
+      <option value="conIncidencias">Con Incidencias</option>
+    </select>
+  </div>
+</div>
+<!-- seccion de registros -->
+<table class="table table-striped table-hover" aria-label="Registros">
+  <thead>
+    <tr>
+      <!-- <th scope="col" > empleado.img</th> -->
+      <!-- <th scope="col" > {{employee.username}} -<small> {{employee.name}}</small> </th> -->
+      <th scope="col">#</th>
+      <th scope="col">Usuario/Nombre</th>
+      <th scope="col">Empresa</th>
+      <th scope="col">Fecha Inicio</th>
+      <th scope="col">Fecha Fin</th>
+      <th scope="col" class="text-center">Incidencias</th>
+      <th scope="col" class="text-center">Ubicación</th>
+      <th scope="col" class="text-center">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(record of records | filterDate : inputDate.value |
+    filterRecordEmployeeUsername : inputEmployee.value |
+    filterRecordEmployeeIncidents : inputIncidents.value ; let i_record =
+    $index; track i_record) {
+    <tr class="align-middle">
+      <td>{{ i_record + 1 }}</td>
+      <td>
+        {{ record.employeeUsername }} -<small>
+          {{ record.employeeName }}
+        </small>
+      </td>
+      <td>{{ record.companyName }}</td>
+      <td>
+        {{ record.startTimestamp | date : "EEE, MMM d, h:mm a" }}
+      </td>
+      <td>
+        {{ record.endTimestamp | date : "EEE, MMM d, h:mm a" }}
+      </td>
+      <td class="text-center">
+        <!-- record.incidencia.lenght || record.incidenciaAdmin.lenght -->
+        @if (record.incidencia.length || record.incidenciaAdmin.length){
+        @if(record.incidencia.length){
+        <i class="btn btn-warning btn-sm bi bi-person me-2"></i>
+        } @if (record.incidenciaAdmin.length) {
+        <i class="btn btn-danger btn-sm bi bi-person-gear me-2"></i>
+        } } @else { <strong class="text-success"> No </strong> }
+      </td>
+      <td class="text-center">
+        <i
+          role="button"
+          class="text-primary bi bi-info-circle-fill me-2"
+          [title]="
+            'Presición: ' +
+            record.geo.accuracy +
+            ' metros' +
+            '\n ' +
+            'Latitud: ' +
+            record.geo.latitude +
+            '\n ' +
+            'Longitud: ' +
+            record.geo.longitude
+          "
+        ></i>
+        <a
+          [href]="record.googlemapurl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary btn-sm"
+        >
+          Ver <i class="bi bi-geo-alt-fill"></i>
+        </a>
+      </td>
+      <td class="text-center">
+        <i class="btn btn-primary btn-sm bi bi-pencil"></i>
+      </td>
+    </tr>
+
+    }
+  </tbody>
+</table>
+
+<!--  agregar paginador 10 -->
+
+<!-- agregar modal para edicion de registros -->

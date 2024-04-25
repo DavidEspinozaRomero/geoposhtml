@@ -1,0 +1,134 @@
+{
+  "records": [
+    {
+      "employeeId": 1,
+      "companyId": 1,
+      "startTimestamp": 1713972881577,
+      "endTimestamp": 1813972881577,
+      "incidencia": "No se encontro al Sr. Gonzalo",
+      "incidenciaAdmin": "Error de capa 8",
+      "geo": {
+        "accuracy": 586264.4449916965,
+        "latitude": -0.2719744,
+        "longitude": -78.544896
+      }
+    },
+    {
+      "employeeId": 1,
+      "companyId": 2,
+      "startTimestamp": 1777836800000,
+      "endTimestamp": 1777840400000,
+      "incidencia": "",
+      "incidenciaAdmin": "",
+      "geo": {
+        "accuracy": 0.95,
+        "latitude": 37.7749,
+        "longitude": -122.4194
+      }
+    },
+    {
+      "employeeId": 1,
+      "companyId": 3,
+      "startTimestamp": 1777923200,
+      "endTimestamp": 1777926800,
+      "incidencia": "Minor incident occurred",
+      "incidenciaAdmin": "",
+      "geo": {
+        "accuracy": 0.98,
+        "latitude": 40.7128,
+        "longitude": -74.006
+      }
+    },
+    {
+      "employeeId": 1,
+      "companyId": 4,
+      "startTimestamp": 1778009600,
+      "endTimestamp": 1778013200,
+      "incidencia": "",
+      "incidenciaAdmin": "Permiso Medico",
+      "geo": {
+        "accuracy": 0.93,
+        "latitude": 51.5074,
+        "longitude": -0.1278
+      }
+    },
+    {
+      "employeeId": 1,
+      "companyId": 1,
+      "startTimestamp": 1778096000,
+      "endTimestamp": 1778099600,
+      "incidencia": "",
+      "incidenciaAdmin": "",
+      "geo": {
+        "accuracy": 0.96,
+        "latitude": 48.8566,
+        "longitude": 2.3522
+      }
+    },
+    {
+      "employeeId": 1,
+      "companyId": 1,
+      "startTimestamp": 1778182400,
+      "endTimestamp": 1778186000,
+      "incidencia": "",
+      "incidenciaAdmin": "",
+      "geo": {
+        "accuracy": 0.94,
+        "latitude": 55.7558,
+        "longitude": 37.6176
+      }
+    },
+    {
+      "employeeId": 1,
+      "companyId": 1,
+      "startTimestamp": 1778268800,
+      "endTimestamp": 1778272400,
+      "incidencia": "Major incident occurred",
+      "incidenciaAdmin": "",
+      "geo": {
+        "accuracy": 0.97,
+        "latitude": 35.6895,
+        "longitude": 139.6917
+      }
+    },
+    {
+      "employeeId": 2,
+      "companyId": 1,
+      "startTimestamp": 1778355200,
+      "endTimestamp": 1778358800,
+      "incidencia": "",
+      "incidenciaAdmin": "",
+      "geo": {
+        "accuracy": 0.92,
+        "latitude": 52.52,
+        "longitude": 13.405
+      }
+    },
+    {
+      "employeeId": 2,
+      "companyId": 1,
+      "startTimestamp": 1778441600,
+      "endTimestamp": 1778445200,
+      "incidencia": "",
+      "incidenciaAdmin": "",
+      "geo": {
+        "accuracy": 0.95,
+        "latitude": 41.9028,
+        "longitude": 12.4964
+      }
+    },
+    {
+      "employeeId": 2,
+      "companyId": 1,
+      "startTimestamp": 1778528000,
+      "endTimestamp": 1778531600,
+      "incidencia": "",
+      "incidenciaAdmin": "",
+      "geo": {
+        "accuracy": 0.91,
+        "latitude": 45.4642,
+        "longitude": 9.19
+      }
+    }
+  ]
+}

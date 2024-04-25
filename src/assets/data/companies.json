@@ -1,0 +1,39 @@
+{
+  "companies": [
+    {
+      "id": 1,
+      "name": "ABC Company",
+      "cif": "123456789A",
+      "account": "1234567890",
+      "address": "123 Main St"
+    },
+    {
+      "id": 2,
+      "name": "XYZ Corporation",
+      "cif": "987654321B",
+      "account": "0987654321",
+      "address": "456 Elm St"
+    },
+    {
+      "id": 3,
+      "name": "123 Inc.",
+      "cif": "456789123C",
+      "account": "7890123456",
+      "address": "789 Oak St"
+    },
+    {
+      "id": 4,
+      "name": "DEF Enterprises",
+      "cif": "321654987D",
+      "account": "6543210987",
+      "address": "321 Pine St"
+    },
+    {
+      "id": 5,
+      "name": "GHI Ltd.",
+      "cif": "987123654E",
+      "account": "2109876543",
+      "address": "654 Maple St"
+    }
+  ]
+}

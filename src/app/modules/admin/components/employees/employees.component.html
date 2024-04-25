@@ -1,0 +1,129 @@
+<div class="p-3">
+  <h1>Empleados</h1>
+
+  <button
+    type="button "
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#employeeModal"
+    (click)="this.employee = undefined"
+  >
+    Agregar +
+  </button>
+
+  <section id="filters" class="row mt-3 p-3 bg-info">
+    <div class="col-5">
+      <div class="form-floating">
+        <input
+          id="inputName"
+          type="text"
+          class="form-control"
+          placeholder="Nombre o Usuario"
+          #inputName
+          (keyup)="(inputName)"
+        />
+        <label for="inputName"> Nombre/Usuario </label>
+      </div>
+    </div>
+    <div class="col-5">
+      <div class="form-floating">
+        <input
+          id="inputCompany"
+          type="text"
+          class="form-control"
+          placeholder="Empresa"
+          #inputCompany
+          (keyup)="(inputCompany)"
+        />
+        <label for="inputCompany"> Empresa </label>
+      </div>
+    </div>
+    <div class="col">
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        #inputIsActive
+        (change)="(inputIsActive)"
+      >
+        <option selected value="">Todos</option>
+        <option value="active">Activos</option>
+        <option value="inactive">Inactivos</option>
+      </select>
+    </div>
+  </section>
+
+  <section id="employees-info" class="my-3">
+    <div class="row p-0 m-0">
+      @for(employee of employees | filterEmployeeByNameUsername :
+      inputName.value | filterCompanyEmployee : inputCompany.value |
+      filterActiveEmployees : inputIsActive.value; let i_employee = $index ;
+      track i_employee ) {
+      <div class="card m-2 px-0" style="width: 18rem">
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <div class="card-header bg-primary d-block text-center">
+          <strong> {{ employee.name }} </strong>
+          @if(employee.isActive){
+          <i
+            role="button"
+            class="bi bi-circle-fill text-success"
+            (click)="updateIsActiveEmployee(employee)"
+          ></i>
+          } @else {
+          <i
+            role="button"
+            class="bi bi-circle-fill text-danger"
+            (click)="updateIsActiveEmployee(employee)"
+          ></i>
+          }
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ employee.username }}
+          </h5>
+          <p class="card-text">
+            <i
+              class="bi bi-pencil btn btn-outline-primary btn-sm me-4"
+              data-bs-toggle="modal"
+              data-bs-target="#employeeModal"
+              (click)="editEmployee(employee)"
+            ></i>
+            <i
+              class="bi bi-trash btn btn-outline-danger btn-sm"
+              (click)="removeEmployee(employee, i_employee)"
+            ></i>
+          </p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item py-1">
+            <small> {{ employee.email }} </small>
+          </li>
+          <li class="list-group-item py-1">
+            <small> {{ employee.phone }} </small>
+          </li>
+          <li class="list-group-item py-1">
+            <small> {{ employee.address }} </small>
+          </li>
+          <li class="list-group-item py-1">
+            @for(company of employee.companies; let i_company = $index; track
+            i_company) {
+            <small>
+              {{
+                company +
+                  (employee.companies!.length > i_company + 1 ? " | " : "")
+              }}
+            </small>
+            } @empty {
+            <small> Sin asignar </small>
+            }
+          </li>
+        </ul>
+      </div>
+      }
+    </div>
+  </section>
+</div>
+
+<app-employee-modal
+  (onSaveForm)="updateEmployees($event)"
+  [employee]="employee"
+></app-employee-modal>

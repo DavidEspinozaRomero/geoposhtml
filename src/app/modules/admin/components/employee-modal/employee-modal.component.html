@@ -1,0 +1,211 @@
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="employeeModal"
+  tabindex="-1"
+  aria-labelledby="employeeModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="employeeModalLabel">Modal title</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="employeeForm">
+          <div class="mb-3">
+            <label for="nameInput" class="form-label">Nombre</label>
+            <input
+              type="text"
+              id="nameInput"
+              class="form-control"
+              placeholder="David"
+              formControlName="name"
+              [ngClass]="{
+                'is-invalid': isValidControl(employeeForm, 'name')
+              }"
+            />
+            @if(isValidControl(employeeForm, 'name')){
+            <small class="text-danger">
+              <!-- {{ employeeForm.get("name")?.errors | json }} -->
+              El nombre debe ser mayor de 3 caracteres
+            </small>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="usernameInput" class="form-label">Username</label>
+            <input
+              type="text"
+              id="usernameInput"
+              class="form-control"
+              placeholder="Deerhou"
+              formControlName="username"
+              [ngClass]="{
+                'is-invalid': isValidControl(employeeForm, 'username')
+              }"
+            />
+            @if(isValidControl(employeeForm, 'username')){
+            <small class="text-danger">
+              <!-- {{ employeeForm.get("name")?.errors | json }} -->
+              El username debe ser mayor de 3 caracteres
+            </small>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="passwordInput" class="form-label">Contraseña</label>
+            <input
+              type="text"
+              id="passwordInput"
+              class="form-control"
+              placeholder="Deer123."
+              formControlName="password"
+              [ngClass]="{
+                'is-invalid': isValidControl(employeeForm, 'password')
+              }"
+            />
+            @if(isValidControl(employeeForm, 'password')){
+            <small class="text-danger">
+              <!-- {{ employeeForm.get("name")?.errors | json }} -->
+              El password debe ser mayor de 3 caracteres y máximo 20
+            </small>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="emailInput" class="form-label">Email</label>
+            <input
+              type="text"
+              id="emailInput"
+              class="form-control"
+              placeholder="user@example.com"
+              formControlName="email"
+              [ngClass]="{
+                'is-invalid': isValidControl(employeeForm, 'email')
+              }"
+            />
+            @if(isValidControl(employeeForm, 'email')){
+            <small class="text-danger">
+              <!-- {{ employeeForm.get("name")?.errors | json }} -->
+              El email ingresado no es valido
+            </small>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="dniInput" class="form-label"
+              >DNI/Numero de identidad</label
+            >
+            <input
+              type="text"
+              id="dniInput"
+              class="form-control"
+              placeholder="12345678A"
+              formControlName="dni"
+              [ngClass]="{
+                'is-invalid': isValidControl(employeeForm, 'dni')
+              }"
+            />
+            @if(isValidControl(employeeForm, 'dni')){
+            <small class="text-danger">
+              <!-- {{ employeeForm.get("name")?.errors | json }} -->
+              El DNI ingresado no es valido minimo 8 digitos maximo 11 digitos
+            </small>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="addressInput" class="form-label">Dirección</label>
+            <input
+              type="text"
+              id="addressInput"
+              class="form-control"
+              placeholder="Ciudad - Calle Falsa 123"
+              formControlName="address"
+              [ngClass]="{
+                'is-invalid': isValidControl(employeeForm, 'address')
+              }"
+            />
+            @if(isValidControl(employeeForm, 'address')){
+            <small class="text-danger">
+              <!-- {{ employeeForm.get("name")?.errors | json }} -->
+              La dirección no es válida o es demasiado corta minimo 5 caracteres
+            </small>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="phoneInput" class="form-label">Teléfono</label>
+            <input
+              type="text"
+              id="phoneInput"
+              class="form-control"
+              placeholder="123456780"
+              formControlName="phone"
+              [ngClass]="{
+                'is-invalid': isValidControl(employeeForm, 'phone')
+              }"
+            />
+            @if(isValidControl(employeeForm, 'phone')){
+            <small class="text-danger">
+              <!-- {{ employeeForm.get("name")?.errors | json }} -->
+              El teléfono ingresado no es valido minimo 9 digitos
+            </small>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="insuranceInput" class="form-label"
+              >Número de Seguro</label
+            >
+            <input
+              type="text"
+              id="insuranceInput"
+              class="form-control"
+              placeholder="ABC123"
+              formControlName="insurance"
+              [ngClass]="{
+                'is-invalid': isValidControl(employeeForm, 'insurance')
+              }"
+            />
+            @if(isValidControl(employeeForm, 'insurance')){
+            <small class="text-danger">
+              <!-- {{ employeeForm.get("name")?.errors | json }} -->
+              El Número de seguro no es valido
+            </small>
+            }
+          </div>
+          <div class="mb-3">
+            <div class="form-check">
+              <input
+                id="flexCheckDefault"
+                class="form-check-input"
+                type="checkbox"
+                formControlName="isActive"
+                [ngClass]="{
+                  'is-invalid': isValidControl(employeeForm, 'isActive')
+                }"
+              />
+              <label class="form-check-label" for="isActiveInput">
+                Está Activo
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          #btnClose
+        >
+          Cerrar
+        </button>
+        <button type="button" class="btn btn-primary" (click)="onSubmit()">
+          Guardar Cambios
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

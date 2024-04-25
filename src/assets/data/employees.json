@@ -1,0 +1,76 @@
+{
+  "employees": [
+    {
+      "id": "1",
+      "name": "Leanne Graham",
+      "username": "Bret",
+      "password": "pass123.",
+      "email": "1tqgA@example.com",
+      "dni": "12345678",
+      "address": "Gwenborough",
+      "phone": 987654321,
+      "isActive": true,
+      "insurance": "ABC123",
+      "companies": ["ABC123", "XYZ789"],
+      "workdays": [
+        {
+          "id": "1",
+          "day": 0,
+          "companiesIDs": ["1", "2"]
+        },
+        {
+          "id": "1",
+          "day": 1,
+          "companiesIDs": ["3", "2"]
+        },
+        {
+          "id": "1",
+          "day": 3,
+          "companiesIDs": ["3", "2"]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "John Doe",
+      "username": "johndoe",
+      "password": "pass123.",
+      "email": "johndoe@example.com",
+      "dni": 123456789,
+      "address": "New York",
+      "phone": 1234567890,
+      "isActive": true,
+      "insurance": "ABC123",
+      "companies": ["ABC123", "XYZ789"],
+      "companyIDs": ["1", "2"]
+    },
+    {
+      "id": "3",
+      "name": "Jane Smith",
+      "username": "janesmith",
+      "password": "pass123.",
+      "email": "janesmith@example.com",
+      "dni": 987654321,
+      "address": "Los Angeles",
+      "phone": 9876543210,
+      "isActive": true,
+      "insurance": "XYZ789",
+      "companies": ["QWERTY", "XYZ789"],
+      "companyIDs": ["2", "2"]
+    },
+    {
+      "id": "4",
+      "name": "David Johnson",
+      "username": "davidjohnson",
+      "password": "pass123.",
+      "email": "davidjohnson@example.com",
+      "dni": 456789123,
+      "address": "Chicago",
+      "phone": 4567891230,
+      "isActive": false,
+      "insurance": "DEF456",
+      "companies": ["QWERTY", "DEF456"],
+      "companyIDs": ["5"]
+    }
+  ]
+}
