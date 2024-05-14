@@ -18,6 +18,7 @@ import { JsonPipe, NgClass } from '@angular/common';
 
 import { CompaniesService } from '../../../../services/companies.service';
 import { Company } from '../../../../models';
+import { UtilsService } from '../../../../services/utils.service';
 
 @Component({
   selector: 'app-company-modal',
@@ -31,6 +32,7 @@ export class CompanyModalComponent {
   @Output() onSaveForm = new EventEmitter<Company>();
   fb = inject(FormBuilder);
   companiesService = inject(CompaniesService);
+  utilsService = inject(UtilsService);
 
   btnClose = viewChild<ElementRef<HTMLButtonElement>>('btnClose');
   companyForm = this.fb.nonNullable.group({
@@ -87,9 +89,5 @@ export class CompanyModalComponent {
     this.companyForm.reset();
     // enviar mensaje de exito!
     this.btnClose()?.nativeElement.click();
-  }
-
-  isValidControl(form: FormGroup, name: string) {
-    return form.get(name)?.errors && form.get(name)?.touched;
   }
 }

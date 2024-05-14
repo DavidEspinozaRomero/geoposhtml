@@ -20,6 +20,7 @@ import {
 
 import { EmployeesService } from '../../../../services/employees.service';
 import { Employee } from '../../../../models/employee.model';
+import { UtilsService } from '../../../../services/utils.service';
 
 @Component({
   selector: 'app-employee-modal',
@@ -33,6 +34,7 @@ export class EmployeeModalComponent implements OnChanges {
   @Output() onSaveForm = new EventEmitter<Employee>();
   fb = inject(FormBuilder);
   employeesService = inject(EmployeesService);
+  utilsService = inject(UtilsService);
 
   btnClose = viewChild<ElementRef<HTMLButtonElement>>('btnClose');
   employeeForm = this.fb.nonNullable.group({
@@ -118,8 +120,5 @@ export class EmployeeModalComponent implements OnChanges {
     this.employeeForm.reset();
     // enviar mensaje de exito!
     this.btnClose()?.nativeElement.click();
-  }
-  isValidControl(form: FormGroup, name: string) {
-    return form.get(name)?.errors && form.get(name)?.touched;
   }
 }

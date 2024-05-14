@@ -1,1 +1,1 @@
-export * from './workday/workday.component';
+export * from './components/workday/workday.component';

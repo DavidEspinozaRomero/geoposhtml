@@ -1,5 +1,5 @@
 export interface Record {
-  id?: string;
+  id: string;
   employeeId: string;
   companyId: string;
   employeeName: string;
@@ -7,10 +7,13 @@ export interface Record {
   companyName: string;
   startTimestamp: number;
   endTimestamp: number;
-  incidencia: string;
-  incidenciaAdmin: string;
+  duration?: number;
+  incident: string;
+  incidentAdmin: string;
   googlemapurl: string;
-  geo: Geo;
+  geoStart: Geo;
+  geoEnd: Geo;
+  isActive?: boolean;
 }
 
 export interface Geo {

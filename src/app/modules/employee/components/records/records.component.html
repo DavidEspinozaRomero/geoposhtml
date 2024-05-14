@@ -1,0 +1,87 @@
+<h1>Registros</h1>
+<!-- <input type="date" /> -->
+<!-- seccion de filtros -->
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <input
+        id="inputDate"
+        class="form-control"
+        type="date"
+        #inputDate
+        (change)="(inputDate)"
+      />
+      <!-- <label for="inputDate"> Fecha </label> -->
+    </div>
+  </div>
+
+  <div class="col">
+    <select
+      class="form-select"
+      aria-label="Default select example"
+      #inputIncidents
+      (change)="(inputIncidents)"
+    >
+      <option selected value="">Todos</option>
+      <option value="sinIncidencias">Sin Incidencias</option>
+      <option value="conIncidencias">Con Incidencias</option>
+    </select>
+  </div>
+</div>
+<!-- seccion de registros -->
+<table class="table table-striped table-hover" aria-label="Registros">
+  <thead>
+    <tr>
+      <!-- <th scope="col" > empleado.img</th> -->
+      <!-- <th scope="col" > {{employee.username}} -<small> {{employee.name}}</small> </th> -->
+      <th scope="col">#</th>
+      <th scope="col">Empresa</th>
+      <th scope="col">Fecha Inicio</th>
+      <th scope="col">Fecha Fin</th>
+      <th scope="col" class="text-center">Incidencias</th>
+      <th scope="col" class="text-center">
+        <span class="me-2">Ver</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(record of records | filterDate : inputDate.value |
+    filterRecordEmployeeIncidents : inputIncidents.value ; let i_record =
+    $index; track i_record) {
+    <tr class="align-middle">
+      <td>{{ i_record + 1 }}</td>
+
+      <td>{{ record.companyName }}</td>
+      <td>
+        {{ record.startTimestamp | date : "EEE, MMM d, h:mm a" }}
+      </td>
+      <td>
+        {{ record.endTimestamp | date : "EEE, MMM d, h:mm a" }}
+      </td>
+      <td class="text-center">
+        <!-- record.incidencia.lenght || record.incidenciaAdmin.lenght -->
+        @if (record.incident.length || record.incidentAdmin.length){
+        @if(record.incident.length){
+        <i class="btn btn-warning btn-sm bi bi-person me-2"></i>
+        } @if (record.incidentAdmin.length) {
+        <i class="btn btn-danger btn-sm bi bi-person-gear me-2"></i>
+        } } @else { <strong class="text-success"> No </strong> }
+      </td>
+      <td class="text-center">
+        <i
+          class="btn btn-primary btn-sm bi bi-eye"
+          data-bs-toggle="modal"
+          data-bs-target="#recordEmployeeModal"
+          (click)="selectedRecord = record"
+        ></i>
+      </td>
+    </tr>
+
+    }
+  </tbody>
+</table>
+
+<!--  agregar paginador 10 -->
+
+<!-- agregar modal para edicion de registros -->
+<app-record-modal [record]="selectedRecord"></app-record-modal>

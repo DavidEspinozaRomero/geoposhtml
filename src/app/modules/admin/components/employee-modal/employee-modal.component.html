@@ -28,10 +28,10 @@
               placeholder="David"
               formControlName="name"
               [ngClass]="{
-                'is-invalid': isValidControl(employeeForm, 'name')
+                'is-invalid': utilsService.isValidControl(employeeForm, 'name')
               }"
             />
-            @if(isValidControl(employeeForm, 'name')){
+            @if(utilsService.isValidControl(employeeForm, 'name')){
             <small class="text-danger">
               <!-- {{ employeeForm.get("name")?.errors | json }} -->
               El nombre debe ser mayor de 3 caracteres
@@ -47,10 +47,13 @@
               placeholder="Deerhou"
               formControlName="username"
               [ngClass]="{
-                'is-invalid': isValidControl(employeeForm, 'username')
+                'is-invalid': utilsService.isValidControl(
+                  employeeForm,
+                  'username'
+                )
               }"
             />
-            @if(isValidControl(employeeForm, 'username')){
+            @if(utilsService.isValidControl(employeeForm, 'username')){
             <small class="text-danger">
               <!-- {{ employeeForm.get("name")?.errors | json }} -->
               El username debe ser mayor de 3 caracteres
@@ -66,10 +69,13 @@
               placeholder="Deer123."
               formControlName="password"
               [ngClass]="{
-                'is-invalid': isValidControl(employeeForm, 'password')
+                'is-invalid': utilsService.isValidControl(
+                  employeeForm,
+                  'password'
+                )
               }"
             />
-            @if(isValidControl(employeeForm, 'password')){
+            @if(utilsService.isValidControl(employeeForm, 'password')){
             <small class="text-danger">
               <!-- {{ employeeForm.get("name")?.errors | json }} -->
               El password debe ser mayor de 3 caracteres y máximo 20
@@ -85,10 +91,10 @@
               placeholder="user@example.com"
               formControlName="email"
               [ngClass]="{
-                'is-invalid': isValidControl(employeeForm, 'email')
+                'is-invalid': utilsService.isValidControl(employeeForm, 'email')
               }"
             />
-            @if(isValidControl(employeeForm, 'email')){
+            @if(utilsService.isValidControl(employeeForm, 'email')){
             <small class="text-danger">
               <!-- {{ employeeForm.get("name")?.errors | json }} -->
               El email ingresado no es valido
@@ -106,10 +112,10 @@
               placeholder="12345678A"
               formControlName="dni"
               [ngClass]="{
-                'is-invalid': isValidControl(employeeForm, 'dni')
+                'is-invalid': utilsService.isValidControl(employeeForm, 'dni')
               }"
             />
-            @if(isValidControl(employeeForm, 'dni')){
+            @if(utilsService.isValidControl(employeeForm, 'dni')){
             <small class="text-danger">
               <!-- {{ employeeForm.get("name")?.errors | json }} -->
               El DNI ingresado no es valido minimo 8 digitos maximo 11 digitos
@@ -125,10 +131,13 @@
               placeholder="Ciudad - Calle Falsa 123"
               formControlName="address"
               [ngClass]="{
-                'is-invalid': isValidControl(employeeForm, 'address')
+                'is-invalid': utilsService.isValidControl(
+                  employeeForm,
+                  'address'
+                )
               }"
             />
-            @if(isValidControl(employeeForm, 'address')){
+            @if(utilsService.isValidControl(employeeForm, 'address')){
             <small class="text-danger">
               <!-- {{ employeeForm.get("name")?.errors | json }} -->
               La dirección no es válida o es demasiado corta minimo 5 caracteres
@@ -144,10 +153,10 @@
               placeholder="123456780"
               formControlName="phone"
               [ngClass]="{
-                'is-invalid': isValidControl(employeeForm, 'phone')
+                'is-invalid': utilsService.isValidControl(employeeForm, 'phone')
               }"
             />
-            @if(isValidControl(employeeForm, 'phone')){
+            @if(utilsService.isValidControl(employeeForm, 'phone')){
             <small class="text-danger">
               <!-- {{ employeeForm.get("name")?.errors | json }} -->
               El teléfono ingresado no es valido minimo 9 digitos
@@ -165,10 +174,13 @@
               placeholder="ABC123"
               formControlName="insurance"
               [ngClass]="{
-                'is-invalid': isValidControl(employeeForm, 'insurance')
+                'is-invalid': utilsService.isValidControl(
+                  employeeForm,
+                  'insurance'
+                )
               }"
             />
-            @if(isValidControl(employeeForm, 'insurance')){
+            @if(utilsService.isValidControl(employeeForm, 'insurance')){
             <small class="text-danger">
               <!-- {{ employeeForm.get("name")?.errors | json }} -->
               El Número de seguro no es valido
@@ -183,7 +195,10 @@
                 type="checkbox"
                 formControlName="isActive"
                 [ngClass]="{
-                  'is-invalid': isValidControl(employeeForm, 'isActive')
+                  'is-invalid': utilsService.isValidControl(
+                    employeeForm,
+                    'isActive'
+                  )
                 }"
               />
               <label class="form-check-label" for="isActiveInput">

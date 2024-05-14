@@ -1,1 +1,103 @@
-<p>events works!</p>
+<h1>Eventos</h1>
+
+<!-- agregar evento -->
+<button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#eventModal"
+  (click)="this.selectedEvent = undefined"
+>
+  + Evento
+</button>
+
+<!-- filtros -->
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <input
+        id="inputDate"
+        class="form-control"
+        type="date"
+        #inputDate
+        (change)="(inputDate)"
+      />
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-floating">
+      <input
+        id="inputEventTitle"
+        type="text"
+        class="form-control"
+        placeholder="Título del Evento"
+        #inputEventTitle
+        (keyup)="(inputEventTitle)"
+      />
+      <label for="inputEventTitle"> Título del evento </label>
+    </div>
+  </div>
+  <div class="col">
+    <select
+      class="form-select"
+      aria-label="tipos de eventos"
+      #inputEventType
+      (change)="(inputEventType)"
+    >
+      <option selected value="">Todos</option>
+      <!-- TODO: llamar Api agregar tipo de eventos  -->
+      <option value="1">Feriado</option>
+      <option value="2">Vacaciones</option>
+      <option value="3">It's</option>
+      <option value="4">Ausencia</option>
+    </select>
+  </div>
+</div>
+
+<!-- tabla mostrando los eventos -->
+<table class="table table-striped table-hover" aria-label="Eventos">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Tipo</th>
+      <th scope="col">Titulo</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(event of events | filterByEventDate : inputDate.value |
+    filterByEventTitle: inputEventTitle.value | filterByEventType:
+    inputEventType.value; let i_event = $index; track i_event) {
+    <tr>
+      <td>{{ i_event + 1 }}</td>
+      <td>{{ event.date | date : "mediumDate" }}</td>
+      <td>
+        <span class="badge" [class]="event.class">
+          {{ event.type | uppercase }}
+        </span>
+      </td>
+      <td>{{ event.title }}</td>
+      <td>
+        <button
+          class="btn btn-primary btn-sm bi bi-pencil me-2"
+          data-bs-toggle="modal"
+          data-bs-target="#eventModal"
+          (click)="this.selectedEvent = event"
+        ></button>
+        <i
+          class="btn btn-primary btn-sm bi bi-trash"
+          (click)="deleteEvent(event, i_event)"
+        ></i>
+      </td>
+    </tr>
+
+    }
+  </tbody>
+</table>
+
+<!-- modal para CRUD de evento -->
+<app-event-modal
+  [eventToEdit]="selectedEvent"
+  (onEventSubmit)="checkEvent($event)"
+></app-event-modal>

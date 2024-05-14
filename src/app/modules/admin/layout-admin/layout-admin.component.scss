@@ -1,0 +1,94 @@
+// @import "./src/assets/scss/colors";
+.main {
+  transition: margin-left 0.5s; /* If you want a transition effect */
+  margin-left: 4rem;
+}
+
+/* The sidebar menu */
+.sidebar {
+  height: 100%; /* 100% Full-height */
+  width: 4rem; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: blue; /* Black*/
+  overflow: hidden; /* Disable horizontal scroll */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+  border-left: 1rem solid blue;
+}
+
+/* The sidebar links */
+.sidebar li {
+  display: block;
+  position: relative;
+  border-radius: 1rem 0 0 1rem;
+  a {
+    width: 10rem;
+  }
+  .nav-link {
+    color: white;
+  }
+}
+
+.hovered a::before,
+li:hover a::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -1rem;
+  width: 1rem;
+  height: 1rem;
+  background-color: transparent;
+  border-radius: 1rem;
+  box-shadow: 8px 8px 0px 4px white;
+}
+
+.hovered a::after,
+li:hover a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1rem;
+  width: 1rem;
+  height: 1rem;
+  background-color: transparent;
+  border-radius: 1rem;
+  box-shadow: 8px -8px 0px 4px white;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidebar .hovered,
+.sidebar li:hover {
+  background-color: white;
+  a {
+    color: blue;
+  }
+}
+
+/* Position and style the close button (top right corner) */
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.menu_extend {
+  width: 10rem;
+}
+
+.menu_colapse {
+  margin-left: 10rem;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and li smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {
+    padding-top: 15px;
+  }
+  .sidebar a {
+    font-size: 18px;
+  }
+}

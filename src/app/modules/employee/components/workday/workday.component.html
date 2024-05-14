@@ -1,0 +1,127 @@
+<!-- titulo : fecha  -->
+<div class="workday mx-auto p-5">
+  <h2 class="text-center mb-3">Hoy es: {{ today | date : "mediumDate" }}</h2>
+  @if (!record) {
+  <!-- empezar jornada -->
+  <div class="mb-3 p-3 bg-secondary-subtle rounded">
+    <select
+      class="form-select form-select-sm"
+      aria-label="lista de empresas"
+      [ngClass]="{ 'is-invalid': isValid(companyIdForm) }"
+      [formControl]="companyIdForm"
+    >
+      <option disabled selected value="">-- Seleccione Empresa --</option>
+      @for(company of companies; let i_company = $index; track i_company) {
+      <option value="{{ company.id }}">{{ company.name }}</option>
+      }
+    </select>
+    @if( isValid(companyIdForm) ) {
+    <small class="text-danger">Por favor seleccione una empresa</small>
+    }
+  </div>
+  <button class="btn btn-primary" (click)="startWorkday()">
+    Empezar Jornada Laboral
+  </button>
+
+  } @else {
+  <!-- finalizar jornada -->
+  <div class="p-3 bg-secondary-subtle rounded">
+    <h5 class="text-center">Empresa: {{ record.companyName }}</h5>
+    <hr />
+    <p>
+      Fecha inicio: {{ record.startTimestamp | date : "MMM dd, h:mm:ss a" }}
+    </p>
+    @if(!record.isActive) {
+    <p>Fecha fin: {{ record.endTimestamp | date : "MMM dd, h:mm:ss a" }}</p>
+    <!-- mostrar tiempo entre inicio y fin de la jornada -->
+    <!-- <p>
+      Duración jornada laboral:
+      {{ record.endTimestamp - record.startTimestamp | date : "h:mm:ss" }}
+    </p> -->
+    }
+
+    <p>
+      Geolocalización inicial:
+      <i
+        class="text-primary bi bi-info-circle-fill me-2 pointer"
+        [title]="
+          'Presición: ' +
+          record.geoStart.accuracy +
+          ' metros' +
+          '\n ' +
+          'Latitud: ' +
+          record.geoStart.latitude +
+          '\n ' +
+          'Longitud: ' +
+          record.geoStart.longitude
+        "
+      ></i>
+      <a
+        [href]="googlemapurl"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary btn-sm"
+      >
+        Ver en el mapa <i class="bi bi-geo-alt-fill"></i>
+      </a>
+    </p>
+
+    @if(record.isActive){
+    <div class="form-floating mb-3">
+      <textarea
+        class="form-control"
+        placeholder="Agregar una incidencia"
+        [formControl]="incidentForm"
+        id="floatingTextarea"
+        [ngClass]="{
+          'is-invalid': isValid(incidentForm)
+        }"
+      ></textarea>
+      <label for="floatingTextarea">Incidencia</label>
+      @if(isValid(incidentForm)){
+      <small class="text-danger">
+        El incidente debe ser mayor de 3 caracteres
+      </small>
+      }
+    </div>
+    <button class="btn btn-primary" (click)="endWorkday()">
+      Finalizar Jornada
+    </button>
+    } @else {
+    <p>
+      Geolocalización fin:
+      <i
+        class="text-primary bi bi-info-circle-fill me-2 pointer"
+        [title]="
+          'Presición: ' +
+          record.geoEnd.accuracy +
+          ' metros' +
+          '\n ' +
+          'Latitud: ' +
+          record.geoEnd.latitude +
+          '\n ' +
+          'Longitud: ' +
+          record.geoEnd.longitude
+        "
+      ></i>
+      <a
+        [href]="googlemapurl"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary btn-sm"
+      >
+        Ver en el mapa <i class="bi bi-geo-alt-fill"></i>
+      </a>
+    </p>
+
+    <p>Incidente: {{ record.incident ?? "Sin Incidencia" }}</p>
+    <p>Jornada finalizada</p>
+    }
+  </div>
+  }
+</div>
+
+<!-- errores -->
+@if (message) {
+<p class="alert alert-warning">{{ message }}</p>
+}

@@ -17,6 +17,10 @@ export class CompaniesService {
     const URL = this.#dirData + 'companies.json';
     return this.http.get<Company[]>(URL).pipe(map((res: any) => res.companies));
   }
+  getCompaniesByEmployee() {
+    const URL = this.#dirData + 'companies.json';
+    return this.http.get<Company[]>(URL).pipe(map((res: any) => res.companies));
+  }
   getCompanyById(companyId: string) {
     const URL = this.#dirData + 'companies.json';
     return this.http.get<Company>(URL).pipe(

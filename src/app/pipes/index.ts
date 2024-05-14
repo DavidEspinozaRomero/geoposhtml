@@ -1,4 +1,7 @@
 export * from './filter-active-employees.pipe';
+export * from './filter-by-event-date.pipe';
+export * from './filter-by-event-title.pipe';
+export * from './filter-by-event-type.pipe';
 export * from './filter-company-employee.pipe';
 export * from './filter-date.pipe';
 export * from './filter-employee-by-name-username.pipe';

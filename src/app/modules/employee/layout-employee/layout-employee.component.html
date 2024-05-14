@@ -1,0 +1,38 @@
+<nav class="sidebar" aria-label="sidebar" [ngClass]="{ menu_extend: !colapse }">
+  <p
+    class="my-3 ps-3 text-white"
+    role="button"
+    aria-label="brand and sidebar toggle btn"
+    style="inline-size: max-content"
+    (click)="colapse = !colapse"
+  >
+    <i class="fs-5 bi bi-apple"></i> <span class="ms-3">BRAND</span>
+  </p>
+  <ul class="nav d-block h-100">
+    @for(item of menu; let i_item = $index; track i_item) {
+    <li
+      class="nav-item"
+      role="button"
+      [routerLink]="item.route"
+      [routerLinkActive]="'hovered'"
+    >
+      <a class="nav-link">
+        <i class="fs-5" [class]="item.icon"></i>
+        <span class="ms-3"> {{ item.label | titlecase }} </span>
+      </a>
+    </li>
+
+    }
+
+    <li class="nav-item mt-auto">
+      <a class="nav-link" (click)="logout()">
+        <i class="fs-5 bi bi-box-arrow-left"></i>
+        <span class="ms-3">Log out</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<main class="main p-3 vh-100" [ngClass]="{ menu_colapse: !colapse }">
+  <router-outlet></router-outlet>
+</main>

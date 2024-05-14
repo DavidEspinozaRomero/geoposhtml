@@ -30,10 +30,10 @@
               placeholder="Google S.A."
               formControlName="name"
               [ngClass]="{
-                'is-invalid': isValidControl(companyForm, 'name')
+                'is-invalid': utilsService.isValidControl(companyForm, 'name')
               }"
             />
-            @if(isValidControl(companyForm, 'name')){
+            @if(utilsService.isValidControl(companyForm, 'name')){
             <small class="text-danger">
               <!-- {{ companyForm.get("name")?.errors | json }} -->
               El nombre debe ser mayor de 3 caracteres
@@ -51,10 +51,13 @@
               placeholder="12345678A"
               formControlName="account"
               [ngClass]="{
-                'is-invalid': isValidControl(companyForm, 'account')
+                'is-invalid': utilsService.isValidControl(
+                  companyForm,
+                  'account'
+                )
               }"
             />
-            @if(isValidControl(companyForm, 'account')){
+            @if(utilsService.isValidControl(companyForm, 'account')){
             <small class="text-danger">
               <!-- {{ companyForm.get("name")?.errors | json }} -->
               El account debe ser mayor de 3 caracteres
@@ -70,10 +73,10 @@
               placeholder="12345678A"
               formControlName="cif"
               [ngClass]="{
-                'is-invalid': isValidControl(companyForm, 'cif')
+                'is-invalid': utilsService.isValidControl(companyForm, 'cif')
               }"
             />
-            @if(isValidControl(companyForm, 'cif')){
+            @if(utilsService.isValidControl(companyForm, 'cif')){
             <small class="text-danger">
               <!-- {{ companyForm.get("name")?.errors | json }} -->
               El cif ingresado no es valido
@@ -91,10 +94,13 @@
               placeholder="Ciudad - Calle Falsa 123"
               formControlName="address"
               [ngClass]="{
-                'is-invalid': isValidControl(companyForm, 'address')
+                'is-invalid': utilsService.isValidControl(
+                  companyForm,
+                  'address'
+                )
               }"
             />
-            @if(isValidControl(companyForm, 'address')){
+            @if(utilsService.isValidControl(companyForm, 'address')){
             <small class="text-danger">
               <!-- {{ companyForm.get("name")?.errors | json }} -->
               La dirección no es válida o es demasiado corta minimo 5 caracteres

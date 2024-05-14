@@ -1,0 +1,116 @@
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="recordsModal"
+  tabindex="-1"
+  aria-labelledby="recordsModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-bg-primary">
+        <h1 class="modal-title fs-5" id="recordsModalLabel">Registros</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="recordsForm">
+          <!-- input date -->
+          <div class="mb-3">
+            <div class="form-group">
+              <label class="form-label"> Fecha: </label>
+              <input
+                id="dateInput"
+                class="form-control"
+                type="date"
+                formControlName="date"
+              />
+            </div>
+          </div>
+
+          <!-- select company -->
+          <div class="mb-3">
+            <label class="form-label"> Compañias: </label>
+            <select
+              class="form-select"
+              aria-label="lista de companias"
+              formControlName="companyId"
+            >
+              <option selected disabled value="">
+                -- Seleccione compania --
+              </option>
+              @for(company of companies; let i_company = $index; track
+              i_company){
+              <option selected [value]="company.id">{{ company.name }}</option>
+              }
+            </select>
+          </div>
+          <!-- select employee -->
+          <div class="mb-3">
+            <label class="form-label"> Empleado: </label>
+            <select
+              class="form-select"
+              aria-label="lista de empleados"
+              formControlName="employeeId"
+            >
+              <option selected disabled value="">
+                -- Seleccione empleado --
+              </option>
+              @for(employee of employees; let i_employee = $index; track
+              i_employee){
+              <option selected [value]="employee.id">
+                {{ employee.username }}-{{ employee.name }}
+              </option>
+              }
+            </select>
+          </div>
+          <!-- TODO: agregar mensaje de se requiere al menos 1 de los 3 -->
+          <!-- @if(utilsService.isValidControl(recordsForm, 'typeId')){
+            <small class="text-danger">
+              El tipo es requerido
+            </small>
+            } -->
+          <hr />
+          <!-- input text incident Admin -->
+          <div class="form-floating">
+            <textarea
+              class="form-control"
+              placeholder="Agregar una incidencia"
+              formControlName="incidentAdmin"
+              id="floatingTextarea"
+              [ngClass]="{
+                'is-invalid': utilsService.isValidControl(
+                  recordsForm,
+                  'incidentAdmin'
+                )
+              }"
+            ></textarea>
+            <label for="floatingTextarea">Incidencia Administrador</label>
+          </div>
+          @if(utilsService.isValidControl(recordsForm, 'incidentAdmin')){
+          <small class="text-danger">
+            El incidente debe ser mayor de 3 caracteres
+          </small>
+          }
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          #btnClose
+        >
+          Cerrar
+        </button>
+        <button type="button" class="btn btn-primary" (click)="onSubmit()">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

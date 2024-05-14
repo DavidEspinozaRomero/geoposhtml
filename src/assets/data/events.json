@@ -1,0 +1,116 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "typeId": 1,
+      "type": "festivo",
+      "title": "Día del trabajador",
+      "description": "No se encontro al Sr. Gonzalo",
+      "date": "2024-05-01"
+    },
+    {
+      "id": 12,
+      "typeId": 1,
+      "type": "festivo",
+      "title": "Día del trabajador",
+      "description": "",
+      "date": "2024-05-01"
+    },
+    {
+      "id": 14,
+      "typeId": 2,
+      "type": "vacaciones",
+      "title": "Vacaciones Año David",
+      "description": "Vacaciones Año David",
+      "date": "2024-05-01"
+    },
+    {
+      "id": 13,
+      "typeId": 3,
+      "type": "It's",
+      "title": "Conferencia día del trabajo IT's",
+      "description": "Conferencia día del trabajo IT's",
+      "date": "2024-05-01"
+    },
+    {
+      "id": 2,
+      "typeId": 3,
+      "type": "It's",
+      "title": "vacation",
+      "description": "time off from work or school for rest, travel, or recreation",
+      "date": "2024-05-03"
+    },
+    {
+      "id": 3,
+      "typeId": 3,
+      "type": "It's",
+      "title": "It's",
+      "description": "contraction of \"it is\" or \"it has\"",
+      "date": "2024-04-01"
+    },
+    {
+      "id": 4,
+      "typeId": 4,
+      "type": "ausencia",
+      "title": "absence",
+      "description": "the state of being away from a place or person",
+      "date": "2024-05-13"
+    },
+    {
+      "id": 5,
+      "typeId": 1,
+      "type": "festivo",
+      "title": "festivo",
+      "description": "a day of festivity or recreation when no work is done",
+      "date": "2024-05-14"
+    },
+    {
+      "id": 6,
+      "typeId": 1,
+      "type": "festivo",
+      "title": "vacation",
+      "description": "time off from work or school for rest, travel, or recreation",
+      "date": "2024-05-07"
+    },
+    {
+      "id": 7,
+      "typeId": 1,
+      "type": "festivo",
+      "title": "It's",
+      "description": "contraction of \"it is\" or \"it has\"",
+      "date": "2024-05-11"
+    },
+    {
+      "id": 8,
+      "typeId": 4,
+      "type": "ausencia",
+      "title": "absence",
+      "description": "the state of being away from a place or person",
+      "date": "2024-05-07"
+    },
+    {
+      "id": 9,
+      "typeId": 1,
+      "type": "festivo",
+      "title": "festivo",
+      "description": "a day of festivity or recreation when no work is done",
+      "date": "2024-05-10"
+    },
+    {
+      "id": 10,
+      "typeId": 1,
+      "type": "festivo",
+      "title": "vacation",
+      "description": "time off from work or school for rest, travel, or recreation",
+      "date": "2024-05-25"
+    },
+    {
+      "id": 11,
+      "typeId": 1,
+      "type": "festivo",
+      "title": "It's",
+      "description": "contraction of \"it is\" or \"it has\"",
+      "date": "2024-05-20"
+    }
+  ]
+}

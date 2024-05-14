@@ -12,6 +12,9 @@ import {
   FilterRecordEmployeeIncidentsPipe,
   FilterRecordEmployeeUsernamePipe,
 } from '../../../../pipes';
+import { RecordModalComponent } from '../record-modal/record-modal.component';
+import { RecordsModalComponent } from '../records-modal/records-modal.component';
+import { UtilsService } from '../../../../services/utils.service';
 
 @Component({
   selector: 'app-records',
@@ -21,6 +24,8 @@ import {
     FilterDatePipe,
     FilterRecordEmployeeUsernamePipe,
     FilterRecordEmployeeIncidentsPipe,
+    RecordModalComponent,
+    RecordsModalComponent,
   ],
   templateUrl: './records.component.html',
   styleUrl: './records.component.scss',
@@ -29,8 +34,10 @@ export class RecordsComponent implements OnInit {
   employeesService = inject(EmployeesService);
   companiesService = inject(CompaniesService);
   recordService = inject(RecordService);
+  utilsService = inject(UtilsService);
 
   records: Record[] = [];
+  selectedRecord: Record | undefined;
   employees: Employee[] = [];
   companies: Company[] = [];
 
@@ -54,6 +61,4 @@ export class RecordsComponent implements OnInit {
       this.records = records;
     });
   }
-
-  // agregar incidencia por parte del admin
 }

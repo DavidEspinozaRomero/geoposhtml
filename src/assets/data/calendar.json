@@ -1,0 +1,8 @@
+{
+  "calendar": [
+    { "date": "2024-05-01", "eventTypeIds": [1, 2, 3] },
+    { "date": "2024-05-02", "eventTypeIds": [1, 2] },
+    { "date": "2024-05-03", "eventTypeIds": [1, 2, 4] },
+    { "date": "2024-05-04", "eventTypeIds": [1, 3] }
+  ]
+}

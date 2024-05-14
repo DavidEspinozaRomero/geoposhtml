@@ -8,30 +8,27 @@ update de USUARIOS / EMPLEADOS
 
 ## TODOs
 
-1. crear un administrador
+1. Administrador
 
-- Pantallas (Login, Registros, Eventos, Calendario)
-- En caso de no fichar su jornada diaria el adminitrador sea informado vía email.
-- Visualizar y editar registros de los trabajadores Individual y Grupal.
-- Descargar Excel y PDF con datos de registro individual o grupal, por día, mes, año o periodo indicado.
-- Añadir información de Festivos, IT´S, Vacaciones, Ausencias a cada trabajador.
-- Poder ver calendario individual y grupal con información antes mencionada.
+- Integracion APIs > En caso de no fichar su jornada diaria el adminitrador sea informado vía email. (backend)
+- Integracion APIs > Descargar Excel y PDF con datos de registro individual o grupal, por día, mes, año o periodo indicado. (backend)
+- Integracion APIs > Descargar Excel y PDF con datos de registro individual o grupal, por día, mes, año o periodo indicado. (backend)
 
 2. USUARIOS / EMPLEADOS
 
-- Pantallas (Login/Calendario/Registros/Eventos)
-- Acceder con usuario y contraseña
-- Registro de fecha, hora y ubicación de entrada.
-- Registro de fecha, hora y ubicación de salida.
 - Tiempo total efectivo de la jornada laboral (diaria y mensual)
-- Visualizar registro de jornada laboral.
-- Incidencias: texto con descripción comunicada por el trabajador.
-- Vacaciones: Apartado informativo de fechas concedidas de vacaciones individuales.
-- Calendario individual con información registrada por el trabajador y por el administrador.
+- Acceder con usuario y contraseña (login)
+
+3. Globales
+
+- Pantallas (Login)
+- Revizar el reset del los formularios
 
 ## DONE
 
-- Pantallas (CRUD(Empleados/Empresas), Gestion(jornada laboral))
+1. Admin
+
+- Pantallas (CRUD(Empleados/Empresas), Gestion(jornada laboral), Login, Registros, Eventos(CRUD), Calendario)
 - Añadir usuarios
 - Generar Usuario y contraseña
 - Activar o desactivar usuario
@@ -40,6 +37,20 @@ update de USUARIOS / EMPLEADOS
 - Activar o desactivar empresa
 - Eliminar empresa
 - Añadir jornadas de los trabajadores no como horario sino, por ejemplo. Trabaja lunes, martes jueves y sábado para que
+- Visualizar registros de los trabajadores Individual y Grupal.
+- Añadir información de Festivos, IT´S, Vacaciones, Ausencias a cada trabajador.
+- Poder ver calendario individual y grupal con (eventos) información antes mencionada.
+- Editar registros de los trabajadores Individual y Grupal.
+
+2. USUARIOS / EMPLEADOS
+
+- Pantallas (Workday, Calendario, Eventos, Registros)
+- Registro de fecha, hora y ubicación de entrada.
+- Registro de fecha, hora y ubicación de salida.
+- Incidencias: texto con descripción comunicada por el trabajador.
+- Vacaciones: Apartado informativo de fechas concedidas de vacaciones individuales.
+- Calendario individual con información registrada por el trabajador y por el administrador.
+- Visualizar registro de jornada laboral.
 
 # Backend
 
@@ -102,11 +113,21 @@ update de USUARIOS / EMPLEADOS
 
 6. Calendario
 
+- eventos []
+
+7. Evento
+
 - ID
-- ID_empresa
-- ID_trabajador
+- ID_type
 - Date
-- Dia (lunes-domingo)
+- Dia int (lunes-domingo)
+- title
+- description
+
+8. Event Type
+
+- ID
+- Type (Vacaciones/Ausencia/IT´S/Festivos)
 
 # Future
 

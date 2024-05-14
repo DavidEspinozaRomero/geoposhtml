@@ -1,11 +1,17 @@
 <h1>Registros</h1>
-
+<!-- <input type="date" /> -->
 <!-- seccion de filtros -->
 <div class="row">
   <div class="col">
-    <div class="form-floating">
-      <input id="inputDate" type="date" #inputDate (change)="(inputDate)" />
-      <label for="inputDate"> Fecha </label>
+    <div class="form-group">
+      <input
+        id="inputDate"
+        class="form-control"
+        type="date"
+        #inputDate
+        (change)="(inputDate)"
+      />
+      <!-- <label for="inputDate"> Fecha </label> -->
     </div>
   </div>
   <div class="col">
@@ -47,7 +53,14 @@
       <th scope="col">Fecha Fin</th>
       <th scope="col" class="text-center">Incidencias</th>
       <th scope="col" class="text-center">Ubicación</th>
-      <th scope="col" class="text-center">Acciones</th>
+      <th scope="col" class="text-center">
+        <span class="me-2">Acciones</span>
+        <i
+          class="btn btn-primary btn-sm bi bi-pencil"
+          data-bs-toggle="modal"
+          data-bs-target="#recordsModal"
+        ></i>
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -71,40 +84,72 @@
       </td>
       <td class="text-center">
         <!-- record.incidencia.lenght || record.incidenciaAdmin.lenght -->
-        @if (record.incidencia.length || record.incidenciaAdmin.length){
-        @if(record.incidencia.length){
+        @if (record.incident.length || record.incidentAdmin.length){
+        @if(record.incident.length){
         <i class="btn btn-warning btn-sm bi bi-person me-2"></i>
-        } @if (record.incidenciaAdmin.length) {
+        } @if (record.incidentAdmin.length) {
         <i class="btn btn-danger btn-sm bi bi-person-gear me-2"></i>
         } } @else { <strong class="text-success"> No </strong> }
       </td>
       <td class="text-center">
-        <i
-          role="button"
-          class="text-primary bi bi-info-circle-fill me-2"
-          [title]="
-            'Presición: ' +
-            record.geo.accuracy +
-            ' metros' +
-            '\n ' +
-            'Latitud: ' +
-            record.geo.latitude +
-            '\n ' +
-            'Longitud: ' +
-            record.geo.longitude
-          "
-        ></i>
-        <a
-          [href]="record.googlemapurl"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn btn-primary btn-sm"
-        >
-          Ver <i class="bi bi-geo-alt-fill"></i>
-        </a>
+        <div class="geoStart">
+          <i
+            role="button"
+            class="text-primary bi bi-info-circle-fill me-2"
+            [title]="
+              'Presición: ' +
+              record.geoStart.accuracy +
+              ' metros' +
+              '\n ' +
+              'Latitud: ' +
+              record.geoStart.latitude +
+              '\n ' +
+              'Longitud: ' +
+              record.geoStart.longitude
+            "
+          ></i>
+          <a
+            [href]="utilsService.getGoogleMapUrl(record.geoStart)"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary btn-sm"
+          >
+            Ver <i class="bi bi-geo-alt-fill"></i>
+          </a>
+        </div>
+        <div class="geoEnd">
+          <i
+            role="button"
+            class="text-primary bi bi-info-circle-fill me-2"
+            [title]="
+              'Presición: ' +
+              record.geoEnd.accuracy +
+              ' metros' +
+              '\n ' +
+              'Latitud: ' +
+              record.geoEnd.latitude +
+              '\n ' +
+              'Longitud: ' +
+              record.geoEnd.longitude
+            "
+          ></i>
+          <a
+            [href]="utilsService.getGoogleMapUrl(record.geoEnd)"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary btn-sm"
+          >
+            Ver <i class="bi bi-geo-alt-fill"></i>
+          </a>
+        </div>
       </td>
       <td class="text-center">
-        <i class="btn btn-primary btn-sm bi bi-pencil"></i>
+        <i
+          class="btn btn-primary btn-sm bi bi-pencil"
+          data-bs-toggle="modal"
+          data-bs-target="#recordModal"
+          (click)="selectedRecord = record"
+        ></i>
       </td>
     </tr>
 
@@ -115,3 +160,5 @@
 <!--  agregar paginador 10 -->
 
 <!-- agregar modal para edicion de registros -->
+<app-record-modal [record]="selectedRecord"></app-record-modal>
+<app-records-modal></app-records-modal>
