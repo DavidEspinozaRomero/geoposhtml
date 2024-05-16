@@ -54,6 +54,16 @@ update de USUARIOS / EMPLEADOS
 
 # Backend
 
+<!--  Authorization / Authentication -->
+
+<!-- User -->
+<!-- Company -->
+<!-- Employee -->
+<!-- Registros -->
+<!-- Eventos -->
+<!-- Workday -->
+<!-- Calendario -->
+
 ## Datos
 
 1. Usuario
@@ -97,11 +107,10 @@ update de USUARIOS / EMPLEADOS
 - EndDate
 - Incidencias
 
-5. Eventos
-
+<!-- 5. Eventos
 - ID
 - Date
-- Comentario
+- Comentario -->
 
 7. Dia/Workday (Trabajo por empresa)
 
@@ -111,9 +120,8 @@ update de USUARIOS / EMPLEADOS
 - dia Int (lunes - domingo)
 <!-- - isActive -->
 
-6. Calendario
-
-- eventos []
+<!-- 6. Calendario
+- eventos [] -->
 
 7. Evento
 
@@ -124,7 +132,7 @@ update de USUARIOS / EMPLEADOS
 - title
 - description
 
-8. Event Type
+8. Event_Type
 
 - ID
 - Type (Vacaciones/Ausencia/IT´S/Festivos)
