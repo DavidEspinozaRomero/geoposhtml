@@ -26,8 +26,18 @@
             {{ record?.startTimestamp | date : "medium" }}
             <br />
             <strong>Fin:</strong> {{ record?.endTimestamp | date : "medium" }}
+            @if (record?.endTimestamp){
+            <br />
+            <strong>Duracion:</strong>
+            {{
+              utilsService.getDiffTime(
+                record!.startTimestamp,
+                record!.endTimestamp!
+              )
+            }}
+            }
             <br /><strong>Incidencia Tabajador: </strong>
-            {{ record?.incident }}
+            {{ record?.incident ?? "Sin Incidencia" }}
           </p>
         </div>
 

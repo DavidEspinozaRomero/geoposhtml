@@ -60,10 +60,10 @@
       </td>
       <td class="text-center">
         <!-- record.incidencia.lenght || record.incidenciaAdmin.lenght -->
-        @if (record.incident.length || record.incidentAdmin.length){
-        @if(record.incident.length){
+        @if (record?.incident?.length || record?.incidentAdmin?.length){
+        @if(record?.incident?.length){
         <i class="btn btn-warning btn-sm bi bi-person me-2"></i>
-        } @if (record.incidentAdmin.length) {
+        } @if (record?.incidentAdmin?.length) {
         <i class="btn btn-danger btn-sm bi bi-person-gear me-2"></i>
         } } @else { <strong class="text-success"> No </strong> }
       </td>

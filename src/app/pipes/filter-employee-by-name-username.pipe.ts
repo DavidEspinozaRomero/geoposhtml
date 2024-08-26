@@ -8,6 +8,8 @@ import { Employee } from '../models/employee.model';
 })
 export class FilterEmployeeByNameUsernamePipe implements PipeTransform {
   transform(arr: Employee[], value: string): Employee[] {
+    if (!arr.length) return arr;
+    if (!value) return arr;
     return arr.filter(
       (item) =>
         item.name.toLowerCase().includes(value.toLocaleLowerCase()) ||

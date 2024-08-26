@@ -16,7 +16,16 @@ export interface Employee {
 }
 
 export interface Workday {
+  day: number;
+  companies?: {
+    id?: string;
+    companyID: number;
+  }[];
+  companiesIDs?: number[];
+}
+
+export interface WorkdaysResponse {
   id?: string;
   day: number;
-  companiesIDs?: string[];
+  companyID: number;
 }

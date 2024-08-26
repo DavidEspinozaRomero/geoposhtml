@@ -33,8 +33,8 @@ export class CompanyModalComponent {
   fb = inject(FormBuilder);
   companiesService = inject(CompaniesService);
   utilsService = inject(UtilsService);
-
   btnClose = viewChild<ElementRef<HTMLButtonElement>>('btnClose');
+
   companyForm = this.fb.nonNullable.group({
     id: [''],
     name: ['', [Validators.required, Validators.minLength(3)]],
@@ -45,6 +45,12 @@ export class CompanyModalComponent {
       [Validators.required, Validators.minLength(8), Validators.maxLength(11)],
     ],
   });
+
+  config = {
+    loading: false,
+    success: false,
+    showSpinner: false,
+  };
 
   constructor() {}
 
@@ -60,7 +66,7 @@ export class CompanyModalComponent {
 
     let dataForm = structuredClone(this.companyForm.value);
 
-    const company: Company = {
+    let company: Company = {
       id: dataForm.id,
       name: dataForm.name!,
       address: dataForm.address!,
@@ -76,18 +82,32 @@ export class CompanyModalComponent {
   }
 
   createCompany(company: Company) {
-    const newCompany = this.companiesService.createCompany(company); // TODO: agregar spinner mientras procesa la info
-    this.onSaveForm.emit(newCompany);
-    this.companyForm.reset();
-    // enviar mensaje de exito!
-    this.btnClose()?.nativeElement.click();
+    this.config.loading = true;
+    const { id, ...companyRest } = company;
+    this.companiesService
+      .createCompany(companyRest)
+      .subscribe((newCompany) => {
+        this.onSaveForm.emit(newCompany);
+      })
+      .add(() => {
+        this.config.loading = false;
+        this.companyForm.reset();
+        this.btnClose()?.nativeElement.click();
+      });
+    // TODO:  enviar mensaje de exito!
   }
 
   updateCompany(company: Company) {
-    this.companiesService.updateCompany(company); // TODO: agregar spinner mientras procesa la info
-    this.onSaveForm.emit(company);
-    this.companyForm.reset();
-    // enviar mensaje de exito!
-    this.btnClose()?.nativeElement.click();
+    this.config.loading = true;
+    this.companiesService
+      .updateCompany(company)
+      .subscribe((updatedCompany) => {
+        this.onSaveForm.emit(updatedCompany);
+      })
+      .add(() => {
+        this.config.loading = false;
+        this.companyForm.reset();
+        this.btnClose()?.nativeElement.click();
+      }); // TODO: enviar mensaje de exito!
   }
 }

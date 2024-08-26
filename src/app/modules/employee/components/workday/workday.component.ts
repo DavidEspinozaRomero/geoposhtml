@@ -34,17 +34,21 @@ export class WorkdayComponent implements OnInit {
   companies?: Company[];
 
   companyIdForm = this.fb.control('', [Validators.required]);
-  incidentForm = this.fb.control('', [Validators.minLength(3)]);
+  incidentForm = this.fb.control(null, [Validators.minLength(3)]);
 
   constructor() {}
 
   ngOnInit(): void {
     // si hay jornada laboral iniciada
-    // si no hay jornada laboral iniciada
-    // traer lista de empresas
-    this.companiesService.getCompanies().subscribe((companies) => {
-      this.companies = companies;
+    this.recordService.getActiveWorkdayByEmployee(22).subscribe((record) => {
+      this.record = record;
     });
+
+    this.companiesService
+      .getCompaniesByEmployeeWorkday(22, this.today.getDay())
+      .subscribe((companies) => {
+        this.companies = companies;
+      });
   }
 
   getLocation() {
@@ -77,9 +81,7 @@ export class WorkdayComponent implements OnInit {
     });
   }
 
-  // iniciar jornada
   startWorkday() {
-    // llamar a la api para registrar la jornada
     this.companyIdForm.markAllAsTouched();
     if (!this.companyIdForm.valid)
       return console.log('No se ha seleccionado una empresa');
@@ -87,32 +89,26 @@ export class WorkdayComponent implements OnInit {
     this.getLocation()
       .catch((error) => console.log(error))
       .then((position: any) => {
-        // this.googlemapurl = `https://maps.google.com/?q=${this.position.coords.latitude},${this.position.coords.longitude}`;
-        // llamar a la api para registrar la jornada
-        const newRecord: Partial<Record> = {
-          companyId: this.companyIdForm.value!,
-          startTimestamp: new Date().getTime(),
-          geoStart: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            accuracy: position.coords.accuracy,
-          },
+        const startWorday: Partial<Record> = {
+          employeeId: 22,
+          companyId: +this.companyIdForm.value!,
+          startAccuracy: position.coords.accuracy,
+          startLatitude: position.coords.latitude,
+          startLongitude: position.coords.longitude,
+          startTimestamp: position.coords.timestamp ?? new Date().getTime(),
         };
-        this.recordService.newRecord(newRecord).subscribe((record: any) => {
-          console.log(record);
+        this.recordService.startWorkday(startWorday).subscribe((record) => {
           const company = this.companies?.find(
             (company) => company.id == record.companyId
           );
           record.companyName = company?.name ?? '';
-          this.record = record as Record;
+          this.record = record;
         });
         this.message = undefined;
       });
   }
 
-  // finalizar jornada
   endWorkday() {
-    // llamar a la api para registrar la jornada
     this.incidentForm.markAllAsTouched();
     if (!this.incidentForm.valid)
       return console.log('No se ha registrado el incidente');
@@ -120,26 +116,29 @@ export class WorkdayComponent implements OnInit {
     this.getLocation()
       .catch((error) => console.log(error))
       .then((position: any) => {
-        const updatedRecord = {
-          ...this.record,
-          endTimestamp: new Date().getTime(),
-          geoEnd: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            accuracy: position.coords.accuracy,
-          },
+        const endWorday = {
+          endAccuracy: position.coords.accuracy,
+          endLatitude: position.coords.latitude,
+          endLongitude: position.coords.longitude,
+          endTimestamp: position.coords.timestamp ?? new Date().getTime(),
           incident: this.incidentForm.value ?? '',
         };
+
         this.recordService
-          .updateRecordByEmployee(updatedRecord)
+          .endWorday(this.record!.id, endWorday)
           .subscribe((record) => {
-            console.log('Jornada finalizada');
-            console.log(record);
-            this.record = record as Record;
+            this.record = { ...this.record, ...record };
           });
       });
   }
 
+  resetWorkday() {
+    this.record = undefined;
+  }
+
+  getDiffTime(startTimestamp: number, endTimestamp: number): string {
+    return this.utilsService.getDiffTime(startTimestamp, endTimestamp);
+  }
   isValid(control: FormControl) {
     return control.errors && control.touched;
   }

@@ -1,4 +1,11 @@
-import { Component, Input, SimpleChanges, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  SimpleChanges,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { DatePipe, NgClass } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -15,6 +22,7 @@ import { UtilsService } from '../../../../services/utils.service';
 })
 export class RecordModalComponent {
   @Input() record: Record | undefined;
+  @ViewChild('btnClose') btnClose!: ElementRef<HTMLButtonElement>;
 
   fb = inject(FormBuilder);
   recordService = inject(RecordService);
@@ -33,14 +41,18 @@ export class RecordModalComponent {
   onSubmit() {
     this.recordForm.markAllAsTouched();
     if (this.recordForm.invalid) return console.log('Invalid Form'); // agregar mensaje de error
-
+    // agregar loader
     let dataForm = structuredClone(this.recordForm.value);
 
     if (!this.record?.id) return console.log('Error no existe record ID');
 
-    this.recordService.updateRecordIncidentByAdmin(
-      this.record.id,
-      dataForm.incidentAdmin!
-    );
+    this.recordService
+      .updateRecordIncidentByAdmin(this.record.id, dataForm.incidentAdmin!)
+      .subscribe(() => {
+        this.record!.incidentAdmin = dataForm.incidentAdmin;
+      })
+      .add(() => {
+        this.btnClose.nativeElement.click();
+      }); // agregar loader
   }
 }

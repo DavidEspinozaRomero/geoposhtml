@@ -2,28 +2,29 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Employee, Workday } from '../models/employee.model';
-import { map, tap } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeesService {
   private readonly http = inject(HttpClient);
-  #dirData = '../../assets/data/';
+  #apiUrl = environment.apiUrl;
   constructor() {}
 
-  getEmployees() {
-    const URL = this.#dirData + 'employees.json';
+  getEmployees(): Observable<Employee[]> {
+    const URL = this.#apiUrl + 'employees';
     return this.http.get<Employee[]>(URL).pipe(
       map((res: any) => {
-        res.employees.forEach((employee: Employee) => {
-          employee.workdays = this.checkWorkdays(employee.workdays);
-        });
-        return res.employees;
+        // res.employees.forEach((employee: Employee) => {
+        //   employee.workdays = this.checkWorkdays(employee.workdays);
+        // });
+        return res;
       })
     );
   }
-  getEmployeeById(employeeId: string) {
-    const URL = this.#dirData + 'employees.json';
+  getEmployeeById(employeeId: string | number) {
+    const URL = this.#apiUrl + 'employees';
     return this.http.get<Employee>(URL).pipe(
       map((res: any) => {
         const employee = res.employees.find(
@@ -34,31 +35,41 @@ export class EmployeesService {
     );
   }
 
-  createEmployee(employee: Employee) {
-    return {
-      ...employee,
-      id: crypto.randomUUID(),
-    };
-    // return this.http.post<Employee>(
-    //   '../modules/admin/data/employees.json',
-    //   employee
-    // );
+  createEmployee(employee: Employee): Observable<Employee> {
+    const URL = this.#apiUrl + 'employees';
+    return this.http.post<Employee>(URL, employee).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
   }
 
   updateEmployee(employee: Employee) {
-    return employee;
-    // return this.http.put<Employee>(
-    //   '../modules/admin/data/employees.json',
-    //   employee
-    // );
+    const URL = this.#apiUrl + 'employees/' + employee.id;
+    return this.http.patch<Employee>(URL, employee).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+  updateEmployeeIsActive(employee: Employee) {
+    const URL = this.#apiUrl + 'employees/isActive/' + employee.id;
+    return this.http.put<Employee>(URL, {}).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
   }
 
   removeEmployee(employee: Employee) {
-    // return this.http.delete<Employee>('../modules/admin/data/employees.json', {
+    const URL = this.#apiUrl + 'employees';
+
+    // return this.http.delete<Employee>(URL, {
     //   body: employee,
     // });
   }
 
+  //TODO: eliminar el metodo de checkWorkdays
   checkWorkdays(workdays: Workday[] | undefined) {
     if (!workdays)
       return Array(7)

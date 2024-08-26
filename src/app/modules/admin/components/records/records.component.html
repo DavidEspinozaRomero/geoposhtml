@@ -84,11 +84,17 @@
       </td>
       <td class="text-center">
         <!-- record.incidencia.lenght || record.incidenciaAdmin.lenght -->
-        @if (record.incident.length || record.incidentAdmin.length){
-        @if(record.incident.length){
-        <i class="btn btn-warning btn-sm bi bi-person me-2"></i>
-        } @if (record.incidentAdmin.length) {
-        <i class="btn btn-danger btn-sm bi bi-person-gear me-2"></i>
+        @if (record?.incident?.length || record?.incidentAdmin?.length){
+        @if(record?.incident?.length){
+        <i
+          class="btn btn-warning btn-sm bi bi-person me-2"
+          [title]="record.incident"
+        ></i>
+        } @if (record.incidentAdmin?.length) {
+        <i
+          class="btn btn-danger btn-sm bi bi-person-gear me-2"
+          [title]="record.incidentAdmin"
+        ></i>
         } } @else { <strong class="text-success"> No </strong> }
       </td>
       <td class="text-center">
@@ -98,18 +104,23 @@
             class="text-primary bi bi-info-circle-fill me-2"
             [title]="
               'Presición: ' +
-              record.geoStart.accuracy +
+              record.startAccuracy.toFixed(2) +
               ' metros' +
               '\n ' +
               'Latitud: ' +
-              record.geoStart.latitude +
+              record.startLatitude +
               '\n ' +
               'Longitud: ' +
-              record.geoStart.longitude
+              record.startLongitude
             "
           ></i>
           <a
-            [href]="utilsService.getGoogleMapUrl(record.geoStart)"
+            [href]="
+              utilsService.getGoogleMapUrl({
+                latitude: record.startLatitude,
+                longitude: record.startLongitude
+              })
+            "
             target="_blank"
             rel="noopener noreferrer"
             class="btn btn-primary btn-sm"
@@ -117,24 +128,30 @@
             Ver <i class="bi bi-geo-alt-fill"></i>
           </a>
         </div>
+        <!-- TODO: Agregar un if -->
         <div class="geoEnd">
           <i
             role="button"
             class="text-primary bi bi-info-circle-fill me-2"
             [title]="
               'Presición: ' +
-              record.geoEnd.accuracy +
+              record.endAccuracy?.toFixed(2) +
               ' metros' +
               '\n ' +
               'Latitud: ' +
-              record.geoEnd.latitude +
+              record.endLatitude +
               '\n ' +
               'Longitud: ' +
-              record.geoEnd.longitude
+              record.endLongitude
             "
           ></i>
           <a
-            [href]="utilsService.getGoogleMapUrl(record.geoEnd)"
+            [href]="
+              utilsService.getGoogleMapUrl({
+                latitude: record.endLatitude ?? 0,
+                longitude: record.endLongitude ?? 0
+              })
+            "
             target="_blank"
             rel="noopener noreferrer"
             class="btn btn-primary btn-sm"

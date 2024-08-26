@@ -34,10 +34,10 @@
     @if(!record.isActive) {
     <p>Fecha fin: {{ record.endTimestamp | date : "MMM dd, h:mm:ss a" }}</p>
     <!-- mostrar tiempo entre inicio y fin de la jornada -->
-    <!-- <p>
+    <p>
       Duración jornada laboral:
-      {{ record.endTimestamp - record.startTimestamp | date : "h:mm:ss" }}
-    </p> -->
+      {{ getDiffTime(record.startTimestamp, record.endTimestamp!) }}
+    </p>
     }
 
     <p>
@@ -46,14 +46,14 @@
         class="text-primary bi bi-info-circle-fill me-2 pointer"
         [title]="
           'Presición: ' +
-          record.geoStart.accuracy +
+          record.startAccuracy +
           ' metros' +
           '\n ' +
           'Latitud: ' +
-          record.geoStart.latitude +
+          record.startLatitude +
           '\n ' +
           'Longitud: ' +
-          record.geoStart.longitude
+          record.startLongitude
         "
       ></i>
       <a
@@ -94,14 +94,14 @@
         class="text-primary bi bi-info-circle-fill me-2 pointer"
         [title]="
           'Presición: ' +
-          record.geoEnd.accuracy +
+          record.endAccuracy?.toFixed(2) +
           ' metros' +
           '\n ' +
           'Latitud: ' +
-          record.geoEnd.latitude +
+          record.endLatitude +
           '\n ' +
           'Longitud: ' +
-          record.geoEnd.longitude
+          record.endLongitude
         "
       ></i>
       <a
@@ -116,6 +116,11 @@
 
     <p>Incidente: {{ record.incident ?? "Sin Incidencia" }}</p>
     <p>Jornada finalizada</p>
+    <div class="text-center">
+      <button (click)="resetWorkday()" class="btn btn-outline-primary">
+        Regresar
+      </button>
+    </div>
     }
   </div>
   }

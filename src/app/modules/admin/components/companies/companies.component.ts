@@ -37,7 +37,12 @@ export class CompaniesComponent implements OnInit {
     this.company = company;
   }
   removeCompany(company: Company, idx: number) {
-    this.companies.splice(idx, 1);
+    this.companiesService
+      .removeCompany(company)
+      .subscribe(() => {
+        this.companies.splice(idx, 1);
+      })
+      .add(() => {});
   }
 
   updateCompany(data: Company) {

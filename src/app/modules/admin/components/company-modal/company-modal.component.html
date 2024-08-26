@@ -118,8 +118,20 @@
         >
           Cerrar
         </button>
-        <button type="button" class="btn btn-primary" (click)="onSubmit()">
-          Guardar
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="onSubmit()"
+          [disabled]="config.loading"
+        >
+          @if(config.loading){
+          <span
+            class="spinner-border spinner-border-sm"
+            aria-hidden="true"
+          ></span>
+          <span role="status">Guardando...</span>
+          } @else { Guardar Cambios }
         </button>
       </div>
     </div>

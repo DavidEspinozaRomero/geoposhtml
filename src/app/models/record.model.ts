@@ -1,23 +1,52 @@
 export interface Record {
-  id: string;
-  employeeId: string;
-  companyId: string;
+  id: number;
+  employeeId: number;
+  companyId: number;
   employeeName: string;
   employeeUsername: string;
   companyName: string;
-  startTimestamp: number;
-  endTimestamp: number;
   duration?: number;
-  incident: string;
-  incidentAdmin: string;
+  incident?: string;
+  incidentAdmin?: string;
   googlemapurl: string;
-  geoStart: Geo;
-  geoEnd: Geo;
   isActive?: boolean;
+  // geoStart: Geo;
+  // geoEnd?: Geo;
+  startAccuracy: number;
+  startLatitude: number;
+  startLongitude: number;
+  startTimestamp: number;
+  endAccuracy?: number;
+  endLatitude?: number;
+  endLongitude?: number;
+  endTimestamp?: number;
 }
 
 export interface Geo {
   accuracy: number;
   latitude: number;
   longitude: number;
+  timestamp: number;
+}
+
+interface ResponseRecord {
+  id: number;
+  incident: string;
+  incidentAdmin: string;
+  isActive: true;
+  startAccuracy: number;
+  startLatitude: number;
+  startLongitude: number;
+  startTimestamp: string;
+  endAccuracy: number;
+  endLatitude: number;
+  endLongitude: number;
+  endTimestamp: number;
+  employee: {
+    id: number;
+  };
+  company: {
+    id: number;
+  };
+  companyName: string;
 }

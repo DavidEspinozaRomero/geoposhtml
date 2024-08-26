@@ -29,7 +29,7 @@
 >
   <div class="row p-0 m-0">
     <!-- <i class="bi bi-calendar2-week"></i> -->
-    <table class="table" aria-label="Tabla de Jornada Laboral">
+    <table class="table mb-0" aria-label="Tabla de Jornada Laboral">
       <thead>
         <tr class="text-center">
           <th [ngClass]="{ 'text-primary': day == 0 }">Dom</th>
@@ -53,7 +53,7 @@
             >
               @for(company of companies; let i_company = $index; track
               i_company) {
-              <option hidden selected>Empresa</option>
+              <option value="" hidden selected>Empresa</option>
               <option [value]="company.id">
                 {{ company.name }}
               </option>
@@ -84,27 +84,31 @@
         </tr>
       </tbody>
     </table>
+    <div class="text-end pe-0">
+      <button
+        type="button"
+        class="btn btn-primary mt-3 justify-content-end"
+        (click)="onSubmit()"
+        [disabled]="config.loading"
+      >
+        @if(config.loading){
+        <span
+          class="spinner-border spinner-border-sm"
+          aria-hidden="true"
+        ></span>
+        <span role="status">Guardando...</span>
+        } @else { Guardar }
+      </button>
+
+    </div>
   </div>
-</div>
-<button
-  class="btn btn-primary mx-5 my-3 float-end"
-  (click)="saveWorkdays()"
-  >
-  <!-- data-bs-toggle="modal"
-  data-bs-target="#companyModal" -->
-  Guardar
-</button>
+
+  </div>
+
 
 } @else {
 <div class="alert alert-info mx-3" role="alert">
   <h5 class="alert-heading">Seleccione un empleado</h5>
-  <!-- <p class="mb-0">Intente nuevamente</p> -->
 </div>
-<!-- <div class="alert alert-warning" role="alert">
-  <h4 class="alert-heading">Error!</h4>
-  <p>No se encontro la empresa</p>
-  <hr />
-  <p class="mb-0">Intente nuevamente</p>
-</div> -->
 
 }

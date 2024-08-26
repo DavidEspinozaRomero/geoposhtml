@@ -8,6 +8,7 @@ import {
   Output,
   SimpleChanges,
   inject,
+  signal,
   viewChild,
 } from '@angular/core';
 import {
@@ -30,11 +31,17 @@ import { UtilsService } from '../../../../services/utils.service';
   styleUrl: './employee-modal.component.scss',
 })
 export class EmployeeModalComponent implements OnChanges {
+  // TODO: cambiar a  Signal input/output
   @Input() employee: Employee | undefined;
   @Output() onSaveForm = new EventEmitter<Employee>();
   fb = inject(FormBuilder);
   employeesService = inject(EmployeesService);
   utilsService = inject(UtilsService);
+  config = {
+    loading: false,
+    error: false,
+    success: false,
+  };
 
   btnClose = viewChild<ElementRef<HTMLButtonElement>>('btnClose');
   employeeForm = this.fb.nonNullable.group({
@@ -70,12 +77,12 @@ export class EmployeeModalComponent implements OnChanges {
     // companies: ['', [Validators.required, Validators.minLength(3)]],
     isActive: [true],
   });
+  isHidenPassword = signal(true);
 
   constructor() {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (!this.employee) return;
-    // this.employeeForm.patchValue(this.employee);
     this.employeeForm.reset(this.employee);
   }
 
@@ -107,18 +114,42 @@ export class EmployeeModalComponent implements OnChanges {
   }
 
   createEmployee(employee: Employee) {
-    const newEmployee = this.employeesService.createEmployee(employee); // TODO: agregar spinner mientras procesa la info
-    this.onSaveForm.emit(newEmployee);
-    this.employeeForm.reset();
+    this.config.loading = true;
+    const { id, ...employeeRest } = employee;
+    console.log(employee);
+    this.employeesService
+      .createEmployee(employeeRest)
+      .subscribe((newEmployee) => {
+        this.onSaveForm.emit(newEmployee);
+        this.employeeForm.reset();
+        this.config.success = true;
+      })
+      .add(() => {
+        this.config.loading = false;
+        this.btnClose()?.nativeElement.click();
+      });
+    // TODO: agregar spinner mientras procesa la info
     // enviar mensaje de exito!
-    this.btnClose()?.nativeElement.click();
   }
 
   updateEmployee(employee: Employee) {
-    this.employeesService.updateEmployee(employee); // TODO: agregar spinner mientras procesa la info
-    this.onSaveForm.emit(employee);
-    this.employeeForm.reset();
-    // enviar mensaje de exito!
-    this.btnClose()?.nativeElement.click();
+    this.config.loading = true;
+    this.employeesService
+      .updateEmployee(employee)
+      .subscribe((employee) => {
+        this.onSaveForm.emit(employee);
+        this.config.success = true;
+      })
+      .add(() => {
+        this.config.loading = false;
+
+        this.employeeForm.reset();
+        this.btnClose()?.nativeElement.click();
+      });
+    // TODO: enviar mensaje de exito!
+  }
+
+  showPassword() {
+    this.isHidenPassword.set(!this.isHidenPassword());
   }
 }

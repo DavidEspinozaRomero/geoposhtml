@@ -52,6 +52,12 @@
     </div>
   </section>
 
+  @if (config.loading) {
+  <app-loading></app-loading>
+
+  } @if (!config.loading ) { @if (!config.success){
+  <h1>Error vuelva a intentar</h1>
+  } @if (config.success) {
   <section id="employees-info" class="my-3">
     <div class="row p-0 m-0">
       @for(employee of employees | filterEmployeeByNameUsername :
@@ -118,9 +124,12 @@
           </li>
         </ul>
       </div>
+      } @empty {
+      <app-empty></app-empty>
       }
     </div>
   </section>
+  } }
 </div>
 
 <app-employee-modal

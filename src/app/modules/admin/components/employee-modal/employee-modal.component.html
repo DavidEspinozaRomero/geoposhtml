@@ -62,19 +62,27 @@
           </div>
           <div class="mb-3">
             <label for="passwordInput" class="form-label">Contraseña</label>
-            <input
-              type="text"
-              id="passwordInput"
-              class="form-control"
-              placeholder="Deer123."
-              formControlName="password"
-              [ngClass]="{
-                'is-invalid': utilsService.isValidControl(
-                  employeeForm,
-                  'password'
-                )
-              }"
-            />
+            <div class="input-group">
+              <input
+                [type]="isHidenPassword() ? 'password' : 'text'"
+                id="passwordInput"
+                class="form-control"
+                placeholder="Deer123."
+                formControlName="password"
+                [ngClass]="{
+                  'is-invalid': utilsService.isValidControl(
+                    employeeForm,
+                    'password'
+                  )
+                }"
+              />
+              <span
+                role="button"
+                class="input-group-text bi bi-eye"
+                (click)="showPassword()"
+              ></span>
+            </div>
+
             @if(utilsService.isValidControl(employeeForm, 'password')){
             <small class="text-danger">
               <!-- {{ employeeForm.get("name")?.errors | json }} -->
@@ -217,8 +225,19 @@
         >
           Cerrar
         </button>
-        <button type="button" class="btn btn-primary" (click)="onSubmit()">
-          Guardar Cambios
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="onSubmit()"
+          [disabled]="config.loading"
+        >
+          @if(config.loading){
+          <span
+            class="spinner-border spinner-border-sm"
+            aria-hidden="true"
+          ></span>
+          <span role="status">Guardando...</span>
+          } @else { Guardar Cambios }
         </button>
       </div>
     </div>

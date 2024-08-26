@@ -7,3 +7,10 @@
 .pointer {
   cursor: pointer;
 }
+
+.overlay {
+  border-image-source: linear-gradient(hsl(0, 0%, 100%), hsl(0, 0%, 0%));
+  border-image-slice: fill 1;
+
+  // border-image-source: fill 1 linear-gradient(hsl(0, 0%, 100%), hsl(0, 0%, 0%));
+}

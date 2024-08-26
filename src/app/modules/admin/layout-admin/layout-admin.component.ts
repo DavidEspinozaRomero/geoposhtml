@@ -1,13 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 
-import { SideMenuComponent } from '../../../components';
 import { NgClass, TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-layout-admin',
   standalone: true,
-  imports: [RouterModule, TitleCasePipe, NgClass, SideMenuComponent],
+  imports: [RouterModule, TitleCasePipe, NgClass],
   templateUrl: './layout-admin.component.html',
   styleUrl: './layout-admin.component.scss',
 })

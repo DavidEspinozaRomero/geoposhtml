@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, JsonPipe } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 
 import {
@@ -21,6 +21,7 @@ import { UtilsService } from '../../../../services/utils.service';
   standalone: true,
   imports: [
     DatePipe,
+    JsonPipe,
     FilterDatePipe,
     FilterRecordEmployeeUsernamePipe,
     FilterRecordEmployeeIncidentsPipe,
@@ -38,26 +39,28 @@ export class RecordsComponent implements OnInit {
 
   records: Record[] = [];
   selectedRecord: Record | undefined;
-  employees: Employee[] = [];
-  companies: Company[] = [];
+  // employees: Employee[] = [];
+  // companies: Company[] = [];
 
   constructor() {}
 
   ngOnInit(): void {
     this.recordService.getRecords().subscribe((records) => {
-      records.forEach((record: Record) => {
-        this.employeesService
-          .getEmployeeById(record.employeeId)
-          .subscribe((employee) => {
-            record.employeeName = employee.name;
-            record.employeeUsername = employee.username;
-          });
-        this.companiesService
-          .getCompanyById(record.companyId)
-          .subscribe((company) => {
-            record.companyName = company.name;
-          });
-      });
+      console.log(records);
+
+      // records.forEach((record: Record) => {
+      //   this.employeesService
+      //     .getEmployeeById(record.employeeId)
+      //     .subscribe((employee) => {
+      //       record.employeeName = employee.name;
+      //       record.employeeUsername = employee.username;
+      //     });
+      //   this.companiesService
+      //     .getCompanyById(record.companyId)
+      //     .subscribe((company) => {
+      //       record.companyName = company.name;
+      //     });
+      // });
       this.records = records;
     });
   }

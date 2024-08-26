@@ -1,60 +1,55 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { map } from 'rxjs';
 
 import { Company } from '../models';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CompaniesService {
   private readonly http = inject(HttpClient);
-  #dirData = '../../assets/data/';
+  #localURL = environment.apiUrl;
   constructor() {}
 
   getCompanies() {
-    const URL = this.#dirData + 'companies.json';
-    return this.http.get<Company[]>(URL).pipe(map((res: any) => res.companies));
+    const URL = this.#localURL + 'companies';
+    return this.http.get<Company[]>(URL).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
   }
-  getCompaniesByEmployee() {
-    const URL = this.#dirData + 'companies.json';
-    return this.http.get<Company[]>(URL).pipe(map((res: any) => res.companies));
+
+  getCompaniesByEmployeeWorkday(employeeID: number, day: number) {
+    const queryParams = `day=${day}&employeeID=${employeeID}`;
+    const URL = `${this.#localURL}companies/employee-workday?${queryParams}`;
+    return this.http.get<Company[]>(URL).pipe(map((res: any) => res));
   }
-  getCompanyById(companyId: string) {
-    const URL = this.#dirData + 'companies.json';
+  getCompanyById(companyId: string | number) {
+    const URL = this.#localURL + 'companies';
     return this.http.get<Company>(URL).pipe(
       map((res: any) => {
-        const company = res.companies.find(
-          (company: Company) => company.id == companyId
-        );
+        const company = res.find((company: Company) => company.id == companyId);
         return company;
       })
     );
   }
 
   createCompany(company: Company) {
-    return {
-      ...company,
-      id: crypto.randomUUID(),
-    };
-    // return this.http.post<Company>(
-    //   '../modules/admin/data/companys.json',
-    //   company
-    // );
+    const URL = this.#localURL + 'companies';
+    return this.http.post<Company>(URL, company);
   }
 
   updateCompany(company: Company) {
-    return company;
-    // return this.http.put<Company>(
-    //   '../modules/admin/data/companys.json',
-    //   company
-    // );
+    const URL = this.#localURL + 'companies/' + company.id;
+    return this.http.patch<Company>(URL, company);
   }
 
   removeCompany(company: Company) {
-    // return this.http.delete<Company>('../modules/admin/data/companys.json', {
-    //   body: company,
-    // });
+    const URL = this.#localURL + 'companies/' + company.id;
+    return this.http.delete<Company>(URL);
   }
 }

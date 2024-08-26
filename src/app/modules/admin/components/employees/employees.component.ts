@@ -1,13 +1,5 @@
-import {
-  Component,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-  inject,
-} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { AsyncPipe, NgFor } from '@angular/common';
-
-import { Observable, map, of } from 'rxjs';
 
 import { Employee } from '../../../../models/employee.model';
 import { EmployeesService } from '../../../../services/employees.service';
@@ -16,6 +8,7 @@ import { FilterEmployeeByNameUsernamePipe } from '../../../../pipes/filter-emplo
 import { EmployeeModalComponent } from '../employee-modal/employee-modal.component';
 import { FilterActiveEmployeesPipe } from '../../../../pipes/filter-active-employees.pipe';
 import { FilterCompanyEmployeePipe } from '../../../../pipes/filter-company-employee.pipe';
+import { EmptyComponent, LoadingComponent } from '../../../../components';
 
 @Component({
   selector: 'app-employees',
@@ -28,6 +21,8 @@ import { FilterCompanyEmployeePipe } from '../../../../pipes/filter-company-empl
     FilterCompanyEmployeePipe,
     FilterActiveEmployeesPipe,
     EmployeeModalComponent,
+    EmptyComponent,
+    LoadingComponent,
   ],
   templateUrl: './employees.component.html',
   styleUrl: './employees.component.css',
@@ -37,25 +32,43 @@ export class EmployeesComponent implements OnInit {
   // employees: Observable<Employee[]> = this.employeesService.getEmployees();
   employees: Employee[] = [];
   employee: Employee | undefined;
+  config = {
+    loading: false,
+    success: false,
+  };
 
   ngOnInit(): void {
+    this.getAllEmployees();
+  }
+
+  getAllEmployees() {
+    this.config.loading = true;
     this.employeesService
       .getEmployees()
       .subscribe((employees) => {
         this.employees = employees;
+        this.config.success = true;
       })
       .add(() => {
-        // agregar loader
+        this.config.loading = false;
       });
   }
   removeEmployee(employee: Employee, i_employee: number) {
-    // this.employeesService.removeEmployee(employee);
-
     this.employees.splice(i_employee, 1);
+    // this.employeesService
+    //   .removeEmployee(employee)
+    //   .subscribe((res) => {
+    //   })
+    //   .add(() => {});
   }
 
-  editEmployee(employee: Employee, i_employee?: number) {
-    this.employee = employee;
+  updateIsActiveEmployee(employee: Employee) {
+    this.employeesService
+      .updateEmployeeIsActive(employee)
+      .subscribe((updatedEmployee) => {
+        employee.isActive = !employee.isActive;
+      })
+      .add();
   }
 
   updateEmployees(data: Employee) {
@@ -67,7 +80,7 @@ export class EmployeesComponent implements OnInit {
     }
   }
 
-  updateIsActiveEmployee(employee: Employee) {
-    employee.isActive = !employee.isActive;
+  editEmployee(employee: Employee, i_employee?: number) {
+    this.employee = employee;
   }
 }
