@@ -1,39 +1,46 @@
 import { Routes } from '@angular/router';
 
+import { authGuard } from './guards/auth-guard';
+import { roleGuard } from './guards/role-guard';
+
 export const routes: Routes = [
-  {path: 'login', loadComponent: () => import('./components/login/login').then((m) => m.Login)},
+  { path: 'login', loadComponent: () => import('./components/login/login').then((m) => m.Login) },
   {
     path: 'employee',
+    canActivate: [authGuard, roleGuard],
+    data: { role: 'employee' },
     loadComponent: () =>
-      import(
-        './modules/employee/layout-employee/layout-employee.component'
-      ).then((m) => m.LayoutEmployeeComponent),
+      import('./modules/employee/layout-employee/layout-employee.component').then(
+        (m) => m.LayoutEmployeeComponent
+      ),
     children: [
       {
         path: 'workday',
         loadComponent: () =>
-          import(
-            './modules/employee/components/workday/workday.component'
-          ).then((m) => m.WorkdayComponent),
+          import('./modules/employee/components/workday/workday.component').then(
+            (m) => m.WorkdayComponent
+          ),
       },
       {
         path: 'calendary',
         loadComponent: () =>
-          import(
-            './modules/employee/components/calendary/calendary.component'
-          ).then((m) => m.CalendaryComponent),
+          import('./modules/employee/components/calendary/calendary.component').then(
+            (m) => m.CalendaryComponent
+          ),
       },
       {
         path: 'records',
         loadComponent: () =>
-          import(
-            './modules/employee/components/records/records.component'
-          ).then((m) => m.RecordsComponent),
+          import('./modules/employee/components/records/records.component').then(
+            (m) => m.RecordsComponent
+          ),
       },
     ],
   },
   {
     path: 'administrator',
+    canActivate: [authGuard, roleGuard],
+    data: { role: 'admin' },
     loadComponent: () =>
       import('./modules/admin/layout-admin/layout-admin.component').then(
         (m) => m.LayoutAdminComponent
@@ -42,16 +49,16 @@ export const routes: Routes = [
       {
         path: 'employees',
         loadComponent: () =>
-          import(
-            './modules/admin/components/employees/employees.component'
-          ).then((m) => m.EmployeesComponent),
+          import('./modules/admin/components/employees/employees.component').then(
+            (m) => m.EmployeesComponent
+          ),
       },
       {
         path: 'companies',
         loadComponent: () =>
-          import(
-            './modules/admin/components/companies/companies.component'
-          ).then((m) => m.CompaniesComponent),
+          import('./modules/admin/components/companies/companies.component').then(
+            (m) => m.CompaniesComponent
+          ),
       },
       {
         path: 'workdays',
@@ -85,5 +92,4 @@ export const routes: Routes = [
   },
 
   { path: '**', pathMatch: 'full', redirectTo: 'login' },
-  // { path: '**', pathMatch: 'full', redirectTo: 'auth/login' },
 ];
