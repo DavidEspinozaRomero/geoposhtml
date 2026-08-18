@@ -26,6 +26,6 @@
     "@angular-devkit/build-angular": "21.2.21",
     "@angular/cli": "21.2.21",
     "@angular/compiler-cli": "21.2.20",
-    "typescript": "5.2.2"
+    "typescript": "5.9.3"
   }
 }
