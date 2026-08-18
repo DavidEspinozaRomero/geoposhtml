@@ -1,3 +1,4 @@
+export * from './auth.model';
 export * from './calendar.model';
 export * from './companies.model';
 export * from './employee.model';
