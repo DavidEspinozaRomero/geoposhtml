@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
+  {path: 'login', loadComponent: () => import('./components/login/login').then((m) => m.Login)},
   {
     path: 'employee',
     loadComponent: () =>
@@ -83,6 +84,6 @@ export const routes: Routes = [
     ],
   },
 
-  { path: '**', pathMatch: 'full', redirectTo: 'employee/workday' },
+  { path: '**', pathMatch: 'full', redirectTo: 'login' },
   // { path: '**', pathMatch: 'full', redirectTo: 'auth/login' },
 ];
