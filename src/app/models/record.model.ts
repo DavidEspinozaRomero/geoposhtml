@@ -10,16 +10,8 @@ export interface Record {
   incidentAdmin?: string;
   googlemapurl: string;
   isActive?: boolean;
-  // geoStart: Geo;
-  // geoEnd?: Geo;
-  startAccuracy: number;
-  startLatitude: number;
-  startLongitude: number;
-  startTimestamp: number;
-  endAccuracy?: number;
-  endLatitude?: number;
-  endLongitude?: number;
-  endTimestamp?: number;
+  geoStart: Geo;
+  geoEnd?: Geo;
 }
 
 export interface Geo {
@@ -34,14 +26,8 @@ interface ResponseRecord {
   incident: string;
   incidentAdmin: string;
   isActive: true;
-  startAccuracy: number;
-  startLatitude: number;
-  startLongitude: number;
-  startTimestamp: string;
-  endAccuracy: number;
-  endLatitude: number;
-  endLongitude: number;
-  endTimestamp: number;
+  geoStart: Geo;
+  geoEnd?: Geo;
   employee: {
     id: number;
   };
