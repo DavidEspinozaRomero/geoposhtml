@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Employee, Workday } from '../models/employee.model';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
@@ -10,15 +11,11 @@ import { environment } from '../../environments/environment';
 export class EmployeesService {
   private readonly http = inject(HttpClient);
   #apiUrl = environment.apiUrl;
-  constructor() {}
 
   getEmployees(): Observable<Employee[]> {
     const URL = this.#apiUrl + 'employees';
     return this.http.get<Employee[]>(URL).pipe(
       map((res: any) => {
-        // res.employees.forEach((employee: Employee) => {
-        //   employee.workdays = this.checkWorkdays(employee.workdays);
-        // });
         return res;
       })
     );
@@ -61,10 +58,8 @@ export class EmployeesService {
     );
   }
 
-  removeEmployee(employee: Employee) {
-    const URL = this.#apiUrl + 'employees';
-
-    // return this.http.delete<Employee>(URL, {
+  removeEmployee(_employee: Employee) {
+    // return this.http.delete<Employee>(this.#apiUrl + 'employees', {
     //   body: employee,
     // });
   }
@@ -81,7 +76,7 @@ export class EmployeesService {
           };
         });
 
-    let newWorkdays: Workday[] = Array(7)
+    const newWorkdays: Workday[] = Array(7)
       .fill(0)
       .map((_, i) => {
         const workday = workdays.find((workday) => workday.day === i);

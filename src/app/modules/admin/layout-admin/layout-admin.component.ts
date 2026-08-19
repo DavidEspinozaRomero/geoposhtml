@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 import { NgClass, TitleCasePipe } from '@angular/common';
 
@@ -50,12 +50,8 @@ export class LayoutAdminComponent {
     // },
     // { icon: 'bi bi-box-arrow-left', label: 'log out' },
   ];
-  colapse: boolean = true;
+  colapse = true;
   //#endregion variables
-
-  constructor() {}
-
-  ngOnInit(): void {}
 
   //#region methods
 
@@ -64,7 +60,6 @@ export class LayoutAdminComponent {
   // }
 
   logout() {
-    console.log('logout');
     localStorage.removeItem('token');
     this.router.navigateByUrl('/auth');
   }

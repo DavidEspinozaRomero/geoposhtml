@@ -72,6 +72,10 @@
           data-bs-toggle="modal"
           data-bs-target="#recordEmployeeModal"
           (click)="selectedRecord = record"
+          role="button"
+          tabindex="0"
+          (keydown.enter)="selectedRecord = record"
+          (keydown.space)="selectedRecord = record"
         ></i>
       </td>
     </tr>

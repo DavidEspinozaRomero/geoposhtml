@@ -6,15 +6,14 @@ import {
   Output,
   SimpleChanges,
   inject,
-  viewChild,
+  viewChild, OnChanges,
 } from '@angular/core';
 import {
   FormBuilder,
-  FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { JsonPipe, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 import { CompaniesService } from '../../../../services/companies.service';
 import { Company } from '../../../../models';
@@ -23,13 +22,13 @@ import { UtilsService } from '../../../../services/utils.service';
 @Component({
   selector: 'app-company-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass, JsonPipe],
+  imports: [ReactiveFormsModule, NgClass],
   templateUrl: './company-modal.component.html',
   styleUrl: './company-modal.component.scss',
 })
-export class CompanyModalComponent {
+export class CompanyModalComponent implements OnChanges {
   @Input() company: Company | undefined;
-  @Output() onSaveForm = new EventEmitter<Company>();
+  @Output() saveForm = new EventEmitter<Company>();
   fb = inject(FormBuilder);
   companiesService = inject(CompaniesService);
   utilsService = inject(UtilsService);
@@ -52,9 +51,7 @@ export class CompanyModalComponent {
     showSpinner: false,
   };
 
-  constructor() {}
-
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(_changes: SimpleChanges): void {
     if (!this.company) return;
     // this.companyForm.patchValue(this.company);
     this.companyForm.reset(this.company);
@@ -62,11 +59,11 @@ export class CompanyModalComponent {
 
   onSubmit() {
     this.companyForm.markAllAsTouched();
-    if (this.companyForm.invalid) return console.log('Invalid Form'); // agregar mensaje de error
+    if (this.companyForm.invalid) return;
 
-    let dataForm = structuredClone(this.companyForm.value);
+    const dataForm = structuredClone(this.companyForm.value);
 
-    let company: Company = {
+    const company: Company = {
       id: dataForm.id,
       name: dataForm.name!,
       address: dataForm.address!,
@@ -83,11 +80,11 @@ export class CompanyModalComponent {
 
   createCompany(company: Company) {
     this.config.loading = true;
-    const { id, ...companyRest } = company;
+    const { id: _id, ...companyRest } = company;
     this.companiesService
       .createCompany(companyRest)
       .subscribe((newCompany) => {
-        this.onSaveForm.emit(newCompany);
+        this.saveForm.emit(newCompany);
       })
       .add(() => {
         this.config.loading = false;
@@ -102,7 +99,7 @@ export class CompanyModalComponent {
     this.companiesService
       .updateCompany(company)
       .subscribe((updatedCompany) => {
-        this.onSaveForm.emit(updatedCompany);
+        this.saveForm.emit(updatedCompany);
       })
       .add(() => {
         this.config.loading = false;

@@ -1,11 +1,9 @@
-import { DatePipe, JsonPipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 
 import { EventsService } from '../../../../services/events.service';
 import {
   Component,
-  OnChanges,
   OnInit,
-  SimpleChanges,
   computed,
   inject,
   signal,
@@ -16,11 +14,11 @@ import { EventsModalComponent } from '../events-modal/events-modal.component';
 @Component({
   selector: 'app-calendar',
   standalone: true,
-  imports: [DatePipe, JsonPipe, EventsModalComponent],
+  imports: [DatePipe, EventsModalComponent],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss',
 })
-export class CalendarComponent implements OnInit, OnChanges {
+export class CalendarComponent implements OnInit {
   eventsService = inject(EventsService);
 
   // today = signal<Date>(new Date());
@@ -36,20 +34,16 @@ export class CalendarComponent implements OnInit, OnChanges {
   calendarEvents: Calendar[] = [];
   modalConfig: { date: string; typeEvent: number } | undefined;
 
-  constructor() {}
-
   ngOnInit(): void {
     this.eventsService
       .getEventsOfCalendar(new Date())
       .subscribe((calendarEvents) => {
-        this.calendarEvents = calendarEvents;
+        this.calendarEvents = calendarEvents as Calendar[];
       })
       .add(() => {
         // agregar loader
       });
   }
-
-  ngOnChanges(changes: SimpleChanges): void {}
 
   getDateSelected(day: number) {
     const date = new Date(this.year(), this.month(), day + 1);
@@ -74,7 +68,7 @@ export class CalendarComponent implements OnInit, OnChanges {
     this.eventsService
       .getEventsOfCalendar(new Date())
       .subscribe((calendarEvents) => {
-        this.calendarEvents = calendarEvents;
+        this.calendarEvents = calendarEvents as Calendar[];
       })
       .add(() => {
         // agregar loader

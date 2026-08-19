@@ -84,10 +84,14 @@
           data-bs-toggle="modal"
           data-bs-target="#eventModal"
           (click)="this.selectedEvent = event"
-        ></button>
+        ><span class="visually-hidden">Editar</span></button>
         <i
           class="btn btn-primary btn-sm bi bi-trash"
           (click)="deleteEvent(event, i_event)"
+          role="button"
+          tabindex="0"
+          (keydown.enter)="deleteEvent(event, i_event)"
+          (keydown.space)="deleteEvent(event, i_event)"
         ></i>
       </td>
     </tr>
@@ -99,5 +103,5 @@
 <!-- modal para CRUD de evento -->
 <app-event-modal
   [eventToEdit]="selectedEvent"
-  (onEventSubmit)="checkEvent($event)"
+  (eventSubmit)="checkEvent($event)"
 ></app-event-modal>

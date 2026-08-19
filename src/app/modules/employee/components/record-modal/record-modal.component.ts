@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges, inject } from '@angular/core';
+import { Component, Input, SimpleChanges, inject, OnChanges } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import { Record } from '../../../../models';
@@ -11,13 +11,12 @@ import { RecordService } from '../../../../services/record.service';
   templateUrl: './record-modal.component.html',
   styleUrl: './record-modal.component.scss',
 })
-export class RecordModalComponent {
+export class RecordModalComponent implements OnChanges {
   @Input() record: Record | undefined;
 
   recordService = inject(RecordService);
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(_changes: SimpleChanges): void {
     if (!this.record) return;
-    console.log(this.record);
   }
 }

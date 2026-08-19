@@ -1,4 +1,4 @@
-import { JsonPipe, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -14,8 +14,6 @@ import {
 import {
   FormBuilder,
   Validators,
-  FormControl,
-  FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
 
@@ -26,14 +24,14 @@ import { UtilsService } from '../../../../services/utils.service';
 @Component({
   selector: 'app-employee-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, JsonPipe, NgClass],
+  imports: [ReactiveFormsModule, NgClass],
   templateUrl: './employee-modal.component.html',
   styleUrl: './employee-modal.component.scss',
 })
 export class EmployeeModalComponent implements OnChanges {
   // TODO: cambiar a  Signal input/output
   @Input() employee: Employee | undefined;
-  @Output() onSaveForm = new EventEmitter<Employee>();
+  @Output() saveForm = new EventEmitter<Employee>();
   fb = inject(FormBuilder);
   employeesService = inject(EmployeesService);
   utilsService = inject(UtilsService);
@@ -79,18 +77,16 @@ export class EmployeeModalComponent implements OnChanges {
   });
   isHidenPassword = signal(true);
 
-  constructor() {}
-
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(_changes: SimpleChanges): void {
     if (!this.employee) return;
     this.employeeForm.reset(this.employee);
   }
 
   onSubmit() {
     this.employeeForm.markAllAsTouched();
-    if (this.employeeForm.invalid) return console.log('Invalid Form'); // agregar mensaje de error
+    if (this.employeeForm.invalid) return;
 
-    let dataForm = structuredClone(this.employeeForm.value);
+    const dataForm = structuredClone(this.employeeForm.value);
 
     const employee: Employee = {
       id: dataForm.id,
@@ -115,12 +111,11 @@ export class EmployeeModalComponent implements OnChanges {
 
   createEmployee(employee: Employee) {
     this.config.loading = true;
-    const { id, ...employeeRest } = employee;
-    console.log(employee);
+    const { id: _id, ...employeeRest } = employee;
     this.employeesService
       .createEmployee(employeeRest)
       .subscribe((newEmployee) => {
-        this.onSaveForm.emit(newEmployee);
+        this.saveForm.emit(newEmployee);
         this.employeeForm.reset();
         this.config.success = true;
       })
@@ -137,7 +132,7 @@ export class EmployeeModalComponent implements OnChanges {
     this.employeesService
       .updateEmployee(employee)
       .subscribe((employee) => {
-        this.onSaveForm.emit(employee);
+        this.saveForm.emit(employee);
         this.config.success = true;
       })
       .add(() => {

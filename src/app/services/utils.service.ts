@@ -5,8 +5,6 @@ import { FormGroup } from '@angular/forms';
   providedIn: 'root',
 })
 export class UtilsService {
-  constructor() {}
-
   // URLs
   getGoogleMapUrl(geo: { latitude: number; longitude: number }) {
     const googlemapurl = `https://maps.google.com/?q=${geo.latitude},${geo.longitude}`;

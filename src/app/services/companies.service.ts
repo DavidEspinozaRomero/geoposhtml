@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -12,7 +13,6 @@ import { environment } from '../../environments/environment';
 export class CompaniesService {
   private readonly http = inject(HttpClient);
   #localURL = environment.apiUrl;
-  constructor() {}
 
   getCompanies() {
     const URL = this.#localURL + 'companies';

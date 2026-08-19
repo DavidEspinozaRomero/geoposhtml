@@ -71,14 +71,20 @@
           @if(employee.isActive){
           <i
             role="button"
+            tabindex="0"
             class="bi bi-circle-fill text-success"
             (click)="updateIsActiveEmployee(employee)"
+            (keydown.enter)="updateIsActiveEmployee(employee)"
+            (keydown.space)="updateIsActiveEmployee(employee)"
           ></i>
           } @else {
           <i
             role="button"
+            tabindex="0"
             class="bi bi-circle-fill text-danger"
             (click)="updateIsActiveEmployee(employee)"
+            (keydown.enter)="updateIsActiveEmployee(employee)"
+            (keydown.space)="updateIsActiveEmployee(employee)"
           ></i>
           }
         </div>
@@ -92,10 +98,18 @@
               data-bs-toggle="modal"
               data-bs-target="#employeeModal"
               (click)="editEmployee(employee)"
+              role="button"
+              tabindex="0"
+              (keydown.enter)="editEmployee(employee)"
+              (keydown.space)="editEmployee(employee)"
             ></i>
             <i
               class="bi bi-trash btn btn-outline-danger btn-sm"
               (click)="removeEmployee(employee, i_employee)"
+              role="button"
+              tabindex="0"
+              (keydown.enter)="removeEmployee(employee, i_employee)"
+              (keydown.space)="removeEmployee(employee, i_employee)"
             ></i>
           </p>
         </div>
@@ -133,6 +147,6 @@
 </div>
 
 <app-employee-modal
-  (onSaveForm)="updateEmployees($event)"
+  (saveForm)="updateEmployees($event)"
   [employee]="employee"
 ></app-employee-modal>

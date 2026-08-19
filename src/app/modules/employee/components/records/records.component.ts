@@ -37,21 +37,23 @@ export class RecordsComponent implements OnInit {
   employees: Employee[] = [];
   companies: Company[] = [];
 
-  constructor() {}
-
   ngOnInit(): void {
     this.recordService.getRecordsByEmployee().subscribe((records) => {
       records.forEach((record: Record) => {
         this.employeesService
           .getEmployeeById(record.employeeId)
           .subscribe((employee) => {
-            record.employeeName = employee.name;
-            record.employeeUsername = employee.username;
+            if (employee) {
+              record.employeeName = employee.name;
+              record.employeeUsername = employee.username;
+            }
           });
         this.companiesService
           .getCompanyById(record.companyId)
           .subscribe((company) => {
-            record.companyName = company.name;
+            if (company) {
+              record.companyName = company.name;
+            }
           });
       });
       this.records = records;

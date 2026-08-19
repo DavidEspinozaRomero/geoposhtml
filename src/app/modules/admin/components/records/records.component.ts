@@ -1,4 +1,4 @@
-import { DatePipe, JsonPipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 
 import {
@@ -6,7 +6,7 @@ import {
   CompaniesService,
   RecordService,
 } from '../../../../services';
-import { Record, Company, Employee } from '../../../../models';
+import { Record } from '../../../../models';
 import {
   FilterDatePipe,
   FilterRecordEmployeeIncidentsPipe,
@@ -21,7 +21,6 @@ import { UtilsService } from '../../../../services/utils.service';
   standalone: true,
   imports: [
     DatePipe,
-    JsonPipe,
     FilterDatePipe,
     FilterRecordEmployeeUsernamePipe,
     FilterRecordEmployeeIncidentsPipe,
@@ -42,13 +41,9 @@ export class RecordsComponent implements OnInit {
   // employees: Employee[] = [];
   // companies: Company[] = [];
 
-  constructor() {}
-
   ngOnInit(): void {
     this.recordService.getRecords().subscribe((records) => {
-      console.log(records);
-
-      // records.forEach((record: Record) => {
+      this.records = records;
       //   this.employeesService
       //     .getEmployeeById(record.employeeId)
       //     .subscribe((employee) => {

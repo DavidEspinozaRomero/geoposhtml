@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
@@ -11,7 +12,6 @@ import { Workday, WorkdaysResponse } from '../models';
 export class WordaysService {
   private readonly http = inject(HttpClient);
   #apiUrl = environment.apiUrl;
-  constructor() {}
 
   getWordaysByEmployee(employeeID: number) {
     const URL = this.#apiUrl + 'workdays/by-employee/' + employeeID;
@@ -22,7 +22,7 @@ export class WordaysService {
     );
   }
 
-  createWorkdaysByEmployee(json: {}) {
+  createWorkdaysByEmployee(json: Record<string, unknown>) {
     const URL = this.#apiUrl + 'workdays/by-employee';
     return this.http.post<Workday>(URL, json);
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { UpperCasePipe, NgClass, JsonPipe } from '@angular/common';
+import { UpperCasePipe, NgClass } from '@angular/common';
 
 import {
   Company,
@@ -10,12 +10,11 @@ import {
 import { EmployeesService } from '../../../../services/employees.service';
 import { CompaniesService } from '../../../../services/companies.service';
 import { WordaysService } from '../../../../services/wordays.service';
-import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-workday',
   standalone: true,
-  imports: [NgClass, UpperCasePipe, JsonPipe],
+  imports: [NgClass, UpperCasePipe],
   templateUrl: './workday.component.html',
   styleUrl: './workday.component.scss',
 })
@@ -33,7 +32,6 @@ export class WorkdayComponent implements OnInit {
     loading: false,
   };
 
-  constructor() {}
   ngOnInit(): void {
     this.initApis();
     this.getWorkdaysByEmployee(17);
@@ -65,16 +63,15 @@ export class WorkdayComponent implements OnInit {
   }
 
   // getEmployee(employee: Employee) {
-  getEmployee(target: any) {
+  getEmployee(target: HTMLSelectElement) {
     const employeeID = target.value;
     const employee = this.employees.find(
       (employee) => employeeID == employee.id
     );
     if (!employee) {
-      console.log('no existe empleado seleccionado');
       return;
     }
-    if (!employee.workdays) this.getAndFillWorkdays(employeeID, employee);
+    if (!employee.workdays) this.getAndFillWorkdays(+employeeID, employee);
     this.employee = employee;
   }
 
@@ -83,7 +80,6 @@ export class WorkdayComponent implements OnInit {
     this.wordaysService
       .getWordaysByEmployee(employeeID)
       .subscribe((workdays) => {
-        console.log(workdays);
         workdaysByEmployee = workdays;
       })
       .add(() => {
@@ -109,10 +105,10 @@ export class WorkdayComponent implements OnInit {
   }
 
   getCompanyById(id: number) {
-    return this.companies.find((company) => +company.id! == id)?.name ?? '404';
+    return this.companies.find((company) => Number(company.id) === id)?.name ?? '404';
   }
 
-  addCompany(target: any, workday: Workday) {
+  addCompany(target: HTMLSelectElement, workday: Workday) {
     const companyID = +target.value;
 
     if (!workday.companiesIDs?.includes(companyID)) {
@@ -129,12 +125,11 @@ export class WorkdayComponent implements OnInit {
     if (found) {
       this.wordaysService
         .deleteWorday(found.id!)
-        .subscribe((res) => {})
+        .subscribe()
         .add(() => {
           const companyidx = workday.companies?.indexOf(found) ?? -1;
           const idx = workday.companiesIDs?.indexOf(companyID) ?? -1;
-          if (idx == -1 || companyidx == -1) {
-            console.log('no existe');
+          if (idx === -1 || companyidx === -1) {
             return;
           }
           workday.companiesIDs?.splice(idx, 1);
@@ -142,8 +137,7 @@ export class WorkdayComponent implements OnInit {
         });
     } else {
       const idx = workday.companiesIDs?.indexOf(companyID) ?? -1;
-      if (idx == -1) {
-        console.log('no existe');
+      if (idx === -1) {
         return;
       }
       workday.companiesIDs?.splice(idx, 1);
@@ -151,13 +145,13 @@ export class WorkdayComponent implements OnInit {
   }
 
   onSubmit() {
-    let employee = structuredClone(this.employee);
-    let workdays = employee?.workdays?.filter(
+    const employee = structuredClone(this.employee);
+    const workdays = employee?.workdays?.filter(
       (workday) => workday.companiesIDs!.length > 0
     );
     if (!workdays?.length) return; // no hay nuevas asignaciones
 
-    let workdaysFiltered = workdays
+    const workdaysFiltered = workdays
       .map((workday) => {
         if (workday.companies?.length == 0) {
           const { day, companiesIDs } = workday;
@@ -181,7 +175,6 @@ export class WorkdayComponent implements OnInit {
       .filter((x) => x != undefined);
 
     if (workdaysFiltered.length === 0) {
-      console.log('No hay nuevas asignaciones');
       return;
     }
 
@@ -189,16 +182,15 @@ export class WorkdayComponent implements OnInit {
       employeeId: employee?.id,
       workdays: workdaysFiltered,
     };
-    console.log(json);
 
     this.createWorkdaysByEmployee(json);
   }
 
-  createWorkdaysByEmployee(json: {}) {
+  createWorkdaysByEmployee(json: Record<string, unknown>) {
     this.config.loading = true;
     this.wordaysService
       .createWorkdaysByEmployee(json)
-      .subscribe(() => {})
+      .subscribe()
       .add(() => {
         this.config.loading = false;
       });

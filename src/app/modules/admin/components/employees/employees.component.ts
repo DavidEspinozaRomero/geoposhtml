@@ -1,9 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { AsyncPipe, NgFor } from '@angular/common';
 
 import { Employee } from '../../../../models/employee.model';
 import { EmployeesService } from '../../../../services/employees.service';
-import { FilterKeyValuePipe } from '../../../../pipes/filter-key-value.pipe';
 import { FilterEmployeeByNameUsernamePipe } from '../../../../pipes/filter-employee-by-name-username.pipe';
 import { EmployeeModalComponent } from '../employee-modal/employee-modal.component';
 import { FilterActiveEmployeesPipe } from '../../../../pipes/filter-active-employees.pipe';
@@ -14,9 +12,6 @@ import { EmptyComponent, LoadingComponent } from '../../../../components';
   selector: 'app-employees',
   standalone: true,
   imports: [
-    NgFor,
-    AsyncPipe,
-    FilterKeyValuePipe,
     FilterEmployeeByNameUsernamePipe,
     FilterCompanyEmployeePipe,
     FilterActiveEmployeesPipe,
@@ -65,7 +60,7 @@ export class EmployeesComponent implements OnInit {
   updateIsActiveEmployee(employee: Employee) {
     this.employeesService
       .updateEmployeeIsActive(employee)
-      .subscribe((updatedEmployee) => {
+      .subscribe((_updatedEmployee) => {
         employee.isActive = !employee.isActive;
       })
       .add();
@@ -80,7 +75,7 @@ export class EmployeesComponent implements OnInit {
     }
   }
 
-  editEmployee(employee: Employee, i_employee?: number) {
+  editEmployee(employee: Employee, _i_employee?: number) {
     this.employee = employee;
   }
 }

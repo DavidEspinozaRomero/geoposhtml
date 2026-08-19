@@ -4,7 +4,10 @@
     role="button"
     aria-label="brand and sidebar toggle btn"
     style="inline-size: max-content"
+    tabindex="0"
     (click)="colapse = !colapse"
+    (keydown.enter)="colapse = !colapse"
+    (keydown.space)="colapse = !colapse"
   >
     <i class="fs-5 bi bi-apple"></i> <span class="ms-3">BRAND</span>
   </p>
@@ -25,7 +28,7 @@
     }
 
     <li class="nav-item mt-auto">
-      <a class="nav-link" (click)="logout()">
+      <a class="nav-link" tabindex="0" (click)="logout()" (keydown.enter)="logout()" (keydown.space)="logout()">
         <i class="fs-5 bi bi-box-arrow-left"></i>
         <span class="ms-3">Log out</span>
       </a>

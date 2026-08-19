@@ -8,9 +8,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrl: './retry.component.scss',
 })
 export class RetryComponent {
-  @Output() onRetry: EventEmitter<boolean> = new EventEmitter();
+  @Output() retryEvent = new EventEmitter<boolean>();
 
   retry() {
-    this.onRetry.emit(true);
+    this.retryEvent.emit(true);
   }
 }

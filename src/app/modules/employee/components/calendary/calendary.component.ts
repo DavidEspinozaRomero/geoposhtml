@@ -1,10 +1,9 @@
-import { DatePipe, JsonPipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import {
   Component,
-  SimpleChanges,
   computed,
   inject,
-  signal,
+  signal, OnInit,
 } from '@angular/core';
 
 import { Calendar } from '../../../../models';
@@ -14,11 +13,11 @@ import { CalendaryModalComponent } from '../calendary-modal/calendary-modal.comp
 @Component({
   selector: 'app-calendary',
   standalone: true,
-  imports: [DatePipe, JsonPipe, CalendaryModalComponent],
+  imports: [DatePipe, CalendaryModalComponent],
   templateUrl: './calendary.component.html',
   styleUrl: './calendary.component.scss',
 })
-export class CalendaryComponent {
+export class CalendaryComponent implements OnInit {
   eventsService = inject(EventsService);
 
   // today = signal<Date>(new Date());
@@ -34,20 +33,16 @@ export class CalendaryComponent {
   calendarEvents: Calendar[] = [];
   modalConfig: { date: string; typeEvent: number } | undefined;
 
-  constructor() {}
-
   ngOnInit(): void {
     this.eventsService
       .getEventsOfCalendarByEmployee(new Date())
-      .subscribe((calendarEvents: Calendar[]) => {
-        this.calendarEvents = calendarEvents;
+      .subscribe((calendarEvents) => {
+        this.calendarEvents = calendarEvents as Calendar[];
       })
       .add(() => {
         // agregar loader
       });
   }
-
-  ngOnChanges(changes: SimpleChanges): void {}
 
   getDateSelected(day: number) {
     const date = new Date(this.year(), this.month(), day + 1);
@@ -71,8 +66,8 @@ export class CalendaryComponent {
     this.now.update((d) => new Date(d.getFullYear(), d.getMonth() + quantity));
     this.eventsService
       .getEventsOfCalendar(new Date())
-      .subscribe((calendarEvents: Calendar[]) => {
-        this.calendarEvents = calendarEvents;
+      .subscribe((calendarEvents) => {
+        this.calendarEvents = calendarEvents as Calendar[];
       })
       .add(() => {
         // agregar loader

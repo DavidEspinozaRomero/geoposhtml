@@ -10,7 +10,7 @@ export class FilterDatePipe implements PipeTransform {
     if (!arr.length) return arr;
     if (!value) return arr;
     const inputDate = new Date(value + ':');
-    let records = arr
+    const records = arr
       .filter((record) => {
         const recordYear = new Date(record.geoStart.timestamp).getFullYear();
         const inputYear = inputDate.getFullYear();

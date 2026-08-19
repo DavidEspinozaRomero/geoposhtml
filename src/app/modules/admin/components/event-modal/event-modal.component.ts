@@ -10,7 +10,7 @@ import {
   inject,
   viewChild,
 } from '@angular/core';
-import { JsonPipe, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { EventsService } from '../../../../services';
@@ -20,13 +20,14 @@ import { UtilsService } from '../../../../services/utils.service';
 @Component({
   selector: 'app-event-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass, JsonPipe],
+  imports: [ReactiveFormsModule, NgClass],
   templateUrl: './event-modal.component.html',
   styleUrl: './event-modal.component.scss',
 })
 export class EventModalComponent implements OnInit, OnChanges {
-  @Output() onEventSubmit = new EventEmitter<CalendarEvent>();
+  @Output() eventSubmit = new EventEmitter<CalendarEvent>();
   // @Input() eventToEdit: CalendarEvent | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() eventToEdit: any;
   btnClose = viewChild<ElementRef<HTMLButtonElement>>('btnClose');
 
@@ -49,7 +50,7 @@ export class EventModalComponent implements OnInit, OnChanges {
       this.eventTypes = data;
     });
   }
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(_changes: SimpleChanges): void {
     if (!this.eventToEdit) return;
     this.eventForm.reset(this.eventToEdit);
   }
@@ -57,7 +58,7 @@ export class EventModalComponent implements OnInit, OnChanges {
   createEvent(event: CalendarEvent) {
     this.eventsService.createEvent(event).subscribe((data: CalendarEvent) => {
       // agregar un emitter
-      this.onEventSubmit.emit(data);
+      this.eventSubmit.emit(data);
     });
     this.eventForm.reset();
     this.btnClose()?.nativeElement.click();
@@ -66,7 +67,7 @@ export class EventModalComponent implements OnInit, OnChanges {
   updateEvent(event: CalendarEvent) {
     this.eventsService.updateEvent(event).subscribe((data: CalendarEvent) => {
       // agregar un emitter
-      this.onEventSubmit.emit(data);
+      this.eventSubmit.emit(data);
     });
     this.eventForm.reset();
     this.btnClose()?.nativeElement.click();
@@ -74,13 +75,13 @@ export class EventModalComponent implements OnInit, OnChanges {
 
   onSubmit() {
     this.eventForm.markAllAsTouched();
-    if (this.eventForm.invalid) return console.log('Invalid Form'); // agregar mensaje de error
-    let dataForm = structuredClone(this.eventForm.value);
+    if (this.eventForm.invalid) return;
+    const dataForm = structuredClone(this.eventForm.value);
     const event: CalendarEvent = {
       id: dataForm.id,
       title: dataForm.title!,
       type: this.eventTypes.find((type) => type.id === +dataForm.typeId!)
-        ?.name!,
+        ?.name ?? '',
       typeId: +dataForm.typeId!,
       date: dataForm.date!,
       description: dataForm.description!,

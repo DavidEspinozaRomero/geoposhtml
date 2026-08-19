@@ -7,7 +7,7 @@
   <select
     class="form-select"
     aria-label="Seleccione empleado"
-    (change)="getEmployee($event.target)"
+    (change)="getEmployee($any($event.target))"
   >
     <option hidden selected>-- Seleccione Empleado --</option>
     @for(employee of employees; let i_employee = $index; track i_employee) {
@@ -32,13 +32,13 @@
     <table class="table mb-0" aria-label="Tabla de Jornada Laboral">
       <thead>
         <tr class="text-center">
-          <th [ngClass]="{ 'text-primary': day == 0 }">Dom</th>
-          <th [ngClass]="{ 'text-primary': day == 1 }">Lun</th>
-          <th [ngClass]="{ 'text-primary': day == 2 }">Mar</th>
-          <th [ngClass]="{ 'text-primary': day == 3 }">Mie</th>
-          <th [ngClass]="{ 'text-primary': day == 4 }">Jue</th>
-          <th [ngClass]="{ 'text-primary': day == 5 }">Vie</th>
-          <th [ngClass]="{ 'text-primary': day == 6 }">Sab</th>
+          <th [ngClass]="{ 'text-primary': day === 0 }">Dom</th>
+          <th [ngClass]="{ 'text-primary': day === 1 }">Lun</th>
+          <th [ngClass]="{ 'text-primary': day === 2 }">Mar</th>
+          <th [ngClass]="{ 'text-primary': day === 3 }">Mie</th>
+          <th [ngClass]="{ 'text-primary': day === 4 }">Jue</th>
+          <th [ngClass]="{ 'text-primary': day === 5 }">Vie</th>
+          <th [ngClass]="{ 'text-primary': day === 6 }">Sab</th>
         </tr>
       </thead>
       <tbody>
@@ -49,7 +49,7 @@
             <select
               class="form-select"
               aria-label="Seleccione Empresa"
-              (change)="addCompany($event.target, day)"
+              (change)="addCompany($any($event.target), day)"
             >
               @for(company of companies; let i_company = $index; track
               i_company) {
@@ -72,8 +72,10 @@
             track i_companyID) {
             <span class="badge bg-primary me-1">
               {{ getCompanyById(companyID) }}
-              <i role="button" class="bi bi-x-circle-fill ms-1"
+              <i role="button" tabindex="0" class="bi bi-x-circle-fill ms-1"
               (click)="removeCompany(workday, companyID)"
+              (keydown.enter)="removeCompany(workday, companyID)"
+              (keydown.space)="removeCompany(workday, companyID)"
               ></i>
             </span>
             } @empty {

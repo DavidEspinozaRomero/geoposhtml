@@ -6,11 +6,15 @@
       <button
         class="btn btn-outline-primary btn-sm bi bi-caret-left-fill me-2"
         (click)="changeMonth(-1)"
-      ></button>
+        role="button"
+        tabindex="0"
+      ><span class="visually-hidden">Left</span></button>
       <button
         class="btn btn-outline-primary btn-sm bi bi-caret-right-fill me-2"
         (click)="changeMonth(1)"
-      ></button>
+        role="button"
+        tabindex="0"
+      ><span class="visually-hidden">Right</span></button>
       {{ this.now() | date : "YYYY - MMMM"
       }}<i class="bi bi-calendar3 ms-2"></i>
     </h3>
@@ -26,44 +30,54 @@
     </p>
     <div class="text-center events">
       @for(eventType of getIconbyEvent(i_day)?.eventTypeIds; let i_eventType =
-      $index ; track i_eventType){ @if ( eventType == 1 ) {
+      $index ; track i_eventType){ @if ( eventType === 1 ) {
       <button
         class="px-1 me-2 my-1 d-inline-block border border-primary rounded bi bi-balloon"
         data-bs-toggle="modal"
         data-bs-target="#eventsEmployeeModal"
         (click)="fillConfig(year(), month(), i_day, eventType)"
-      ></button>
+        role="button"
+        tabindex="0"
+      ><span class="visually-hidden">Feriado</span></button>
 
-      } @if ( eventType == 2 ) {
+      } @if ( eventType === 2 ) {
       <button
         class="px-1 me-2 my-1 d-inline-block border border-primary rounded bi bi-airplane"
         data-bs-toggle="modal"
         data-bs-target="#eventsEmployeeModal"
         (click)="fillConfig(year(), month(), i_day, eventType)"
-      ></button>
+        role="button"
+        tabindex="0"
+      ><span class="visually-hidden">Vacaciones</span></button>
 
-      } @if(eventType == 3){
+      } @if(eventType === 3){
       <button
         class="px-1 me-2 my-1 d-inline-block border border-primary rounded bi bi-twitter"
         data-bs-toggle="modal"
         data-bs-target="#eventsEmployeeModal"
         (click)="fillConfig(year(), month(), i_day, eventType)"
-      ></button>
+        role="button"
+        tabindex="0"
+      ><span class="visually-hidden">It's</span></button>
 
-      } @if(eventType == 4){
+      } @if(eventType === 4){
       <button
         class="px-1 me-2 my-1 d-inline-block border border-primary rounded bi bi-person"
         data-bs-toggle="modal"
         data-bs-target="#eventsEmployeeModal"
         (click)="fillConfig(year(), month(), i_day, eventType)"
-      ></button>
+        role="button"
+        tabindex="0"
+      ><span class="visually-hidden">Ausencia</span></button>
       } }
       <button
         class="px-1 me-2 my-1 d-inline-block border border-primary rounded bi bi-info"
         data-bs-toggle="modal"
         data-bs-target="#eventsEmployeeModal"
         (click)="fillConfig(year(), month(), i_day, 0)"
-      ></button>
+        role="button"
+        tabindex="0"
+      ><span class="visually-hidden">Info</span></button>
       <!-- {{  | json }} -->
     </div>
   </div>

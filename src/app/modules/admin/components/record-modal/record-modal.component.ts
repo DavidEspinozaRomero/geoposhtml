@@ -4,7 +4,7 @@ import {
   Input,
   SimpleChanges,
   ViewChild,
-  inject,
+  inject, OnChanges,
 } from '@angular/core';
 import { DatePipe, NgClass } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -20,7 +20,7 @@ import { UtilsService } from '../../../../services/utils.service';
   templateUrl: './record-modal.component.html',
   styleUrl: './record-modal.component.scss',
 })
-export class RecordModalComponent {
+export class RecordModalComponent implements OnChanges {
   @Input() record: Record | undefined;
   @ViewChild('btnClose') btnClose!: ElementRef<HTMLButtonElement>;
 
@@ -32,19 +32,18 @@ export class RecordModalComponent {
     incidentAdmin: ['', [Validators.required, Validators.minLength(3)]],
   });
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(_changes: SimpleChanges): void {
     if (!this.record) return;
-    console.log(this.record);
     this.recordForm.reset({ incidentAdmin: this.record?.incidentAdmin });
   }
 
   onSubmit() {
     this.recordForm.markAllAsTouched();
-    if (this.recordForm.invalid) return console.log('Invalid Form'); // agregar mensaje de error
+    if (this.recordForm.invalid) return;
     // agregar loader
-    let dataForm = structuredClone(this.recordForm.value);
+    const dataForm = structuredClone(this.recordForm.value);
 
-    if (!this.record?.id) return console.log('Error no existe record ID');
+    if (!this.record?.id) return;
 
     this.recordService
       .updateRecordIncidentByAdmin(this.record.id, dataForm.incidentAdmin!)

@@ -26,9 +26,8 @@ export class EventsModalComponent implements OnChanges {
 
   events: CalendarEvent[] = [];
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(_changes: SimpleChanges): void {
     if (!this.config) return;
-    console.log(this.config);
 
     this.day = new Date(this.config?.date + ':');
     this.getEventsByDay();
@@ -38,7 +37,6 @@ export class EventsModalComponent implements OnChanges {
     this.eventsService
       .getAllEventsByDay(this.config!.date)
       .subscribe((events) => {
-        console.log(events);
         this.events = events;
       });
   }

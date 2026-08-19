@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Employee } from '../models/employee.model';
-import { filter } from 'rxjs';
 
 @Pipe({
   name: 'filterCompanyEmployee',

@@ -17,7 +17,6 @@ export class CompaniesComponent implements OnInit {
   companies: Company[] = [];
   company: Company | undefined;
 
-  constructor() {}
   ngOnInit(): void {
     this.getAllCompanies();
   }
@@ -42,7 +41,7 @@ export class CompaniesComponent implements OnInit {
       .subscribe(() => {
         this.companies.splice(idx, 1);
       })
-      .add(() => {});
+      .add();
   }
 
   updateCompany(data: Company) {

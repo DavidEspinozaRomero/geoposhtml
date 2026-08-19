@@ -39,12 +39,8 @@ export class LayoutEmployeeComponent {
     // },
     // { icon: 'bi bi-box-arrow-left', label: 'log out' },
   ];
-  colapse: boolean = true;
+  colapse = true;
   //#endregion variables
-
-  constructor() {}
-
-  ngOnInit(): void {}
 
   //#region methods
 
@@ -53,7 +49,6 @@ export class LayoutEmployeeComponent {
   // }
 
   logout() {
-    console.log('logout');
     localStorage.removeItem('token');
     this.router.navigateByUrl('/auth');
   }

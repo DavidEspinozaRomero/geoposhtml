@@ -59,10 +59,18 @@
               data-bs-toggle="modal"
               data-bs-target="#companyModal"
               (click)="editCompany(company)"
+              role="button"
+              tabindex="0"
+              (keydown.enter)="editCompany(company)"
+              (keydown.space)="editCompany(company)"
             ></i>
             <i
               class="bi bi-trash btn btn-outline-danger btn-sm"
               (click)="removeCompany(company, i_company)"
+              role="button"
+              tabindex="0"
+              (keydown.enter)="removeCompany(company, i_company)"
+              (keydown.space)="removeCompany(company, i_company)"
             ></i>
           </p>
         </div>
@@ -82,5 +90,5 @@
 
 <app-company-modal
   [company]="this.company"
-  (onSaveForm)="updateCompany($event)"
+  (saveForm)="updateCompany($event)"
 ></app-company-modal>

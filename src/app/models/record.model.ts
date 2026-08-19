@@ -20,19 +20,3 @@ export interface Geo {
   longitude: number;
   timestamp: number;
 }
-
-interface ResponseRecord {
-  id: number;
-  incident?: string;
-  incidentAdmin?: string;
-  isActive: true;
-  geoStart: Geo;
-  geoEnd?: Geo;
-  employee: {
-    id: number;
-  };
-  company: {
-    id: number;
-  };
-  companyName: string;
-}

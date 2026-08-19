@@ -22,7 +22,7 @@
           <!-- input date -->
           <div class="mb-3">
             <div class="form-group">
-              <label class="form-label"> Fecha: </label>
+              <label class="form-label" for="dateInput"> Fecha: </label>
               <input
                 id="dateInput"
                 class="form-control"
@@ -34,8 +34,9 @@
 
           <!-- select company -->
           <div class="mb-3">
-            <label class="form-label"> Compañias: </label>
+            <label class="form-label" for="companyIdSelect"> Compañias: </label>
             <select
+              id="companyIdSelect"
               class="form-select"
               aria-label="lista de companias"
               formControlName="companyId"
@@ -51,8 +52,9 @@
           </div>
           <!-- select employee -->
           <div class="mb-3">
-            <label class="form-label"> Empleado: </label>
+            <label class="form-label" for="employeeIdSelect"> Empleado: </label>
             <select
+              id="employeeIdSelect"
               class="form-select"
               aria-label="lista de empleados"
               formControlName="employeeId"

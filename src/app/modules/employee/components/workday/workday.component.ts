@@ -36,8 +36,6 @@ export class WorkdayComponent implements OnInit {
   companyIdForm = this.fb.control('', [Validators.required]);
   incidentForm = this.fb.control(null, [Validators.minLength(3)]);
 
-  constructor() {}
-
   ngOnInit(): void {
     // si hay jornada laboral iniciada
     this.recordService.getActiveWorkdayByEmployee(22).subscribe((record) => {
@@ -52,14 +50,13 @@ export class WorkdayComponent implements OnInit {
   }
 
   getLocation() {
-    return new Promise((resolve, reject) => {
+    return new Promise<GeolocationPosition>((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           resolve(position);
         },
         (error) => {
           this.position = undefined;
-          console.log(error);
           if (error.code == error.PERMISSION_DENIED) {
             this.message = 'Porfavor activa tu geolocalización';
           } else if (error.code == error.POSITION_UNAVAILABLE) {
@@ -84,11 +81,11 @@ export class WorkdayComponent implements OnInit {
   startWorkday() {
     this.companyIdForm.markAllAsTouched();
     if (!this.companyIdForm.valid)
-      return console.log('No se ha seleccionado una empresa');
+      return;
 
     this.getLocation()
-      .catch((error) => console.log(error))
-      .then((position: any) => {
+      .catch(() => undefined as unknown as GeolocationPosition)
+      .then((position: GeolocationPosition) => {
         const startWorday: Partial<Record> = {
           employeeId: 22,
           companyId: +this.companyIdForm.value!,
@@ -96,12 +93,12 @@ export class WorkdayComponent implements OnInit {
             accuracy: position.coords.accuracy,
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-            timestamp: position.coords.timestamp ?? new Date().getTime(),
+            timestamp: position.timestamp ?? new Date().getTime(),
           },
         };
         this.recordService.startWorkday(startWorday).subscribe((record) => {
           const company = this.companies?.find(
-            (company) => company.id == record.companyId
+            (company) => String(company.id) === String(record.companyId)
           );
           record.companyName = company?.name ?? '';
           this.record = record;
@@ -113,17 +110,17 @@ export class WorkdayComponent implements OnInit {
   endWorkday() {
     this.incidentForm.markAllAsTouched();
     if (!this.incidentForm.valid)
-      return console.log('No se ha registrado el incidente');
+      return;
 
     this.getLocation()
-      .catch((error) => console.log(error))
-      .then((position: any) => {
+      .catch(() => undefined as unknown as GeolocationPosition)
+      .then((position: GeolocationPosition) => {
         const endWorday = {
           geoEnd: {
             accuracy: position.coords.accuracy,
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-            timestamp: position.coords.timestamp ?? new Date().getTime(),
+            timestamp: position.timestamp ?? new Date().getTime(),
           },
           incident: this.incidentForm.value ?? '',
         };

@@ -7,13 +7,13 @@ import {
   CompaniesService,
   RecordService,
 } from '../../../../services';
-import { JsonPipe, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Company, Employee } from '../../../../models';
 
 @Component({
   selector: 'app-records-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass, JsonPipe],
+  imports: [ReactiveFormsModule, NgClass],
   templateUrl: './records-modal.component.html',
   styleUrl: './records-modal.component.scss',
 })
@@ -48,10 +48,9 @@ export class RecordsModalComponent implements OnInit {
 
   onSubmit() {
     this.recordsForm.markAllAsTouched();
-    if (this.recordsForm.invalid) return console.log('Invalid Form'); // agregar mensaje de error
+    if (this.recordsForm.invalid) return;
 
-    let dataForm = structuredClone(this.recordsForm.value);
-    console.log(dataForm);
+    const dataForm = structuredClone(this.recordsForm.value);
     this.recordService.updateRecordsIncidentByAdmin(dataForm);
   }
 }
