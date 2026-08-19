@@ -12,17 +12,17 @@ export class FilterDatePipe implements PipeTransform {
     const inputDate = new Date(value + ':');
     let records = arr
       .filter((record) => {
-        const recordYear = new Date(record.startTimestamp).getFullYear();
+        const recordYear = new Date(record.geoStart.timestamp).getFullYear();
         const inputYear = inputDate.getFullYear();
         return recordYear === inputYear;
       })
       .filter((record) => {
-        const recordMonth = new Date(record.startTimestamp).getMonth();
+        const recordMonth = new Date(record.geoStart.timestamp).getMonth();
         const inputMonth = inputDate.getMonth();
         return recordMonth === inputMonth;
       })
       .filter((record) => {
-        const recordDay = new Date(record.startTimestamp).getDate();
+        const recordDay = new Date(record.geoStart.timestamp).getDate();
         const inputDay = inputDate.getDate();
         return recordDay === inputDay;
       });

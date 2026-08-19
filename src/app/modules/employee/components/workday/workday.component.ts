@@ -1,11 +1,11 @@
-import { DatePipe, JsonPipe, NgClass } from '@angular/common';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { DatePipe, NgClass } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
 
 import { RecordService } from '../../../../services/record.service';
 import { Company, Record } from '../../../../models';
 import { CompaniesService } from '../../../../services/companies.service';
 import { UtilsService } from '../../../../services/utils.service';
-import { Observable } from 'rxjs';
+
 import {
   FormBuilder,
   FormControl,
@@ -16,7 +16,7 @@ import {
 @Component({
   selector: 'app-workday',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass, DatePipe, JsonPipe],
+  imports: [ReactiveFormsModule, NgClass, DatePipe],
   templateUrl: './workday.component.html',
   styleUrl: './workday.component.scss',
 })
@@ -92,10 +92,12 @@ export class WorkdayComponent implements OnInit {
         const startWorday: Partial<Record> = {
           employeeId: 22,
           companyId: +this.companyIdForm.value!,
-          startAccuracy: position.coords.accuracy,
-          startLatitude: position.coords.latitude,
-          startLongitude: position.coords.longitude,
-          startTimestamp: position.coords.timestamp ?? new Date().getTime(),
+          geoStart: {
+            accuracy: position.coords.accuracy,
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            timestamp: position.coords.timestamp ?? new Date().getTime(),
+          },
         };
         this.recordService.startWorkday(startWorday).subscribe((record) => {
           const company = this.companies?.find(
@@ -117,10 +119,12 @@ export class WorkdayComponent implements OnInit {
       .catch((error) => console.log(error))
       .then((position: any) => {
         const endWorday = {
-          endAccuracy: position.coords.accuracy,
-          endLatitude: position.coords.latitude,
-          endLongitude: position.coords.longitude,
-          endTimestamp: position.coords.timestamp ?? new Date().getTime(),
+          geoEnd: {
+            accuracy: position.coords.accuracy,
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            timestamp: position.coords.timestamp ?? new Date().getTime(),
+          },
           incident: this.incidentForm.value ?? '',
         };
 

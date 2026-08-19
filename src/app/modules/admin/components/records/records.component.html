@@ -77,10 +77,10 @@
       </td>
       <td>{{ record.companyName }}</td>
       <td>
-        {{ record.startTimestamp | date : "EEE, MMM d, h:mm a" }}
+        {{ record.geoStart.timestamp | date : "EEE, MMM d, h:mm a" }}
       </td>
       <td>
-        {{ record.endTimestamp | date : "EEE, MMM d, h:mm a" }}
+        {{ record.geoEnd?.timestamp | date : "EEE, MMM d, h:mm a" }}
       </td>
       <td class="text-center">
         <!-- record.incidencia.lenght || record.incidenciaAdmin.lenght -->
@@ -104,21 +104,21 @@
             class="text-primary bi bi-info-circle-fill me-2"
             [title]="
               'Presición: ' +
-              record.startAccuracy.toFixed(2) +
+              record.geoStart.accuracy.toFixed(2) +
               ' metros' +
               '\n ' +
               'Latitud: ' +
-              record.startLatitude +
+              record.geoStart.latitude +
               '\n ' +
               'Longitud: ' +
-              record.startLongitude
+              record.geoStart.longitude
             "
           ></i>
           <a
             [href]="
               utilsService.getGoogleMapUrl({
-                latitude: record.startLatitude,
-                longitude: record.startLongitude
+                latitude: record.geoStart.latitude,
+                longitude: record.geoStart.longitude
               })
             "
             target="_blank"
@@ -135,21 +135,21 @@
             class="text-primary bi bi-info-circle-fill me-2"
             [title]="
               'Presición: ' +
-              record.endAccuracy?.toFixed(2) +
+              record.geoEnd?.accuracy?.toFixed(2) +
               ' metros' +
               '\n ' +
               'Latitud: ' +
-              record.endLatitude +
+              record.geoEnd?.latitude +
               '\n ' +
               'Longitud: ' +
-              record.endLongitude
+              record.geoEnd?.longitude
             "
           ></i>
           <a
             [href]="
               utilsService.getGoogleMapUrl({
-                latitude: record.endLatitude ?? 0,
-                longitude: record.endLongitude ?? 0
+                latitude: record.geoEnd?.latitude ?? 0,
+                longitude: record.geoEnd?.longitude ?? 0
               })
             "
             target="_blank"

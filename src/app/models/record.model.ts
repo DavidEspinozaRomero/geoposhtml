@@ -23,8 +23,8 @@ export interface Geo {
 
 interface ResponseRecord {
   id: number;
-  incident: string;
-  incidentAdmin: string;
+  incident?: string;
+  incidentAdmin?: string;
   isActive: true;
   geoStart: Geo;
   geoEnd?: Geo;

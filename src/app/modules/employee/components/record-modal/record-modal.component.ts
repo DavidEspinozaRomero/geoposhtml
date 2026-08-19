@@ -1,5 +1,5 @@
 import { Component, Input, SimpleChanges, inject } from '@angular/core';
-import { DatePipe, NgClass } from '@angular/common';
+import { DatePipe } from '@angular/common';
 
 import { Record } from '../../../../models';
 import { RecordService } from '../../../../services/record.service';
@@ -7,7 +7,7 @@ import { RecordService } from '../../../../services/record.service';
 @Component({
   selector: 'app-record-modal',
   standalone: true,
-  imports: [NgClass, DatePipe],
+  imports: [DatePipe],
   templateUrl: './record-modal.component.html',
   styleUrl: './record-modal.component.scss',
 })

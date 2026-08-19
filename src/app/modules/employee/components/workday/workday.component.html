@@ -29,14 +29,14 @@
     <h5 class="text-center">Empresa: {{ record.companyName }}</h5>
     <hr />
     <p>
-      Fecha inicio: {{ record.startTimestamp | date : "MMM dd, h:mm:ss a" }}
+      Fecha inicio: {{ record.geoStart.timestamp | date : "MMM dd, h:mm:ss a" }}
     </p>
-    @if(!record.isActive) {
-    <p>Fecha fin: {{ record.endTimestamp | date : "MMM dd, h:mm:ss a" }}</p>
+    @if(!record.isActive && record.geoEnd) {
+    <p>Fecha fin: {{ record.geoEnd.timestamp | date : "MMM dd, h:mm:ss a" }}</p>
     <!-- mostrar tiempo entre inicio y fin de la jornada -->
     <p>
       Duración jornada laboral:
-      {{ getDiffTime(record.startTimestamp, record.endTimestamp!) }}
+      {{ getDiffTime(record.geoStart.timestamp, record.geoEnd.timestamp) }}
     </p>
     }
 
@@ -46,14 +46,14 @@
         class="text-primary bi bi-info-circle-fill me-2 pointer"
         [title]="
           'Presición: ' +
-          record.startAccuracy +
+          record.geoStart.accuracy.toFixed(2) +
           ' metros' +
           '\n ' +
           'Latitud: ' +
-          record.startLatitude +
+          record.geoStart.latitude +
           '\n ' +
           'Longitud: ' +
-          record.startLongitude
+          record.geoStart.longitude
         "
       ></i>
       <a
@@ -66,7 +66,7 @@
       </a>
     </p>
 
-    @if(record.isActive){
+    @if(record.isActive && !record.geoEnd) {
     <div class="form-floating mb-3">
       <textarea
         class="form-control"
@@ -94,14 +94,14 @@
         class="text-primary bi bi-info-circle-fill me-2 pointer"
         [title]="
           'Presición: ' +
-          record.endAccuracy?.toFixed(2) +
+          record.geoEnd!.accuracy.toFixed(2) +
           ' metros' +
           '\n ' +
           'Latitud: ' +
-          record.endLatitude +
+          record.geoEnd!.latitude +
           '\n ' +
           'Longitud: ' +
-          record.endLongitude
+          record.geoEnd!.longitude
         "
       ></i>
       <a

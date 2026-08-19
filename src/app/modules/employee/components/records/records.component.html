@@ -53,13 +53,12 @@
 
       <td>{{ record.companyName }}</td>
       <td>
-        {{ record.startTimestamp | date : "EEE, MMM d, h:mm a" }}
+        {{ record.geoStart.timestamp| date : "EEE, MMM d, h:mm a" }}
       </td>
       <td>
-        {{ record.endTimestamp | date : "EEE, MMM d, h:mm a" }}
+        {{ record.geoEnd?.timestamp | date : "EEE, MMM d, h:mm a" }}
       </td>
       <td class="text-center">
-        <!-- record.incidencia.lenght || record.incidenciaAdmin.lenght -->
         @if (record?.incident?.length || record?.incidentAdmin?.length){
         @if(record?.incident?.length){
         <i class="btn btn-warning btn-sm bi bi-person me-2"></i>
