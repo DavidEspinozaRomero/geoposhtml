@@ -13,6 +13,16 @@ describe('RecordModalComponent', () => {
 
     fixture = TestBed.createComponent(RecordModalComponent);
     component = fixture.componentInstance;
+    component.record = {
+      id: 1,
+      employeeId: 1,
+      companyId: 1,
+      employeeName: 'Test',
+      employeeUsername: 'test',
+      companyName: 'TestCo',
+      googlemapurl: '',
+      geoStart: { accuracy: 0, latitude: 0, longitude: 0, timestamp: Date.now() },
+    };
     fixture.detectChanges();
   });
 
