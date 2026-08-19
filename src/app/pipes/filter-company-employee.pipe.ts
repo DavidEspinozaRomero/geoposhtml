@@ -11,9 +11,7 @@ export class FilterCompanyEmployeePipe implements PipeTransform {
     if (!arr.length) return arr;
     if (!value) return arr;
     return arr.filter((employee) =>
-      employee.companies?.find((company) =>
-        company.toLowerCase().includes(value.toLowerCase())
-      )
+      employee.companies?.find((company) => company.toLowerCase().includes(value.toLowerCase())),
     );
 
     // return arr.filter((employee) => employee.companies?.includes(value));

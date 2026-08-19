@@ -19,7 +19,7 @@ export class CompaniesService {
     return this.http.get<Company[]>(URL).pipe(
       map((res: any) => {
         return res;
-      })
+      }),
     );
   }
 
@@ -34,7 +34,7 @@ export class CompaniesService {
       map((res: any) => {
         const company = res.find((company: Company) => company.id == companyId);
         return company;
-      })
+      }),
     );
   }
 

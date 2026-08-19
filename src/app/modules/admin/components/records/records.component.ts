@@ -1,11 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 
-import {
-  EmployeesService,
-  CompaniesService,
-  RecordService,
-} from '../../../../services';
+import { EmployeesService, CompaniesService, RecordService } from '../../../../services';
 import { Record } from '../../../../models';
 import {
   FilterDatePipe,

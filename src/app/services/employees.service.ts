@@ -17,18 +17,16 @@ export class EmployeesService {
     return this.http.get<Employee[]>(URL).pipe(
       map((res: any) => {
         return res;
-      })
+      }),
     );
   }
   getEmployeeById(employeeId: string | number) {
     const URL = this.#apiUrl + 'employees';
     return this.http.get<Employee>(URL).pipe(
       map((res: any) => {
-        const employee = res.employees.find(
-          (employee: Employee) => employee.id == employeeId
-        );
+        const employee = res.employees.find((employee: Employee) => employee.id == employeeId);
         return employee;
-      })
+      }),
     );
   }
 
@@ -37,7 +35,7 @@ export class EmployeesService {
     return this.http.post<Employee>(URL, employee).pipe(
       map((res: any) => {
         return res;
-      })
+      }),
     );
   }
 
@@ -46,7 +44,7 @@ export class EmployeesService {
     return this.http.patch<Employee>(URL, employee).pipe(
       map((res: any) => {
         return res;
-      })
+      }),
     );
   }
   updateEmployeeIsActive(employee: Employee) {
@@ -54,7 +52,7 @@ export class EmployeesService {
     return this.http.put<Employee>(URL, {}).pipe(
       map((res: any) => {
         return res;
-      })
+      }),
     );
   }
 

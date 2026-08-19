@@ -8,10 +8,9 @@ describe('LayoutEmployeeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LayoutEmployeeComponent]
-    })
-    .compileComponents();
-    
+      imports: [LayoutEmployeeComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(LayoutEmployeeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

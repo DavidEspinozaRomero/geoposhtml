@@ -1,10 +1,5 @@
 import { DatePipe } from '@angular/common';
-import {
-  Component,
-  computed,
-  inject,
-  signal, OnInit,
-} from '@angular/core';
+import { Component, computed, inject, signal, OnInit } from '@angular/core';
 
 import { Calendar } from '../../../../models';
 import { EventsService } from '../../../../services';
@@ -25,9 +20,7 @@ export class CalendaryComponent implements OnInit {
   year = computed(() => this.now().getFullYear());
   month = computed(() => this.now().getMonth()); // 0-11
   // day = this.today().getDate();
-  monthDays = computed(() =>
-    new Date(this.year(), this.month() + 1, 0).getDate()
-  );
+  monthDays = computed(() => new Date(this.year(), this.month() + 1, 0).getDate());
   calendarDays = computed(() => Array(this.monthDays()));
 
   calendarEvents: Calendar[] = [];

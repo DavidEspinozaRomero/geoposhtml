@@ -42,53 +42,53 @@
 
   <section id="companys-info" class="my-3">
     <div class="row p-0 m-0">
-      @for(company of companies | filterKeyValue : 'name' : inputName.value; let
-      i_company = $index ; track i_company ) {
-      <div class="card m-2 px-0" style="width: 18rem">
-        <!-- <img src="..." class="card-img-top" alt="..."> -->
-        <div class="card-header bg-primary d-block text-center">
-          <strong> {{ company.name }} </strong>
+      @for (
+        company of companies | filterKeyValue: 'name' : inputName.value;
+        let i_company = $index;
+        track i_company
+      ) {
+        <div class="card m-2 px-0" style="width: 18rem">
+          <!-- <img src="..." class="card-img-top" alt="..."> -->
+          <div class="card-header bg-primary d-block text-center">
+            <strong> {{ company.name }} </strong>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ company.address }}
+            </h5>
+            <p class="card-text">
+              <i
+                class="bi bi-pencil btn btn-outline-primary btn-sm me-4"
+                data-bs-toggle="modal"
+                data-bs-target="#companyModal"
+                (click)="editCompany(company)"
+                role="button"
+                tabindex="0"
+                (keydown.enter)="editCompany(company)"
+                (keydown.space)="editCompany(company)"
+              ></i>
+              <i
+                class="bi bi-trash btn btn-outline-danger btn-sm"
+                (click)="removeCompany(company, i_company)"
+                role="button"
+                tabindex="0"
+                (keydown.enter)="removeCompany(company, i_company)"
+                (keydown.space)="removeCompany(company, i_company)"
+              ></i>
+            </p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item py-1">
+              <small> {{ company.cif }} </small>
+            </li>
+            <li class="list-group-item py-1">
+              <small> {{ company.account }} </small>
+            </li>
+          </ul>
         </div>
-        <div class="card-body">
-          <h5 class="card-title">
-            {{ company.address }}
-          </h5>
-          <p class="card-text">
-            <i
-              class="bi bi-pencil btn btn-outline-primary btn-sm me-4"
-              data-bs-toggle="modal"
-              data-bs-target="#companyModal"
-              (click)="editCompany(company)"
-              role="button"
-              tabindex="0"
-              (keydown.enter)="editCompany(company)"
-              (keydown.space)="editCompany(company)"
-            ></i>
-            <i
-              class="bi bi-trash btn btn-outline-danger btn-sm"
-              (click)="removeCompany(company, i_company)"
-              role="button"
-              tabindex="0"
-              (keydown.enter)="removeCompany(company, i_company)"
-              (keydown.space)="removeCompany(company, i_company)"
-            ></i>
-          </p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item py-1">
-            <small> {{ company.cif }} </small>
-          </li>
-          <li class="list-group-item py-1">
-            <small> {{ company.account }} </small>
-          </li>
-        </ul>
-      </div>
       }
     </div>
   </section>
 </div>
 
-<app-company-modal
-  [company]="this.company"
-  (saveForm)="updateCompany($event)"
-></app-company-modal>
+<app-company-modal [company]="this.company" (saveForm)="updateCompany($event)"></app-company-modal>

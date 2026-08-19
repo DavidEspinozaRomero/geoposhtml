@@ -8,10 +8,9 @@ describe('RetryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RetryComponent]
-    })
-    .compileComponents();
-    
+      imports: [RetryComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(RetryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

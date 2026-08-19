@@ -6,6 +6,4 @@ if (!navigator.geolocation) {
   alert('La Geolocation no es soportada en este navegador');
 }
 
-bootstrapApplication(AppComponent, appConfig).catch((err) =>
-  console.error(err)
-);
+bootstrapApplication(AppComponent, appConfig).catch((err) => console.error(err));

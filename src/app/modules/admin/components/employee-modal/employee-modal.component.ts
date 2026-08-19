@@ -11,11 +11,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import {
-  FormBuilder,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 
 import { EmployeesService } from '../../../../services/employees.service';
 import { Employee } from '../../../../models/employee.model';
@@ -46,18 +42,9 @@ export class EmployeeModalComponent implements OnChanges {
     id: [''],
     name: ['', [Validators.required, Validators.minLength(3)]],
     username: ['', [Validators.required, Validators.minLength(3)]],
-    password: [
-      '',
-      [Validators.required, Validators.minLength(3), Validators.maxLength(20)],
-    ],
-    email: [
-      '',
-      [Validators.required, Validators.minLength(3), Validators.email],
-    ],
-    dni: [
-      '',
-      [Validators.required, Validators.minLength(8), Validators.maxLength(11)],
-    ],
+    password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+    email: ['', [Validators.required, Validators.minLength(3), Validators.email]],
+    dni: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(11)]],
     address: ['', [Validators.required, Validators.minLength(3)]],
     phone: [
       '',
@@ -68,10 +55,7 @@ export class EmployeeModalComponent implements OnChanges {
         Validators.pattern('^[0-9]*$'),
       ],
     ],
-    insurance: [
-      '',
-      [Validators.required, Validators.minLength(3), Validators.maxLength(10)],
-    ],
+    insurance: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
     // companies: ['', [Validators.required, Validators.minLength(3)]],
     isActive: [true],
   });

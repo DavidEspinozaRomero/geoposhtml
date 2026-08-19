@@ -4,7 +4,8 @@ import {
   Input,
   SimpleChanges,
   ViewChild,
-  inject, OnChanges,
+  inject,
+  OnChanges,
 } from '@angular/core';
 import { DatePipe, NgClass } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';

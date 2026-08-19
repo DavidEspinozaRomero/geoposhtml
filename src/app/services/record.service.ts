@@ -18,7 +18,7 @@ export class RecordService {
     return this.http.post<Record>(URL, body).pipe(
       map((res: any) => {
         return { ...res, companyId: res.company.id };
-      })
+      }),
     );
   }
 
@@ -36,7 +36,7 @@ export class RecordService {
     return this.http.get<Record[]>(URL).pipe(
       map((res: Record[]) => {
         return res;
-      })
+      }),
     );
   }
   getRecords() {
@@ -51,7 +51,7 @@ export class RecordService {
           companyId: record.company.id,
           companyName: record.company.name,
         }));
-      })
+      }),
     );
   }
 
@@ -59,11 +59,7 @@ export class RecordService {
     const URL = this.#URL + 'records';
     return this.http
       .get<Record>(URL)
-      .pipe(
-        map((res: any) =>
-          res.records.find((record: Record) => record.id == +recordId)
-        )
-      );
+      .pipe(map((res: any) => res.records.find((record: Record) => record.id == +recordId)));
   }
 
   updateRecordIncidentByAdmin(recordId: string | number, incident: string) {

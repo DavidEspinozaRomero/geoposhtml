@@ -1,6 +1,4 @@
-<div
-  class="mx-5 my-3 p-3 workday-container bg-light border border-light-subtle rounded"
->
+<div class="mx-5 my-3 p-3 workday-container bg-light border border-light-subtle rounded">
   <h1>Gestion Jornada Laboral</h1>
 
   <!-- Select para escoger empleado -->
@@ -10,107 +8,103 @@
     (change)="getEmployee($any($event.target))"
   >
     <option hidden selected>-- Seleccione Empleado --</option>
-    @for(employee of employees; let i_employee = $index; track i_employee) {
-    <option [value]="employee.id">
-      {{ employee.username | uppercase }} -
-      {{ employee.name }}
-    </option>
+    @for (employee of employees; let i_employee = $index; track i_employee) {
+      <option [value]="employee.id">
+        {{ employee.username | uppercase }} -
+        {{ employee.name }}
+      </option>
     } @empty {
-    <option value="">Aun no tiene empleados</option>
+      <option value="">Aun no tiene empleados</option>
     }
   </select>
 
   <!-- Mostraria 7 recuadros referentas a los dias de la semana -->
 </div>
 
-@if (employee){
-<div
-  class="mx-5 p-3 workday-container bg-light border border-light-subtle rounded"
->
-  <div class="row p-0 m-0">
-    <!-- <i class="bi bi-calendar2-week"></i> -->
-    <table class="table mb-0" aria-label="Tabla de Jornada Laboral">
-      <thead>
-        <tr class="text-center">
-          <th [ngClass]="{ 'text-primary': day === 0 }">Dom</th>
-          <th [ngClass]="{ 'text-primary': day === 1 }">Lun</th>
-          <th [ngClass]="{ 'text-primary': day === 2 }">Mar</th>
-          <th [ngClass]="{ 'text-primary': day === 3 }">Mie</th>
-          <th [ngClass]="{ 'text-primary': day === 4 }">Jue</th>
-          <th [ngClass]="{ 'text-primary': day === 5 }">Vie</th>
-          <th [ngClass]="{ 'text-primary': day === 6 }">Sab</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- En cada recuadro se agregaria las empresas -->
-        <tr>
-          @for(day of employee.workdays; let i_day = $index; track i_day ) {
-          <td>
-            <select
-              class="form-select"
-              aria-label="Seleccione Empresa"
-              (change)="addCompany($any($event.target), day)"
-            >
-              @for(company of companies; let i_company = $index; track
-              i_company) {
-              <option value="" hidden selected>Empresa</option>
-              <option [value]="company.id">
-                {{ company.name }}
-              </option>
-              } @empty {
-              <option value="">No tiene companias</option>
-              }
-            </select>
-          </td>
-          }
-        </tr>
-        <tr>
-          @for(workday of employee.workdays; let i_workday = $index; track
-          i_workday) {
-          <td>
-            @for(companyID of workday.companiesIDs; let i_companyID = $index;
-            track i_companyID) {
-            <span class="badge bg-primary me-1">
-              {{ getCompanyById(companyID) }}
-              <i role="button" tabindex="0" class="bi bi-x-circle-fill ms-1"
-              (click)="removeCompany(workday, companyID)"
-              (keydown.enter)="removeCompany(workday, companyID)"
-              (keydown.space)="removeCompany(workday, companyID)"
-              ></i>
-            </span>
-            } @empty {
-            <td><span> Sin asignación </span></td>
+@if (employee) {
+  <div class="mx-5 p-3 workday-container bg-light border border-light-subtle rounded">
+    <div class="row p-0 m-0">
+      <!-- <i class="bi bi-calendar2-week"></i> -->
+      <table class="table mb-0" aria-label="Tabla de Jornada Laboral">
+        <thead>
+          <tr class="text-center">
+            <th [ngClass]="{ 'text-primary': day === 0 }">Dom</th>
+            <th [ngClass]="{ 'text-primary': day === 1 }">Lun</th>
+            <th [ngClass]="{ 'text-primary': day === 2 }">Mar</th>
+            <th [ngClass]="{ 'text-primary': day === 3 }">Mie</th>
+            <th [ngClass]="{ 'text-primary': day === 4 }">Jue</th>
+            <th [ngClass]="{ 'text-primary': day === 5 }">Vie</th>
+            <th [ngClass]="{ 'text-primary': day === 6 }">Sab</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- En cada recuadro se agregaria las empresas -->
+          <tr>
+            @for (day of employee.workdays; let i_day = $index; track i_day) {
+              <td>
+                <select
+                  class="form-select"
+                  aria-label="Seleccione Empresa"
+                  (change)="addCompany($any($event.target), day)"
+                >
+                  @for (company of companies; let i_company = $index; track i_company) {
+                    <option value="" hidden selected>Empresa</option>
+                    <option [value]="company.id">
+                      {{ company.name }}
+                    </option>
+                  } @empty {
+                    <option value="">No tiene companias</option>
+                  }
+                </select>
+              </td>
             }
-          </td>
+          </tr>
+          <tr>
+            @for (workday of employee.workdays; let i_workday = $index; track i_workday) {
+              <td>
+                @for (
+                  companyID of workday.companiesIDs;
+                  let i_companyID = $index;
+                  track i_companyID
+                ) {
+                  <span class="badge bg-primary me-1">
+                    {{ getCompanyById(companyID) }}
+                    <i
+                      role="button"
+                      tabindex="0"
+                      class="bi bi-x-circle-fill ms-1"
+                      (click)="removeCompany(workday, companyID)"
+                      (keydown.enter)="removeCompany(workday, companyID)"
+                      (keydown.space)="removeCompany(workday, companyID)"
+                    ></i>
+                  </span>
+                } @empty {
+                  <td><span> Sin asignación </span></td>
+                }
+              </td>
+            }
+          </tr>
+        </tbody>
+      </table>
+      <div class="text-end pe-0">
+        <button
+          type="button"
+          class="btn btn-primary mt-3 justify-content-end"
+          (click)="onSubmit()"
+          [disabled]="config.loading"
+        >
+          @if (config.loading) {
+            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+            <span role="status">Guardando...</span>
+          } @else {
+            Guardar
           }
-        </tr>
-      </tbody>
-    </table>
-    <div class="text-end pe-0">
-      <button
-        type="button"
-        class="btn btn-primary mt-3 justify-content-end"
-        (click)="onSubmit()"
-        [disabled]="config.loading"
-      >
-        @if(config.loading){
-        <span
-          class="spinner-border spinner-border-sm"
-          aria-hidden="true"
-        ></span>
-        <span role="status">Guardando...</span>
-        } @else { Guardar }
-      </button>
-
+        </button>
+      </div>
     </div>
   </div>
-
-  </div>
-
-
 } @else {
-<div class="alert alert-info mx-3" role="alert">
-  <h5 class="alert-heading">Seleccione un empleado</h5>
-</div>
-
+  <div class="alert alert-info mx-3" role="alert">
+    <h5 class="alert-heading">Seleccione un empleado</h5>
+  </div>
 }

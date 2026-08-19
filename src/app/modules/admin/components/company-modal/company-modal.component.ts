@@ -6,13 +6,10 @@ import {
   Output,
   SimpleChanges,
   inject,
-  viewChild, OnChanges,
+  viewChild,
+  OnChanges,
 } from '@angular/core';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
 
 import { CompaniesService } from '../../../../services/companies.service';
@@ -39,10 +36,7 @@ export class CompanyModalComponent implements OnChanges {
     name: ['', [Validators.required, Validators.minLength(3)]],
     address: ['', [Validators.required, Validators.minLength(3)]],
     account: ['', [Validators.required, Validators.minLength(3)]],
-    cif: [
-      '',
-      [Validators.required, Validators.minLength(8), Validators.maxLength(11)],
-    ],
+    cif: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(11)]],
   });
 
   config = {

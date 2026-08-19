@@ -10,19 +10,12 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="companyModalLabel">Modal title</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="companyForm">
           <div class="mb-3">
-            <label for="nameInput" class="form-label"
-              >Nombre de la sociedad</label
-            >
+            <label for="nameInput" class="form-label">Nombre de la sociedad</label>
             <input
               type="text"
               id="nameInput"
@@ -30,20 +23,18 @@
               placeholder="Google S.A."
               formControlName="name"
               [ngClass]="{
-                'is-invalid': utilsService.isValidControl(companyForm, 'name')
+                'is-invalid': utilsService.isValidControl(companyForm, 'name'),
               }"
             />
-            @if(utilsService.isValidControl(companyForm, 'name')){
-            <small class="text-danger">
-              <!-- {{ companyForm.get("name")?.errors | json }} -->
-              El nombre debe ser mayor de 3 caracteres
-            </small>
+            @if (utilsService.isValidControl(companyForm, 'name')) {
+              <small class="text-danger">
+                <!-- {{ companyForm.get("name")?.errors | json }} -->
+                El nombre debe ser mayor de 3 caracteres
+              </small>
             }
           </div>
           <div class="mb-3">
-            <label for="accountInput" class="form-label"
-              >Cuenta De Cotización</label
-            >
+            <label for="accountInput" class="form-label">Cuenta De Cotización</label>
             <input
               type="text"
               id="accountInput"
@@ -51,17 +42,14 @@
               placeholder="12345678A"
               formControlName="account"
               [ngClass]="{
-                'is-invalid': utilsService.isValidControl(
-                  companyForm,
-                  'account'
-                )
+                'is-invalid': utilsService.isValidControl(companyForm, 'account'),
               }"
             />
-            @if(utilsService.isValidControl(companyForm, 'account')){
-            <small class="text-danger">
-              <!-- {{ companyForm.get("name")?.errors | json }} -->
-              El account debe ser mayor de 3 caracteres
-            </small>
+            @if (utilsService.isValidControl(companyForm, 'account')) {
+              <small class="text-danger">
+                <!-- {{ companyForm.get("name")?.errors | json }} -->
+                El account debe ser mayor de 3 caracteres
+              </small>
             }
           </div>
           <div class="mb-3">
@@ -73,20 +61,18 @@
               placeholder="12345678A"
               formControlName="cif"
               [ngClass]="{
-                'is-invalid': utilsService.isValidControl(companyForm, 'cif')
+                'is-invalid': utilsService.isValidControl(companyForm, 'cif'),
               }"
             />
-            @if(utilsService.isValidControl(companyForm, 'cif')){
-            <small class="text-danger">
-              <!-- {{ companyForm.get("name")?.errors | json }} -->
-              El cif ingresado no es valido
-            </small>
+            @if (utilsService.isValidControl(companyForm, 'cif')) {
+              <small class="text-danger">
+                <!-- {{ companyForm.get("name")?.errors | json }} -->
+                El cif ingresado no es valido
+              </small>
             }
           </div>
           <div class="mb-3">
-            <label for="addressInput" class="form-label"
-              >Dirección Fiscal</label
-            >
+            <label for="addressInput" class="form-label">Dirección Fiscal</label>
             <input
               type="text"
               id="addressInput"
@@ -94,28 +80,20 @@
               placeholder="Ciudad - Calle Falsa 123"
               formControlName="address"
               [ngClass]="{
-                'is-invalid': utilsService.isValidControl(
-                  companyForm,
-                  'address'
-                )
+                'is-invalid': utilsService.isValidControl(companyForm, 'address'),
               }"
             />
-            @if(utilsService.isValidControl(companyForm, 'address')){
-            <small class="text-danger">
-              <!-- {{ companyForm.get("name")?.errors | json }} -->
-              La dirección no es válida o es demasiado corta minimo 5 caracteres
-            </small>
+            @if (utilsService.isValidControl(companyForm, 'address')) {
+              <small class="text-danger">
+                <!-- {{ companyForm.get("name")?.errors | json }} -->
+                La dirección no es válida o es demasiado corta minimo 5 caracteres
+              </small>
             }
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-          #btnClose
-        >
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #btnClose>
           Cerrar
         </button>
 
@@ -125,13 +103,12 @@
           (click)="onSubmit()"
           [disabled]="config.loading"
         >
-          @if(config.loading){
-          <span
-            class="spinner-border spinner-border-sm"
-            aria-hidden="true"
-          ></span>
-          <span role="status">Guardando...</span>
-          } @else { Guardar Cambios }
+          @if (config.loading) {
+            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+            <span role="status">Guardando...</span>
+          } @else {
+            Guardar Cambios
+          }
         </button>
       </div>
     </div>

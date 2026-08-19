@@ -4,13 +4,7 @@
 <div class="row">
   <div class="col">
     <div class="form-group">
-      <input
-        id="inputDate"
-        class="form-control"
-        type="date"
-        #inputDate
-        (change)="(inputDate)"
-      />
+      <input id="inputDate" class="form-control" type="date" #inputDate (change)="(inputDate)" />
       <!-- <label for="inputDate"> Fecha </label> -->
     </div>
   </div>
@@ -64,116 +58,120 @@
     </tr>
   </thead>
   <tbody>
-    @for(record of records | filterDate : inputDate.value |
-    filterRecordEmployeeUsername : inputEmployee.value |
-    filterRecordEmployeeIncidents : inputIncidents.value ; let i_record =
-    $index; track i_record) {
-    <tr class="align-middle">
-      <td>{{ i_record + 1 }}</td>
-      <td>
-        {{ record.employeeUsername }} -<small>
-          {{ record.employeeName }}
-        </small>
-      </td>
-      <td>{{ record.companyName }}</td>
-      <td>
-        {{ record.geoStart.timestamp | date : "EEE, MMM d, h:mm a" }}
-      </td>
-      <td>
-        {{ record.geoEnd?.timestamp | date : "EEE, MMM d, h:mm a" }}
-      </td>
-      <td class="text-center">
-        <!-- record.incidencia.lenght || record.incidenciaAdmin.lenght -->
-        @if (record?.incident?.length || record?.incidentAdmin?.length){
-        @if(record?.incident?.length){
-        <i
-          class="btn btn-warning btn-sm bi bi-person me-2"
-          [title]="record.incident"
-        ></i>
-        } @if (record.incidentAdmin?.length) {
-        <i
-          class="btn btn-danger btn-sm bi bi-person-gear me-2"
-          [title]="record.incidentAdmin"
-        ></i>
-        } } @else { <strong class="text-success"> No </strong> }
-      </td>
-      <td class="text-center">
-        <div class="geoStart">
+    @for (
+      record of records
+        | filterDate: inputDate.value
+        | filterRecordEmployeeUsername: inputEmployee.value
+        | filterRecordEmployeeIncidents: inputIncidents.value;
+      let i_record = $index;
+      track i_record
+    ) {
+      <tr class="align-middle">
+        <td>{{ i_record + 1 }}</td>
+        <td>
+          {{ record.employeeUsername }} -<small>
+            {{ record.employeeName }}
+          </small>
+        </td>
+        <td>{{ record.companyName }}</td>
+        <td>
+          {{ record.geoStart.timestamp | date: 'EEE, MMM d, h:mm a' }}
+        </td>
+        <td>
+          {{ record.geoEnd?.timestamp | date: 'EEE, MMM d, h:mm a' }}
+        </td>
+        <td class="text-center">
+          <!-- record.incidencia.lenght || record.incidenciaAdmin.lenght -->
+          @if (record?.incident?.length || record?.incidentAdmin?.length) {
+            @if (record?.incident?.length) {
+              <i class="btn btn-warning btn-sm bi bi-person me-2" [title]="record.incident"></i>
+            }
+            @if (record.incidentAdmin?.length) {
+              <i
+                class="btn btn-danger btn-sm bi bi-person-gear me-2"
+                [title]="record.incidentAdmin"
+              ></i>
+            }
+          } @else {
+            <strong class="text-success"> No </strong>
+          }
+        </td>
+        <td class="text-center">
+          <div class="geoStart">
+            <i
+              role="button"
+              class="text-primary bi bi-info-circle-fill me-2"
+              [title]="
+                'Presición: ' +
+                record.geoStart.accuracy.toFixed(2) +
+                ' metros' +
+                '\n ' +
+                'Latitud: ' +
+                record.geoStart.latitude +
+                '\n ' +
+                'Longitud: ' +
+                record.geoStart.longitude
+              "
+            ></i>
+            <a
+              [href]="
+                utilsService.getGoogleMapUrl({
+                  latitude: record.geoStart.latitude,
+                  longitude: record.geoStart.longitude,
+                })
+              "
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary btn-sm"
+            >
+              Ver <i class="bi bi-geo-alt-fill"></i>
+            </a>
+          </div>
+          <!-- TODO: Agregar un if -->
+          <div class="geoEnd">
+            <i
+              role="button"
+              class="text-primary bi bi-info-circle-fill me-2"
+              [title]="
+                'Presición: ' +
+                record.geoEnd?.accuracy?.toFixed(2) +
+                ' metros' +
+                '\n ' +
+                'Latitud: ' +
+                record.geoEnd?.latitude +
+                '\n ' +
+                'Longitud: ' +
+                record.geoEnd?.longitude
+              "
+            ></i>
+            <a
+              [href]="
+                utilsService.getGoogleMapUrl({
+                  latitude: record.geoEnd?.latitude ?? 0,
+                  longitude: record.geoEnd?.longitude ?? 0,
+                })
+              "
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary btn-sm"
+            >
+              Ver <i class="bi bi-geo-alt-fill"></i>
+            </a>
+          </div>
+        </td>
+        <td class="text-center">
           <i
+            class="btn btn-primary btn-sm bi bi-pencil"
+            data-bs-toggle="modal"
+            data-bs-target="#recordModal"
+            (click)="selectedRecord = record"
             role="button"
-            class="text-primary bi bi-info-circle-fill me-2"
-            [title]="
-              'Presición: ' +
-              record.geoStart.accuracy.toFixed(2) +
-              ' metros' +
-              '\n ' +
-              'Latitud: ' +
-              record.geoStart.latitude +
-              '\n ' +
-              'Longitud: ' +
-              record.geoStart.longitude
-            "
+            tabindex="0"
+            (keydown.enter)="selectedRecord = record"
+            (keydown.space)="selectedRecord = record"
           ></i>
-          <a
-            [href]="
-              utilsService.getGoogleMapUrl({
-                latitude: record.geoStart.latitude,
-                longitude: record.geoStart.longitude
-              })
-            "
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-primary btn-sm"
-          >
-            Ver <i class="bi bi-geo-alt-fill"></i>
-          </a>
-        </div>
-        <!-- TODO: Agregar un if -->
-        <div class="geoEnd">
-          <i
-            role="button"
-            class="text-primary bi bi-info-circle-fill me-2"
-            [title]="
-              'Presición: ' +
-              record.geoEnd?.accuracy?.toFixed(2) +
-              ' metros' +
-              '\n ' +
-              'Latitud: ' +
-              record.geoEnd?.latitude +
-              '\n ' +
-              'Longitud: ' +
-              record.geoEnd?.longitude
-            "
-          ></i>
-          <a
-            [href]="
-              utilsService.getGoogleMapUrl({
-                latitude: record.geoEnd?.latitude ?? 0,
-                longitude: record.geoEnd?.longitude ?? 0
-              })
-            "
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-primary btn-sm"
-          >
-            Ver <i class="bi bi-geo-alt-fill"></i>
-          </a>
-        </div>
-      </td>
-      <td class="text-center">
-        <i
-          class="btn btn-primary btn-sm bi bi-pencil"
-          data-bs-toggle="modal"
-          data-bs-target="#recordModal"
-          (click)="selectedRecord = record"
-          role="button"
-          tabindex="0"
-          (keydown.enter)="selectedRecord = record"
-          (keydown.space)="selectedRecord = record"
-        ></i>
-      </td>
-    </tr>
-
+        </td>
+      </tr>
     }
   </tbody>
 </table>

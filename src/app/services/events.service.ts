@@ -14,9 +14,7 @@ export class EventsService {
 
   getEvents() {
     const URL = this.#URL + 'events';
-    return this.http
-      .get<CalendarEvent[]>(URL)
-      .pipe(map((res: any) => res.events));
+    return this.http.get<CalendarEvent[]>(URL).pipe(map((res: any) => res.events));
   }
 
   createEvent(event: CalendarEvent) {
@@ -41,22 +39,18 @@ export class EventsService {
   }
   getEventsByMonth(_date: Date) {
     const URL = this.#URL + 'events.json';
-    return this.http
-      .get<CalendarEvent[]>(URL)
-      .pipe(map((res: any) => res.events));
+    return this.http.get<CalendarEvent[]>(URL).pipe(map((res: any) => res.events));
   }
   getAllEventsByDay(date: string, typeEvent = 0) {
     const URL = this.#URL + 'events.json';
-    return this.http
-      .get<CalendarEvent[]>(URL, { params: { date, typeEvent } })
-      .pipe(
-        map((res: any) =>
-          res.events.filter((event: CalendarEvent) => {
-            if (event.date === date) return event;
-            return false;
-          })
-        )
-      );
+    return this.http.get<CalendarEvent[]>(URL, { params: { date, typeEvent } }).pipe(
+      map((res: any) =>
+        res.events.filter((event: CalendarEvent) => {
+          if (event.date === date) return event;
+          return false;
+        }),
+      ),
+    );
   }
 
   getEventTypes() {

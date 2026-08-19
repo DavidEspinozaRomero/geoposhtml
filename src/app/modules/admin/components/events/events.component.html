@@ -15,13 +15,7 @@
 <div class="row">
   <div class="col">
     <div class="form-group">
-      <input
-        id="inputDate"
-        class="form-control"
-        type="date"
-        #inputDate
-        (change)="(inputDate)"
-      />
+      <input id="inputDate" class="form-control" type="date" #inputDate (change)="(inputDate)" />
     </div>
   </div>
   <div class="col">
@@ -66,42 +60,45 @@
     </tr>
   </thead>
   <tbody>
-    @for(event of events | filterByEventDate : inputDate.value |
-    filterByEventTitle: inputEventTitle.value | filterByEventType:
-    inputEventType.value; let i_event = $index; track i_event) {
-    <tr>
-      <td>{{ i_event + 1 }}</td>
-      <td>{{ event.date | date : "mediumDate" }}</td>
-      <td>
-        <span class="badge" [class]="event.class">
-          {{ event.type | uppercase }}
-        </span>
-      </td>
-      <td>{{ event.title }}</td>
-      <td>
-        <button
-          class="btn btn-primary btn-sm bi bi-pencil me-2"
-          data-bs-toggle="modal"
-          data-bs-target="#eventModal"
-          (click)="this.selectedEvent = event"
-        ><span class="visually-hidden">Editar</span></button>
-        <i
-          class="btn btn-primary btn-sm bi bi-trash"
-          (click)="deleteEvent(event, i_event)"
-          role="button"
-          tabindex="0"
-          (keydown.enter)="deleteEvent(event, i_event)"
-          (keydown.space)="deleteEvent(event, i_event)"
-        ></i>
-      </td>
-    </tr>
-
+    @for (
+      event of events
+        | filterByEventDate: inputDate.value
+        | filterByEventTitle: inputEventTitle.value
+        | filterByEventType: inputEventType.value;
+      let i_event = $index;
+      track i_event
+    ) {
+      <tr>
+        <td>{{ i_event + 1 }}</td>
+        <td>{{ event.date | date: 'mediumDate' }}</td>
+        <td>
+          <span class="badge" [class]="event.class">
+            {{ event.type | uppercase }}
+          </span>
+        </td>
+        <td>{{ event.title }}</td>
+        <td>
+          <button
+            class="btn btn-primary btn-sm bi bi-pencil me-2"
+            data-bs-toggle="modal"
+            data-bs-target="#eventModal"
+            (click)="this.selectedEvent = event"
+          >
+            <span class="visually-hidden">Editar</span>
+          </button>
+          <i
+            class="btn btn-primary btn-sm bi bi-trash"
+            (click)="deleteEvent(event, i_event)"
+            role="button"
+            tabindex="0"
+            (keydown.enter)="deleteEvent(event, i_event)"
+            (keydown.space)="deleteEvent(event, i_event)"
+          ></i>
+        </td>
+      </tr>
     }
   </tbody>
 </table>
 
 <!-- modal para CRUD de evento -->
-<app-event-modal
-  [eventToEdit]="selectedEvent"
-  (eventSubmit)="checkEvent($event)"
-></app-event-modal>
+<app-event-modal [eventToEdit]="selectedEvent" (eventSubmit)="checkEvent($event)"></app-event-modal>

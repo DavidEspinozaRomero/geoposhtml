@@ -11,14 +11,10 @@ export class FilterRecordEmployeeIncidentsPipe implements PipeTransform {
     if (!value) return arr;
 
     if (value === 'sinIncidencias')
-      return arr.filter(
-        (record) => !record?.incidentAdmin?.length && !record?.incident?.length
-      );
+      return arr.filter((record) => !record?.incidentAdmin?.length && !record?.incident?.length);
 
     if (value === 'conIncidencias')
-      return arr.filter(
-        (record) => record?.incidentAdmin?.length || record?.incident?.length
-      );
+      return arr.filter((record) => record?.incidentAdmin?.length || record?.incident?.length);
 
     return arr;
   }

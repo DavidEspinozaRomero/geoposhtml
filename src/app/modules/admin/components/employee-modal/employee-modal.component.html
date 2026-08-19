@@ -10,12 +10,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="employeeModalLabel">Modal title</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="employeeForm">
@@ -28,14 +23,14 @@
               placeholder="David"
               formControlName="name"
               [ngClass]="{
-                'is-invalid': utilsService.isValidControl(employeeForm, 'name')
+                'is-invalid': utilsService.isValidControl(employeeForm, 'name'),
               }"
             />
-            @if(utilsService.isValidControl(employeeForm, 'name')){
-            <small class="text-danger">
-              <!-- {{ employeeForm.get("name")?.errors | json }} -->
-              El nombre debe ser mayor de 3 caracteres
-            </small>
+            @if (utilsService.isValidControl(employeeForm, 'name')) {
+              <small class="text-danger">
+                <!-- {{ employeeForm.get("name")?.errors | json }} -->
+                El nombre debe ser mayor de 3 caracteres
+              </small>
             }
           </div>
           <div class="mb-3">
@@ -47,17 +42,14 @@
               placeholder="Deerhou"
               formControlName="username"
               [ngClass]="{
-                'is-invalid': utilsService.isValidControl(
-                  employeeForm,
-                  'username'
-                )
+                'is-invalid': utilsService.isValidControl(employeeForm, 'username'),
               }"
             />
-            @if(utilsService.isValidControl(employeeForm, 'username')){
-            <small class="text-danger">
-              <!-- {{ employeeForm.get("name")?.errors | json }} -->
-              El username debe ser mayor de 3 caracteres
-            </small>
+            @if (utilsService.isValidControl(employeeForm, 'username')) {
+              <small class="text-danger">
+                <!-- {{ employeeForm.get("name")?.errors | json }} -->
+                El username debe ser mayor de 3 caracteres
+              </small>
             }
           </div>
           <div class="mb-3">
@@ -70,10 +62,7 @@
                 placeholder="Deer123."
                 formControlName="password"
                 [ngClass]="{
-                  'is-invalid': utilsService.isValidControl(
-                    employeeForm,
-                    'password'
-                  )
+                  'is-invalid': utilsService.isValidControl(employeeForm, 'password'),
                 }"
               />
               <span
@@ -83,11 +72,11 @@
               ></span>
             </div>
 
-            @if(utilsService.isValidControl(employeeForm, 'password')){
-            <small class="text-danger">
-              <!-- {{ employeeForm.get("name")?.errors | json }} -->
-              El password debe ser mayor de 3 caracteres y máximo 20
-            </small>
+            @if (utilsService.isValidControl(employeeForm, 'password')) {
+              <small class="text-danger">
+                <!-- {{ employeeForm.get("name")?.errors | json }} -->
+                El password debe ser mayor de 3 caracteres y máximo 20
+              </small>
             }
           </div>
           <div class="mb-3">
@@ -99,20 +88,18 @@
               placeholder="user@example.com"
               formControlName="email"
               [ngClass]="{
-                'is-invalid': utilsService.isValidControl(employeeForm, 'email')
+                'is-invalid': utilsService.isValidControl(employeeForm, 'email'),
               }"
             />
-            @if(utilsService.isValidControl(employeeForm, 'email')){
-            <small class="text-danger">
-              <!-- {{ employeeForm.get("name")?.errors | json }} -->
-              El email ingresado no es valido
-            </small>
+            @if (utilsService.isValidControl(employeeForm, 'email')) {
+              <small class="text-danger">
+                <!-- {{ employeeForm.get("name")?.errors | json }} -->
+                El email ingresado no es valido
+              </small>
             }
           </div>
           <div class="mb-3">
-            <label for="dniInput" class="form-label"
-              >DNI/Numero de identidad</label
-            >
+            <label for="dniInput" class="form-label">DNI/Numero de identidad</label>
             <input
               type="text"
               id="dniInput"
@@ -120,14 +107,14 @@
               placeholder="12345678A"
               formControlName="dni"
               [ngClass]="{
-                'is-invalid': utilsService.isValidControl(employeeForm, 'dni')
+                'is-invalid': utilsService.isValidControl(employeeForm, 'dni'),
               }"
             />
-            @if(utilsService.isValidControl(employeeForm, 'dni')){
-            <small class="text-danger">
-              <!-- {{ employeeForm.get("name")?.errors | json }} -->
-              El DNI ingresado no es valido minimo 8 digitos maximo 11 digitos
-            </small>
+            @if (utilsService.isValidControl(employeeForm, 'dni')) {
+              <small class="text-danger">
+                <!-- {{ employeeForm.get("name")?.errors | json }} -->
+                El DNI ingresado no es valido minimo 8 digitos maximo 11 digitos
+              </small>
             }
           </div>
           <div class="mb-3">
@@ -139,17 +126,14 @@
               placeholder="Ciudad - Calle Falsa 123"
               formControlName="address"
               [ngClass]="{
-                'is-invalid': utilsService.isValidControl(
-                  employeeForm,
-                  'address'
-                )
+                'is-invalid': utilsService.isValidControl(employeeForm, 'address'),
               }"
             />
-            @if(utilsService.isValidControl(employeeForm, 'address')){
-            <small class="text-danger">
-              <!-- {{ employeeForm.get("name")?.errors | json }} -->
-              La dirección no es válida o es demasiado corta minimo 5 caracteres
-            </small>
+            @if (utilsService.isValidControl(employeeForm, 'address')) {
+              <small class="text-danger">
+                <!-- {{ employeeForm.get("name")?.errors | json }} -->
+                La dirección no es válida o es demasiado corta minimo 5 caracteres
+              </small>
             }
           </div>
           <div class="mb-3">
@@ -161,20 +145,18 @@
               placeholder="123456780"
               formControlName="phone"
               [ngClass]="{
-                'is-invalid': utilsService.isValidControl(employeeForm, 'phone')
+                'is-invalid': utilsService.isValidControl(employeeForm, 'phone'),
               }"
             />
-            @if(utilsService.isValidControl(employeeForm, 'phone')){
-            <small class="text-danger">
-              <!-- {{ employeeForm.get("name")?.errors | json }} -->
-              El teléfono ingresado no es valido minimo 9 digitos
-            </small>
+            @if (utilsService.isValidControl(employeeForm, 'phone')) {
+              <small class="text-danger">
+                <!-- {{ employeeForm.get("name")?.errors | json }} -->
+                El teléfono ingresado no es valido minimo 9 digitos
+              </small>
             }
           </div>
           <div class="mb-3">
-            <label for="insuranceInput" class="form-label"
-              >Número de Seguro</label
-            >
+            <label for="insuranceInput" class="form-label">Número de Seguro</label>
             <input
               type="text"
               id="insuranceInput"
@@ -182,17 +164,14 @@
               placeholder="ABC123"
               formControlName="insurance"
               [ngClass]="{
-                'is-invalid': utilsService.isValidControl(
-                  employeeForm,
-                  'insurance'
-                )
+                'is-invalid': utilsService.isValidControl(employeeForm, 'insurance'),
               }"
             />
-            @if(utilsService.isValidControl(employeeForm, 'insurance')){
-            <small class="text-danger">
-              <!-- {{ employeeForm.get("name")?.errors | json }} -->
-              El Número de seguro no es valido
-            </small>
+            @if (utilsService.isValidControl(employeeForm, 'insurance')) {
+              <small class="text-danger">
+                <!-- {{ employeeForm.get("name")?.errors | json }} -->
+                El Número de seguro no es valido
+              </small>
             }
           </div>
           <div class="mb-3">
@@ -203,26 +182,16 @@
                 type="checkbox"
                 formControlName="isActive"
                 [ngClass]="{
-                  'is-invalid': utilsService.isValidControl(
-                    employeeForm,
-                    'isActive'
-                  )
+                  'is-invalid': utilsService.isValidControl(employeeForm, 'isActive'),
                 }"
               />
-              <label class="form-check-label" for="isActiveInput">
-                Está Activo
-              </label>
+              <label class="form-check-label" for="isActiveInput"> Está Activo </label>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-          #btnClose
-        >
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #btnClose>
           Cerrar
         </button>
         <button
@@ -231,13 +200,12 @@
           (click)="onSubmit()"
           [disabled]="config.loading"
         >
-          @if(config.loading){
-          <span
-            class="spinner-border spinner-border-sm"
-            aria-hidden="true"
-          ></span>
-          <span role="status">Guardando...</span>
-          } @else { Guardar Cambios }
+          @if (config.loading) {
+            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+            <span role="status">Guardando...</span>
+          } @else {
+            Guardar Cambios
+          }
         </button>
       </div>
     </div>

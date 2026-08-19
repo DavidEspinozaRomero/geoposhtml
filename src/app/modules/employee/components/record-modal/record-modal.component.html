@@ -12,21 +12,17 @@
         <h1 class="modal-title fs-5" id="recordEmployeeModalLabel">
           Registro: {{ record?.companyName }} - {{ record?.employeeUsername }}
         </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="p-3 mb-3 bg-secondary-subtle rounded">
           <p class="mb-0">
             <strong>Inicio:</strong>
-            {{ record!.geoStart.timestamp | date : "medium" }}
+            {{ record!.geoStart.timestamp | date: 'medium' }}
             <br />
-            <strong>Fin:</strong> {{ record?.geoEnd?.timestamp | date : "medium" }}
-            <br /><strong>Incidencia Tabajador: </strong>
+            <strong>Fin:</strong> {{ record?.geoEnd?.timestamp | date: 'medium' }} <br /><strong
+              >Incidencia Tabajador:
+            </strong>
             {{ record?.incident }}
           </p>
         </div>
@@ -81,23 +77,17 @@
           </a>
         </div> -->
 
-        @if ( record?.incidentAdmin) {
-        <div class="p-3 mb-3 bg-secondary-subtle rounded">
-          <p class="mb-0">
-            <strong>Incidencia Administrador: </strong>
-            {{ record!.incidentAdmin }}
-          </p>
-        </div>
-
+        @if (record?.incidentAdmin) {
+          <div class="p-3 mb-3 bg-secondary-subtle rounded">
+            <p class="mb-0">
+              <strong>Incidencia Administrador: </strong>
+              {{ record!.incidentAdmin }}
+            </p>
+          </div>
         }
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-          #btnClose
-        >
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #btnClose>
           Cerrar
         </button>
       </div>

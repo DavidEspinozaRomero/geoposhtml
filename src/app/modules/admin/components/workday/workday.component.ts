@@ -1,12 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { UpperCasePipe, NgClass } from '@angular/common';
 
-import {
-  Company,
-  Employee,
-  Workday,
-  WorkdaysResponse,
-} from '../../../../models';
+import { Company, Employee, Workday, WorkdaysResponse } from '../../../../models';
 import { EmployeesService } from '../../../../services/employees.service';
 import { CompaniesService } from '../../../../services/companies.service';
 import { WordaysService } from '../../../../services/wordays.service';
@@ -65,9 +60,7 @@ export class WorkdayComponent implements OnInit {
   // getEmployee(employee: Employee) {
   getEmployee(target: HTMLSelectElement) {
     const employeeID = target.value;
-    const employee = this.employees.find(
-      (employee) => employeeID == employee.id
-    );
+    const employee = this.employees.find((employee) => employeeID == employee.id);
     if (!employee) {
       return;
     }
@@ -86,9 +79,7 @@ export class WorkdayComponent implements OnInit {
         employee.workdays = Array(7)
           .fill(0)
           .map((_, i) => {
-            const workdaysByDay = workdaysByEmployee.filter(
-              (workday) => workday.day === i
-            );
+            const workdaysByDay = workdaysByEmployee.filter((workday) => workday.day === i);
             return {
               day: i,
               companies: workdaysByDay.map((workday) => {
@@ -118,9 +109,7 @@ export class WorkdayComponent implements OnInit {
   }
   removeCompany(workday: Workday, companyID: number) {
     // TODO: mostrar modal de confirmacion
-    const found = workday.companies?.find(
-      (company) => company.companyID == companyID
-    );
+    const found = workday.companies?.find((company) => company.companyID == companyID);
 
     if (found) {
       this.wordaysService
@@ -146,9 +135,7 @@ export class WorkdayComponent implements OnInit {
 
   onSubmit() {
     const employee = structuredClone(this.employee);
-    const workdays = employee?.workdays?.filter(
-      (workday) => workday.companiesIDs!.length > 0
-    );
+    const workdays = employee?.workdays?.filter((workday) => workday.companiesIDs!.length > 0);
     if (!workdays?.length) return; // no hay nuevas asignaciones
 
     const workdaysFiltered = workdays
@@ -158,12 +145,8 @@ export class WorkdayComponent implements OnInit {
           return { day, companyIds: companiesIDs };
         }
 
-        const companiesIds = workday.companies?.map(
-          (company) => company.companyID
-        );
-        const companyIds = workday.companiesIDs?.filter(
-          (val) => !companiesIds?.includes(val)
-        );
+        const companiesIds = workday.companies?.map((company) => company.companyID);
+        const companyIds = workday.companiesIDs?.filter((val) => !companiesIds?.includes(val));
 
         if (!companyIds?.length) return;
 

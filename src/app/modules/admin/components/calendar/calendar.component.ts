@@ -1,13 +1,7 @@
 import { DatePipe } from '@angular/common';
 
 import { EventsService } from '../../../../services/events.service';
-import {
-  Component,
-  OnInit,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { Calendar } from '../../../../models';
 import { EventsModalComponent } from '../events-modal/events-modal.component';
 
@@ -26,9 +20,7 @@ export class CalendarComponent implements OnInit {
   year = computed(() => this.now().getFullYear());
   month = computed(() => this.now().getMonth()); // 0-11
   // day = this.today().getDate();
-  monthDays = computed(() =>
-    new Date(this.year(), this.month() + 1, 0).getDate()
-  );
+  monthDays = computed(() => new Date(this.year(), this.month() + 1, 0).getDate());
   calendarDays = computed(() => Array(this.monthDays()));
 
   calendarEvents: Calendar[] = [];

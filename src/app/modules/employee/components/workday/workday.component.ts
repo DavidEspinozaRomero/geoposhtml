@@ -6,12 +6,7 @@ import { Company, Record } from '../../../../models';
 import { CompaniesService } from '../../../../services/companies.service';
 import { UtilsService } from '../../../../services/utils.service';
 
-import {
-  FormBuilder,
-  FormControl,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-workday',
@@ -60,8 +55,7 @@ export class WorkdayComponent implements OnInit {
           if (error.code == error.PERMISSION_DENIED) {
             this.message = 'Porfavor activa tu geolocalización';
           } else if (error.code == error.POSITION_UNAVAILABLE) {
-            this.message =
-              'Nose pudo obtener la geolocalización. Porfavor Renintente';
+            this.message = 'Nose pudo obtener la geolocalización. Porfavor Renintente';
           } else if (error.code == error.TIMEOUT) {
             this.message = 'El tiempo se acabado. Porfavor Reintente';
           } else {
@@ -73,15 +67,14 @@ export class WorkdayComponent implements OnInit {
           enableHighAccuracy: true,
           maximumAge: 0,
           timeout: 30000,
-        }
+        },
       );
     });
   }
 
   startWorkday() {
     this.companyIdForm.markAllAsTouched();
-    if (!this.companyIdForm.valid)
-      return;
+    if (!this.companyIdForm.valid) return;
 
     this.getLocation()
       .catch(() => undefined as unknown as GeolocationPosition)
@@ -98,7 +91,7 @@ export class WorkdayComponent implements OnInit {
         };
         this.recordService.startWorkday(startWorday).subscribe((record) => {
           const company = this.companies?.find(
-            (company) => String(company.id) === String(record.companyId)
+            (company) => String(company.id) === String(record.companyId),
           );
           record.companyName = company?.name ?? '';
           this.record = record;
@@ -109,8 +102,7 @@ export class WorkdayComponent implements OnInit {
 
   endWorkday() {
     this.incidentForm.markAllAsTouched();
-    if (!this.incidentForm.valid)
-      return;
+    if (!this.incidentForm.valid) return;
 
     this.getLocation()
       .catch(() => undefined as unknown as GeolocationPosition)
@@ -125,11 +117,9 @@ export class WorkdayComponent implements OnInit {
           incident: this.incidentForm.value ?? '',
         };
 
-        this.recordService
-          .endWorday(this.record!.id, endWorday)
-          .subscribe((record) => {
-            this.record = { ...this.record, ...record };
-          });
+        this.recordService.endWorday(this.record!.id, endWorday).subscribe((record) => {
+          this.record = { ...this.record, ...record };
+        });
       });
   }
 

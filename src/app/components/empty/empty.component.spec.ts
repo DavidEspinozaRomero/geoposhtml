@@ -8,10 +8,9 @@ describe('EmptyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EmptyComponent]
-    })
-    .compileComponents();
-    
+      imports: [EmptyComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(EmptyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

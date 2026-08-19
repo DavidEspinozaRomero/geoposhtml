@@ -12,8 +12,7 @@ export class FilterActiveEmployeesPipe implements PipeTransform {
     if (!value) return arr;
 
     if (value === 'active') return arr.filter((employee) => employee.isActive);
-    if (value === 'inactive')
-      return arr.filter((employee) => !employee.isActive);
+    if (value === 'inactive') return arr.filter((employee) => !employee.isActive);
 
     return arr;
   }

@@ -10,30 +10,20 @@
     <div class="modal-content">
       <div class="modal-header bg-primary text-bg-primary">
         <h1 class="modal-title fs-5" id="eventsEmployeeModalLabel">
-          Eventos del dia - {{ day | date : "mediumDate" }}
+          Eventos del dia - {{ day | date: 'mediumDate' }}
         </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        @for(event of events; let i = $index; track i) {
-        <h3>{{ event.type }} - {{ event.title }}</h3>
-        <p>{{ event.description }}</p>
+        @for (event of events; let i = $index; track i) {
+          <h3>{{ event.type }} - {{ event.title }}</h3>
+          <p>{{ event.description }}</p>
         } @empty {
-        <h3>No hay eventos</h3>
+          <h3>No hay eventos</h3>
         }
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-          #btnClose
-        >
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #btnClose>
           Cerrar
         </button>
       </div>

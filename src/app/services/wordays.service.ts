@@ -18,7 +18,7 @@ export class WordaysService {
     return this.http.get<WorkdaysResponse[]>(URL).pipe(
       map((res: any) => {
         return res;
-      })
+      }),
     );
   }
 
@@ -32,7 +32,7 @@ export class WordaysService {
     return this.http.delete<Workday>(URL).pipe(
       map((res: any) => {
         return res;
-      })
+      }),
     );
   }
 }

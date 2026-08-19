@@ -10,12 +10,7 @@
     <div class="modal-content">
       <div class="modal-header bg-primary text-bg-primary">
         <h1 class="modal-title fs-5" id="eventModalLabel">Evento</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <!-- crear formulario -->
@@ -29,14 +24,14 @@
               placeholder="Vacacions David"
               formControlName="title"
               [ngClass]="{
-                'is-invalid': utilsService.isValidControl(eventForm, 'title')
+                'is-invalid': utilsService.isValidControl(eventForm, 'title'),
               }"
             />
-            @if(utilsService.isValidControl(eventForm, 'title')){
-            <small class="text-danger">
-              <!-- {{ eventForm.get("title")?.errors | json }} -->
-              El título debe ser mayor de 3 caracteres
-            </small>
+            @if (utilsService.isValidControl(eventForm, 'title')) {
+              <small class="text-danger">
+                <!-- {{ eventForm.get("title")?.errors | json }} -->
+                El título debe ser mayor de 3 caracteres
+              </small>
             }
           </div>
 
@@ -49,17 +44,14 @@
               placeholder="Vacaciones del año de David"
               formControlName="description"
               [ngClass]="{
-                'is-invalid': utilsService.isValidControl(
-                  eventForm,
-                  'description'
-                )
+                'is-invalid': utilsService.isValidControl(eventForm, 'description'),
               }"
             />
-            @if(utilsService.isValidControl(eventForm, 'description')){
-            <small class="text-danger">
-              <!-- {{ eventForm.get("name")?.errors | json }} -->
-              La descripción debe ser mayor de 3 caracteres
-            </small>
+            @if (utilsService.isValidControl(eventForm, 'description')) {
+              <small class="text-danger">
+                <!-- {{ eventForm.get("name")?.errors | json }} -->
+                La descripción debe ser mayor de 3 caracteres
+              </small>
             }
           </div>
           <div class="mb-3">
@@ -81,17 +73,17 @@
                 type="date"
                 formControlName="date"
                 [ngClass]="{
-                  'is-invalid': utilsService.isValidControl(eventForm, 'date')
+                  'is-invalid': utilsService.isValidControl(eventForm, 'date'),
                 }"
               />
               <!-- <label for="inputDate"> Fecha </label> -->
             </div>
 
-            @if(utilsService.isValidControl(eventForm, 'date')){
-            <small class="text-danger">
-              <!-- {{ eventForm.get("name")?.errors | json }} -->
-              La fecha debe ser válida
-            </small>
+            @if (utilsService.isValidControl(eventForm, 'date')) {
+              <small class="text-danger">
+                <!-- {{ eventForm.get("name")?.errors | json }} -->
+                La fecha debe ser válida
+              </small>
             }
           </div>
           <div class="mb-3">
@@ -100,7 +92,7 @@
               aria-label="tipos de eventos"
               formControlName="typeId"
               [ngClass]="{
-                'is-invalid': utilsService.isValidControl(eventForm, 'typeId')
+                'is-invalid': utilsService.isValidControl(eventForm, 'typeId'),
               }"
             >
               <option selected disabled value="">-- Seleccione tipo --</option>
@@ -111,27 +103,20 @@
               <option value="4">Ausencia</option>
             </select>
 
-            @if(utilsService.isValidControl(eventForm, 'typeId')){
-            <small class="text-danger">
-              <!-- {{ eventForm.get("name")?.errors | json }} -->
-              El tipo es requerido
-            </small>
+            @if (utilsService.isValidControl(eventForm, 'typeId')) {
+              <small class="text-danger">
+                <!-- {{ eventForm.get("name")?.errors | json }} -->
+                El tipo es requerido
+              </small>
             }
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-          #btnClose
-        >
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #btnClose>
           Cerrar
         </button>
-        <button type="button" class="btn btn-primary" (click)="onSubmit()">
-          Guardar
-        </button>
+        <button type="button" class="btn btn-primary" (click)="onSubmit()">Guardar</button>
       </div>
     </div>
   </div>

@@ -12,32 +12,22 @@
         <h1 class="modal-title fs-5" id="recordModalLabel">
           Registro: {{ record?.companyName }} - {{ record?.employeeUsername }}
         </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="p-3 mb-3 bg-secondary-subtle rounded">
           <p class="mb-0">
             <strong>Inicio:</strong>
-            {{ record?.geoStart?.timestamp | date : "medium" }}
+            {{ record?.geoStart?.timestamp | date: 'medium' }}
             <br />
-            <strong>Fin:</strong> {{ record?.geoEnd?.timestamp | date : "medium" }}
-            @if (record?.geoEnd?.timestamp){
-            <br />
-            <strong>Duracion:</strong>
-            {{
-              utilsService.getDiffTime(
-                record!.geoStart!.timestamp,
-                record!.geoEnd!.timestamp
-              )
-            }}
+            <strong>Fin:</strong> {{ record?.geoEnd?.timestamp | date: 'medium' }}
+            @if (record?.geoEnd?.timestamp) {
+              <br />
+              <strong>Duracion:</strong>
+              {{ utilsService.getDiffTime(record!.geoStart!.timestamp, record!.geoEnd!.timestamp) }}
             }
             <br /><strong>Incidencia Tabajador: </strong>
-            {{ record?.incident ?? "Sin Incidencia" }}
+            {{ record?.incident ?? 'Sin Incidencia' }}
           </p>
         </div>
 
@@ -49,33 +39,21 @@
               formControlName="incidentAdmin"
               id="floatingTextarea"
               [ngClass]="{
-                'is-invalid': utilsService.isValidControl(
-                  recordForm,
-                  'incidentAdmin'
-                )
+                'is-invalid': utilsService.isValidControl(recordForm, 'incidentAdmin'),
               }"
             ></textarea>
             <label for="floatingTextarea">Incidencia Administrador</label>
           </div>
-          @if(utilsService.isValidControl(recordForm, 'incidentAdmin')){
-          <small class="text-danger">
-            El incidente debe ser mayor de 3 caracteres
-          </small>
+          @if (utilsService.isValidControl(recordForm, 'incidentAdmin')) {
+            <small class="text-danger"> El incidente debe ser mayor de 3 caracteres </small>
           }
         </form>
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-          #btnClose
-        >
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #btnClose>
           Cerrar
         </button>
-        <button type="button" class="btn btn-primary" (click)="onSubmit()">
-          Guardar
-        </button>
+        <button type="button" class="btn btn-primary" (click)="onSubmit()">Guardar</button>
       </div>
     </div>
   </div>

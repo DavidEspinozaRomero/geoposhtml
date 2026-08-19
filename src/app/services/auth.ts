@@ -31,7 +31,7 @@ export class Auth {
       tap((res) => {
         this.#token.set(res.access_token);
         this.#user.set(res.user);
-      })
+      }),
     );
   }
 

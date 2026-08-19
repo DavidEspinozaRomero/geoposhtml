@@ -12,10 +12,8 @@ export class FilterRecordEmployeeUsernamePipe implements PipeTransform {
     return arr.filter(
       (record) =>
         record.employeeName.toLowerCase().includes(value.toLocaleLowerCase()) ||
-        record.employeeUsername
-          .toLowerCase()
-          .includes(value.toLocaleLowerCase()) ||
-        record.companyName.toLowerCase().includes(value.toLocaleLowerCase())
+        record.employeeUsername.toLowerCase().includes(value.toLocaleLowerCase()) ||
+        record.companyName.toLowerCase().includes(value.toLocaleLowerCase()),
     );
   }
 }

@@ -38,12 +38,8 @@ export class RecordsModalComponent implements OnInit {
     this.getInitData();
   }
   getInitData() {
-    this.employeesService
-      .getEmployees()
-      .subscribe((employees) => (this.employees = employees));
-    this.companiesService
-      .getCompanies()
-      .subscribe((companies) => (this.companies = companies));
+    this.employeesService.getEmployees().subscribe((employees) => (this.employees = employees));
+    this.companiesService.getCompanies().subscribe((companies) => (this.companies = companies));
   }
 
   onSubmit() {

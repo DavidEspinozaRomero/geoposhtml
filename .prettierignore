@@ -1,0 +1,8 @@
+dist/
+node_modules/
+pnpm-lock.yaml
+coverage/
+*.ico
+*.png
+*.jpg
+*.svg

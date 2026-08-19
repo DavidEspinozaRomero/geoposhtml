@@ -13,7 +13,7 @@ export class FilterEmployeeByNameUsernamePipe implements PipeTransform {
     return arr.filter(
       (item) =>
         item.name.toLowerCase().includes(value.toLocaleLowerCase()) ||
-        item.username.toLowerCase().includes(value.toLocaleLowerCase())
+        item.username.toLowerCase().includes(value.toLocaleLowerCase()),
     );
   }
 }

@@ -33,7 +33,7 @@ export class Login {
       next: (res) => {
         const role = res.user.role;
         this.router.navigateByUrl(
-          role === 'admin' ? '/administrator/employees' : '/employee/workday'
+          role === 'admin' ? '/administrator/employees' : '/employee/workday',
         );
       },
       error: (err) => {

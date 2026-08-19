@@ -80,8 +80,7 @@ export class EventModalComponent implements OnInit, OnChanges {
     const event: CalendarEvent = {
       id: dataForm.id,
       title: dataForm.title!,
-      type: this.eventTypes.find((type) => type.id === +dataForm.typeId!)
-        ?.name ?? '',
+      type: this.eventTypes.find((type) => type.id === +dataForm.typeId!)?.name ?? '',
       typeId: +dataForm.typeId!,
       date: dataForm.date!,
       description: dataForm.description!,

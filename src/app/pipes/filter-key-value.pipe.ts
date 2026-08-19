@@ -17,9 +17,7 @@ export class FilterKeyValuePipe implements PipeTransform {
 
     if (typeof arr[0][key] === 'string' && typeof value === 'string') {
       return (
-        arr.filter((item) =>
-          item[key].toLowerCase().includes(value.toLocaleLowerCase())
-        ) || []
+        arr.filter((item) => item[key].toLowerCase().includes(value.toLocaleLowerCase())) || []
       );
     }
 

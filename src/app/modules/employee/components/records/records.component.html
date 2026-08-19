@@ -4,13 +4,7 @@
 <div class="row">
   <div class="col">
     <div class="form-group">
-      <input
-        id="inputDate"
-        class="form-control"
-        type="date"
-        #inputDate
-        (change)="(inputDate)"
-      />
+      <input id="inputDate" class="form-control" type="date" #inputDate (change)="(inputDate)" />
       <!-- <label for="inputDate"> Fecha </label> -->
     </div>
   </div>
@@ -45,41 +39,48 @@
     </tr>
   </thead>
   <tbody>
-    @for(record of records | filterDate : inputDate.value |
-    filterRecordEmployeeIncidents : inputIncidents.value ; let i_record =
-    $index; track i_record) {
-    <tr class="align-middle">
-      <td>{{ i_record + 1 }}</td>
+    @for (
+      record of records
+        | filterDate: inputDate.value
+        | filterRecordEmployeeIncidents: inputIncidents.value;
+      let i_record = $index;
+      track i_record
+    ) {
+      <tr class="align-middle">
+        <td>{{ i_record + 1 }}</td>
 
-      <td>{{ record.companyName }}</td>
-      <td>
-        {{ record.geoStart.timestamp| date : "EEE, MMM d, h:mm a" }}
-      </td>
-      <td>
-        {{ record.geoEnd?.timestamp | date : "EEE, MMM d, h:mm a" }}
-      </td>
-      <td class="text-center">
-        @if (record?.incident?.length || record?.incidentAdmin?.length){
-        @if(record?.incident?.length){
-        <i class="btn btn-warning btn-sm bi bi-person me-2"></i>
-        } @if (record?.incidentAdmin?.length) {
-        <i class="btn btn-danger btn-sm bi bi-person-gear me-2"></i>
-        } } @else { <strong class="text-success"> No </strong> }
-      </td>
-      <td class="text-center">
-        <i
-          class="btn btn-primary btn-sm bi bi-eye"
-          data-bs-toggle="modal"
-          data-bs-target="#recordEmployeeModal"
-          (click)="selectedRecord = record"
-          role="button"
-          tabindex="0"
-          (keydown.enter)="selectedRecord = record"
-          (keydown.space)="selectedRecord = record"
-        ></i>
-      </td>
-    </tr>
-
+        <td>{{ record.companyName }}</td>
+        <td>
+          {{ record.geoStart.timestamp | date: 'EEE, MMM d, h:mm a' }}
+        </td>
+        <td>
+          {{ record.geoEnd?.timestamp | date: 'EEE, MMM d, h:mm a' }}
+        </td>
+        <td class="text-center">
+          @if (record?.incident?.length || record?.incidentAdmin?.length) {
+            @if (record?.incident?.length) {
+              <i class="btn btn-warning btn-sm bi bi-person me-2"></i>
+            }
+            @if (record?.incidentAdmin?.length) {
+              <i class="btn btn-danger btn-sm bi bi-person-gear me-2"></i>
+            }
+          } @else {
+            <strong class="text-success"> No </strong>
+          }
+        </td>
+        <td class="text-center">
+          <i
+            class="btn btn-primary btn-sm bi bi-eye"
+            data-bs-toggle="modal"
+            data-bs-target="#recordEmployeeModal"
+            (click)="selectedRecord = record"
+            role="button"
+            tabindex="0"
+            (keydown.enter)="selectedRecord = record"
+            (keydown.space)="selectedRecord = record"
+          ></i>
+        </td>
+      </tr>
     }
   </tbody>
 </table>

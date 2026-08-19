@@ -1,11 +1,5 @@
 import { DatePipe } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  inject,
-} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
 
 import { EventsService } from '../../../../services/events.service';
 import { CalendarEvent } from '../../../../models';
@@ -34,10 +28,8 @@ export class EventsModalComponent implements OnChanges {
   }
 
   getEventsByDay() {
-    this.eventsService
-      .getAllEventsByDay(this.config!.date)
-      .subscribe((events) => {
-        this.events = events;
-      });
+    this.eventsService.getAllEventsByDay(this.config!.date).subscribe((events) => {
+      this.events = events;
+    });
   }
 }
