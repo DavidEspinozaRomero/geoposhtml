@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 
 import { Company } from '../../../../models';
 import { CompaniesService } from '../../../../services/companies.service';
@@ -14,6 +14,7 @@ import { FilterKeyValuePipe } from '../../../../pipes/filter-key-value.pipe';
 })
 export class CompaniesComponent implements OnInit {
   companiesService = inject(CompaniesService);
+  private readonly cdr = inject(ChangeDetectorRef);
   companies: Company[] = [];
   company: Company | undefined;
 
@@ -29,6 +30,7 @@ export class CompaniesComponent implements OnInit {
       })
       .add(() => {
         // agregar loader
+        this.cdr.detectChanges();
       });
   }
 

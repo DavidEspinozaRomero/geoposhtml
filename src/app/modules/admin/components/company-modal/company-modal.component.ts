@@ -8,6 +8,7 @@ import {
   inject,
   viewChild,
   OnChanges,
+  input,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
@@ -24,6 +25,7 @@ import { UtilsService } from '../../../../services/utils.service';
   styleUrl: './company-modal.component.scss',
 })
 export class CompanyModalComponent implements OnChanges {
+  modalTile = input<string>();
   @Input() company: Company | undefined;
   @Output() saveForm = new EventEmitter<Company>();
   fb = inject(FormBuilder);
