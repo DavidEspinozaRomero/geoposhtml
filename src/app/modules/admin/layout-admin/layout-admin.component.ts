@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 
 import { NgClass, TitleCasePipe } from '@angular/common';
+import { Auth } from '../../../services/auth';
 
 @Component({
   selector: 'app-layout-admin',
@@ -13,6 +14,8 @@ import { NgClass, TitleCasePipe } from '@angular/common';
 export class LayoutAdminComponent {
   //#region variables
   router = inject(Router);
+  auth = inject(Auth);
+
   menu = [
     // { icon: '', label: '', route: '' },
     // { icon: 'bi bi-building', label: 'brand name', route: './brand' },
@@ -60,8 +63,8 @@ export class LayoutAdminComponent {
   // }
 
   logout() {
-    localStorage.removeItem('token');
-    this.router.navigateByUrl('/auth');
+    this.auth.logout();
+    this.router.navigateByUrl('/login');
   }
   //#endregion methods
 }
