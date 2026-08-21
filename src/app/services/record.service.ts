@@ -31,7 +31,7 @@ export class RecordService {
     const URL = this.#URL + 'records/is-active/' + employeeID;
     return this.http.get<Record>(URL);
   }
-  getRecordsByEmployee(employeeID = 22) {
+  getRecordsByEmployee(employeeID: number) {
     const URL = `${this.#URL}records/by-employee/${employeeID}`;
     return this.http.get<Record[]>(URL).pipe(
       map((res: Record[]) => {

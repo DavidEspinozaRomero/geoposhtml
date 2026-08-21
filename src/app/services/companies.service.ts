@@ -17,7 +17,7 @@ export class CompaniesService {
   getCompanies() {
     const URL = this.#localURL + 'companies';
     return this.http.get<Company[]>(URL).pipe(
-      map((res: any) => {
+      map((res: Company[]) => {
         return res;
       }),
     );

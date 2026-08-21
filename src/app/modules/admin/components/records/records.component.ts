@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 
 import { EmployeesService, CompaniesService, RecordService } from '../../../../services';
 import { Record } from '../../../../models';
@@ -31,6 +31,7 @@ export class RecordsComponent implements OnInit {
   companiesService = inject(CompaniesService);
   recordService = inject(RecordService);
   utilsService = inject(UtilsService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   records: Record[] = [];
   selectedRecord: Record | undefined;
@@ -38,21 +39,26 @@ export class RecordsComponent implements OnInit {
   // companies: Company[] = [];
 
   ngOnInit(): void {
-    this.recordService.getRecords().subscribe((records) => {
-      this.records = records;
-      //   this.employeesService
-      //     .getEmployeeById(record.employeeId)
-      //     .subscribe((employee) => {
-      //       record.employeeName = employee.name;
-      //       record.employeeUsername = employee.username;
-      //     });
-      //   this.companiesService
-      //     .getCompanyById(record.companyId)
-      //     .subscribe((company) => {
-      //       record.companyName = company.name;
-      //     });
-      // });
-      this.records = records;
-    });
+    this.recordService
+      .getRecords()
+      .subscribe((records) => {
+        this.records = records;
+        //   this.employeesService
+        //     .getEmployeeById(record.employeeId)
+        //     .subscribe((employee) => {
+        //       record.employeeName = employee.name;
+        //       record.employeeUsername = employee.username;
+        //     });
+        //   this.companiesService
+        //     .getCompanyById(record.companyId)
+        //     .subscribe((company) => {
+        //       record.companyName = company.name;
+        //     });
+        // });
+        this.records = records;
+      })
+      .add(() => {
+        this.cdr.detectChanges();
+      });
   }
 }

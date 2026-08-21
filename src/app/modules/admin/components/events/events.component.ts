@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { DatePipe, UpperCasePipe } from '@angular/common';
 
 import { EventsService } from '../../../../services';
@@ -26,7 +26,7 @@ import { EventModalComponent } from '../event-modal/event-modal.component';
 })
 export class EventsComponent implements OnInit {
   eventsService = inject(EventsService);
-
+  private readonly cdr = inject(ChangeDetectorRef);
   // today = new Date();
   events: CalendarEvent[] = [];
   selectedEvent: CalendarEvent | undefined;
@@ -37,27 +37,31 @@ export class EventsComponent implements OnInit {
 
   initApis() {
     this.eventsService.getEvents().subscribe((events) => {
-      events.forEach((event: CalendarEvent) => {
-        // dependiendo el tipo de evento se le asigna un color
-        switch (event.typeId) {
-          case 1:
-            event.class = 'text-bg-primary';
-            break;
-          case 2:
-            event.class = 'text-bg-success';
-            break;
-          case 3:
-            event.class = 'text-bg-danger';
-            break;
-          case 4:
-            event.class = 'text-bg-warning';
-            break;
-          default:
-            event.class = 'text-bg-info';
-            break;
-        }
-      });
-      this.events = events;
+      events
+        .forEach((event: CalendarEvent) => {
+          // dependiendo el tipo de evento se le asigna un color
+          switch (event.typeId) {
+            case 1:
+              event.class = 'text-bg-primary';
+              break;
+            case 2:
+              event.class = 'text-bg-success';
+              break;
+            case 3:
+              event.class = 'text-bg-danger';
+              break;
+            case 4:
+              event.class = 'text-bg-warning';
+              break;
+            default:
+              event.class = 'text-bg-info';
+              break;
+          }
+          this.events = events;
+        })
+        .add(() => {
+          this.cdr.detectChanges();
+        });
     });
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { UpperCasePipe, NgClass } from '@angular/common';
 
 import { Company, Employee, Workday, WorkdaysResponse } from '../../../../models';
@@ -17,6 +17,7 @@ export class WorkdayComponent implements OnInit {
   employeesService = inject(EmployeesService);
   companiesService = inject(CompaniesService);
   wordaysService = inject(WordaysService);
+  private readonly cdr = inject(ChangeDetectorRef);
   employees: Employee[] = [];
   employee: Employee | undefined;
   companies: Company[] = [];
@@ -29,7 +30,6 @@ export class WorkdayComponent implements OnInit {
 
   ngOnInit(): void {
     this.initApis();
-    this.getWorkdaysByEmployee(17);
   }
 
   initApis() {
@@ -41,6 +41,7 @@ export class WorkdayComponent implements OnInit {
       })
       .add(() => {
         // agregar loader
+        this.cdr.detectChanges();
       });
 
     this.companiesService
@@ -50,20 +51,24 @@ export class WorkdayComponent implements OnInit {
       })
       .add(() => {
         // agregar loader
+        this.cdr.detectChanges();
       });
   }
 
   getWorkdaysByEmployee(employeeID: number) {
-    this.wordaysService.getWordaysByEmployee(employeeID).subscribe();
+    this.wordaysService
+      .getWordaysByEmployee(employeeID)
+      .subscribe()
+      .add(() => {
+        this.cdr.detectChanges();
+      });
   }
 
   // getEmployee(employee: Employee) {
   getEmployee(target: HTMLSelectElement) {
     const employeeID = target.value;
     const employee = this.employees.find((employee) => employeeID == employee.id);
-    if (!employee) {
-      return;
-    }
+    if (!employee) return;
     if (!employee.workdays) this.getAndFillWorkdays(+employeeID, employee);
     this.employee = employee;
   }
@@ -92,6 +97,7 @@ export class WorkdayComponent implements OnInit {
               companiesIDs: workdaysByDay.map((workday) => workday.companyID),
             };
           });
+        this.cdr.detectChanges();
       });
   }
 

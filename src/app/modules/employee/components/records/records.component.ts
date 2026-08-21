@@ -10,6 +10,7 @@ import {
 import { Record, Company, Employee } from '../../../../models';
 import { FilterDatePipe, FilterRecordEmployeeIncidentsPipe } from '../../../../pipes';
 import { RecordModalComponent } from '../record-modal/record-modal.component';
+import { Auth } from '../../../../services/auth';
 
 @Component({
   selector: 'app-records',
@@ -19,6 +20,7 @@ import { RecordModalComponent } from '../record-modal/record-modal.component';
   styleUrl: './records.component.scss',
 })
 export class RecordsComponent implements OnInit {
+  auth = inject(Auth);
   employeesService = inject(EmployeesService);
   companiesService = inject(CompaniesService);
   recordService = inject(RecordService);
@@ -29,8 +31,10 @@ export class RecordsComponent implements OnInit {
   employees: Employee[] = [];
   companies: Company[] = [];
 
+  // todo: add employeeID to getRecordsByEmployee method to get records for a specific employee
+
   ngOnInit(): void {
-    this.recordService.getRecordsByEmployee().subscribe((records) => {
+    this.recordService.getRecordsByEmployee(22).subscribe((records) => {
       records.forEach((record: Record) => {
         this.employeesService.getEmployeeById(record.employeeId).subscribe((employee) => {
           if (employee) {
