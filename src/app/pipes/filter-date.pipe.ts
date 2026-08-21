@@ -9,23 +9,16 @@ export class FilterDatePipe implements PipeTransform {
   transform(arr: Record[], value: string): Record[] {
     if (!arr.length) return arr;
     if (!value) return arr;
-    const inputDate = new Date(value);
-    const records = arr
-      .filter((record) => {
-        const recordYear = new Date(record.geoStart.timestamp).getFullYear();
-        const inputYear = inputDate.getFullYear();
-        return recordYear === inputYear;
-      })
-      .filter((record) => {
-        const recordMonth = new Date(record.geoStart.timestamp).getMonth();
-        const inputMonth = inputDate.getMonth();
-        return recordMonth === inputMonth;
-      })
-      .filter((record) => {
-        const recordDay = new Date(record.geoStart.timestamp).getDate();
-        const inputDay = inputDate.getDate();
-        return recordDay === inputDay;
-      });
+    const [year, month, day] = value.split('-').map(Number);
+    const inputDate = new Date(year, month - 1, day);
+    const records = arr.filter((record) => {
+      const recordDate = new Date(+record.geoStart.timestamp);
+      return (
+        recordDate.getFullYear() === inputDate.getFullYear() &&
+        recordDate.getMonth() === inputDate.getMonth() &&
+        recordDate.getDate() === inputDate.getDate()
+      );
+    });
 
     return records;
   }
