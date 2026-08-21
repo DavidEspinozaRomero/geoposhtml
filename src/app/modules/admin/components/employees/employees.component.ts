@@ -1,11 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 
 import { Employee } from '../../../../models/employee.model';
 import { EmployeesService } from '../../../../services/employees.service';
 import { FilterEmployeeByNameUsernamePipe } from '../../../../pipes/filter-employee-by-name-username.pipe';
-import { EmployeeModalComponent } from '../employee-modal/employee-modal.component';
 import { FilterActiveEmployeesPipe } from '../../../../pipes/filter-active-employees.pipe';
 import { FilterCompanyEmployeePipe } from '../../../../pipes/filter-company-employee.pipe';
+import { EmployeeModalComponent } from '../employee-modal/employee-modal.component';
 import { EmptyComponent, LoadingComponent } from '../../../../components';
 
 @Component({
@@ -24,6 +24,7 @@ import { EmptyComponent, LoadingComponent } from '../../../../components';
 })
 export class EmployeesComponent implements OnInit {
   employeesService = inject(EmployeesService);
+  private readonly cdr = inject(ChangeDetectorRef);
   // employees: Observable<Employee[]> = this.employeesService.getEmployees();
   employees: Employee[] = [];
   employee: Employee | undefined;
@@ -46,8 +47,10 @@ export class EmployeesComponent implements OnInit {
       })
       .add(() => {
         this.config.loading = false;
+        this.cdr.detectChanges();
       });
   }
+
   removeEmployee(employee: Employee, i_employee: number) {
     this.employees.splice(i_employee, 1);
     // this.employeesService
