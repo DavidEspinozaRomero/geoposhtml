@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 
 import { EventsService } from '../../../../services/events.service';
-import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, computed, inject, signal } from '@angular/core';
 import { Calendar } from '../../../../models';
 import { EventsModalComponent } from '../events-modal/events-modal.component';
 
@@ -14,6 +14,7 @@ import { EventsModalComponent } from '../events-modal/events-modal.component';
 })
 export class CalendarComponent implements OnInit {
   eventsService = inject(EventsService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   // today = signal<Date>(new Date());
   now = signal<Date>(new Date());
@@ -27,13 +28,17 @@ export class CalendarComponent implements OnInit {
   modalConfig: { date: string; typeEvent: number } | undefined;
 
   ngOnInit(): void {
+    this.loadCalendarEvents();
+  }
+
+  loadCalendarEvents() {
     this.eventsService
-      .getEventsOfCalendar(new Date())
+      .getEventsOfCalendar(this.now())
       .subscribe((calendarEvents) => {
         this.calendarEvents = calendarEvents as Calendar[];
       })
       .add(() => {
-        // agregar loader
+        this.cdr.detectChanges();
       });
   }
 
@@ -45,7 +50,7 @@ export class CalendarComponent implements OnInit {
   getIconbyEvent(day: number) {
     const calendarDay = day + 1;
     const currentDay = this.calendarEvents.find((day) => {
-      return new Date(day.date + ':').getDate() === calendarDay;
+      return new Date(day.date).getDate() === calendarDay;
     });
     return currentDay;
   }
@@ -57,13 +62,6 @@ export class CalendarComponent implements OnInit {
 
   changeMonth(quantity: number) {
     this.now.update((d) => new Date(d.getFullYear(), d.getMonth() + quantity));
-    this.eventsService
-      .getEventsOfCalendar(new Date())
-      .subscribe((calendarEvents) => {
-        this.calendarEvents = calendarEvents as Calendar[];
-      })
-      .add(() => {
-        // agregar loader
-      });
+    this.loadCalendarEvents();
   }
 }

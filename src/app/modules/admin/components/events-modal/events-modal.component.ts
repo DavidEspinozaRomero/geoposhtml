@@ -23,7 +23,7 @@ export class EventsModalComponent implements OnChanges {
   ngOnChanges(_changes: SimpleChanges): void {
     if (!this.config) return;
 
-    this.day = new Date(this.config?.date + ':');
+    this.day = new Date(this.config?.date ?? '');
     this.getEventsByDay();
   }
 

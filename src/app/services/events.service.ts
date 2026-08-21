@@ -39,33 +39,26 @@ export class EventsService {
   }
 
   getEventsOfCalendarByEmployee(date: Date) {
-    const URL = this.#URL + 'calendar.json';
+    const URL = this.#URL + 'calendar';
     return this.http
       .get(URL, { params: { date: date.toJSON() } })
       .pipe(map((res: any) => res.calendar));
   }
 
   getEventsOfCalendar(date: Date) {
-    const URL = this.#URL + 'calendar.json';
+    const URL = this.#URL + 'calendar';
     return this.http
       .get(URL, { params: { date: date.toJSON() } })
       .pipe(map((res: any) => res.calendar));
   }
 
   getEventsByMonth(_date: Date) {
-    const URL = this.#URL + 'events.json';
+    const URL = this.#URL + 'events';
     return this.http.get<CalendarEvent[]>(URL).pipe(map((res: any) => res.events));
   }
 
   getAllEventsByDay(date: string, typeEvent = 0) {
-    const URL = this.#URL + 'events.json';
-    return this.http.get<CalendarEvent[]>(URL, { params: { date, typeEvent } }).pipe(
-      map((res: any) =>
-        res.events.filter((event: CalendarEvent) => {
-          if (event.date === date) return event;
-          return false;
-        }),
-      ),
-    );
+    const URL = this.#URL + 'events/by-day';
+    return this.http.get<CalendarEvent[]>(URL, { params: { date, typeEvent } });
   }
 }
