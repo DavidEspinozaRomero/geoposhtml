@@ -29,6 +29,7 @@ export class EventsComponent implements OnInit {
   private readonly cdr = inject(ChangeDetectorRef);
   // today = new Date();
   events: CalendarEvent[] = [];
+  eventTypes: { id: number; name: string }[] = [];
   selectedEvent: CalendarEvent | undefined;
 
   ngOnInit(): void {
@@ -36,9 +37,10 @@ export class EventsComponent implements OnInit {
   }
 
   initApis() {
-    this.eventsService.getEvents().subscribe((events) => {
-      events
-        .forEach((event: CalendarEvent) => {
+    this.eventsService
+      .getEvents()
+      .subscribe((events) => {
+        events.forEach((event: CalendarEvent) => {
           // dependiendo el tipo de evento se le asigna un color
           switch (event.typeId) {
             case 1:
@@ -57,11 +59,15 @@ export class EventsComponent implements OnInit {
               event.class = 'text-bg-info';
               break;
           }
-          this.events = events;
-        })
-        .add(() => {
-          this.cdr.detectChanges();
         });
+        this.events = events;
+      })
+      .add(() => {
+        this.cdr.detectChanges();
+      });
+
+    this.eventsService.getEventTypes().subscribe((types) => {
+      this.eventTypes = types;
     });
   }
 
@@ -75,7 +81,6 @@ export class EventsComponent implements OnInit {
   createEvent(event: CalendarEvent) {
     this.eventsService.createEvent(event).subscribe((data: CalendarEvent) => {
       this.events.unshift(data);
-      // this.events.push(data);
     });
   }
 
@@ -89,10 +94,8 @@ export class EventsComponent implements OnInit {
   }
 
   deleteEvent(event: CalendarEvent, i_event: number) {
-    // this.eventsService
-    //   .deleteEvent(event)
-    //   .subscribe((data: CalendarEvent) => {
-    //   });
-    this.events.splice(i_event, 1);
+    this.eventsService.deleteEvent(event).subscribe(() => {
+      this.events.splice(i_event, 1);
+    });
   }
 }

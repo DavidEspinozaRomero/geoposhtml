@@ -39,11 +39,9 @@
       (change)="(inputEventType)"
     >
       <option selected value="">Todos</option>
-      <!-- TODO: llamar Api agregar tipo de eventos  -->
-      <option value="1">Feriado</option>
-      <option value="2">Vacaciones</option>
-      <option value="3">It's</option>
-      <option value="4">Ausencia</option>
+      @for (type of eventTypes; track type.id) {
+        <option [value]="type.id">{{ type.name }}</option>
+      }
     </select>
   </div>
 </div>

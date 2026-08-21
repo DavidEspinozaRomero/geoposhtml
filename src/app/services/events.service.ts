@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { map, of } from 'rxjs';
+import { map } from 'rxjs';
+
 import { CalendarEvent } from '../models/event.model';
 import { environment } from '../../environments/environment';
 
@@ -18,11 +19,23 @@ export class EventsService {
   }
 
   createEvent(event: CalendarEvent) {
-    const data = { ...event, id: crypto.randomUUID() };
-    return of(data);
+    const URL = this.#URL + 'events';
+    return this.http.post<CalendarEvent>(URL, event);
   }
+
   updateEvent(event: CalendarEvent) {
-    return of(event);
+    const URL = this.#URL + 'events/' + event.id;
+    return this.http.patch<CalendarEvent>(URL, event);
+  }
+
+  deleteEvent(event: CalendarEvent) {
+    const URL = this.#URL + 'events/' + event.id;
+    return this.http.delete<CalendarEvent>(URL);
+  }
+
+  getEventTypes() {
+    const URL = this.#URL + 'event-types';
+    return this.http.get<any[]>(URL);
   }
 
   getEventsOfCalendarByEmployee(date: Date) {
@@ -31,16 +44,19 @@ export class EventsService {
       .get(URL, { params: { date: date.toJSON() } })
       .pipe(map((res: any) => res.calendar));
   }
+
   getEventsOfCalendar(date: Date) {
     const URL = this.#URL + 'calendar.json';
     return this.http
       .get(URL, { params: { date: date.toJSON() } })
       .pipe(map((res: any) => res.calendar));
   }
+
   getEventsByMonth(_date: Date) {
     const URL = this.#URL + 'events.json';
     return this.http.get<CalendarEvent[]>(URL).pipe(map((res: any) => res.events));
   }
+
   getAllEventsByDay(date: string, typeEvent = 0) {
     const URL = this.#URL + 'events.json';
     return this.http.get<CalendarEvent[]>(URL, { params: { date, typeEvent } }).pipe(
@@ -51,10 +67,5 @@ export class EventsService {
         }),
       ),
     );
-  }
-
-  getEventTypes() {
-    const URL = this.#URL + 'event-types.json';
-    return this.http.get(URL).pipe(map((res: any) => res.eventTypes));
   }
 }
