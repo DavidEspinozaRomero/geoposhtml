@@ -71,7 +71,7 @@
         <td>{{ event.date | date: 'mediumDate' }}</td>
         <td>
           <span class="badge" [class]="event.class">
-            {{ event.type | uppercase }}
+            {{ event.eventType.name | uppercase }}
           </span>
         </td>
         <td>{{ event.title }}</td>

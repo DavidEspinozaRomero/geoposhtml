@@ -16,7 +16,7 @@
       </div>
       <div class="modal-body">
         @for (event of events; let i = $index; track i) {
-          <h3>{{ event.type }} - {{ event.title }}</h3>
+          <h3>{{ event.eventType.name }} - {{ event.title }}</h3>
           <p>{{ event.description }}</p>
         } @empty {
           <h3>No hay eventos</h3>

@@ -15,7 +15,7 @@ export class EventsService {
 
   getEvents() {
     const URL = this.#URL + 'events';
-    return this.http.get<CalendarEvent[]>(URL).pipe(map((res: any) => res.events));
+    return this.http.get<CalendarEvent[]>(URL);
   }
 
   createEvent(event: CalendarEvent) {
@@ -39,7 +39,7 @@ export class EventsService {
   }
 
   getEventsOfCalendarByEmployee(date: Date) {
-    const URL = this.#URL + 'calendar';
+    const URL = this.#URL + 'events/by-employee';
     return this.http
       .get(URL, { params: { date: date.toJSON() } })
       .pipe(map((res: any) => res.calendar));
@@ -54,7 +54,7 @@ export class EventsService {
 
   getEventsByMonth(_date: Date) {
     const URL = this.#URL + 'events';
-    return this.http.get<CalendarEvent[]>(URL).pipe(map((res: any) => res.events));
+    return this.http.get<CalendarEvent[]>(URL);
   }
 
   getAllEventsByDay(date: string, typeEvent = 0) {

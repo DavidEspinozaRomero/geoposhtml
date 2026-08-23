@@ -42,7 +42,8 @@ export class EventsComponent implements OnInit {
       .subscribe((events) => {
         events.forEach((event: CalendarEvent) => {
           // dependiendo el tipo de evento se le asigna un color
-          switch (event.typeId) {
+          // todo: agregar un campo: warning, success, danger, info, primary, secondary, dark, para segun el tipo de evento asignarle un color
+          switch (event.eventType?.id) {
             case 1:
               event.class = 'text-bg-primary';
               break;

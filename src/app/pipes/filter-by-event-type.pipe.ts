@@ -9,6 +9,6 @@ export class FilterByEventTypePipe implements PipeTransform {
   transform(arr: CalendarEvent[], value: string): CalendarEvent[] {
     if (!arr.length) return arr;
     if (!value) return arr;
-    return arr.filter((event) => event.typeId === +value);
+    return arr.filter((event) => event.eventType?.id === +value);
   }
 }
