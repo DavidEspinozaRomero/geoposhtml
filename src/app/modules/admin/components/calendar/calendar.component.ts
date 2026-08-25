@@ -1,67 +1,71 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, KeyValuePipe, TitleCasePipe } from '@angular/common';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 
-import { EventsService } from '../../../../services/events.service';
-import { ChangeDetectorRef, Component, OnInit, computed, inject, signal } from '@angular/core';
-import { Calendar } from '../../../../models';
-import { EventsModalComponent } from '../events-modal/events-modal.component';
+import { CalendarService } from '../../../../services/calendar.service';
+import { CalendarDay, CalendarEmployee } from '../../../../models';
+import { EmptyComponent, LoadingComponent } from '../../../../components';
 
 @Component({
   selector: 'app-calendar',
   standalone: true,
-  imports: [DatePipe, EventsModalComponent],
+  imports: [DatePipe, KeyValuePipe, TitleCasePipe, LoadingComponent, EmptyComponent],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss',
 })
 export class CalendarComponent implements OnInit {
-  eventsService = inject(EventsService);
-  private readonly cdr = inject(ChangeDetectorRef);
+  private readonly calendarService = inject(CalendarService);
 
-  // today = signal<Date>(new Date());
   now = signal<Date>(new Date());
   year = computed(() => this.now().getFullYear());
-  month = computed(() => this.now().getMonth()); // 0-11
-  // day = this.today().getDate();
-  monthDays = computed(() => new Date(this.year(), this.month() + 1, 0).getDate());
-  calendarDays = computed(() => Array(this.monthDays()));
+  month = computed(() => this.now().getMonth());
+  monthLabel = computed(() => {
+    const d = new Date(this.year(), this.month());
+    return d.toLocaleDateString('es-ES', { year: 'numeric', month: 'long' });
+  });
+  monthParam = computed(() => {
+    const m = String(this.month() + 1).padStart(2, '0');
+    return `${this.year()}-${m}`;
+  });
 
-  calendarEvents: Calendar[] = [];
-  modalConfig: { date: string; typeEvent: number } | undefined;
+  loading = signal(false);
+  employees = signal<{ employee: CalendarEmployee; days: CalendarDay[] }[]>([]);
+  selectedDay = signal<CalendarDay | null>(null);
+
+  statusColor: Record<string, string> = {
+    complete: 'success',
+    partial: 'warning',
+    absent: 'danger',
+    rest: 'secondary',
+    event: 'info',
+  };
 
   ngOnInit(): void {
-    this.loadCalendarEvents();
+    this.loadMonth();
   }
 
-  loadCalendarEvents() {
-    this.eventsService
-      .getEventsOfCalendar(this.now())
-      .subscribe((calendarEvents) => {
-        this.calendarEvents = calendarEvents as Calendar[];
+  loadMonth() {
+    this.loading.set(true);
+    this.calendarService
+      .getMonth(this.monthParam())
+      .subscribe({
+        next: (res) => {
+          this.employees.set(res.employees);
+        },
+        error: () => {
+          this.employees.set([]);
+        },
       })
       .add(() => {
-        this.cdr.detectChanges();
+        this.loading.set(false);
       });
-  }
-
-  getDateSelected(day: number) {
-    const date = new Date(this.year(), this.month(), day + 1);
-    return date;
-  }
-
-  getIconbyEvent(day: number) {
-    const calendarDay = day + 1;
-    const currentDay = this.calendarEvents.find((day) => {
-      return new Date(day.date).getDate() === calendarDay;
-    });
-    return currentDay;
-  }
-
-  fillConfig(year: number, month: number, day: number, typeEvent: number) {
-    const date = new Date(year, month, day + 1).toJSON().slice(0, 10);
-    this.modalConfig = { date, typeEvent };
   }
 
   changeMonth(quantity: number) {
     this.now.update((d) => new Date(d.getFullYear(), d.getMonth() + quantity));
-    this.loadCalendarEvents();
+    this.loadMonth();
+  }
+
+  selectDay(day: CalendarDay) {
+    this.selectedDay.set(day);
   }
 }

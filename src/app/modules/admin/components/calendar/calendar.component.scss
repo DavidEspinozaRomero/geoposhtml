@@ -1,11 +1,22 @@
-//grid 7 col
-.calendar {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 0.25rem;
-  .calendar_day {
-    // width: 100%;
-    border: 1px solid #dee2e6;
-    border-radius: 0.25rem;
+.calendar-table {
+  font-size: 0.85rem;
+
+  .sticky-col {
+    position: sticky;
+    left: 0;
+    background: white;
+    z-index: 1;
+    min-width: 160px;
+  }
+
+  .calendar-cell {
+    min-width: 60px;
+    cursor: pointer;
+    transition: transform 0.1s;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    }
   }
 }

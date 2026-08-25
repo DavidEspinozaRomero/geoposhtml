@@ -4,16 +4,15 @@ Administrador y Jordana de Empleados
 
 ## TODOs
 
-<!-- Integración APIs -->
+<!-- Must -->
+- agregar un campo a event-type: error, warning, success, danger, info, etc para segun el tipo de evento asignarle un color
 
-1. Administrador
+<!-- Integración APIs -->
 
 ### Administrador
 
 <!-- Integración APIs -->
 
-- Eventos
-- Calendario
 
 <!-- Documentos -->
 
@@ -42,6 +41,8 @@ Administrador y Jordana de Empleados
 - Employee
 - Workday
 - Registros
+- Eventos
+- Calendario
 
 - Pantallas (CRUD(Empleados/Empresas), Gestion(jornada laboral), Login, Registros, Eventos(CRUD), Calendario)
 - Añadir usuarios
@@ -62,7 +63,6 @@ Administrador y Jordana de Empleados
   <!-- Integración APIs -->
 
 - Workday
-
 - Pantallas (Workday, Calendario, Eventos, Registros)
 - Registro de fecha, hora y ubicación de entrada.
 - Registro de fecha, hora y ubicación de salida.
