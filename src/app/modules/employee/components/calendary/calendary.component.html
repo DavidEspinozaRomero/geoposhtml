@@ -1,105 +1,91 @@
 <h1>Calendario</h1>
-<div class="row">
-  <div class="col-4"></div>
-  <div class="col">
-    <h3 class="">
-      <button
-        class="btn btn-outline-primary btn-sm bi bi-caret-left-fill me-2"
-        (click)="changeMonth(-1)"
-        role="button"
-        tabindex="0"
-      >
-        <span class="visually-hidden">Left</span>
-      </button>
-      <button
-        class="btn btn-outline-primary btn-sm bi bi-caret-right-fill me-2"
-        (click)="changeMonth(1)"
-        role="button"
-        tabindex="0"
-      >
-        <span class="visually-hidden">Right</span>
-      </button>
-      {{ this.now() | date: 'y - MMMM' }}<i class="bi bi-calendar3 ms-2"></i>
-    </h3>
+
+<!-- navigation -->
+<div class="row align-items-center mb-3">
+  <div class="col-auto">
+    <button
+      class="btn btn-outline-primary btn-sm bi bi-caret-left-fill"
+      (click)="changeMonth(-1)"
+      role="button"
+      tabindex="0"
+    >
+      <span class="visually-hidden">Anterior</span>
+    </button>
   </div>
-  <div class="col-auto"></div>
-</div>
-<div class="calendar">
-  @for (day of calendarDays(); let i_day = $index; track i_day) {
-    <div class="calendar_day p-2">
-      <p class="text-center">
-        {{ getDateSelected(i_day) | date: 'EEEE, d' }}
-      </p>
-      <div class="text-center events">
-        @for (
-          eventType of getIconbyEvent(i_day)?.eventTypeIds;
-          let i_eventType = $index;
-          track i_eventType
-        ) {
-          @if (eventType === 1) {
-            <button
-              class="px-1 me-2 my-1 d-inline-block border border-primary rounded bi bi-balloon"
-              data-bs-toggle="modal"
-              data-bs-target="#eventsEmployeeModal"
-              (click)="fillConfig(year(), month(), i_day, eventType)"
-              role="button"
-              tabindex="0"
-            >
-              <span class="visually-hidden">Feriado</span>
-            </button>
-          }
-          @if (eventType === 2) {
-            <button
-              class="px-1 me-2 my-1 d-inline-block border border-primary rounded bi bi-airplane"
-              data-bs-toggle="modal"
-              data-bs-target="#eventsEmployeeModal"
-              (click)="fillConfig(year(), month(), i_day, eventType)"
-              role="button"
-              tabindex="0"
-            >
-              <span class="visually-hidden">Vacaciones</span>
-            </button>
-          }
-          @if (eventType === 3) {
-            <button
-              class="px-1 me-2 my-1 d-inline-block border border-primary rounded bi bi-twitter"
-              data-bs-toggle="modal"
-              data-bs-target="#eventsEmployeeModal"
-              (click)="fillConfig(year(), month(), i_day, eventType)"
-              role="button"
-              tabindex="0"
-            >
-              <span class="visually-hidden">It's</span>
-            </button>
-          }
-          @if (eventType === 4) {
-            <button
-              class="px-1 me-2 my-1 d-inline-block border border-primary rounded bi bi-person"
-              data-bs-toggle="modal"
-              data-bs-target="#eventsEmployeeModal"
-              (click)="fillConfig(year(), month(), i_day, eventType)"
-              role="button"
-              tabindex="0"
-            >
-              <span class="visually-hidden">Ausencia</span>
-            </button>
-          }
-        }
-        <button
-          class="px-1 me-2 my-1 d-inline-block border border-primary rounded bi bi-info"
-          data-bs-toggle="modal"
-          data-bs-target="#eventsEmployeeModal"
-          (click)="fillConfig(year(), month(), i_day, 0)"
-          role="button"
-          tabindex="0"
-        >
-          <span class="visually-hidden">Info</span>
-        </button>
-        <!-- {{  | json }} -->
-      </div>
-    </div>
-  }
+  <div class="col">
+    <h3 class="mb-0">{{ monthLabel() | titlecase }}<i class="bi bi-calendar3 ms-2"></i></h3>
+  </div>
+  <div class="col-auto">
+    <button
+      class="btn btn-outline-primary btn-sm bi bi-caret-right-fill"
+      (click)="changeMonth(1)"
+      role="button"
+      tabindex="0"
+    >
+      <span class="visually-hidden">Siguiente</span>
+    </button>
+  </div>
 </div>
 
-<!-- modal -->
-<app-calendary-modal [config]="modalConfig"></app-calendary-modal>
+@if (loading()) {
+  <app-loading></app-loading>
+} @else {
+  @if (days().length === 0) {
+    <app-empty></app-empty>
+  } @else {
+    <!-- employee calendar grid -->
+    <div class="calendar">
+      @for (day of days(); track day.date) {
+        <div
+          class="calendar_day p-2"
+          [class.bg-success-subtle]="day.status === 'complete'"
+          [class.bg-warning-subtle]="day.status === 'partial'"
+          [class.bg-danger-subtle]="day.status === 'absent'"
+          [class.bg-secondary-subtle]="day.status === 'rest'"
+          [class.bg-info-subtle]="day.status === 'event'"
+          role="button"
+          tabindex="0"
+          (click)="selectDay(day)"
+          (keydown.enter)="selectDay(day)"
+          (keydown.space)="selectDay(day)"
+        >
+          <p class="text-center mb-1">
+            <small>{{ day.date | date: 'EEE, d' }}</small>
+          </p>
+          @if (day.workday) {
+            <p class="text-center mb-1">
+              <small class="badge bg-primary">J{{ day.workday.day }}</small>
+            </p>
+          }
+          @if (day.records.length) {
+            <p class="text-center mb-1">
+              <small class="text-muted">
+                {{ day.records[0].checkIn }}
+                @if (day.records[0].checkOut) {
+                  - {{ day.records[0].checkOut }}
+                }
+              </small>
+            </p>
+          }
+          @for (event of day.events; track event.id) {
+            <p class="text-center mb-0">
+              <small class="badge bg-info" [title]="event.title">{{ event.eventType.name }}</small>
+            </p>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- legend -->
+    <div class="mt-2 d-flex gap-3">
+      <span><span class="badge bg-success">completo</span></span>
+      <span><span class="badge bg-warning">parcial</span></span>
+      <span><span class="badge bg-danger">ausente</span></span>
+      <span><span class="badge bg-secondary">descanso</span></span>
+      <span><span class="badge bg-info">evento</span></span>
+    </div>
+  }
+}
+
+<!-- day detail modal -->
+<app-calendary-modal [day]="selectedDay()"></app-calendary-modal>

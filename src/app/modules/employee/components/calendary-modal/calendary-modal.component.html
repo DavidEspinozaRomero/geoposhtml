@@ -1,32 +1,47 @@
-<!-- Modal -->
-<div
-  class="modal fade"
-  id="eventsEmployeeModal"
-  tabindex="-1"
-  aria-labelledby="eventsEmployeeModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-primary text-bg-primary">
-        <h1 class="modal-title fs-5" id="eventsEmployeeModalLabel">
-          Eventos del dia - {{ day | date: 'mediumDate' }}
-        </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        @for (event of events; let i = $index; track i) {
-          <h3>{{ event.eventType.name }} - {{ event.title }}</h3>
-          <p>{{ event.description }}</p>
-        } @empty {
-          <h3>No hay eventos</h3>
-        }
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #btnClose>
-          Cerrar
-        </button>
+@if (day) {
+  <div class="modal fade show d-block" tabindex="-1" style="background: rgba(0, 0, 0, 0.5)">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-bg-primary">
+          <h5 class="modal-title">{{ day.date | date: 'fullDate' }}</h5>
+          <button type="button" class="btn-close" (click)="day = null"></button>
+        </div>
+        <div class="modal-body">
+          <p>
+            <strong>Estado:</strong>
+            <span class="badge" [class]="'bg-' + statusColor(day.status)">{{ day.status }}</span>
+          </p>
+
+          @if (day.workday) {
+            <p><strong>Jornada:</strong> Día {{ day.workday.day }}</p>
+          }
+
+          @if (day.records.length) {
+            <h6>Registros</h6>
+            @for (record of day.records; track record.id) {
+              <ul class="list-unstyled">
+                <li>Entrada: {{ record.checkIn }}</li>
+                @if (record.checkOut) {
+                  <li>Salida: {{ record.checkOut }}</li>
+                }
+                @if (record.incident) {
+                  <li class="text-danger">Incidencia: {{ record.incident }}</li>
+                }
+              </ul>
+            }
+          }
+
+          @if (day.events.length) {
+            <h6>Eventos</h6>
+            @for (event of day.events; track event.id) {
+              <p>{{ event.eventType.name }} — {{ event.title }}</p>
+            }
+          }
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="day = null">Cerrar</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+}

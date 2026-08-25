@@ -1,11 +1,17 @@
-//grid 7 col
 .calendar {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 0.25rem;
+
   .calendar_day {
-    // width: 100%;
     border: 1px solid #dee2e6;
     border-radius: 0.25rem;
+    min-height: 5rem;
+    cursor: pointer;
+    transition: transform 0.1s;
+
+    &:hover {
+      transform: scale(1.02);
+    }
   }
 }

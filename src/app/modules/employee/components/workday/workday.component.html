@@ -1,7 +1,7 @@
-<!-- titulo : fecha  -->
 <div class="workday mx-auto p-5">
   <h2 class="text-center mb-3">Hoy es: {{ today | date: 'mediumDate' }}</h2>
-  @if (!record) {
+
+  @if (!record()) {
     <!-- empezar jornada -->
     <div class="mb-3 p-3 bg-secondary-subtle rounded">
       <select
@@ -11,8 +11,8 @@
         [formControl]="companyIdForm"
       >
         <option disabled selected value="">-- Seleccione Empresa --</option>
-        @for (company of companies; let i_company = $index; track i_company) {
-          <option value="{{ company.id }}">{{ company.name }}</option>
+        @for (company of companies(); track company.id) {
+          <option [value]="company.id">{{ company.name }}</option>
         }
       </select>
       @if (isValid(companyIdForm)) {
@@ -23,15 +23,15 @@
   } @else {
     <!-- finalizar jornada -->
     <div class="p-3 bg-secondary-subtle rounded">
-      <h5 class="text-center">Empresa: {{ record.companyName }}</h5>
+      <h5 class="text-center">Empresa: {{ record()!.companyName }}</h5>
       <hr />
-      <p>Fecha inicio: {{ record.geoStart.timestamp | date: 'MMM dd, h:mm:ss a' }}</p>
-      @if (!record.isActive && record.geoEnd) {
-        <p>Fecha fin: {{ record.geoEnd.timestamp | date: 'MMM dd, h:mm:ss a' }}</p>
-        <!-- mostrar tiempo entre inicio y fin de la jornada -->
+      <p>Fecha inicio: {{ record()!.geoStart.timestamp | date: 'MMM dd, h:mm:ss a' }}</p>
+
+      @if (!record()!.isActive && record()!.geoEnd) {
+        <p>Fecha fin: {{ record()!.geoEnd!.timestamp | date: 'MMM dd, h:mm:ss a' }}</p>
         <p>
           Duración jornada laboral:
-          {{ getDiffTime(record.geoStart.timestamp, record.geoEnd.timestamp) }}
+          {{ getDiffTime(record()!.geoStart.timestamp, record()!.geoEnd!.timestamp) }}
         </p>
       }
 
@@ -40,19 +40,17 @@
         <i
           class="text-primary bi bi-info-circle-fill me-2 pointer"
           [title]="
-            'Presición: ' +
-            record.geoStart.accuracy.toFixed(2) +
-            ' metros' +
-            '\n ' +
+            'Precisión: ' +
+            record()!.geoStart.accuracy.toFixed(2) +
+            ' metros\n' +
             'Latitud: ' +
-            record.geoStart.latitude +
-            '\n ' +
-            'Longitud: ' +
-            record.geoStart.longitude
+            record()!.geoStart.latitude +
+            '\nLongitud: ' +
+            record()!.geoStart.longitude
           "
         ></i>
         <a
-          [href]="googlemapurl"
+          [href]="getGoogleMapUrl(record()!.geoStart)"
           target="_blank"
           rel="noopener noreferrer"
           class="btn btn-primary btn-sm"
@@ -61,16 +59,14 @@
         </a>
       </p>
 
-      @if (record.isActive && !record.geoEnd) {
+      @if (record()!.isActive && !record()!.geoEnd) {
         <div class="form-floating mb-3">
           <textarea
             class="form-control"
             placeholder="Agregar una incidencia"
             [formControl]="incidentForm"
             id="floatingTextarea"
-            [ngClass]="{
-              'is-invalid': isValid(incidentForm),
-            }"
+            [ngClass]="{ 'is-invalid': isValid(incidentForm) }"
           ></textarea>
           <label for="floatingTextarea">Incidencia</label>
           @if (isValid(incidentForm)) {
@@ -79,43 +75,42 @@
         </div>
         <button class="btn btn-primary" (click)="endWorkday()">Finalizar Jornada</button>
       } @else {
-        <p>
-          Geolocalización fin:
-          <i
-            class="text-primary bi bi-info-circle-fill me-2 pointer"
-            [title]="
-              'Presición: ' +
-              record.geoEnd!.accuracy.toFixed(2) +
-              ' metros' +
-              '\n ' +
-              'Latitud: ' +
-              record.geoEnd!.latitude +
-              '\n ' +
-              'Longitud: ' +
-              record.geoEnd!.longitude
-            "
-          ></i>
-          <a
-            [href]="googlemapurl"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-primary btn-sm"
-          >
-            Ver en el mapa <i class="bi bi-geo-alt-fill"></i>
-          </a>
-        </p>
+        @if (record()!.geoEnd) {
+          <p>
+            Geolocalización fin:
+            <i
+              class="text-primary bi bi-info-circle-fill me-2 pointer"
+              [title]="
+                'Precisión: ' +
+                record()!.geoEnd!.accuracy.toFixed(2) +
+                ' metros\n' +
+                'Latitud: ' +
+                record()!.geoEnd!.latitude +
+                '\nLongitud: ' +
+                record()!.geoEnd!.longitude
+              "
+            ></i>
+            <a
+              [href]="getGoogleMapUrl(record()!.geoEnd!)"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary btn-sm"
+            >
+              Ver en el mapa <i class="bi bi-geo-alt-fill"></i>
+            </a>
+          </p>
+        }
 
-        <p>Incidente: {{ record.incident ?? 'Sin Incidencia' }}</p>
+        <p>Incidente: {{ record()!.incident ?? 'Sin Incidencia' }}</p>
         <p>Jornada finalizada</p>
         <div class="text-center">
-          <button (click)="resetWorkday()" class="btn btn-outline-primary">Regresar</button>
+          <button (click)="record.set(undefined)" class="btn btn-outline-primary">Regresar</button>
         </div>
       }
     </div>
   }
 </div>
 
-<!-- errores -->
-@if (message) {
-  <p class="alert alert-warning">{{ message }}</p>
+@if (message()) {
+  <p class="alert alert-warning">{{ message() }}</p>
 }

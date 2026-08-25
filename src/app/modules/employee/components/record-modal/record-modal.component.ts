@@ -1,8 +1,8 @@
-import { Component, Input, SimpleChanges, inject, OnChanges } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import { Record } from '../../../../models';
-import { RecordService } from '../../../../services/record.service';
+import { UtilsService } from '../../../../services/utils.service';
 
 @Component({
   selector: 'app-record-modal',
@@ -11,12 +11,12 @@ import { RecordService } from '../../../../services/record.service';
   templateUrl: './record-modal.component.html',
   styleUrl: './record-modal.component.scss',
 })
-export class RecordModalComponent implements OnChanges {
+export class RecordModalComponent {
   @Input() record: Record | undefined;
 
-  recordService = inject(RecordService);
+  utilsService = inject(UtilsService);
 
-  ngOnChanges(_changes: SimpleChanges): void {
-    if (!this.record) return;
+  getGoogleMapUrl(geo: { latitude: number; longitude: number }): string {
+    return this.utilsService.getGoogleMapUrl(geo);
   }
 }

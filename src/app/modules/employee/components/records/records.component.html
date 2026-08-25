@@ -40,11 +40,11 @@
   </thead>
   <tbody>
     @for (
-      record of records
+      record of records()
         | filterDate: inputDate.value
         | filterRecordEmployeeIncidents: inputIncidents.value;
       let i_record = $index;
-      track i_record
+      track record.id
     ) {
       <tr class="align-middle">
         <td>{{ i_record + 1 }}</td>
@@ -73,11 +73,11 @@
             class="btn btn-primary btn-sm bi bi-eye"
             data-bs-toggle="modal"
             data-bs-target="#recordEmployeeModal"
-            (click)="selectedRecord = record"
+            (click)="selectedRecord.set(record)"
             role="button"
             tabindex="0"
-            (keydown.enter)="selectedRecord = record"
-            (keydown.space)="selectedRecord = record"
+            (keydown.enter)="selectedRecord.set(record)"
+            (keydown.space)="selectedRecord.set(record)"
           ></i>
         </td>
       </tr>
@@ -88,4 +88,4 @@
 <!--  agregar paginador 10 -->
 
 <!-- agregar modal para edicion de registros -->
-<app-record-modal [record]="selectedRecord"></app-record-modal>
+<app-record-modal [record]="selectedRecord()"></app-record-modal>

@@ -1,7 +1,7 @@
-import { Component, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
-import { CalendarEvent } from '../../../../models';
-import { EventsService } from '../../../../services';
+import { Component, Input } from '@angular/core';
 import { DatePipe } from '@angular/common';
+
+import { CalendarDay } from '../../../../models';
 
 @Component({
   selector: 'app-calendary-modal',
@@ -10,25 +10,17 @@ import { DatePipe } from '@angular/common';
   templateUrl: './calendary-modal.component.html',
   styleUrl: './calendary-modal.component.scss',
 })
-export class CalendaryModalComponent implements OnChanges {
-  @Input() config?: { date: string; typeEvent: number };
-  // {Date, type}
-  eventsService = inject(EventsService);
+export class CalendaryModalComponent {
+  @Input() day: CalendarDay | null = null;
 
-  day = new Date();
-
-  events: CalendarEvent[] = [];
-
-  ngOnChanges(_changes: SimpleChanges): void {
-    if (!this.config) return;
-
-    this.day = new Date(this.config?.date + ':');
-    this.getEventsByDay();
-  }
-
-  getEventsByDay() {
-    this.eventsService.getAllEventsByDay(this.config!.date).subscribe((events) => {
-      this.events = events;
-    });
+  statusColor(status: string): string {
+    const map: Record<string, string> = {
+      complete: 'success',
+      partial: 'warning',
+      absent: 'danger',
+      rest: 'secondary',
+      event: 'info',
+    };
+    return map[status] ?? 'secondary';
   }
 }

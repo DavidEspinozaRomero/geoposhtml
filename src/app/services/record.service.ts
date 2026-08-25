@@ -34,8 +34,15 @@ export class RecordService {
   getRecordsByEmployee(employeeID: number) {
     const URL = `${this.#URL}records/by-employee/${employeeID}`;
     return this.http.get<Record[]>(URL).pipe(
-      map((res: Record[]) => {
-        return res;
+      map((res: any[]) => {
+        return res.map((record: any) => ({
+          ...record,
+          employeeId: record.employee?.id ?? record.employeeId,
+          employeeName: record.employee?.name ?? record.employeeName,
+          employeeUsername: record.employee?.username ?? record.employeeUsername,
+          companyId: record.company?.id ?? record.companyId,
+          companyName: record.company?.name ?? record.companyName,
+        }));
       }),
     );
   }

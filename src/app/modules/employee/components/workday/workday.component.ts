@@ -1,10 +1,11 @@
 import { DatePipe, NgClass } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 
 import { RecordService } from '../../../../services/record.service';
 import { Company, Record } from '../../../../models';
 import { CompaniesService } from '../../../../services/companies.service';
 import { UtilsService } from '../../../../services/utils.service';
+import { Auth } from '../../../../services/auth';
 
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -20,54 +21,58 @@ export class WorkdayComponent implements OnInit {
   recordService = inject(RecordService);
   companiesService = inject(CompaniesService);
   utilsService = inject(UtilsService);
+  auth = inject(Auth);
 
-  record?: Record;
+  record = signal<Record | undefined>(undefined);
   today = new Date();
-  googlemapurl?: string;
-  message?: string;
-  position?: GeolocationPosition;
-  companies?: Company[];
+  message = signal<string | undefined>(undefined);
+  companies = signal<Company[]>([]);
 
   companyIdForm = this.fb.control('', [Validators.required]);
   incidentForm = this.fb.control(null, [Validators.minLength(3)]);
 
+  private get employeeId(): number {
+    return this.auth.currentUser?.employeeId ?? 0;
+  }
+
   ngOnInit(): void {
-    // si hay jornada laboral iniciada
-    this.recordService.getActiveWorkdayByEmployee(22).subscribe((record) => {
-      this.record = record;
+    if (!this.employeeId) {
+      this.message.set('No se pudo identificar el empleado');
+      return;
+    }
+
+    this.recordService.getActiveWorkdayByEmployee(this.employeeId).subscribe({
+      next: (record) => {
+        if (record?.id) {
+          this.record.set(record);
+        }
+      },
     });
 
-    this.companiesService
-      .getCompaniesByEmployeeWorkday(22, this.today.getDay())
-      .subscribe((companies) => {
-        this.companies = companies;
-      });
+    // Backend uses 1=Mon...7=Sun, JS getDay() uses 0=Sun...6=Sat
+    const backendDay = this.today.getDay() === 0 ? 7 : this.today.getDay();
+    this.companiesService.getCompaniesByEmployeeWorkday(this.employeeId, backendDay).subscribe({
+      next: (companies) => this.companies.set(companies),
+    });
   }
 
   getLocation() {
     return new Promise<GeolocationPosition>((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
-          resolve(position);
-        },
+        (position) => resolve(position),
         (error) => {
-          this.position = undefined;
-          if (error.code == error.PERMISSION_DENIED) {
-            this.message = 'Porfavor activa tu geolocalización';
-          } else if (error.code == error.POSITION_UNAVAILABLE) {
-            this.message = 'Nose pudo obtener la geolocalización. Porfavor Renintente';
-          } else if (error.code == error.TIMEOUT) {
-            this.message = 'El tiempo se acabado. Porfavor Reintente';
+          if (error.code === error.PERMISSION_DENIED) {
+            this.message.set('Por favor activa tu geolocalización');
+          } else if (error.code === error.POSITION_UNAVAILABLE) {
+            this.message.set('No se pudo obtener la geolocalización. Por favor reintente');
+          } else if (error.code === error.TIMEOUT) {
+            this.message.set('El tiempo se ha agotado. Por favor reintente');
           } else {
-            this.message = 'Error de geolocalización. Porfavor Reintente';
+            this.message.set('Error de geolocalización. Por favor reintente');
           }
           reject(error);
         },
-        {
-          enableHighAccuracy: true,
-          maximumAge: 0,
-          timeout: 30000,
-        },
+        { enableHighAccuracy: true, maximumAge: 0, timeout: 30000 },
       );
     });
   }
@@ -79,24 +84,24 @@ export class WorkdayComponent implements OnInit {
     this.getLocation()
       .catch(() => undefined as unknown as GeolocationPosition)
       .then((position: GeolocationPosition) => {
-        const startWorday: Partial<Record> = {
-          employeeId: 22,
+        const body = {
+          employeeId: this.employeeId,
           companyId: +this.companyIdForm.value!,
           geoStart: {
             accuracy: position.coords.accuracy,
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-            timestamp: position.timestamp ?? new Date().getTime(),
+            timestamp: position.timestamp ?? Date.now(),
           },
         };
-        this.recordService.startWorkday(startWorday).subscribe((record) => {
-          const company = this.companies?.find(
-            (company) => String(company.id) === String(record.companyId),
-          );
-          record.companyName = company?.name ?? '';
-          this.record = record;
+        this.recordService.startWorkday(body).subscribe({
+          next: (record) => {
+            const company = this.companies().find((c) => String(c.id) === String(record.companyId));
+            record.companyName = company?.name ?? '';
+            this.record.set(record);
+            this.message.set(undefined);
+          },
         });
-        this.message = undefined;
       });
   }
 
@@ -107,29 +112,30 @@ export class WorkdayComponent implements OnInit {
     this.getLocation()
       .catch(() => undefined as unknown as GeolocationPosition)
       .then((position: GeolocationPosition) => {
-        const endWorday = {
+        const body = {
           geoEnd: {
             accuracy: position.coords.accuracy,
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-            timestamp: position.timestamp ?? new Date().getTime(),
+            timestamp: position.timestamp ?? Date.now(),
           },
           incident: this.incidentForm.value ?? '',
         };
 
-        this.recordService.endWorday(this.record!.id, endWorday).subscribe((record) => {
-          this.record = { ...this.record, ...record };
+        this.recordService.endWorday(this.record()!.id, body).subscribe({
+          next: (res) => this.record.update((r) => ({ ...r!, ...res })),
         });
       });
   }
 
-  resetWorkday() {
-    this.record = undefined;
+  getGoogleMapUrl(geo: { latitude: number; longitude: number }): string {
+    return this.utilsService.getGoogleMapUrl(geo);
   }
 
   getDiffTime(startTimestamp: number, endTimestamp: number): string {
     return this.utilsService.getDiffTime(startTimestamp, endTimestamp);
   }
+
   isValid(control: FormControl) {
     return control.errors && control.touched;
   }

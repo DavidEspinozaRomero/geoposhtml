@@ -1,13 +1,8 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 
-import {
-  EmployeesService,
-  CompaniesService,
-  RecordService,
-  UtilsService,
-} from '../../../../services';
-import { Record, Company, Employee } from '../../../../models';
+import { RecordService } from '../../../../services/record.service';
+import { Record } from '../../../../models';
 import { FilterDatePipe, FilterRecordEmployeeIncidentsPipe } from '../../../../pipes';
 import { RecordModalComponent } from '../record-modal/record-modal.component';
 import { Auth } from '../../../../services/auth';
@@ -21,34 +16,17 @@ import { Auth } from '../../../../services/auth';
 })
 export class RecordsComponent implements OnInit {
   auth = inject(Auth);
-  employeesService = inject(EmployeesService);
-  companiesService = inject(CompaniesService);
   recordService = inject(RecordService);
-  utilsService = inject(UtilsService);
 
-  records: Record[] = [];
-  selectedRecord: Record | undefined;
-  employees: Employee[] = [];
-  companies: Company[] = [];
-
-  // todo: add employeeID to getRecordsByEmployee method to get records for a specific employee
+  records = signal<Record[]>([]);
+  selectedRecord = signal<Record | undefined>(undefined);
 
   ngOnInit(): void {
-    this.recordService.getRecordsByEmployee(22).subscribe((records) => {
-      records.forEach((record: Record) => {
-        this.employeesService.getEmployeeById(record.employeeId).subscribe((employee) => {
-          if (employee) {
-            record.employeeName = employee.name;
-            record.employeeUsername = employee.username;
-          }
-        });
-        this.companiesService.getCompanyById(record.companyId).subscribe((company) => {
-          if (company) {
-            record.companyName = company.name;
-          }
-        });
-      });
-      this.records = records;
+    const employeeId = this.auth.currentUser?.employeeId;
+    if (!employeeId) return;
+
+    this.recordService.getRecordsByEmployee(employeeId).subscribe({
+      next: (records) => this.records.set(records),
     });
   }
 }
