@@ -1,14 +1,12 @@
 import {
   Component,
   ElementRef,
-  EventEmitter,
-  Input,
-  Output,
-  SimpleChanges,
   inject,
   viewChild,
-  OnChanges,
   input,
+  output,
+  computed,
+  effect,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
@@ -24,10 +22,11 @@ import { UtilsService } from '../../../../services/utils.service';
   templateUrl: './company-modal.component.html',
   styleUrl: './company-modal.component.scss',
 })
-export class CompanyModalComponent implements OnChanges {
-  modalTile = input<string>();
-  @Input() company: Company | undefined;
-  @Output() saveForm = new EventEmitter<Company>();
+export class CompanyModalComponent {
+  company = input<Company | undefined>();
+  saveForm = output<Company>();
+  modalTitle = computed(() => (this.company() ? 'Editar Compañía' : 'Nueva Compañía'));
+
   fb = inject(FormBuilder);
   companiesService = inject(CompaniesService);
   utilsService = inject(UtilsService);
@@ -47,10 +46,15 @@ export class CompanyModalComponent implements OnChanges {
     showSpinner: false,
   };
 
-  ngOnChanges(_changes: SimpleChanges): void {
-    if (!this.company) return;
-    // this.companyForm.patchValue(this.company);
-    this.companyForm.reset(this.company);
+  constructor() {
+    effect(() => {
+      const company = this.company();
+      if (company) {
+        this.companyForm.reset(company);
+      } else {
+        this.companyForm.reset();
+      }
+    });
   }
 
   onSubmit() {
@@ -87,7 +91,6 @@ export class CompanyModalComponent implements OnChanges {
         this.companyForm.reset();
         this.btnClose()?.nativeElement.click();
       });
-    // TODO:  enviar mensaje de exito!
   }
 
   updateCompany(company: Company) {
@@ -101,6 +104,6 @@ export class CompanyModalComponent implements OnChanges {
         this.config.loading = false;
         this.companyForm.reset();
         this.btnClose()?.nativeElement.click();
-      }); // TODO: enviar mensaje de exito!
+      });
   }
 }

@@ -26,9 +26,7 @@ import { UtilsService } from '../../../../services/utils.service';
 })
 export class EventModalComponent implements OnInit, OnChanges {
   @Output() eventSubmit = new EventEmitter<CalendarEvent>();
-  // @Input() eventToEdit: CalendarEvent | undefined;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Input() eventToEdit: any;
+  @Input() eventToEdit: CalendarEvent | undefined;
   btnClose = viewChild<ElementRef<HTMLButtonElement>>('btnClose');
 
   fb = inject(FormBuilder);

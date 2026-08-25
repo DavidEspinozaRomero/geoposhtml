@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UpperCasePipe, NgClass } from '@angular/common';
 
 import { Company, Employee, Workday, WorkdaysResponse } from '../../../../models';
@@ -17,7 +17,6 @@ export class WorkdayComponent implements OnInit {
   employeesService = inject(EmployeesService);
   companiesService = inject(CompaniesService);
   wordaysService = inject(WordaysService);
-  private readonly cdr = inject(ChangeDetectorRef);
   employees: Employee[] = [];
   employee: Employee | undefined;
   companies: Company[] = [];
@@ -33,35 +32,17 @@ export class WorkdayComponent implements OnInit {
   }
 
   initApis() {
-    // agregar un ForkJoin para traer todos los datos
-    this.employeesService
-      .getEmployees()
-      .subscribe((employees) => {
-        this.employees = employees;
-      })
-      .add(() => {
-        // agregar loader
-        this.cdr.detectChanges();
-      });
+    this.employeesService.getEmployees().subscribe((employees) => {
+      this.employees = employees;
+    });
 
-    this.companiesService
-      .getCompanies()
-      .subscribe((companies) => {
-        this.companies = companies;
-      })
-      .add(() => {
-        // agregar loader
-        this.cdr.detectChanges();
-      });
+    this.companiesService.getCompanies().subscribe((companies) => {
+      this.companies = companies;
+    });
   }
 
   getWorkdaysByEmployee(employeeID: number) {
-    this.wordaysService
-      .getWordaysByEmployee(employeeID)
-      .subscribe()
-      .add(() => {
-        this.cdr.detectChanges();
-      });
+    this.wordaysService.getWordaysByEmployee(employeeID).subscribe();
   }
 
   // getEmployee(employee: Employee) {
@@ -75,30 +56,25 @@ export class WorkdayComponent implements OnInit {
 
   getAndFillWorkdays(employeeID: number, employee: Employee) {
     let workdaysByEmployee: WorkdaysResponse[];
-    this.wordaysService
-      .getWordaysByEmployee(employeeID)
-      .subscribe((workdays) => {
-        workdaysByEmployee = workdays;
-      })
-      .add(() => {
-        employee.workdays = Array(7)
-          .fill(0)
-          .map((_, i) => {
-            const workdaysByDay = workdaysByEmployee.filter((workday) => workday.day === i);
-            return {
-              day: i,
-              companies: workdaysByDay.map((workday) => {
-                const { companyID, id } = workday;
-                return {
-                  id,
-                  companyID,
-                };
-              }),
-              companiesIDs: workdaysByDay.map((workday) => workday.companyID),
-            };
-          });
-        this.cdr.detectChanges();
-      });
+    this.wordaysService.getWordaysByEmployee(employeeID).subscribe((workdays) => {
+      workdaysByEmployee = workdays;
+      employee.workdays = Array(7)
+        .fill(0)
+        .map((_, i) => {
+          const workdaysByDay = workdaysByEmployee.filter((workday) => workday.day === i);
+          return {
+            day: i,
+            companies: workdaysByDay.map((workday) => {
+              const { companyID, id } = workday;
+              return {
+                id,
+                companyID,
+              };
+            }),
+            companiesIDs: workdaysByDay.map((workday) => workday.companyID),
+          };
+        });
+    });
   }
 
   getCompanyById(id: number) {

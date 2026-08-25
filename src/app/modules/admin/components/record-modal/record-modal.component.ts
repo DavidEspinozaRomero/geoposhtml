@@ -3,9 +3,9 @@ import {
   ElementRef,
   Input,
   SimpleChanges,
-  ViewChild,
   inject,
   OnChanges,
+  viewChild,
 } from '@angular/core';
 import { DatePipe, NgClass } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -23,7 +23,7 @@ import { UtilsService } from '../../../../services/utils.service';
 })
 export class RecordModalComponent implements OnChanges {
   @Input() record: Record | undefined;
-  @ViewChild('btnClose') btnClose!: ElementRef<HTMLButtonElement>;
+  btnClose = viewChild<ElementRef<HTMLButtonElement>>('btnClose');
 
   fb = inject(FormBuilder);
   recordService = inject(RecordService);
@@ -52,7 +52,7 @@ export class RecordModalComponent implements OnChanges {
         this.record!.incidentAdmin = dataForm.incidentAdmin;
       })
       .add(() => {
-        this.btnClose.nativeElement.click();
+        this.btnClose()?.nativeElement.click();
       }); // agregar loader
   }
 }

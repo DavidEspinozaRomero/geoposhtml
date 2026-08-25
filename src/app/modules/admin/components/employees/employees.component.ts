@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 
 import { Employee } from '../../../../models/employee.model';
 import { EmployeesService } from '../../../../services/employees.service';
@@ -24,8 +24,6 @@ import { EmptyComponent, LoadingComponent } from '../../../../components';
 })
 export class EmployeesComponent implements OnInit {
   employeesService = inject(EmployeesService);
-  private readonly cdr = inject(ChangeDetectorRef);
-  // employees: Observable<Employee[]> = this.employeesService.getEmployees();
   employees: Employee[] = [];
   employee: Employee | undefined;
   config = {
@@ -47,7 +45,6 @@ export class EmployeesComponent implements OnInit {
       })
       .add(() => {
         this.config.loading = false;
-        this.cdr.detectChanges();
       });
   }
 
