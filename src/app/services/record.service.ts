@@ -36,13 +36,13 @@ export class RecordService {
     const URL = `${this.#URL}records/by-employee/${employeeID}`;
     return this.http.get<PaginatedResponse<Record>>(URL).pipe(
       map((res) =>
-        res.data.map((record) => ({
+        res.data.map((record: any) => ({
           ...record,
-          employeeId: record.employeeId,
-          employeeName: record.employeeName,
-          employeeUsername: record.employeeUsername,
-          companyId: record.companyId,
-          companyName: record.companyName,
+          employeeId: record.employeeId ?? record.employee?.id,
+          employeeName: record.employeeName ?? record.employee?.name,
+          employeeUsername: record.employeeUsername ?? record.employee?.username,
+          companyId: record.companyId ?? record.company?.id,
+          companyName: record.companyName ?? record.company?.name,
         })),
       ),
     );
@@ -52,13 +52,13 @@ export class RecordService {
     const URL = `${this.#URL}records`;
     return this.http.get<PaginatedResponse<Record>>(URL).pipe(
       map((res) =>
-        res.data.map((record) => ({
+        res.data.map((record: any) => ({
           ...record,
-          employeeId: record.employeeId,
-          employeeName: record.employeeName,
-          employeeUsername: record.employeeUsername,
-          companyId: record.companyId,
-          companyName: record.companyName,
+          employeeId: record.employeeId ?? record.employee?.id,
+          employeeName: record.employeeName ?? record.employee?.name,
+          employeeUsername: record.employeeUsername ?? record.employee?.username,
+          companyId: record.companyId ?? record.company?.id,
+          companyName: record.companyName ?? record.company?.name,
         })),
       ),
     );
