@@ -46,8 +46,11 @@ export class WorkdayComponent implements OnInit {
     const employeeID = target.value;
     const found = this.employees().find((e) => employeeID == e.id);
     if (!found) return;
-    if (!found.workdays) this.getAndFillWorkdays(+employeeID, found);
-    this.employee.set(found);
+    if (!found.workdays) {
+      this.getAndFillWorkdays(+employeeID, found);
+    } else {
+      this.employee.set(found);
+    }
   }
 
   getAndFillWorkdays(employeeID: number, emp: Employee) {
