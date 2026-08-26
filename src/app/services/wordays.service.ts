@@ -14,7 +14,7 @@ export class WordaysService {
 
   getWordaysByEmployee(employeeID: number) {
     const URL = `${this.#apiUrl}workdays/by-employee/${employeeID}`;
-    return this.http.get<PaginatedResponse<WorkdaysResponse>>(URL).pipe(map((res) => res.data));
+    return this.http.get<WorkdaysResponse[]>(URL);
   }
 
   createWorkdaysByEmployee(json: Record<string, unknown>) {
