@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { DatePipe, UpperCasePipe } from '@angular/common';
 
 import { EventsService } from '../../../../services';
@@ -26,42 +26,45 @@ import { EventModalComponent } from '../event-modal/event-modal.component';
 })
 export class EventsComponent implements OnInit {
   eventsService = inject(EventsService);
-  events: CalendarEvent[] = [];
-  eventTypes: { id: number; name: string }[] = [];
-  selectedEvent: CalendarEvent | undefined;
+  events = signal<CalendarEvent[]>([]);
+  eventTypes = signal<{ id: number; name: string }[]>([]);
+  selectedEvent = signal<CalendarEvent | undefined>(undefined);
 
   ngOnInit(): void {
     this.initApis();
   }
 
   initApis() {
-    this.eventsService.getEvents().subscribe((events) => {
-      events.forEach((event: CalendarEvent) => {
-        // dependiendo el tipo de evento se le asigna un color
-        // todo: agregar un campo: warning, success, danger, info, primary, secondary, dark, para segun el tipo de evento asignarle un color
-        switch (event.eventType?.id) {
-          case 1:
-            event.class = 'text-bg-primary';
-            break;
-          case 2:
-            event.class = 'text-bg-success';
-            break;
-          case 3:
-            event.class = 'text-bg-danger';
-            break;
-          case 4:
-            event.class = 'text-bg-warning';
-            break;
-          default:
-            event.class = 'text-bg-info';
-            break;
-        }
-      });
-      this.events = events;
+    this.eventsService.getEvents().subscribe({
+      next: (events) => {
+        const mapped = events.map((event: CalendarEvent) => {
+          switch (event.eventType?.id) {
+            case 1:
+              event.class = 'text-bg-primary';
+              break;
+            case 2:
+              event.class = 'text-bg-success';
+              break;
+            case 3:
+              event.class = 'text-bg-danger';
+              break;
+            case 4:
+              event.class = 'text-bg-warning';
+              break;
+            default:
+              event.class = 'text-bg-info';
+              break;
+          }
+          return event;
+        });
+        this.events.set(mapped);
+      },
     });
 
-    this.eventsService.getEventTypes().subscribe((types) => {
-      this.eventTypes = types;
+    this.eventsService.getEventTypes().subscribe({
+      next: (types) => {
+        this.eventTypes.set(types);
+      },
     });
   }
 
@@ -72,24 +75,32 @@ export class EventsComponent implements OnInit {
     }
     this.updateEvent(event);
   }
+
   createEvent(event: CalendarEvent) {
-    this.eventsService.createEvent(event).subscribe((data: CalendarEvent) => {
-      this.events.unshift(data);
+    this.eventsService.createEvent(event).subscribe({
+      next: (data: CalendarEvent) => {
+        this.events.update((evs) => [data, ...evs]);
+      },
     });
   }
 
   updateEvent(event: CalendarEvent) {
-    this.eventsService.updateEvent(event).subscribe((data: CalendarEvent) => {
-      const idx = this.events.findIndex((event) => event.id === data.id);
-      if (idx !== -1) {
-        this.events.splice(idx, 1, data);
-      }
+    this.eventsService.updateEvent(event).subscribe({
+      next: (data: CalendarEvent) => {
+        this.events.update((evs) => evs.map((e) => (e.id === data.id ? data : e)));
+      },
     });
   }
 
   deleteEvent(event: CalendarEvent, i_event: number) {
-    this.eventsService.deleteEvent(event).subscribe(() => {
-      this.events.splice(i_event, 1);
+    this.eventsService.deleteEvent(event).subscribe({
+      next: () => {
+        this.events.update((evs) => {
+          const copy = [...evs];
+          copy.splice(i_event, 1);
+          return copy;
+        });
+      },
     });
   }
 }

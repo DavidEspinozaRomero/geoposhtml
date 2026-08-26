@@ -6,7 +6,7 @@
     class="btn btn-primary"
     data-bs-toggle="modal"
     data-bs-target="#employeeModal"
-    (click)="this.employee = undefined"
+    (click)="employee.set(undefined)"
   >
     Agregar +
   </button>
@@ -52,18 +52,18 @@
     </div>
   </section>
 
-  @if (config.loading) {
+  @if (loading()) {
     <app-loading></app-loading>
   }
-  @if (!config.loading) {
-    @if (!config.success) {
+  @if (!loading()) {
+    @if (!success()) {
       <h1>Error vuelva a intentar</h1>
     }
-    @if (config.success) {
+    @if (success()) {
       <section id="employees-info" class="my-3">
         <div class="row p-0 m-0">
           @for (
-            employee of employees
+            employee of employees()
               | filterEmployeeByNameUsername: inputName.value
               | filterCompanyEmployee: inputCompany.value
               | filterActiveEmployees: inputIsActive.value;
@@ -71,7 +71,6 @@
             track i_employee
           ) {
             <div class="card m-2 px-0" style="width: 18rem">
-              <!-- <img src="..." class="card-img-top" alt="..."> -->
               <div class="card-header bg-primary d-block text-center">
                 <strong> {{ employee.name }} </strong>
                 @if (employee.isActive) {
@@ -149,4 +148,7 @@
   }
 </div>
 
-<app-employee-modal (saveForm)="updateEmployees($event)" [employee]="employee"></app-employee-modal>
+<app-employee-modal
+  (saveForm)="updateEmployees($event)"
+  [employee]="employee()"
+></app-employee-modal>

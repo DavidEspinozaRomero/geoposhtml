@@ -8,23 +8,20 @@
     (change)="getEmployee($any($event.target))"
   >
     <option hidden selected>-- Seleccione Empleado --</option>
-    @for (employee of employees; let i_employee = $index; track i_employee) {
-      <option [value]="employee.id">
-        {{ employee.username | uppercase }} -
-        {{ employee.name }}
+    @for (emp of employees(); let i_employee = $index; track i_employee) {
+      <option [value]="emp.id">
+        {{ emp.username | uppercase }} -
+        {{ emp.name }}
       </option>
     } @empty {
       <option value="">Aun no tiene empleados</option>
     }
   </select>
-
-  <!-- Mostraria 7 recuadros referentas a los dias de la semana -->
 </div>
 
-@if (employee) {
+@if (employee()) {
   <div class="mx-5 p-3 workday-container bg-light border border-light-subtle rounded">
     <div class="row p-0 m-0">
-      <!-- <i class="bi bi-calendar2-week"></i> -->
       <table class="table mb-0" aria-label="Tabla de Jornada Laboral">
         <thead>
           <tr class="text-center">
@@ -38,19 +35,18 @@
           </tr>
         </thead>
         <tbody>
-          <!-- En cada recuadro se agregaria las empresas -->
           <tr>
-            @for (day of employee.workdays; let i_day = $index; track i_day) {
+            @for (day of employee()!.workdays; let i_day = $index; track i_day) {
               <td>
                 <select
                   class="form-select"
                   aria-label="Seleccione Empresa"
                   (change)="addCompany($any($event.target), day)"
                 >
-                  @for (company of companies; let i_company = $index; track i_company) {
+                  @for (comp of companies(); let i_company = $index; track i_company) {
                     <option value="" hidden selected>Empresa</option>
-                    <option [value]="company.id">
-                      {{ company.name }}
+                    <option [value]="comp.id">
+                      {{ comp.name }}
                     </option>
                   } @empty {
                     <option value="">No tiene companias</option>
@@ -60,7 +56,7 @@
             }
           </tr>
           <tr>
-            @for (workday of employee.workdays; let i_workday = $index; track i_workday) {
+            @for (workday of employee()!.workdays; let i_workday = $index; track i_workday) {
               <td>
                 @for (
                   companyID of workday.companiesIDs;
@@ -91,9 +87,9 @@
           type="button"
           class="btn btn-primary mt-3 justify-content-end"
           (click)="onSubmit()"
-          [disabled]="config.loading"
+          [disabled]="loading()"
         >
-          @if (config.loading) {
+          @if (loading()) {
             <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
             <span role="status">Guardando...</span>
           } @else {

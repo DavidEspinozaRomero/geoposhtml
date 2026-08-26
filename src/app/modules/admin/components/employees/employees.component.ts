@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 
 import { Employee } from '../../../../models/employee.model';
 import { EmployeesService } from '../../../../services/employees.service';
@@ -24,58 +24,63 @@ import { EmptyComponent, LoadingComponent } from '../../../../components';
 })
 export class EmployeesComponent implements OnInit {
   employeesService = inject(EmployeesService);
-  employees: Employee[] = [];
-  employee: Employee | undefined;
-  config = {
-    loading: false,
-    success: false,
-  };
+
+  employees = signal<Employee[]>([]);
+  employee = signal<Employee | undefined>(undefined);
+  loading = signal(false);
+  success = signal(false);
 
   ngOnInit(): void {
     this.getAllEmployees();
   }
 
   getAllEmployees() {
-    this.config.loading = true;
-    this.employeesService
-      .getEmployees()
-      .subscribe((employees) => {
-        this.employees = employees;
-        this.config.success = true;
-      })
-      .add(() => {
-        this.config.loading = false;
-      });
+    this.loading.set(true);
+    this.employeesService.getEmployees().subscribe({
+      next: (employees) => {
+        this.employees.set(employees);
+        this.success.set(true);
+      },
+      error: () => {
+        this.success.set(false);
+      },
+      complete: () => {
+        this.loading.set(false);
+      },
+    });
   }
 
-  removeEmployee(employee: Employee, i_employee: number) {
-    this.employees.splice(i_employee, 1);
-    // this.employeesService
-    //   .removeEmployee(employee)
-    //   .subscribe((res) => {
-    //   })
-    //   .add(() => {});
+  removeEmployee(_employee: Employee, i_employee: number) {
+    this.employees.update((ems) => {
+      const copy = [...ems];
+      copy.splice(i_employee, 1);
+      return copy;
+    });
   }
 
   updateIsActiveEmployee(employee: Employee) {
-    this.employeesService
-      .updateEmployeeIsActive(employee)
-      .subscribe((_updatedEmployee) => {
-        employee.isActive = !employee.isActive;
-      })
-      .add();
+    this.employeesService.updateEmployeeIsActive(employee).subscribe({
+      next: (_updatedEmployee) => {
+        this.employees.update((ems) =>
+          ems.map((e) => (e.id === employee.id ? { ...e, isActive: !e.isActive } : e)),
+        );
+      },
+    });
   }
 
   updateEmployees(data: Employee) {
-    const idx = this.employees.findIndex((employee) => employee.id === data.id);
-    if (idx !== -1) {
-      this.employees.splice(idx, 1, data);
-    } else {
-      this.employees.push(data);
-    }
+    this.employees.update((ems) => {
+      const idx = ems.findIndex((e) => e.id === data.id);
+      if (idx !== -1) {
+        const copy = [...ems];
+        copy[idx] = data;
+        return copy;
+      }
+      return [...ems, data];
+    });
   }
 
-  editEmployee(employee: Employee, _i_employee?: number) {
-    this.employee = employee;
+  editEmployee(employee: Employee) {
+    this.employee.set(employee);
   }
 }

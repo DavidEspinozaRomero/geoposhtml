@@ -6,7 +6,7 @@
   class="btn btn-primary"
   data-bs-toggle="modal"
   data-bs-target="#eventModal"
-  (click)="this.selectedEvent = undefined"
+  (click)="selectedEvent.set(undefined)"
 >
   + Evento
 </button>
@@ -39,7 +39,7 @@
       (change)="(inputEventType)"
     >
       <option selected value="">Todos</option>
-      @for (type of eventTypes; track type.id) {
+      @for (type of eventTypes(); track type.id) {
         <option [value]="type.id">{{ type.name }}</option>
       }
     </select>
@@ -59,7 +59,7 @@
   </thead>
   <tbody>
     @for (
-      event of events
+      event of events()
         | filterByEventDate: inputDate.value
         | filterByEventTitle: inputEventTitle.value
         | filterByEventType: inputEventType.value;
@@ -80,7 +80,7 @@
             class="btn btn-primary btn-sm bi bi-pencil me-2"
             data-bs-toggle="modal"
             data-bs-target="#eventModal"
-            (click)="this.selectedEvent = event"
+            (click)="selectedEvent.set(event)"
           >
             <span class="visually-hidden">Editar</span>
           </button>
@@ -99,4 +99,7 @@
 </table>
 
 <!-- modal para CRUD de evento -->
-<app-event-modal [eventToEdit]="selectedEvent" (eventSubmit)="checkEvent($event)"></app-event-modal>
+<app-event-modal
+  [eventToEdit]="selectedEvent()"
+  (eventSubmit)="checkEvent($event)"
+></app-event-modal>

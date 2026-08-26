@@ -6,7 +6,7 @@
     class="btn btn-primary"
     data-bs-toggle="modal"
     data-bs-target="#companyModal"
-    (click)="this.company = undefined"
+    (click)="company.set(undefined)"
   >
     Agregar +
   </button>
@@ -26,30 +26,16 @@
         <label for="inputName"> Nombre de la Sociedad </label>
       </div>
     </div>
-    <!-- <div class="col-5">
-      <div class="form-floating">
-        <input
-          id="inputAddress"
-          type="text"
-          class="form-control"
-          placeholder="Empresa"
-          #inputAddress
-          (keyup)="(inputAddress)"
-        />
-        <label for="inputAddress"> Dirección </label>
-      </div>
-    </div> -->
   </section>
 
   <section id="companys-info" class="my-3">
     <div class="row p-0 m-0">
       @for (
-        company of companies | filterKeyValue: 'name' : inputName.value;
+        company of companies() | filterKeyValue: 'name' : inputName.value;
         let i_company = $index;
         track i_company
       ) {
         <div class="card m-2 px-0" style="width: 18rem">
-          <!-- <img src="..." class="card-img-top" alt="..."> -->
           <div class="card-header bg-primary d-block text-center">
             <strong> {{ company.name }} </strong>
           </div>
@@ -92,4 +78,4 @@
   </section>
 </div>
 
-<app-company-modal [company]="this.company" (saveForm)="updateCompany($event)"></app-company-modal>
+<app-company-modal [company]="company()" (saveForm)="updateCompany($event)"></app-company-modal>

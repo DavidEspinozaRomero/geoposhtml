@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 
 import { EmployeesService, CompaniesService, RecordService } from '../../../../services';
 import { Record } from '../../../../models';
@@ -32,14 +32,14 @@ export class RecordsComponent implements OnInit {
   recordService = inject(RecordService);
   utilsService = inject(UtilsService);
 
-  records: Record[] = [];
-  selectedRecord: Record | undefined;
-  // employees: Employee[] = [];
-  // companies: Company[] = [];
+  records = signal<Record[]>([]);
+  selectedRecord = signal<Record | undefined>(undefined);
 
   ngOnInit(): void {
-    this.recordService.getRecords().subscribe((records) => {
-      this.records = records;
+    this.recordService.getRecords().subscribe({
+      next: (records) => {
+        this.records.set(records);
+      },
     });
   }
 }

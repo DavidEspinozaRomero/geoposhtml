@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 
 import { Company } from '../../../../models';
 import { CompaniesService } from '../../../../services/companies.service';
@@ -14,37 +14,46 @@ import { FilterKeyValuePipe } from '../../../../pipes/filter-key-value.pipe';
 })
 export class CompaniesComponent implements OnInit {
   companiesService = inject(CompaniesService);
-  companies: Company[] = [];
-  company: Company | undefined;
+  companies = signal<Company[]>([]);
+  company = signal<Company | undefined>(undefined);
 
   ngOnInit(): void {
     this.getAllCompanies();
   }
 
   getAllCompanies() {
-    this.companiesService.getCompanies().subscribe((companies) => {
-      this.companies = companies;
+    this.companiesService.getCompanies().subscribe({
+      next: (companies) => {
+        this.companies.set(companies);
+      },
     });
   }
 
   editCompany(company: Company) {
-    this.company = company;
+    this.company.set(company);
   }
+
   removeCompany(company: Company, idx: number) {
-    this.companiesService
-      .removeCompany(company)
-      .subscribe(() => {
-        this.companies.splice(idx, 1);
-      })
-      .add();
+    this.companiesService.removeCompany(company).subscribe({
+      next: () => {
+        this.companies.update((cs) => {
+          const copy = [...cs];
+          copy.splice(idx, 1);
+          return copy;
+        });
+      },
+    });
   }
 
   updateCompany(data: Company) {
-    const idx = this.companies.findIndex((company) => company.id === data.id);
-    if (idx !== -1) {
-      this.companies.splice(idx, 1, data);
-    } else {
-      this.companies.push(data);
-    }
+    this.companies.update((cs) => {
+      const idx = cs.findIndex((c) => c.id === data.id);
+      if (idx !== -1) {
+        const copy = [...cs];
+        copy[idx] = data;
+        return copy;
+      }
+      return [...cs, data];
+    });
   }
 }
