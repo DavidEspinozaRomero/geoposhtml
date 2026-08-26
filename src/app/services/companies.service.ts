@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { map } from 'rxjs';
 
-import { Company } from '../models';
+import { Company, PaginatedResponse } from '../models';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -15,41 +14,33 @@ export class CompaniesService {
   #localURL = environment.apiUrl;
 
   getCompanies() {
-    const URL = this.#localURL + 'companies';
-    return this.http.get<Company[]>(URL).pipe(
-      map((res: Company[]) => {
-        return res;
-      }),
-    );
+    const URL = `${this.#localURL}companies`;
+    return this.http.get<PaginatedResponse<Company>>(URL).pipe(map((res) => res.data));
   }
 
   getCompaniesByEmployeeWorkday(employeeID: number, day: number) {
     const queryParams = `day=${day}&employeeID=${employeeID}`;
     const URL = `${this.#localURL}companies/employee-workday?${queryParams}`;
-    return this.http.get<Company[]>(URL).pipe(map((res: any) => res));
+    return this.http.get<PaginatedResponse<Company>>(URL).pipe(map((res) => res.data));
   }
+
   getCompanyById(companyId: string | number) {
-    const URL = this.#localURL + 'companies';
-    return this.http.get<Company>(URL).pipe(
-      map((res: any) => {
-        const company = res.find((company: Company) => company.id == companyId);
-        return company;
-      }),
-    );
+    const URL = `${this.#localURL}companies/${companyId}`;
+    return this.http.get<Company>(URL);
   }
 
   createCompany(company: Company) {
-    const URL = this.#localURL + 'companies';
+    const URL = `${this.#localURL}companies`;
     return this.http.post<Company>(URL, company);
   }
 
   updateCompany(company: Company) {
-    const URL = this.#localURL + 'companies/' + company.id;
+    const URL = `${this.#localURL}companies/${company.id}`;
     return this.http.patch<Company>(URL, company);
   }
 
   removeCompany(company: Company) {
-    const URL = this.#localURL + 'companies/' + company.id;
+    const URL = `${this.#localURL}companies/${company.id}`;
     return this.http.delete<Company>(URL);
   }
 }

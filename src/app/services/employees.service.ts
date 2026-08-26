@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Employee, Workday } from '../models/employee.model';
+import { Employee, Workday, PaginatedResponse } from '../models';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -13,79 +13,52 @@ export class EmployeesService {
   #apiUrl = environment.apiUrl;
 
   getEmployees(): Observable<Employee[]> {
-    const URL = this.#apiUrl + 'employees';
-    return this.http.get<Employee[]>(URL).pipe(
-      map((res: any) => {
-        return res;
-      }),
-    );
+    const URL = `${this.#apiUrl}employees`;
+    return this.http.get<PaginatedResponse<Employee>>(URL).pipe(map((res) => res.data));
   }
-  getEmployeeById(employeeId: string | number) {
-    const URL = this.#apiUrl + 'employees';
-    return this.http.get<Employee>(URL).pipe(
-      map((res: any) => {
-        const employee = res.employees.find((employee: Employee) => employee.id == employeeId);
-        return employee;
-      }),
-    );
+
+  getEmployeeById(employeeId: string | number): Observable<Employee> {
+    const URL = `${this.#apiUrl}employees/${employeeId}`;
+    return this.http.get<Employee>(URL);
   }
 
   createEmployee(employee: Employee): Observable<Employee> {
-    const URL = this.#apiUrl + 'employees';
-    return this.http.post<Employee>(URL, employee).pipe(
-      map((res: any) => {
-        return res;
-      }),
-    );
+    const URL = `${this.#apiUrl}employees`;
+    return this.http.post<Employee>(URL, employee);
   }
 
-  updateEmployee(employee: Employee) {
-    const URL = this.#apiUrl + 'employees/' + employee.id;
-    return this.http.patch<Employee>(URL, employee).pipe(
-      map((res: any) => {
-        return res;
-      }),
-    );
+  updateEmployee(employee: Employee): Observable<Employee> {
+    const URL = `${this.#apiUrl}employees/${employee.id}`;
+    return this.http.patch<Employee>(URL, employee);
   }
-  updateEmployeeIsActive(employee: Employee) {
-    const URL = this.#apiUrl + 'employees/isActive/' + employee.id;
-    return this.http.put<Employee>(URL, {}).pipe(
-      map((res: any) => {
-        return res;
-      }),
-    );
+
+  updateEmployeeIsActive(employee: Employee): Observable<Employee> {
+    const URL = `${this.#apiUrl}employees/isActive/${employee.id}`;
+    return this.http.put<Employee>(URL, {});
   }
 
   removeEmployee(_employee: Employee) {
-    // return this.http.delete<Employee>(this.#apiUrl + 'employees', {
-    //   body: employee,
-    // });
+    // TODO: implement delete endpoint
   }
 
-  //TODO: eliminar el metodo de checkWorkdays
   checkWorkdays(workdays: Workday[] | undefined) {
     if (!workdays)
       return Array(7)
         .fill(0)
-        .map((_, i) => {
-          return {
-            day: i,
-            companiesIDs: [],
-          };
-        });
+        .map((_, i) => ({
+          day: i,
+          companiesIDs: [],
+        }));
 
-    const newWorkdays: Workday[] = Array(7)
+    return Array(7)
       .fill(0)
       .map((_, i) => {
-        const workday = workdays.find((workday) => workday.day === i);
+        const workday = workdays.find((w) => w.day === i);
         return {
           day: i,
           companiesIDs: [],
           ...workday,
-          // checked: false,
         };
       });
-
-    return newWorkdays;
   }
 }
