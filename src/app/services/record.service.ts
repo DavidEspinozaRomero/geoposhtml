@@ -54,11 +54,11 @@ export class RecordService {
       map((res) =>
         res.data.map((record: any) => ({
           ...record,
-          employeeId: record.employeeId ?? record.employee?.id,
-          employeeName: record.employeeName ?? record.employee?.name,
-          employeeUsername: record.employeeUsername ?? record.employee?.username,
-          companyId: record.companyId ?? record.company?.id,
-          companyName: record.companyName ?? record.company?.name,
+          employeeId: record.employee?.id,
+          employeeName: record.employee?.name,
+          employeeUsername: record.employee?.username,
+          companyId: record.company?.id,
+          companyName: record.company?.name,
         })),
       ),
     );
