@@ -1,22 +1,47 @@
-.calendar-table {
-  font-size: 0.85rem;
+.month-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 
-  .sticky-col {
-    position: sticky;
-    left: 0;
-    background: white;
-    z-index: 1;
-    min-width: 160px;
+  &__row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
   }
 
-  .calendar-cell {
-    min-width: 60px;
-    cursor: pointer;
-    transition: transform 0.1s;
+  &__header {
+    font-weight: 600;
+    text-align: center;
+    color: #6c757d;
+  }
 
-    &:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  .day-card {
+    border: 1px solid #dee2e6;
+    border-radius: 0.35rem;
+    min-height: 6.5rem;
+    padding: 0.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    &__number {
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-align: center;
     }
+
+    &__buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      justify-content: center;
+      margin-top: auto;
+    }
+  }
+
+  .icon-btn {
+    padding: 0.1rem 0.3rem;
+    line-height: 1;
+    font-size: 0.8rem;
   }
 }

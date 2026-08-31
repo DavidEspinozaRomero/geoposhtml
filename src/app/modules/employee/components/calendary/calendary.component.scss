@@ -1,17 +1,47 @@
-.calendar {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 0.25rem;
+.month-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 
-  .calendar_day {
+  &__row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+  }
+
+  &__header {
+    font-weight: 600;
+    text-align: center;
+    color: #6c757d;
+  }
+
+  .day-card {
     border: 1px solid #dee2e6;
-    border-radius: 0.25rem;
-    min-height: 5rem;
-    cursor: pointer;
-    transition: transform 0.1s;
+    border-radius: 0.35rem;
+    min-height: 6.5rem;
+    padding: 0.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 
-    &:hover {
-      transform: scale(1.02);
+    &__number {
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-align: center;
     }
+
+    &__buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      justify-content: center;
+      margin-top: auto;
+    }
+  }
+
+  .icon-btn {
+    padding: 0.1rem 0.3rem;
+    line-height: 1;
+    font-size: 0.8rem;
   }
 }

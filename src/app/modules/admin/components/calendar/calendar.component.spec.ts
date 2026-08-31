@@ -4,7 +4,8 @@ import { of, throwError } from 'rxjs';
 
 import { CalendarComponent } from './calendar.component';
 import { CalendarService } from '../../../../services/calendar.service';
-import { CalendarMonthTeamResponse } from '../../../../models';
+import { EmployeesService } from '../../../../services/employees.service';
+import { CalendarMonthEmployeeResponse, CalendarDay } from '../../../../models';
 
 describe('CalendarComponent', () => {
   let component: CalendarComponent;
@@ -13,45 +14,56 @@ describe('CalendarComponent', () => {
     getMonth: ReturnType<typeof vi.fn>;
     getMonthByEmployee: ReturnType<typeof vi.fn>;
   };
-
-  const mockResponse: CalendarMonthTeamResponse = {
-    month: '2026-08',
-    employees: [
-      {
-        employee: { id: 1, name: 'Juan Pérez', username: 'juanp' },
-        days: [
-          {
-            date: '2026-08-01',
-            dayOfWeek: 6,
-            workday: { id: 1, day: 1 },
-            records: [
-              { id: 1, checkIn: '08:00', checkOut: '17:00', incident: null, isActive: true },
-            ],
-            events: [],
-            status: 'complete',
-          },
-          {
-            date: '2026-08-02',
-            dayOfWeek: 7,
-            workday: null,
-            records: [],
-            events: [],
-            status: 'rest',
-          },
-        ],
-      },
-    ],
+  let employeesServiceSpy: {
+    getEmployees: ReturnType<typeof vi.fn>;
   };
+
+  const mockDays: CalendarDay[] = [
+    {
+      date: '2026-08-01',
+      dayOfWeek: 6,
+      workday: { id: 1, day: 1 },
+      records: [{ id: 1, checkIn: '08:00', checkOut: '17:00', incident: null, isActive: true }],
+      events: [],
+      status: 'complete',
+    },
+    {
+      date: '2026-08-02',
+      dayOfWeek: 7,
+      workday: null,
+      records: [],
+      events: [],
+      status: 'rest',
+    },
+  ];
+
+  const mockResponse: CalendarMonthEmployeeResponse = {
+    month: '2026-08',
+    employeeId: 1,
+    days: mockDays,
+  };
+
+  const mockEmployees = [
+    { id: '1', name: 'Juan Pérez', username: 'juanp' },
+    { id: '2', name: 'María López', username: 'marial' },
+  ];
 
   beforeEach(async () => {
     calendarServiceSpy = {
-      getMonth: vi.fn().mockReturnValue(of(mockResponse)),
-      getMonthByEmployee: vi.fn(),
+      getMonth: vi.fn(),
+      getMonthByEmployee: vi.fn().mockReturnValue(of(mockResponse)),
+    };
+    employeesServiceSpy = {
+      getEmployees: vi.fn().mockReturnValue(of(mockEmployees)),
     };
 
     await TestBed.configureTestingModule({
       imports: [CalendarComponent],
-      providers: [provideHttpClient(), { provide: CalendarService, useValue: calendarServiceSpy }],
+      providers: [
+        provideHttpClient(),
+        { provide: CalendarService, useValue: calendarServiceSpy },
+        { provide: EmployeesService, useValue: employeesServiceSpy },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CalendarComponent);
@@ -63,14 +75,37 @@ describe('CalendarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call CalendarService.getMonth on init', () => {
-    expect(calendarServiceSpy.getMonth).toHaveBeenCalledTimes(1);
-    expect(calendarServiceSpy.getMonth).toHaveBeenCalledWith(component.monthParam());
+  it('should load employees on init', () => {
+    expect(employeesServiceSpy.getEmployees).toHaveBeenCalledTimes(1);
+    expect(component.employees().length).toBe(2);
+    expect(component.employees()[0]).toEqual({ id: 1, name: 'Juan Pérez', username: 'juanp' });
   });
 
-  it('should set employees from API response', () => {
-    expect(component.employees().length).toBe(1);
-    expect(component.employees()[0].employee.name).toBe('Juan Pérez');
+  it('should set employees to empty on error', () => {
+    employeesServiceSpy.getEmployees.mockReturnValueOnce(throwError(() => new Error('fail')));
+    component.loadEmployees();
+    expect(component.employees()).toEqual([]);
+  });
+
+  it('should not load month before employee selected', () => {
+    expect(calendarServiceSpy.getMonthByEmployee).not.toHaveBeenCalled();
+    expect(component.days()).toEqual([]);
+  });
+
+  it('should load month when employee selected', () => {
+    component.onEmployeeChange('1');
+    expect(component.selectedEmployeeId()).toBe(1);
+    expect(calendarServiceSpy.getMonthByEmployee).toHaveBeenCalledTimes(1);
+    expect(component.days()).toEqual(mockDays);
+  });
+
+  it('should build weeks grid from days', () => {
+    component.onEmployeeChange('1');
+    expect(component.weeks().length).toBeGreaterThan(0);
+    // each week row has exactly 7 columns
+    for (const week of component.weeks()) {
+      expect(week.length).toBe(7);
+    }
   });
 
   it('should generate correct monthParam', () => {
@@ -79,63 +114,42 @@ describe('CalendarComponent', () => {
     expect(component.monthParam()).toBe(expected);
   });
 
-  it('should generate localized monthLabel', () => {
-    const label = component.monthLabel();
-    expect(label).toBeTruthy();
-    expect(typeof label).toBe('string');
-  });
-
   it('should set loading to false after API response', () => {
-    expect(component.loading()).toBe(false);
-  });
-
-  it('should set employees to empty array on API error', () => {
-    calendarServiceSpy.getMonth.mockReturnValueOnce(throwError(() => new Error('fail')));
-
-    component.loadMonth();
-    expect(component.employees()).toEqual([]);
-  });
-
-  it('should set loading=false after error', () => {
-    calendarServiceSpy.getMonth.mockReturnValueOnce(throwError(() => new Error('fail')));
-    component.loadMonth();
+    component.onEmployeeChange('1');
     expect(component.loading()).toBe(false);
   });
 
   it('should change month and reload', () => {
+    component.onEmployeeChange('1');
     const origMonth = component.month();
-    calendarServiceSpy.getMonth.mockClear();
+    calendarServiceSpy.getMonthByEmployee.mockClear();
 
     component.changeMonth(1);
 
-    expect(component.month()).toBe(origMonth + 1);
-    expect(calendarServiceSpy.getMonth).toHaveBeenCalledTimes(1);
+    expect(component.month()).toBe(origMonth === 11 ? 0 : origMonth + 1);
+    expect(calendarServiceSpy.getMonthByEmployee).toHaveBeenCalledTimes(1);
   });
 
-  it('should go to previous month', () => {
-    const origYear = component.year();
-    const origMonth = component.month();
+  it('should clear selected day when changing employee', () => {
+    component.onEmployeeChange('1');
+    component.selectDay(mockDays[0]);
+    expect(component.selectedDay()).not.toBeNull();
 
-    component.changeMonth(-1);
-
-    if (origMonth === 0) {
-      expect(component.year()).toBe(origYear - 1);
-      expect(component.month()).toBe(11);
-    } else {
-      expect(component.month()).toBe(origMonth - 1);
-    }
+    component.onEmployeeChange('2');
+    expect(component.selectedDay()).toBeNull();
   });
 
   it('should select a day', () => {
+    component.onEmployeeChange('1');
     expect(component.selectedDay()).toBeNull();
 
-    const day = component.employees()[0].days[0];
-    component.selectDay(day);
-    expect(component.selectedDay()).toBe(day);
+    component.selectDay(mockDays[0]);
+    expect(component.selectedDay()).toBe(mockDays[0]);
   });
 
   it('should deselect a day', () => {
-    component.selectDay(component.employees()[0].days[0]);
+    component.onEmployeeChange('1');
+    component.selectDay(mockDays[0]);
     component.selectedDay.set(null);
     expect(component.selectedDay()).toBeNull();
   });

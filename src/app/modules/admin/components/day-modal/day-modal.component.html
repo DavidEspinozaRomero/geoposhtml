@@ -20,7 +20,25 @@
           </p>
 
           @if (day()?.workday; as workday) {
-            <p><strong>Jornada:</strong> Día {{ workday.day }}</p>
+            <h6>Jornada Laboral</h6>
+            <p class="mb-1"><strong>Día:</strong> {{ workday.day }}</p>
+            @if (loadingCompanies()) {
+              <p class="text-muted">Cargando empresas...</p>
+            } @else if (companies().length) {
+              <p class="mb-0">
+                <strong>Empresas:</strong>
+              </p>
+              <ul class="list-unstyled">
+                @for (company of companies(); track company.id) {
+                  <li>
+                    <i class="bi bi-building me-1"></i>
+                    {{ company.name }}
+                  </li>
+                }
+              </ul>
+            } @else {
+              <p class="text-muted">Sin empresas asignadas</p>
+            }
           }
 
           @if (day()!.records.length) {
@@ -41,7 +59,10 @@
           @if (day()!.events.length) {
             <h6>Eventos</h6>
             @for (event of day()!.events; track event.id) {
-              <p>{{ event.eventType.name }} — {{ event.title }}</p>
+              <p>
+                <span class="badge bg-info">{{ event.eventType.name }}</span>
+                {{ event.title }}
+              </p>
             }
           }
         </div>

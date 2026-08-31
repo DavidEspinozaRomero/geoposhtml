@@ -2,18 +2,29 @@ import { DatePipe, KeyValuePipe, TitleCasePipe } from '@angular/common';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 
 import { CalendarService } from '../../../../services/calendar.service';
+import { EmployeesService } from '../../../../services/employees.service';
 import { CalendarDay, CalendarEmployee } from '../../../../models';
 import { EmptyComponent, LoadingComponent } from '../../../../components';
+import { DayModalComponent } from '../day-modal/day-modal.component';
+import { buildMonthGrid } from '../../../../utils/calendar-grid.util';
 
 @Component({
   selector: 'app-calendar',
   standalone: true,
-  imports: [DatePipe, KeyValuePipe, TitleCasePipe, LoadingComponent, EmptyComponent],
+  imports: [
+    DatePipe,
+    KeyValuePipe,
+    TitleCasePipe,
+    LoadingComponent,
+    EmptyComponent,
+    DayModalComponent,
+  ],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss',
 })
 export class CalendarComponent implements OnInit {
   private readonly calendarService = inject(CalendarService);
+  private readonly employeesService = inject(EmployeesService);
 
   now = signal<Date>(new Date());
   year = computed(() => this.now().getFullYear());
@@ -28,7 +39,11 @@ export class CalendarComponent implements OnInit {
   });
 
   loading = signal(false);
-  employees = signal<{ employee: CalendarEmployee; days: CalendarDay[] }[]>([]);
+  loadingEmployees = signal(false);
+  employees = signal<CalendarEmployee[]>([]);
+  selectedEmployeeId = signal<number | null>(null);
+  days = signal<CalendarDay[]>([]);
+  weeks = computed(() => buildMonthGrid(this.days()));
   selectedDay = signal<CalendarDay | null>(null);
 
   statusColor: Record<string, string> = {
@@ -39,29 +54,60 @@ export class CalendarComponent implements OnInit {
     event: 'info',
   };
 
+  weekDayLabels = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+
   ngOnInit(): void {
+    this.loadEmployees();
+  }
+
+  loadEmployees() {
+    this.loadingEmployees.set(true);
+    this.employeesService.getEmployees().subscribe({
+      next: (empList) => {
+        this.employees.set(
+          empList
+            .filter((e) => e.id !== undefined)
+            .map((e) => ({ id: Number(e.id), name: e.name, username: e.username })),
+        );
+        this.loadingEmployees.set(false);
+      },
+      error: () => {
+        this.employees.set([]);
+        this.loadingEmployees.set(false);
+      },
+    });
+  }
+
+  onEmployeeChange(value: string) {
+    const id = Number(value);
+    this.selectedEmployeeId.set(id);
+    this.selectedDay.set(null);
     this.loadMonth();
   }
 
   loadMonth() {
+    const employeeId = this.selectedEmployeeId();
+    if (!employeeId) {
+      this.days.set([]);
+      return;
+    }
+
     this.loading.set(true);
-    this.calendarService
-      .getMonth(this.monthParam())
-      .subscribe({
-        next: (res) => {
-          this.employees.set(res.employees);
-        },
-        error: () => {
-          this.employees.set([]);
-        },
-      })
-      .add(() => {
+    this.calendarService.getMonthByEmployee(this.monthParam(), employeeId).subscribe({
+      next: (res) => {
+        this.days.set(res.days);
         this.loading.set(false);
-      });
+      },
+      error: () => {
+        this.days.set([]);
+        this.loading.set(false);
+      },
+    });
   }
 
   changeMonth(quantity: number) {
     this.now.update((d) => new Date(d.getFullYear(), d.getMonth() + quantity));
+    this.selectedDay.set(null);
     this.loadMonth();
   }
 

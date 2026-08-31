@@ -30,62 +30,103 @@
 @if (loading()) {
   <app-loading></app-loading>
 } @else {
-  @if (days().length === 0) {
+  @if (weeks().length === 0) {
     <app-empty></app-empty>
   } @else {
-    <!-- employee calendar grid -->
-    <div class="calendar">
-      @for (day of days(); track day.date) {
-        <div
-          class="calendar_day p-2"
-          [class.bg-success-subtle]="day.status === 'complete'"
-          [class.bg-warning-subtle]="day.status === 'partial'"
-          [class.bg-danger-subtle]="day.status === 'absent'"
-          [class.bg-secondary-subtle]="day.status === 'rest'"
-          [class.bg-info-subtle]="day.status === 'event'"
-          role="button"
-          tabindex="0"
-          (click)="selectDay(day)"
-          (keydown.enter)="selectDay(day)"
-          (keydown.space)="selectDay(day)"
-        >
-          <p class="text-center mb-1">
-            <small>{{ day.date | date: 'EEE, d' }}</small>
-          </p>
-          @if (day.workday) {
-            <p class="text-center mb-1">
-              <small class="badge bg-primary">J{{ day.workday.day }}</small>
-            </p>
-          }
-          @if (day.records.length) {
-            <p class="text-center mb-1">
-              <small class="text-muted">
-                {{ day.records[0].checkIn }}
-                @if (day.records[0].checkOut) {
-                  - {{ day.records[0].checkOut }}
-                }
-              </small>
-            </p>
-          }
-          @for (event of day.events; track event.id) {
-            <p class="text-center mb-0">
-              <small class="badge bg-info" [title]="event.title">{{ event.eventType.name }}</small>
-            </p>
+    <!-- weekly grid -->
+    <div class="month-grid">
+      <!-- header week days -->
+      <div class="month-grid__row month-grid__header">
+        @for (label of weekDayLabels; track label) {
+          <div class="month-grid__col month-grid__header-cell">{{ label }}</div>
+        }
+      </div>
+
+      <!-- weeks -->
+      @for (week of weeks(); let w = $index; track w) {
+        <div class="month-grid__row">
+          @for (day of week; track day ? day.date : $index) {
+            <div class="month-grid__col">
+              @if (day) {
+                <div
+                  class="day-card"
+                  [class.bg-success-subtle]="day.status === 'complete'"
+                  [class.bg-warning-subtle]="day.status === 'partial'"
+                  [class.bg-danger-subtle]="day.status === 'absent'"
+                  [class.bg-secondary-subtle]="day.status === 'rest'"
+                  [class.bg-info-subtle]="day.status === 'event'"
+                >
+                  <div class="day-card__number">
+                    {{ day.date | date: 'd' }}
+                  </div>
+
+                  @if (day.workday) {
+                    <span class="badge bg-primary mb-1">J{{ day.workday.day }}</span>
+                  }
+
+                  <div class="day-card__buttons">
+                    @if (day.records.length) {
+                      <button
+                        type="button"
+                        class="btn btn-outline-primary btn-sm icon-btn"
+                        title="Registros"
+                        (click)="selectDay(day)"
+                      >
+                        <i class="bi bi-clock"></i>
+                      </button>
+                    }
+                    @if (day.events.length) {
+                      <button
+                        type="button"
+                        class="btn btn-outline-info btn-sm icon-btn"
+                        title="{{ day.events[0].title }}"
+                        (click)="selectDay(day)"
+                      >
+                        <i class="bi bi-calendar-event"></i>
+                      </button>
+                    }
+                    @if (day.records.length && day.records[0].incident) {
+                      <button
+                        type="button"
+                        class="btn btn-outline-danger btn-sm icon-btn"
+                        title="Incidencia"
+                        (click)="selectDay(day)"
+                      >
+                        <i class="bi bi-exclamation-triangle"></i>
+                      </button>
+                    }
+                    @if (day.workday) {
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary btn-sm icon-btn"
+                        title="Jornada"
+                        (click)="selectDay(day)"
+                      >
+                        <i class="bi bi-briefcase"></i>
+                      </button>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
           }
         </div>
       }
     </div>
 
     <!-- legend -->
-    <div class="mt-2 d-flex gap-3">
-      <span><span class="badge bg-success">completo</span></span>
-      <span><span class="badge bg-warning">parcial</span></span>
-      <span><span class="badge bg-danger">ausente</span></span>
-      <span><span class="badge bg-secondary">descanso</span></span>
-      <span><span class="badge bg-info">evento</span></span>
+    <div class="mt-3 d-flex gap-3">
+      @for (entry of statusColor | keyvalue; track entry.key) {
+        <span>
+          <span class="badge" [class]="'bg-' + entry.value">{{ entry.key }}</span>
+        </span>
+      }
     </div>
   }
 }
 
 <!-- day detail modal -->
-<app-calendary-modal [day]="selectedDay()"></app-calendary-modal>
+<app-calendary-modal
+  [day]="selectedDay()"
+  (closeRequest)="selectedDay.set(null)"
+></app-calendary-modal>

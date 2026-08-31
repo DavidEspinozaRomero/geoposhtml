@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import { CalendarDay } from '../../../../models';
@@ -11,7 +11,10 @@ import { CalendarDay } from '../../../../models';
   styleUrl: './calendary-modal.component.scss',
 })
 export class CalendaryModalComponent {
-  @Input() day: CalendarDay | null = null;
+  day = input<CalendarDay | null>(null);
+  closeRequest = output<void>();
+
+  isOpen = computed(() => this.day() !== null);
 
   statusColor(status: string): string {
     const map: Record<string, string> = {

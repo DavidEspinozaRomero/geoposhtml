@@ -1,4 +1,4 @@
-import { DatePipe, TitleCasePipe } from '@angular/common';
+import { DatePipe, KeyValuePipe, TitleCasePipe } from '@angular/common';
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 
 import { CalendarService } from '../../../../services/calendar.service';
@@ -6,11 +6,19 @@ import { Auth } from '../../../../services/auth';
 import { CalendarDay, CalendarMonthEmployeeResponse } from '../../../../models';
 import { CalendaryModalComponent } from '../calendary-modal/calendary-modal.component';
 import { LoadingComponent, EmptyComponent } from '../../../../components';
+import { buildMonthGrid } from '../../../../utils/calendar-grid.util';
 
 @Component({
   selector: 'app-calendary',
   standalone: true,
-  imports: [DatePipe, TitleCasePipe, CalendaryModalComponent, LoadingComponent, EmptyComponent],
+  imports: [
+    DatePipe,
+    KeyValuePipe,
+    TitleCasePipe,
+    CalendaryModalComponent,
+    LoadingComponent,
+    EmptyComponent,
+  ],
   templateUrl: './calendary.component.html',
   styleUrl: './calendary.component.scss',
 })
@@ -21,6 +29,7 @@ export class CalendaryComponent implements OnInit {
   now = signal<Date>(new Date());
   loading = signal(false);
   days = signal<CalendarDay[]>([]);
+  weeks = computed(() => buildMonthGrid(this.days()));
   selectedDay = signal<CalendarDay | null>(null);
 
   year = computed(() => this.now().getFullYear());
@@ -33,6 +42,16 @@ export class CalendaryComponent implements OnInit {
     const m = String(this.month() + 1).padStart(2, '0');
     return `${this.year()}-${m}`;
   });
+
+  statusColor: Record<string, string> = {
+    complete: 'success',
+    partial: 'warning',
+    absent: 'danger',
+    rest: 'secondary',
+    event: 'info',
+  };
+
+  weekDayLabels = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
 
   private get employeeId(): number {
     return this.auth.currentUser?.employeeId ?? 0;
@@ -63,21 +82,11 @@ export class CalendaryComponent implements OnInit {
 
   changeMonth(quantity: number) {
     this.now.update((d) => new Date(d.getFullYear(), d.getMonth() + quantity));
+    this.selectedDay.set(null);
     this.loadMonth();
   }
 
   selectDay(day: CalendarDay) {
     this.selectedDay.set(day);
-  }
-
-  statusColor(status: string): string {
-    const map: Record<string, string> = {
-      complete: 'success',
-      partial: 'warning',
-      absent: 'danger',
-      rest: 'secondary',
-      event: 'info',
-    };
-    return map[status] ?? 'secondary';
   }
 }
