@@ -91,5 +91,8 @@ export const routes: Routes = [
     ],
   },
 
-  { path: '**', pathMatch: 'full', redirectTo: 'login' },
+  {
+    path: '**',
+    loadComponent: () => import('./components/not-found/not-found').then((m) => m.NotFound),
+  },
 ];
