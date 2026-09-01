@@ -4,6 +4,11 @@ import { authGuard } from './guards/auth-guard';
 import { roleGuard } from './guards/role-guard';
 
 export const routes: Routes = [
+  {
+    path: '',
+    loadComponent: () =>
+      import('./components/landing/landing.component').then((m) => m.LandingComponent),
+  },
   { path: 'login', loadComponent: () => import('./components/login/login').then((m) => m.Login) },
   {
     path: 'employee',

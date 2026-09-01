@@ -1,0 +1,340 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top landing-navbar">
+  <div class="container">
+    <a class="navbar-brand fw-bold landing-brand" routerLink="/">
+      <i class="bi bi-geo-alt-fill"></i> Jornada<span class="text-primary">Go</span>
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#landingNav"
+      aria-controls="landingNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="landingNav">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-2">
+        <li class="nav-item">
+          <a class="nav-link" href="#features">Características</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#how">Cómo funciona</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#faq">FAQ</a>
+        </li>
+        <li class="nav-item ms-lg-2">
+          <a class="btn btn-primary btn-sm rounded-pill px-3" routerLink="/login">Iniciar sesión</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-light btn-sm rounded-pill px-3" routerLink="/login"
+            >Probar demo</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-9">
+        <span class="hero-badge">Fichaje laboral con geolocalización</span>
+        <h1 class="hero-title">
+          Tu equipo marca entrada donde esté.<br />
+          <span class="text-gradient">Vos controlás la jornada desde un panel.</span>
+        </h1>
+        <p class="hero-subtitle">
+          JornadaGo te muestra en tiempo real cuándo y desde dónde fichan tus empleados, planificá
+          qué empresa les toca cada día y centralizá incidencias y eventos laborales.
+        </p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+          <a class="btn btn-primary btn-lg rounded-pill px-4" routerLink="/login">
+            <i class="bi bi-rocket-takeoff me-2"></i>Probar la demo
+          </a>
+          <a class="btn btn-outline-light btn-lg rounded-pill px-4" href="#features">
+            Ver características
+          </a>
+        </div>
+        <div class="hero-badges mt-4">
+          <span class="me-3">✔ Geolocalización real</span>
+          <span class="me-3">✔ Calendario mensual</span>
+          <span>✔ Gestión de incidencias</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section id="features" class="section-features">
+  <div class="container">
+    <div class="section-heading">
+      <p class="text-primary fw-semibold mb-1">Características</p>
+      <h2 class="display-6 fw-bold mb-3">Todo lo que tu empresa necesita</h2>
+      <p>Controles simples para registrar presencia, planificar jornadas y resolver incidencias.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="bi bi-geo-alt"></i></div>
+          <h3>Fichaje con geolocalización</h3>
+          <p>
+            Los empleados marcan entrada y salida con su ubicación real. Sabés dónde y cuándo
+            ocurrió cada registro.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="bi bi-calendar-check"></i></div>
+          <h3>Planificación de jornadas</h3>
+          <p>
+            Asigná qué empresa le corresponde a cada empleado por día de la semana. Sin planillas,
+            sin confusiones.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="bi bi-grid-3x3-gap"></i></div>
+          <h3>Calendario mensual</h3>
+          <p>
+            Una grilla clara de semanas y días con el estado de cada jornada: completo, parcial,
+            ausente o descanso.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="bi bi-exclamation-triangle"></i></div>
+          <h3>Incidencias laborales</h3>
+          <p>
+            Registrá llegadas tarde, salidas anticipadas y cualquier novedad. El admin las
+            administra con un visto bueno.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="bi bi-bell"></i></div>
+          <h3>Eventos y avisos</h3>
+          <p>
+            Publicá eventos por tipo y comunicá novedades. Todo queda visible en el calendario de
+            cada empleado.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="bi bi-shield-check"></i></div>
+          <h3>Roles claros</h3>
+          <p>
+            Empleado, administrador: cada uno ve lo que necesita. Seguridad de acceso desde el
+            primer login.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section id="how" class="section-how">
+  <div class="container">
+    <div class="section-heading">
+      <p class="text-primary fw-semibold mb-1">Cómo funciona</p>
+      <h2 class="display-6 fw-bold mb-3">En tres pasos</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="step-card">
+          <span class="step-number">1</span>
+          <h3>Ingresá como admin</h3>
+          <p>Cargá empleados, empresas y definí la jornada laboral de cada persona.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="step-card">
+          <span class="step-number">2</span>
+          <h3>Tu equipo ficha desde el celular</h3>
+          <p>Cada empleado marca entrada y salida con geolocalización desde su cuenta.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="step-card">
+          <span class="step-number">3</span>
+          <h3>Controlás todo en el panel</h3>
+          <p>Revisá registros, incidencias y eventos en el calendario mensual de la empresa.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Benefits -->
+<section class="section-benefits">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <p class="text-primary fw-semibold mb-1">Beneficios</p>
+        <h2 class="display-6 fw-bold mb-3">Menos planillas, más control</h2>
+        <p class="mb-4">
+          Olvidate de hojas de cálculo y partes de entrada manuscritos. JornadaGo concentra toda la
+          información de presencia en un solo lugar.
+        </p>
+        <ul class="benefit-list list-unstyled">
+          <li>
+            <i class="bi bi-check-circle-fill text-primary me-2"></i>Transparencia total en la
+            asistencia
+          </li>
+          <li>
+            <i class="bi bi-check-circle-fill text-primary me-2"></i>Planificación semanal ordenada
+            por empresa
+          </li>
+          <li>
+            <i class="bi bi-check-circle-fill text-primary me-2"></i>Detección temprana de ausencias
+            e incidencias
+          </li>
+          <li>
+            <i class="bi bi-check-circle-fill text-primary me-2"></i>Historial de registros siempre
+            disponible
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-6">
+        <div class="benefit-visual">
+          <div class="benefit-dashboard">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="fw-semibold">Semana actual</span>
+              <span class="badge bg-success">6/6 completos</span>
+            </div>
+            <div class="benefit-day">
+              <div>
+                <strong>Juan Pérez</strong>
+                <small class="text-muted d-block">TechCorp S.L.</small>
+              </div>
+              <span class="badge bg-primary">Entrada 08:02</span>
+            </div>
+            <div class="benefit-day">
+              <div>
+                <strong>María López</strong>
+                <small class="text-muted d-block">TechCorp S.L.</small>
+              </div>
+              <span class="badge bg-warning text-dark">Parcial 09:41</span>
+            </div>
+            <div class="benefit-day">
+              <div>
+                <strong>Carlos Ruiz</strong>
+                <small class="text-muted d-block">Innovatech Solutions</small>
+              </div>
+              <span class="badge bg-danger">Sin registro</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="section-faq">
+  <div class="container">
+    <div class="section-heading">
+      <p class="text-primary fw-semibold mb-1">Preguntas frecuentes</p>
+      <h2 class="display-6 fw-bold mb-3">¿Dudas? Te las respondemos</h2>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="accordion" id="landingFaq">
+          <div class="accordion-item">
+            <h3 class="accordion-header">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq1"
+              >
+                ¿Qué necesito para usarlo?
+              </button>
+            </h3>
+            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#landingFaq">
+              <div class="accordion-body">
+                Solamente una cuenta de administrador para configurar el equipo. Los empleados
+                acceden desde cualquier navegador con su usuario y contraseña.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq2"
+              >
+                ¿La geolocalización es obligatoria?
+              </button>
+            </h3>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#landingFaq">
+              <div class="accordion-body">
+                El fichaje registra la ubicación de cada marca. Así el administrador tiene evidencia
+                de dónde se realizó la entrada y la salida.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq3"
+              >
+                ¿Puedo asignar varias empresas a un empleado?
+              </button>
+            </h3>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#landingFaq">
+              <div class="accordion-body">
+                Sí. La planificación de jornadas te permite asignar empresas por cada día de la
+                semana, ideal para equipos que rotan de sede.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="section-cta">
+  <div class="container">
+    <div class="cta-box text-center">
+      <h2 class="fw-bold mb-3">Probá JornadaGo ahora</h2>
+      <p class="mb-4">
+        Entrá a la demo y descubrí lo simple que es controlar la jornada laboral de tu equipo.
+      </p>
+      <a class="btn btn-light btn-lg rounded-pill px-4" routerLink="/login">
+        <i class="bi bi-arrow-right-circle me-2"></i>Empezar demo
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="landing-footer py-4">
+  <div
+    class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2"
+  >
+    <span class="landing-brand">
+      <i class="bi bi-geo-alt-fill"></i> Jornada<span class="text-primary">Go</span>
+    </span>
+    <small class="text-muted">&copy; 2026 JornadaGo. Todos los derechos reservados.</small>
+  </div>
+</footer>
