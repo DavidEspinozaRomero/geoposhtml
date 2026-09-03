@@ -97,6 +97,11 @@ export const routes: Routes = [
   },
 
   {
+    path: 'roadmap',
+    loadComponent: () =>
+      import('./components/roadmap/roadmap.component').then((m) => m.RoadmapComponent),
+  },
+  {
     path: '**',
     loadComponent: () => import('./components/not-found/not-found').then((m) => m.NotFound),
   },

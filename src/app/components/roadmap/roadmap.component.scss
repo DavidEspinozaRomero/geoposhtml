@@ -1,0 +1,172 @@
+// JornadaGo roadmap page — mirrors landing visual style.
+
+.landing-navbar {
+  background: rgba(10, 14, 31, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  .navbar-brand,
+  .nav-link {
+    color: #fff;
+  }
+
+  .landing-brand {
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-link.active {
+    color: #7dd3fc;
+    font-weight: 600;
+  }
+}
+
+.roadmap-hero {
+  background:
+    radial-gradient(1200px 600px at 20% -10%, #1e3a8a 0%, transparent 55%),
+    radial-gradient(900px 500px at 90% 10%, #0ea5e9 0%, transparent 50%),
+    linear-gradient(180deg, #0a0e1f 0%, #0f172a 100%);
+  padding: 10rem 0 6rem;
+  color: #fff;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 999px;
+  background: rgba(14, 165, 233, 0.12);
+  border: 1px solid rgba(14, 165, 233, 0.35);
+  color: #7dd3fc;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.hero-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  color: #cbd5e1;
+  max-width: 680px;
+  margin: 1.5rem auto 2rem;
+}
+
+.section-heading {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 3rem;
+}
+
+.roadmap-section {
+  padding: 5rem 0;
+  background: #f8fafc;
+}
+
+.roadmap-section-alt {
+  background: #fff;
+}
+
+.roadmap-card {
+  height: 100%;
+  padding: 1.75rem;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: #475569;
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1);
+  }
+}
+
+.roadmap-card-future {
+  background: #fffbeb;
+  border-color: #fcd34d;
+}
+
+// Timeline: vertical line with phase markers.
+.timeline {
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+  padding-left: 2.5rem;
+
+  // The connecting vertical line.
+  &::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: #cbd5e1;
+  }
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 1.75rem;
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -2.5rem;
+  top: 1.05rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #10b981;
+  color: #fff;
+  font-size: 1rem;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+
+  &.future {
+    background: #f59e0b;
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2);
+  }
+}
+
+.timeline-card {
+  height: 100%;
+}
+
+.landing-footer {
+  background: #0f172a;
+  color: #fff;
+
+  .landing-brand {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+}
+
+// Anchors need to clear the fixed navbar.
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
