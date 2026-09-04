@@ -14,3 +14,7 @@ export interface AuthUser {
   role: 'admin' | 'employee';
   employeeId: number;
 }
+
+export interface RefreshResponse {
+  access_token: string;
+}
