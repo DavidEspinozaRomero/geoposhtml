@@ -6,6 +6,7 @@ import { roleGuard } from './guards/role-guard';
 export const routes: Routes = [
   {
     path: '',
+    title: 'JornadaGo | Control de jornada laboral con geolocalización',
     loadComponent: () =>
       import('./components/landing/landing.component').then((m) => m.LandingComponent),
   },
@@ -98,6 +99,7 @@ export const routes: Routes = [
 
   {
     path: 'roadmap',
+    title: 'Roadmap de JornadaGo | Lo que viene',
     loadComponent: () =>
       import('./components/roadmap/roadmap.component').then((m) => m.RoadmapComponent),
   },

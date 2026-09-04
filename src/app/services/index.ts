@@ -5,3 +5,4 @@ export * from './record.service';
 export * from './utils.service';
 export * from './wordays.service';
 export * from './auth.interceptor';
+export * from './seo.service';
