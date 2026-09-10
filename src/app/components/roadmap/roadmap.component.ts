@@ -16,7 +16,7 @@ export class RoadmapComponent implements OnInit {
   ngOnInit(): void {
     this.seo.updateMeta({
       description:
-        'Descubrí lo que ya ofrece JornadaGo y las próximas mejoras: avisos por email y exportación de registros en Excel y PDF.',
+        'Descubrí lo que ya ofrece JornadaGo y las próximas mejoras: avisos por email y reportes en PDF.',
       path: '/roadmap',
     });
   }

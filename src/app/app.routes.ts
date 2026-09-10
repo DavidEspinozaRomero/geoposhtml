@@ -94,6 +94,13 @@ export const routes: Routes = [
             (m) => m.EventsComponent,
           ),
       },
+      {
+        path: 'reports',
+        loadComponent: () =>
+          import('./modules/admin/components/reports/reports.component').then(
+            (m) => m.ReportsComponent,
+          ),
+      },
     ],
   },
 

@@ -42,6 +42,11 @@ export class LayoutAdminComponent {
     },
     { icon: 'bi bi-balloon', label: 'events', route: '/administrator/events' },
     {
+      icon: 'bi bi-file-earmark-bar-graph',
+      label: 'reports',
+      route: '/administrator/reports',
+    },
+    {
       icon: 'bi bi-calendar3',
       label: 'calendar',
       route: '/administrator/calendar',

@@ -20,7 +20,7 @@ Employee workday management frontend — check-in/out records, workday schedulin
 
 This frontend consumes the REST API from the companion project **management-workday-employee** (NestJS, available on `http://localhost:3000` by default). The base URL is configured in `src/environments/environment.ts` (`apiUrl`).
 
-The list endpoints return a paginated envelope (`PaginatedResponse<T>`: `{ data, total, page, limit, totalPages }`); services unwrap `.data`.
+The list endpoints return a paginated envelope (`PaginatedResponse<T>`: `{ data, total, page, limit, totalPages }`); services unwrap `.data`. The `GET /reports/monthly` endpoint (admin reports page) is different: it returns a raw XLSX binary download (`responseType: 'blob'`), with `month` (`YYYY-MM`) and optional `format` (`xlsx` default; `csv`/`pdf` → 501) query params.
 
 ## Getting started
 
@@ -55,10 +55,10 @@ pnpm test
 ## Architecture
 
 - `src/app/components/` — app-level components: `login`, `not-found` (404 page with a button back to login)
-- `src/app/modules/admin/` — admin app: employees, companies, workdays, records, events, calendar
+- `src/app/modules/admin/` — admin app: employees, companies, workdays, records, events, calendar, reports
 - `src/app/modules/employee/` — employee app: workday, records, calendar
 - `src/app/models/` — TypeScript interfaces for API contracts
-- `src/app/services/` — HTTP services (`Auth`, `EmployeesService`, `CompaniesService`, `RecordService`, `EventsService`, `WordaysService`, `CalendarService`)
+- `src/app/services/` — HTTP services (`Auth`, `EmployeesService`, `CompaniesService`, `RecordService`, `EventsService`, `WordaysService`, `CalendarService`, `ReportsService`)
 - `src/app/pipes/` — filtering pipes
 - `src/app/utils/` — shared helpers (e.g. `buildMonthGrid` for the calendar week rows)
 

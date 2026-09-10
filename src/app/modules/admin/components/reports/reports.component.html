@@ -1,0 +1,43 @@
+<div class="p-3">
+  <h1>Reporte mensual</h1>
+
+  <div class="card mt-3">
+    <div class="card-body">
+      <div class="row g-3 align-items-end">
+        <div class="col-md-4">
+          <label for="reportMonth" class="form-label">Mes</label>
+          <input
+            id="reportMonth"
+            type="month"
+            class="form-control"
+            [ngModel]="month()"
+            (ngModelChange)="onMonthChange($event)"
+          />
+          <div class="form-text">
+            El reporte descarga un archivo XLSX con el resumen del mes seleccionado.
+          </div>
+        </div>
+        <div class="col-md-4">
+          <button
+            type="button"
+            class="btn btn-primary"
+            [disabled]="downloading() || !month()"
+            (click)="downloadXlsx()"
+          >
+            @if (downloading()) {
+              <span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
+              <span role="status">Descargando...</span>
+            } @else {
+              <i class="bi bi-file-earmark-arrow-down me-1" aria-hidden="true"></i>
+              Descargar XLSX
+            }
+          </button>
+        </div>
+      </div>
+
+      @if (message()) {
+        <div class="alert alert-danger mt-3 mb-0" role="alert">{{ message() }}</div>
+      }
+    </div>
+  </div>
+</div>
