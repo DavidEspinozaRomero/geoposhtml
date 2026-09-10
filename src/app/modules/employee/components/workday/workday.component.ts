@@ -1,8 +1,8 @@
 import { DatePipe, NgClass } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
 
-import { RecordService } from '../../../../services/record.service';
 import { Company, Record } from '../../../../models';
+import { RecordService } from '../../../../services/record.service';
 import { CompaniesService } from '../../../../services/companies.service';
 import { UtilsService } from '../../../../services/utils.service';
 import { Auth } from '../../../../services/auth';
@@ -26,7 +26,7 @@ export class WorkdayComponent implements OnInit {
   record = signal<Record | undefined>(undefined);
   today = new Date();
   message = signal<string | undefined>(undefined);
-  companies = signal<Company[]>([]);
+  companies = signal<Company[] | undefined>(undefined);
 
   companyIdForm = this.fb.control('', [Validators.required]);
   incidentForm = this.fb.control(null, [Validators.minLength(3)]);
@@ -96,7 +96,9 @@ export class WorkdayComponent implements OnInit {
         };
         this.recordService.startWorkday(body).subscribe({
           next: (record) => {
-            const company = this.companies().find((c) => String(c.id) === String(record.companyId));
+            const company = this.companies()!.find(
+              (c) => String(c.id) === String(record.companyId),
+            );
             record.companyName = company?.name ?? '';
             this.record.set(record);
             this.message.set(undefined);

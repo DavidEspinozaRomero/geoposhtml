@@ -21,7 +21,7 @@ export class CompaniesService {
   getCompaniesByEmployeeWorkday(employeeID: number, day: number) {
     const queryParams = `day=${day}&employeeID=${employeeID}`;
     const URL = `${this.#localURL}companies/employee-workday?${queryParams}`;
-    return this.http.get<PaginatedResponse<Company>>(URL).pipe(map((res) => res.data));
+    return this.http.get<Company[]>(URL);
   }
 
   getCompanyById(companyId: string | number) {
