@@ -23,6 +23,11 @@ export class Login {
   submitted = false;
   errorMessage = '';
 
+  fillDemo(username: string, password: string): void {
+    this.form.patchValue({ username, password });
+    this.onSubmit();
+  }
+
   onSubmit(): void {
     this.submitted = true;
     this.errorMessage = '';

@@ -39,4 +39,35 @@
 
     <button type="submit" class="btn-login">Iniciar Sesión</button>
   </form>
+
+  <section class="demo-card" aria-label="Acceso demo">
+    <h2 class="demo-title">Probá la demo</h2>
+    <p class="demo-subtitle">Entrá directo con una cuenta de prueba:</p>
+
+    <div class="demo-account">
+      <div class="demo-account-info">
+        <span class="demo-role">Administrador</span>
+        <div class="demo-credentials">
+          <span>usuario: <code>admin</code></span>
+          <span>contraseña: <code>password123</code></span>
+        </div>
+      </div>
+      <button type="button" class="demo-btn" (click)="fillDemo('admin', 'password123')">
+        Entrar como Admin
+      </button>
+    </div>
+
+    <div class="demo-account">
+      <div class="demo-account-info">
+        <span class="demo-role">Empleado</span>
+        <div class="demo-credentials">
+          <span>usuario: <code>employee1</code></span>
+          <span>contraseña: <code>password123</code></span>
+        </div>
+      </div>
+      <button type="button" class="demo-btn" (click)="fillDemo('employee1', 'password123')">
+        Entrar como Empleado
+      </button>
+    </div>
+  </section>
 </div>
