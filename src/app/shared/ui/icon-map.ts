@@ -83,3 +83,16 @@ export const iconMap = {
   trash: LucideTrash2,
   'x-circle-fill': LucideCircleX,
 } satisfies Record<string, LucideIcon>;
+
+/**
+ * Tailwind literal classes for the day-status badge in the day/calendary
+ * modals (REQ-009). Values must stay in sync with the DayStatus union in
+ * models/calendar.model.ts; the fallback 'secondary' guards unknown statuses.
+ */
+export const statusClasses: Record<string, string> = {
+  complete: 'bg-green-600 text-white',
+  partial: 'bg-yellow-400 text-black',
+  absent: 'bg-red-600 text-white',
+  rest: 'bg-gray-400 text-white',
+  event: 'bg-blue-500 text-white',
+};

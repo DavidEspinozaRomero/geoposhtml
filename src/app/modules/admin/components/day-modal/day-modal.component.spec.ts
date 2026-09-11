@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CalendaryModalComponent } from './calendary-modal.component';
+import { DayModalComponent } from './day-modal.component';
 import { CalendarDay } from '../../../../models';
 
-describe('CalendaryModalComponent', () => {
-  let component: CalendaryModalComponent;
-  let fixture: ComponentFixture<CalendaryModalComponent>;
+describe('DayModalComponent', () => {
+  let component: DayModalComponent;
+  let fixture: ComponentFixture<DayModalComponent>;
 
   const day: CalendarDay = {
     date: '2026-09-11',
@@ -13,15 +13,15 @@ describe('CalendaryModalComponent', () => {
     workday: null,
     records: [],
     events: [],
-    status: 'partial',
+    status: 'complete',
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CalendaryModalComponent],
+      imports: [DayModalComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CalendaryModalComponent);
+    fixture = TestBed.createComponent(DayModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -50,9 +50,9 @@ describe('CalendaryModalComponent', () => {
     fixture.whenStable();
     fixture.detectChanges();
     const badge = fixture.nativeElement.querySelector('.badge');
-    expect(badge.textContent.trim()).toBe('partial');
-    expect(badge.classList.contains('bg-yellow-400')).toBe(true);
-    expect(badge.classList.contains('text-black')).toBe(true);
+    expect(badge.textContent.trim()).toBe('complete');
+    expect(badge.classList.contains('bg-green-600')).toBe(true);
+    expect(badge.classList.contains('text-white')).toBe(true);
   });
 
   it('should emit closeRequest when the footer button is clicked', async () => {
@@ -63,5 +63,16 @@ describe('CalendaryModalComponent', () => {
     const button = fixture.nativeElement.querySelector('.modal-footer .btn');
     button.click();
     expect(spy).toHaveBeenCalled();
+  });
+
+  it('should close the dialog when the day is cleared', async () => {
+    fixture.componentRef.setInput('day', day);
+    fixture.whenStable();
+    fixture.detectChanges();
+    fixture.componentRef.setInput('day', null);
+    fixture.whenStable();
+    fixture.detectChanges();
+    const dialog = fixture.nativeElement.querySelector('dialog');
+    expect(dialog.hasAttribute('open')).toBe(false);
   });
 });

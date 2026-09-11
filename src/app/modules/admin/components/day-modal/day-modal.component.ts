@@ -4,11 +4,13 @@ import { LucideBuilding2 } from '@lucide/angular';
 
 import { CalendarDay, Company } from '../../../../models';
 import { CompaniesService } from '../../../../services/companies.service';
+import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.component';
+import { statusClasses } from '../../../../shared/ui/icon-map';
 
 @Component({
   selector: 'app-day-modal',
   standalone: true,
-  imports: [DatePipe, LucideBuilding2],
+  imports: [DatePipe, LucideBuilding2, AppDialogComponent],
   templateUrl: './day-modal.component.html',
   styleUrl: './day-modal.component.scss',
 })
@@ -23,6 +25,7 @@ export class DayModalComponent {
   loadingCompanies = signal(false);
 
   isOpen = computed(() => this.day() !== null);
+  readonly statusClasses = statusClasses;
 
   private loadEffect = effect(() => {
     const day = this.day();
@@ -34,17 +37,6 @@ export class DayModalComponent {
       this.companies.set([]);
     }
   });
-
-  statusColor(status: string): string {
-    const map: Record<string, string> = {
-      complete: 'success',
-      partial: 'warning',
-      absent: 'danger',
-      rest: 'secondary',
-      event: 'info',
-    };
-    return map[status] ?? 'secondary';
-  }
 
   private loadCompanies(day: number) {
     const employeeId = this.employeeId();

@@ -1,31 +1,26 @@
-@if (isOpen()) {
-  <div
-    class="modal fade show d-block"
-    tabindex="-1"
-    style="background: rgba(0, 0, 0, 0.5)"
-    (click)="closeRequest.emit()"
-  >
-    <div class="modal-dialog" (click)="$event.stopPropagation()">
-      <div class="modal-content">
+<app-dialog [open]="isOpen()" (closeRequest)="closeRequest.emit()">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      @if (day(); as day) {
         <div class="modal-header bg-primary text-bg-primary">
-          <h5 class="modal-title">{{ day()!.date | date: 'fullDate' }}</h5>
+          <h5 class="modal-title">{{ day.date | date: 'fullDate' }}</h5>
           <button type="button" class="btn-close" (click)="closeRequest.emit()"></button>
         </div>
         <div class="modal-body">
           <p>
             <strong>Estado:</strong>
-            <span class="badge" [class]="'bg-' + statusColor(day()!.status)">
-              {{ day()!.status }}
+            <span class="badge" [class]="statusClasses[day.status]">
+              {{ day.status }}
             </span>
           </p>
 
-          @if (day()?.workday; as workday) {
+          @if (day.workday; as workday) {
             <p><strong>Jornada:</strong> Día {{ workday.day }}</p>
           }
 
-          @if (day()!.records.length) {
+          @if (day.records.length) {
             <h6>Registros</h6>
-            @for (record of day()!.records; track record.id) {
+            @for (record of day.records; track record.id) {
               <ul class="list-unstyled">
                 <li>Entrada: {{ record.checkIn }}</li>
                 @if (record.checkOut) {
@@ -38,9 +33,9 @@
             }
           }
 
-          @if (day()!.events.length) {
+          @if (day.events.length) {
             <h6>Eventos</h6>
-            @for (event of day()!.events; track event.id) {
+            @for (event of day.events; track event.id) {
               <p>{{ event.eventType.name }} — {{ event.title }}</p>
             }
           }
@@ -50,7 +45,7 @@
             Cerrar
           </button>
         </div>
-      </div>
+      }
     </div>
   </div>
-}
+</app-dialog>
