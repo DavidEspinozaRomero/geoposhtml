@@ -1,0 +1,18 @@
+:host {
+  display: contents;
+}
+
+dialog {
+  width: min(500px, calc(100vw - 2rem));
+  max-width: none;
+  margin: auto;
+  padding: 0;
+  border: none;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: inherit;
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
