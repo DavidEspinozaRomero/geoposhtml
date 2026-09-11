@@ -1,4 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
+import { LucideDot, LucidePencil, LucideTrash2 } from '@lucide/angular';
 
 import { Employee } from '../../../../models/employee.model';
 import { EmployeesService } from '../../../../services/employees.service';
@@ -18,6 +19,9 @@ import { EmptyComponent, LoadingComponent } from '../../../../components';
     EmployeeModalComponent,
     EmptyComponent,
     LoadingComponent,
+    LucideDot,
+    LucidePencil,
+    LucideTrash2,
   ],
   templateUrl: './employees.component.html',
   styleUrl: './employees.component.css',

@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
+import { LucideInfo, LucideMapPin, LucidePencil, LucideUser, LucideUserCog } from '@lucide/angular';
 
 import { EmployeesService, CompaniesService, RecordService } from '../../../../services';
 import { Record } from '../../../../models';
@@ -22,6 +23,11 @@ import { UtilsService } from '../../../../services/utils.service';
     FilterRecordEmployeeIncidentsPipe,
     RecordModalComponent,
     RecordsModalComponent,
+    LucideInfo,
+    LucideMapPin,
+    LucidePencil,
+    LucideUser,
+    LucideUserCog,
   ],
   templateUrl: './records.component.html',
   styleUrl: './records.component.scss',

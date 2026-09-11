@@ -1,5 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { DatePipe, UpperCasePipe } from '@angular/common';
+import { LucidePencil, LucideTrash2 } from '@lucide/angular';
 
 import { EventsService } from '../../../../services';
 import { CalendarEvent } from '../../../../models';
@@ -20,6 +21,8 @@ import { EventModalComponent } from '../event-modal/event-modal.component';
     FilterByEventTitlePipe,
     FilterByEventTypePipe,
     EventModalComponent,
+    LucidePencil,
+    LucideTrash2,
   ],
   templateUrl: './events.component.html',
   styleUrl: './events.component.css',

@@ -44,24 +44,22 @@
               {{ company.address }}
             </h5>
             <p class="card-text">
-              <i
-                class="bi bi-pencil btn btn-outline-primary btn-sm me-4"
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-sm me-4 d-inline-flex align-items-center"
                 data-bs-toggle="modal"
                 data-bs-target="#companyModal"
                 (click)="editCompany(company)"
-                role="button"
-                tabindex="0"
-                (keydown.enter)="editCompany(company)"
-                (keydown.space)="editCompany(company)"
-              ></i>
-              <i
-                class="bi bi-trash btn btn-outline-danger btn-sm"
+              >
+                <svg lucidePencil class="h-4 w-4"></svg>
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-danger btn-sm d-inline-flex align-items-center"
                 (click)="removeCompany(company, i_company)"
-                role="button"
-                tabindex="0"
-                (keydown.enter)="removeCompany(company, i_company)"
-                (keydown.space)="removeCompany(company, i_company)"
-              ></i>
+              >
+                <svg lucideTrash2 class="h-4 w-4"></svg>
+              </button>
             </p>
           </div>
           <ul class="list-group list-group-flush">

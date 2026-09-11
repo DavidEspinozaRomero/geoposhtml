@@ -1,5 +1,14 @@
 import { DatePipe, KeyValuePipe, TitleCasePipe } from '@angular/common';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import {
+  LucideBriefcase,
+  LucideCalendarCheck,
+  LucideCalendarDays,
+  LucideChevronLeft,
+  LucideChevronRight,
+  LucideClock,
+  LucideTriangleAlert,
+} from '@lucide/angular';
 
 import { CalendarService } from '../../../../services/calendar.service';
 import { EmployeesService } from '../../../../services/employees.service';
@@ -18,6 +27,13 @@ import { buildMonthGrid } from '../../../../utils/calendar-grid.util';
     LoadingComponent,
     EmptyComponent,
     DayModalComponent,
+    LucideBriefcase,
+    LucideCalendarCheck,
+    LucideCalendarDays,
+    LucideChevronLeft,
+    LucideChevronRight,
+    LucideClock,
+    LucideTriangleAlert,
   ],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss',

@@ -77,21 +77,22 @@
         <td>{{ event.title }}</td>
         <td>
           <button
-            class="btn btn-primary btn-sm bi bi-pencil me-2"
+            type="button"
+            class="btn btn-primary btn-sm me-2 d-inline-flex align-items-center"
             data-bs-toggle="modal"
             data-bs-target="#eventModal"
             (click)="selectedEvent.set(event)"
           >
+            <svg lucidePencil class="h-4 w-4"></svg>
             <span class="visually-hidden">Editar</span>
           </button>
-          <i
-            class="btn btn-primary btn-sm bi bi-trash"
+          <button
+            type="button"
+            class="btn btn-primary btn-sm d-inline-flex align-items-center"
             (click)="deleteEvent(event, i_event)"
-            role="button"
-            tabindex="0"
-            (keydown.enter)="deleteEvent(event, i_event)"
-            (keydown.space)="deleteEvent(event, i_event)"
-          ></i>
+          >
+            <svg lucideTrash2 class="h-4 w-4"></svg>
+          </button>
         </td>
       </tr>
     }

@@ -74,23 +74,25 @@
               <div class="card-header bg-primary d-block text-center">
                 <strong> {{ employee.name }} </strong>
                 @if (employee.isActive) {
-                  <i
+                  <svg
+                    lucideDot
                     role="button"
                     tabindex="0"
-                    class="bi bi-circle-fill text-success"
+                    class="h-4 w-4 text-success ms-1 align-middle"
                     (click)="updateIsActiveEmployee(employee)"
                     (keydown.enter)="updateIsActiveEmployee(employee)"
                     (keydown.space)="updateIsActiveEmployee(employee)"
-                  ></i>
+                  ></svg>
                 } @else {
-                  <i
+                  <svg
+                    lucideDot
                     role="button"
                     tabindex="0"
-                    class="bi bi-circle-fill text-danger"
+                    class="h-4 w-4 text-danger ms-1 align-middle"
                     (click)="updateIsActiveEmployee(employee)"
                     (keydown.enter)="updateIsActiveEmployee(employee)"
                     (keydown.space)="updateIsActiveEmployee(employee)"
-                  ></i>
+                  ></svg>
                 }
               </div>
               <div class="card-body">
@@ -98,24 +100,22 @@
                   {{ employee.username }}
                 </h5>
                 <p class="card-text">
-                  <i
-                    class="bi bi-pencil btn btn-outline-primary btn-sm me-4"
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary btn-sm me-4 d-inline-flex align-items-center"
                     data-bs-toggle="modal"
                     data-bs-target="#employeeModal"
                     (click)="editEmployee(employee)"
-                    role="button"
-                    tabindex="0"
-                    (keydown.enter)="editEmployee(employee)"
-                    (keydown.space)="editEmployee(employee)"
-                  ></i>
-                  <i
-                    class="bi bi-trash btn btn-outline-danger btn-sm"
+                  >
+                    <svg lucidePencil class="h-4 w-4"></svg>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger btn-sm d-inline-flex align-items-center"
                     (click)="removeEmployee(employee, i_employee)"
-                    role="button"
-                    tabindex="0"
-                    (keydown.enter)="removeEmployee(employee, i_employee)"
-                    (keydown.space)="removeEmployee(employee, i_employee)"
-                  ></i>
+                  >
+                    <svg lucideTrash2 class="h-4 w-4"></svg>
+                  </button>
                 </p>
               </div>
               <ul class="list-group list-group-flush">

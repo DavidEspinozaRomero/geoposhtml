@@ -1,12 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { LucideFileDown } from '@lucide/angular';
 
 import { ReportsService } from '../../../../services/reports.service';
 
 @Component({
   selector: 'app-reports',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, LucideFileDown],
   templateUrl: './reports.component.html',
   styleUrl: './reports.component.scss',
 })

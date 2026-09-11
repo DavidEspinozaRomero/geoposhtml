@@ -65,14 +65,15 @@
                 ) {
                   <span class="badge bg-primary me-1">
                     {{ getCompanyById(companyID) }}
-                    <i
+                    <svg
+                      lucideCircleX
                       role="button"
                       tabindex="0"
-                      class="bi bi-x-circle-fill ms-1"
+                      class="h-4 w-4 ms-1 align-middle"
                       (click)="removeCompany(workday, companyID)"
                       (keydown.enter)="removeCompany(workday, companyID)"
                       (keydown.space)="removeCompany(workday, companyID)"
-                    ></i>
+                    ></svg>
                   </span>
                 } @empty {
                   <span class="text-muted"> Sin asignación </span>

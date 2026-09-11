@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, computed, effect, inject, input, output, signal } from '@angular/core';
+import { LucideBuilding2 } from '@lucide/angular';
 
 import { CalendarDay, Company } from '../../../../models';
 import { CompaniesService } from '../../../../services/companies.service';
@@ -7,7 +8,7 @@ import { CompaniesService } from '../../../../services/companies.service';
 @Component({
   selector: 'app-day-modal',
   standalone: true,
-  imports: [DatePipe],
+  imports: [DatePipe, LucideBuilding2],
   templateUrl: './day-modal.component.html',
   styleUrl: './day-modal.component.scss',
 })

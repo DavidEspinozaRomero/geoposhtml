@@ -12,6 +12,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { LucideEye } from '@lucide/angular';
 
 import { EmployeesService } from '../../../../services/employees.service';
 import { Employee } from '../../../../models/employee.model';
@@ -20,7 +21,7 @@ import { UtilsService } from '../../../../services/utils.service';
 @Component({
   selector: 'app-employee-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass],
+  imports: [ReactiveFormsModule, NgClass, LucideEye],
   templateUrl: './employee-modal.component.html',
   styleUrl: './employee-modal.component.scss',
 })

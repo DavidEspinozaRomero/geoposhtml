@@ -65,11 +65,9 @@
                   'is-invalid': utilsService.isValidControl(employeeForm, 'password'),
                 }"
               />
-              <span
-                role="button"
-                class="input-group-text bi bi-eye"
-                (click)="showPassword()"
-              ></span>
+              <span role="button" class="input-group-text" (click)="showPassword()">
+                <svg lucideEye class="h-4 w-4"></svg>
+              </span>
             </div>
 
             @if (utilsService.isValidControl(employeeForm, 'password')) {

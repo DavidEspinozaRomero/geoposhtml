@@ -1,4 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
+import { LucidePencil, LucideTrash2 } from '@lucide/angular';
 
 import { Company } from '../../../../models';
 import { CompaniesService } from '../../../../services/companies.service';
@@ -8,7 +9,7 @@ import { FilterKeyValuePipe } from '../../../../pipes/filter-key-value.pipe';
 @Component({
   selector: 'app-companies',
   standalone: true,
-  imports: [CompanyModalComponent, FilterKeyValuePipe],
+  imports: [CompanyModalComponent, FilterKeyValuePipe, LucidePencil, LucideTrash2],
   templateUrl: './companies.component.html',
   styleUrl: './companies.component.scss',
 })
