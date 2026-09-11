@@ -1,24 +1,8 @@
-// JornadaGo landing page — modern marketing style.
+// JornadaGo landing page — component-scoped styles that need state/pseudo
+// selectors (design D8). Static layout/spacing/color live as Tailwind utilities.
 
-.landing-navbar {
-  background: rgba(10, 14, 31, 0.92);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-
-  .navbar-brand,
-  .nav-link {
-    color: #fff;
-  }
-
-  .landing-brand {
-    font-size: 1.25rem;
-    letter-spacing: -0.02em;
-  }
-}
-
-// Mobile collapse without Bootstrap JS: animates grid-template-rows 0fr -> 1fr.
-// On lg+ Bootstrap's `.navbar-expand-lg .navbar-collapse { display: flex !important }`
-// wins over `display: grid`, so the rows are irrelevant on desktop.
+// Mobile navbar collapse without Bootstrap JS: animates grid-template-rows 0fr -> 1fr.
+// lg+ mirrors `.navbar-expand-lg` (collapse always expanded on desktop).
 .landing-nav-collapse {
   display: grid;
   grid-template-rows: 0fr;
@@ -31,163 +15,15 @@
   > * {
     overflow: hidden;
   }
-}
 
-.hero {
-  background:
-    radial-gradient(1200px 600px at 20% -10%, #1e3a8a 0%, transparent 55%),
-    radial-gradient(900px 500px at 90% 10%, #0ea5e9 0%, transparent 50%),
-    linear-gradient(180deg, #0a0e1f 0%, #0f172a 100%);
-  padding: 10rem 0 6rem;
-  color: #fff;
-}
-
-.hero-badge {
-  display: inline-block;
-  padding: 0.4rem 1rem;
-  margin-bottom: 1.5rem;
-  border-radius: 999px;
-  background: rgba(14, 165, 233, 0.12);
-  border: 1px solid rgba(14, 165, 233, 0.35);
-  color: #7dd3fc;
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.hero-title {
-  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-}
-
-.text-gradient {
-  background: linear-gradient(90deg, #38bdf8 0%, #6366f1 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.hero-subtitle {
-  font-size: 1.15rem;
-  color: #cbd5e1;
-  max-width: 680px;
-  margin: 1.5rem auto 2rem;
-}
-
-.hero-badges {
-  color: #94a3b8;
-  font-size: 0.9rem;
-}
-
-.section-heading {
-  text-align: center;
-  max-width: 640px;
-  margin: 0 auto 3rem;
-}
-
-.section-features {
-  padding: 5rem 0;
-  background: #f8fafc;
-}
-
-.feature-card {
-  height: 100%;
-  padding: 1.75rem;
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 1rem;
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1);
+  @media (min-width: 1024px) {
+    display: flex;
+    align-items: center;
+    grid-template-rows: none;
   }
 }
 
-.feature-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  margin-bottom: 1rem;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #2563eb 0%, #0ea5e9 100%);
-  color: #fff;
-  font-size: 1.4rem;
-}
-
-.section-how {
-  padding: 5rem 0;
-  background: #fff;
-}
-
-.step-card {
-  position: relative;
-  height: 100%;
-  padding: 2rem 1.5rem;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 1rem;
-  text-align: center;
-}
-
-.step-number {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  margin-bottom: 1rem;
-  border-radius: 50%;
-  background: #2563eb;
-  color: #fff;
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-
-.section-benefits {
-  padding: 5rem 0;
-  background: #f8fafc;
-}
-
-.benefit-list li {
-  padding: 0.5rem 0;
-  font-size: 1.05rem;
-}
-
-.benefit-visual {
-  padding: 1.5rem;
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 1rem;
-  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
-}
-
-.benefit-day {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.9rem 0;
-  border-bottom: 1px solid #f1f5f9;
-
-  &:last-child {
-    border-bottom: none;
-  }
-}
-
-.section-faq {
-  padding: 5rem 0;
-  background: #fff;
-}
-
-// Accordion panels without Bootstrap JS: animate grid-template-rows 0fr -> 1fr.
-// `.accordion-button.collapsed` keeps the Bootstrap chevron rotating via CSS only.
+// FAQ accordion panels: same grid-rows transition (single-open behavior in TS).
 .faq-panel {
   display: grid;
   grid-template-rows: 0fr;
@@ -202,37 +38,26 @@
   }
 }
 
-.section-cta {
-  padding: 0 0 5rem;
-  background: #fff;
-}
+// FAQ chevron state: closed panels rotate the chevron (aria-driven).
+.faq-button {
+  svg {
+    transition: transform 0.2s ease;
+  }
 
-.cta-box {
-  padding: 3.5rem 2rem;
-  border-radius: 1.5rem;
-  background: linear-gradient(135deg, #1e3a8a 0%, #0ea5e9 100%);
-  color: #fff;
-
-  p {
-    color: #e0f2fe;
-    max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
+  &[aria-expanded='false'] svg {
+    transform: rotate(-90deg);
   }
 }
 
-.landing-footer {
-  background: #0f172a;
+.hero {
+  background:
+    radial-gradient(1200px 600px at 20% -10%, #1e3a8a 0%, transparent 55%),
+    radial-gradient(900px 500px at 90% 10%, #0ea5e9 0%, transparent 50%),
+    linear-gradient(180deg, #0a0e1f 0%, #0f172a 100%);
   color: #fff;
-
-  .landing-brand {
-    color: #fff;
-    font-weight: 700;
-    font-size: 1.1rem;
-  }
 }
 
-// Anchors need to clear the fixed navbar.
+// Anchors need to clear the sticky navbar.
 section[id] {
   scroll-margin-top: 4.5rem;
 }

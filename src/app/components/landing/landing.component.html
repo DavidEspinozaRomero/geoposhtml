@@ -1,253 +1,338 @@
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg fixed-top landing-navbar">
-  <div class="container">
-    <a class="navbar-brand fw-bold landing-brand" routerLink="/">
-      <svg lucideMapPin class="h-5 w-5"></svg> Jornada<span class="text-primary">Go</span>
-    </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      aria-controls="landingNav"
-      [attr.aria-expanded]="navCollapsed()"
-      aria-label="Toggle navigation"
-      (click)="navCollapsed.set(!navCollapsed())"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div
-      class="navbar-collapse landing-nav-collapse"
-      id="landingNav"
-      [class.open]="navCollapsed()"
-    >
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-2">
-        <li class="nav-item">
-          <a class="nav-link" href="#features">Características</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#how">Cómo funciona</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#faq">FAQ</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/roadmap">Roadmap</a>
-        </li>
-        <li class="nav-item ms-lg-2">
-          <a class="btn btn-primary btn-sm rounded-pill px-3" routerLink="/login">Iniciar sesión</a>
-        </li>
-        <li class="nav-item">
-          <a class="btn btn-outline-light btn-sm rounded-pill px-3" routerLink="/login"
-            >Probar demo</a
-          >
-        </li>
-      </ul>
+<nav class="sticky top-0 z-50 landing-navbar">
+  <div class="mx-auto max-w-7xl px-4">
+    <div class="flex flex-wrap items-center justify-between gap-3 py-3">
+      <a
+        class="landing-brand flex items-center gap-2 text-xl font-bold tracking-tight text-white"
+        routerLink="/"
+      >
+        <svg lucideMapPin class="h-5 w-5 shrink-0"></svg> Jornada<span class="text-indigo-400"
+          >Go</span
+        >
+      </a>
+      <button
+        class="navbar-toggler inline-flex items-center justify-center rounded-lg p-2 text-white lg:hidden"
+        type="button"
+        aria-controls="landingNav"
+        [attr.aria-expanded]="navCollapsed()"
+        aria-label="Toggle navigation"
+        (click)="navCollapsed.set(!navCollapsed())"
+      >
+        <svg lucideMenu class="h-6 w-6" aria-hidden="true"></svg>
+      </button>
+      <div
+        class="landing-nav-collapse w-full lg:w-auto"
+        id="landingNav"
+        [class.open]="navCollapsed()"
+      >
+        <ul
+          class="flex flex-col gap-1 py-2 lg:flex-row lg:items-center lg:gap-2 lg:py-0 lg:ms-auto"
+        >
+          <li>
+            <a
+              class="block rounded-lg px-3 py-2 text-sm font-medium text-slate-200 transition-colors hover:text-white"
+              href="#features"
+              >Características</a
+            >
+          </li>
+          <li>
+            <a
+              class="block rounded-lg px-3 py-2 text-sm font-medium text-slate-200 transition-colors hover:text-white"
+              href="#how"
+              >Cómo funciona</a
+            >
+          </li>
+          <li>
+            <a
+              class="block rounded-lg px-3 py-2 text-sm font-medium text-slate-200 transition-colors hover:text-white"
+              href="#faq"
+              >FAQ</a
+            >
+          </li>
+          <li>
+            <a
+              class="block rounded-lg px-3 py-2 text-sm font-medium text-slate-200 transition-colors hover:text-white"
+              routerLink="/roadmap"
+              >Roadmap</a
+            >
+          </li>
+          <li>
+            <a
+              class="inline-flex items-center justify-center rounded-full bg-indigo-600 px-4 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
+              routerLink="/login"
+              >Iniciar sesión</a
+            >
+          </li>
+          <li>
+            <a
+              class="inline-flex items-center justify-center rounded-full border border-white/25 px-4 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+              routerLink="/login"
+              >Probar demo</a
+            >
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>
 
 <!-- Hero -->
-<section class="hero">
-  <div class="container">
-    <div class="row justify-content-center text-center">
-      <div class="col-lg-9">
-        <span class="hero-badge">Fichaje laboral con geolocalización</span>
-        <h1 class="hero-title">
-          Tu equipo marca entrada donde esté.<br />
-          <span class="text-gradient">Vos controlás la jornada desde un panel.</span>
-        </h1>
-        <p class="hero-subtitle">
-          JornadaGo te muestra en tiempo real cuándo y desde dónde fichan tus empleados, planificá
-          qué empresa les toca cada día y centralizá incidencias y eventos laborales.
-        </p>
-        <div class="d-flex justify-content-center gap-3 flex-wrap">
-          <a class="btn btn-primary btn-lg rounded-pill px-4" routerLink="/login">
-            <svg lucideRocket class="h-5 w-5 me-2"></svg>Probar la demo
-          </a>
-          <a class="btn btn-outline-light btn-lg rounded-pill px-4" href="#features">
-            Ver características
-          </a>
-        </div>
-        <div class="hero-badges mt-4">
-          <span class="me-3">✔ Geolocalización real</span>
-          <span class="me-3">✔ Calendario mensual</span>
-          <span>✔ Gestión de incidencias</span>
-        </div>
+<section class="hero pt-32 pb-20">
+  <div class="mx-auto max-w-7xl px-4">
+    <div class="mx-auto max-w-3xl text-center">
+      <span
+        class="mb-6 inline-block rounded-full border border-sky-400/35 bg-sky-400/10 px-4 py-1.5 text-sm font-semibold text-sky-300"
+        >Fichaje laboral con geolocalización</span
+      >
+      <h1
+        class="hero-title text-[clamp(2.2rem,4.5vw,3.4rem)] font-extrabold leading-[1.15] tracking-tight text-white"
+      >
+        Tu equipo marca entrada donde esté.<br />
+        <span class="bg-linear-to-r from-sky-400 to-indigo-500 bg-clip-text text-transparent"
+          >Vos controlás la jornada desde un panel.</span
+        >
+      </h1>
+      <p class="hero-subtitle mx-auto mb-8 mt-6 max-w-2xl text-lg text-slate-300">
+        JornadaGo te muestra en tiempo real cuándo y desde dónde fichan tus empleados, planificá qué
+        empresa les toca cada día y centralizá incidencias y eventos laborales.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a
+          class="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-indigo-700"
+          routerLink="/login"
+        >
+          <svg lucideRocket class="h-5 w-5"></svg>Probar la demo
+        </a>
+        <a
+          class="inline-flex items-center rounded-full border border-white/25 px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-white/10"
+          href="#features"
+        >
+          Ver características
+        </a>
+      </div>
+      <div class="mt-6 flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm text-slate-400">
+        <span>✔ Geolocalización real</span>
+        <span>✔ Calendario mensual</span>
+        <span>✔ Gestión de incidencias</span>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Features -->
-<section id="features" class="section-features">
-  <div class="container">
-    <div class="section-heading">
-      <p class="text-primary fw-semibold mb-1">Características</p>
-      <h2 class="display-6 fw-bold mb-3">Todo lo que tu empresa necesita</h2>
-      <p>Controles simples para registrar presencia, planificar jornadas y resolver incidencias.</p>
+<section id="features" class="bg-slate-50 py-20">
+  <div class="mx-auto max-w-7xl px-4">
+    <div class="mx-auto mb-12 max-w-2xl text-center">
+      <p class="mb-2 font-semibold text-indigo-600">Características</p>
+      <h2 class="mb-4 text-4xl font-bold tracking-tight text-slate-900">
+        Todo lo que tu empresa necesita
+      </h2>
+      <p class="text-slate-600">
+        Controles simples para registrar presencia, planificar jornadas y resolver incidencias.
+      </p>
     </div>
-    <div class="row g-4">
-      <div class="col-md-6 col-lg-4">
-        <div class="feature-card">
-          <div class="feature-icon"><svg lucideMapPin class="h-[1.4rem] w-[1.4rem]"></svg></div>
-          <h3>Fichaje con geolocalización</h3>
-          <p>
-            Los empleados marcan entrada y salida con su ubicación real. Sabés dónde y cuándo
-            ocurrió cada registro.
-          </p>
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div
+        class="feature-card h-full rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition duration-150 hover:-translate-y-1 hover:shadow-lg"
+      >
+        <div
+          class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-600 to-sky-500 text-white"
+        >
+          <svg lucideMapPin class="h-[1.4rem] w-[1.4rem]"></svg>
         </div>
+        <h3 class="mb-2 text-xl font-semibold text-slate-900">Fichaje con geolocalización</h3>
+        <p class="leading-relaxed text-slate-600">
+          Los empleados marcan entrada y salida con su ubicación real. Sabés dónde y cuándo ocurrió
+          cada registro.
+        </p>
       </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg lucideCalendarCheck class="h-[1.4rem] w-[1.4rem]"></svg>
-          </div>
-          <h3>Planificación de jornadas</h3>
-          <p>
-            Asigná qué empresa le corresponde a cada empleado por día de la semana. Sin planillas,
-            sin confusiones.
-          </p>
+      <div
+        class="feature-card h-full rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition duration-150 hover:-translate-y-1 hover:shadow-lg"
+      >
+        <div
+          class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-600 to-sky-500 text-white"
+        >
+          <svg lucideCalendarCheck class="h-[1.4rem] w-[1.4rem]"></svg>
         </div>
+        <h3 class="mb-2 text-xl font-semibold text-slate-900">Planificación de jornadas</h3>
+        <p class="leading-relaxed text-slate-600">
+          Asigná qué empresa le corresponde a cada empleado por día de la semana. Sin planillas, sin
+          confusiones.
+        </p>
       </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="feature-card">
-          <div class="feature-icon"><svg lucideLayoutGrid class="h-[1.4rem] w-[1.4rem]"></svg></div>
-          <h3>Calendario mensual</h3>
-          <p>
-            Una grilla clara de semanas y días con el estado de cada jornada: completo, parcial,
-            ausente o descanso.
-          </p>
+      <div
+        class="feature-card h-full rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition duration-150 hover:-translate-y-1 hover:shadow-lg"
+      >
+        <div
+          class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-600 to-sky-500 text-white"
+        >
+          <svg lucideLayoutGrid class="h-[1.4rem] w-[1.4rem]"></svg>
         </div>
+        <h3 class="mb-2 text-xl font-semibold text-slate-900">Calendario mensual</h3>
+        <p class="leading-relaxed text-slate-600">
+          Una grilla clara de semanas y días con el estado de cada jornada: completo, parcial,
+          ausente o descanso.
+        </p>
       </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg lucideTriangleAlert class="h-[1.4rem] w-[1.4rem]"></svg>
-          </div>
-          <h3>Incidencias laborales</h3>
-          <p>
-            Registrá llegadas tarde, salidas anticipadas y cualquier novedad. El admin las
-            administra con un visto bueno.
-          </p>
+      <div
+        class="feature-card h-full rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition duration-150 hover:-translate-y-1 hover:shadow-lg"
+      >
+        <div
+          class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-600 to-sky-500 text-white"
+        >
+          <svg lucideTriangleAlert class="h-[1.4rem] w-[1.4rem]"></svg>
         </div>
+        <h3 class="mb-2 text-xl font-semibold text-slate-900">Incidencias laborales</h3>
+        <p class="leading-relaxed text-slate-600">
+          Registrá llegadas tarde, salidas anticipadas y cualquier novedad. El admin las administra
+          con un visto bueno.
+        </p>
       </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="feature-card">
-          <div class="feature-icon"><svg lucideBell class="h-[1.4rem] w-[1.4rem]"></svg></div>
-          <h3>Eventos y avisos</h3>
-          <p>
-            Publicá eventos por tipo y comunicá novedades. Todo queda visible en el calendario de
-            cada empleado.
-          </p>
+      <div
+        class="feature-card h-full rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition duration-150 hover:-translate-y-1 hover:shadow-lg"
+      >
+        <div
+          class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-600 to-sky-500 text-white"
+        >
+          <svg lucideBell class="h-[1.4rem] w-[1.4rem]"></svg>
         </div>
+        <h3 class="mb-2 text-xl font-semibold text-slate-900">Eventos y avisos</h3>
+        <p class="leading-relaxed text-slate-600">
+          Publicá eventos por tipo y comunicá novedades. Todo queda visible en el calendario de cada
+          empleado.
+        </p>
       </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg lucideShieldCheck class="h-[1.4rem] w-[1.4rem]"></svg>
-          </div>
-          <h3>Roles claros</h3>
-          <p>
-            Empleado, administrador: cada uno ve lo que necesita. Seguridad de acceso desde el
-            primer login.
-          </p>
+      <div
+        class="feature-card h-full rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition duration-150 hover:-translate-y-1 hover:shadow-lg"
+      >
+        <div
+          class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-600 to-sky-500 text-white"
+        >
+          <svg lucideShieldCheck class="h-[1.4rem] w-[1.4rem]"></svg>
         </div>
+        <h3 class="mb-2 text-xl font-semibold text-slate-900">Roles claros</h3>
+        <p class="leading-relaxed text-slate-600">
+          Empleado, administrador: cada uno ve lo que necesita. Seguridad de acceso desde el primer
+          login.
+        </p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- How it works -->
-<section id="how" class="section-how">
-  <div class="container">
-    <div class="section-heading">
-      <p class="text-primary fw-semibold mb-1">Cómo funciona</p>
-      <h2 class="display-6 fw-bold mb-3">En tres pasos</h2>
+<section id="how" class="bg-white py-20">
+  <div class="mx-auto max-w-7xl px-4">
+    <div class="mx-auto mb-12 max-w-2xl text-center">
+      <p class="mb-2 font-semibold text-indigo-600">Cómo funciona</p>
+      <h2 class="mb-4 text-4xl font-bold tracking-tight text-slate-900">En tres pasos</h2>
     </div>
-    <div class="row g-4">
-      <div class="col-md-4">
-        <div class="step-card">
-          <span class="step-number">1</span>
-          <h3>Ingresá como admin</h3>
-          <p>Cargá empleados, empresas y definí la jornada laboral de cada persona.</p>
-        </div>
+    <div class="grid gap-4 md:grid-cols-3">
+      <div class="h-full rounded-2xl border border-slate-200 bg-slate-50 p-8 text-center">
+        <span
+          class="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 text-lg font-bold text-white"
+          >1</span
+        >
+        <h3 class="mb-2 text-xl font-semibold text-slate-900">Ingresá como admin</h3>
+        <p class="text-slate-600">
+          Cargá empleados, empresas y definí la jornada laboral de cada persona.
+        </p>
       </div>
-      <div class="col-md-4">
-        <div class="step-card">
-          <span class="step-number">2</span>
-          <h3>Tu equipo ficha desde el celular</h3>
-          <p>Cada empleado marca entrada y salida con geolocalización desde su cuenta.</p>
-        </div>
+      <div class="h-full rounded-2xl border border-slate-200 bg-slate-50 p-8 text-center">
+        <span
+          class="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 text-lg font-bold text-white"
+          >2</span
+        >
+        <h3 class="mb-2 text-xl font-semibold text-slate-900">Tu equipo ficha desde el celular</h3>
+        <p class="text-slate-600">
+          Cada empleado marca entrada y salida con geolocalización desde su cuenta.
+        </p>
       </div>
-      <div class="col-md-4">
-        <div class="step-card">
-          <span class="step-number">3</span>
-          <h3>Controlás todo en el panel</h3>
-          <p>Revisá registros, incidencias y eventos en el calendario mensual de la empresa.</p>
-        </div>
+      <div class="h-full rounded-2xl border border-slate-200 bg-slate-50 p-8 text-center">
+        <span
+          class="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 text-lg font-bold text-white"
+          >3</span
+        >
+        <h3 class="mb-2 text-xl font-semibold text-slate-900">Controlás todo en el panel</h3>
+        <p class="text-slate-600">
+          Revisá registros, incidencias y eventos en el calendario mensual de la empresa.
+        </p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Benefits -->
-<section class="section-benefits">
-  <div class="container">
-    <div class="row align-items-center g-5">
-      <div class="col-lg-6">
-        <p class="text-primary fw-semibold mb-1">Beneficios</p>
-        <h2 class="display-6 fw-bold mb-3">Menos planillas, más control</h2>
-        <p class="mb-4">
+<section class="bg-slate-50 py-20">
+  <div class="mx-auto max-w-7xl px-4">
+    <div class="grid items-center gap-12 lg:grid-cols-2">
+      <div>
+        <p class="mb-2 font-semibold text-indigo-600">Beneficios</p>
+        <h2 class="mb-4 text-4xl font-bold tracking-tight text-slate-900">
+          Menos planillas, más control
+        </h2>
+        <p class="mb-6 text-slate-600">
           Olvidate de hojas de cálculo y partes de entrada manuscritos. JornadaGo concentra toda la
           información de presencia en un solo lugar.
         </p>
-        <ul class="benefit-list list-unstyled">
-          <li>
-            <svg lucideCircleCheck class="h-5 w-5 text-primary me-2"></svg>Transparencia total en la
-            asistencia
+        <ul class="list-none">
+          <li class="flex items-center gap-2 py-2 text-[1.05rem] text-slate-700">
+            <svg lucideCircleCheck class="h-5 w-5 shrink-0 text-indigo-600"></svg>Transparencia
+            total en la asistencia
           </li>
-          <li>
-            <svg lucideCircleCheck class="h-5 w-5 text-primary me-2"></svg>Planificación semanal
-            ordenada por empresa
+          <li class="flex items-center gap-2 py-2 text-[1.05rem] text-slate-700">
+            <svg lucideCircleCheck class="h-5 w-5 shrink-0 text-indigo-600"></svg>Planificación
+            semanal ordenada por empresa
           </li>
-          <li>
-            <svg lucideCircleCheck class="h-5 w-5 text-primary me-2"></svg>Detección temprana de
-            ausencias e incidencias
+          <li class="flex items-center gap-2 py-2 text-[1.05rem] text-slate-700">
+            <svg lucideCircleCheck class="h-5 w-5 shrink-0 text-indigo-600"></svg>Detección temprana
+            de ausencias e incidencias
           </li>
-          <li>
-            <svg lucideCircleCheck class="h-5 w-5 text-primary me-2"></svg>Historial de registros
-            siempre disponible
+          <li class="flex items-center gap-2 py-2 text-[1.05rem] text-slate-700">
+            <svg lucideCircleCheck class="h-5 w-5 shrink-0 text-indigo-600"></svg>Historial de
+            registros siempre disponible
           </li>
         </ul>
       </div>
-      <div class="col-lg-6">
-        <div class="benefit-visual">
-          <div class="benefit-dashboard">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <span class="fw-semibold">Semana actual</span>
-              <span class="badge bg-success">6/6 completos</span>
-            </div>
-            <div class="benefit-day">
-              <div>
-                <strong>Juan Pérez</strong>
-                <small class="text-muted d-block">TechCorp S.L.</small>
-              </div>
-              <span class="badge bg-primary">Entrada 08:02</span>
-            </div>
-            <div class="benefit-day">
-              <div>
-                <strong>María López</strong>
-                <small class="text-muted d-block">TechCorp S.L.</small>
-              </div>
-              <span class="badge bg-warning text-dark">Parcial 09:41</span>
-            </div>
-            <div class="benefit-day">
-              <div>
-                <strong>Carlos Ruiz</strong>
-                <small class="text-muted d-block">Innovatech Solutions</small>
-              </div>
-              <span class="badge bg-danger">Sin registro</span>
-            </div>
+      <div class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-slate-200">
+        <div class="mb-3 flex items-center justify-between">
+          <span class="font-semibold text-slate-900">Semana actual</span>
+          <span class="rounded-full bg-emerald-600 px-2.5 py-0.5 text-xs font-semibold text-white"
+            >6/6 completos</span
+          >
+        </div>
+        <div
+          class="flex items-center justify-between gap-4 border-b border-slate-100 py-3.5 last:border-b-0"
+        >
+          <div>
+            <strong class="text-slate-900">Juan Pérez</strong>
+            <small class="block text-sm text-slate-500">TechCorp S.L.</small>
           </div>
+          <span class="rounded-full bg-indigo-600 px-2.5 py-0.5 text-xs font-semibold text-white"
+            >Entrada 08:02</span
+          >
+        </div>
+        <div
+          class="flex items-center justify-between gap-4 border-b border-slate-100 py-3.5 last:border-b-0"
+        >
+          <div>
+            <strong class="text-slate-900">María López</strong>
+            <small class="block text-sm text-slate-500">TechCorp S.L.</small>
+          </div>
+          <span class="rounded-full bg-yellow-400 px-2.5 py-0.5 text-xs font-semibold text-black"
+            >Parcial 09:41</span
+          >
+        </div>
+        <div
+          class="flex items-center justify-between gap-4 border-b border-slate-100 py-3.5 last:border-b-0"
+        >
+          <div>
+            <strong class="text-slate-900">Carlos Ruiz</strong>
+            <small class="block text-sm text-slate-500">Innovatech Solutions</small>
+          </div>
+          <span class="rounded-full bg-red-600 px-2.5 py-0.5 text-xs font-semibold text-white"
+            >Sin registro</span
+          >
         </div>
       </div>
     </div>
@@ -255,73 +340,85 @@
 </section>
 
 <!-- FAQ -->
-<section id="faq" class="section-faq">
-  <div class="container">
-    <div class="section-heading">
-      <p class="text-primary fw-semibold mb-1">Preguntas frecuentes</p>
-      <h2 class="display-6 fw-bold mb-3">¿Dudas? Te las respondemos</h2>
+<section id="faq" class="bg-white py-20">
+  <div class="mx-auto max-w-7xl px-4">
+    <div class="mx-auto mb-12 max-w-2xl text-center">
+      <p class="mb-2 font-semibold text-indigo-600">Preguntas frecuentes</p>
+      <h2 class="mb-4 text-4xl font-bold tracking-tight text-slate-900">
+        ¿Dudas? Te las respondemos
+      </h2>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div class="accordion" id="landingFaq">
-          <div class="accordion-item">
-            <h3 class="accordion-header">
-              <button
-                class="accordion-button"
-                [class.collapsed]="openFaq() !== 0"
-                type="button"
-                [attr.aria-expanded]="openFaq() === 0"
-                aria-controls="faq1"
-                (click)="toggleFaq(0)"
-              >
-                ¿Qué necesito para usarlo?
-              </button>
-            </h3>
-            <div id="faq1" class="accordion-collapse faq-panel" [class.open]="openFaq() === 0">
-              <div class="accordion-body">
-                Solamente una cuenta de administrador para configurar el equipo. Los empleados
-                acceden desde cualquier navegador con su usuario y contraseña.
-              </div>
+    <div class="mx-auto max-w-3xl">
+      <div id="landingFaq" class="faq-list space-y-3">
+        <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+          <h3 class="faq-header">
+            <button
+              class="faq-button flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-base font-semibold text-slate-900 transition-colors hover:bg-slate-50"
+              type="button"
+              [attr.aria-expanded]="openFaq() === 0"
+              aria-controls="faq1"
+              (click)="toggleFaq(0)"
+            >
+              ¿Qué necesito para usarlo?
+              <svg
+                lucideChevronDown
+                class="h-5 w-5 shrink-0 text-slate-400"
+                aria-hidden="true"
+              ></svg>
+            </button>
+          </h3>
+          <div id="faq1" class="faq-panel" [class.open]="openFaq() === 0">
+            <div class="px-5 pb-5 text-sm leading-relaxed text-slate-600">
+              Solamente una cuenta de administrador para configurar el equipo. Los empleados acceden
+              desde cualquier navegador con su usuario y contraseña.
             </div>
           </div>
-          <div class="accordion-item">
-            <h3 class="accordion-header">
-              <button
-                class="accordion-button"
-                [class.collapsed]="openFaq() !== 1"
-                type="button"
-                [attr.aria-expanded]="openFaq() === 1"
-                aria-controls="faq2"
-                (click)="toggleFaq(1)"
-              >
-                ¿La geolocalización es obligatoria?
-              </button>
-            </h3>
-            <div id="faq2" class="accordion-collapse faq-panel" [class.open]="openFaq() === 1">
-              <div class="accordion-body">
-                El fichaje registra la ubicación de cada marca. Así el administrador tiene evidencia
-                de dónde se realizó la entrada y la salida.
-              </div>
+        </div>
+        <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+          <h3 class="faq-header">
+            <button
+              class="faq-button flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-base font-semibold text-slate-900 transition-colors hover:bg-slate-50"
+              type="button"
+              [attr.aria-expanded]="openFaq() === 1"
+              aria-controls="faq2"
+              (click)="toggleFaq(1)"
+            >
+              ¿La geolocalización es obligatoria?
+              <svg
+                lucideChevronDown
+                class="h-5 w-5 shrink-0 text-slate-400"
+                aria-hidden="true"
+              ></svg>
+            </button>
+          </h3>
+          <div id="faq2" class="faq-panel" [class.open]="openFaq() === 1">
+            <div class="px-5 pb-5 text-sm leading-relaxed text-slate-600">
+              El fichaje registra la ubicación de cada marca. Así el administrador tiene evidencia
+              de dónde se realizó la entrada y la salida.
             </div>
           </div>
-          <div class="accordion-item">
-            <h3 class="accordion-header">
-              <button
-                class="accordion-button"
-                [class.collapsed]="openFaq() !== 2"
-                type="button"
-                [attr.aria-expanded]="openFaq() === 2"
-                aria-controls="faq3"
-                (click)="toggleFaq(2)"
-              >
-                ¿Puedo asignar varias empresas a un empleado?
-              </button>
-            </h3>
-            <div id="faq3" class="accordion-collapse faq-panel" [class.open]="openFaq() === 2">
-              <div class="accordion-body">
-                Sí. La planificación de jornadas te permite asignar empresas por cada día de la
-                semana, ideal para equipos que rotan de sede.
-              </div>
+        </div>
+        <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+          <h3 class="faq-header">
+            <button
+              class="faq-button flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-base font-semibold text-slate-900 transition-colors hover:bg-slate-50"
+              type="button"
+              [attr.aria-expanded]="openFaq() === 2"
+              aria-controls="faq3"
+              (click)="toggleFaq(2)"
+            >
+              ¿Puedo asignar varias empresas a un empleado?
+              <svg
+                lucideChevronDown
+                class="h-5 w-5 shrink-0 text-slate-400"
+                aria-hidden="true"
+              ></svg>
+            </button>
+          </h3>
+          <div id="faq3" class="faq-panel" [class.open]="openFaq() === 2">
+            <div class="px-5 pb-5 text-sm leading-relaxed text-slate-600">
+              Sí. La planificación de jornadas te permite asignar empresas por cada día de la
+              semana, ideal para equipos que rotan de sede.
             </div>
           </div>
         </div>
@@ -331,28 +428,31 @@
 </section>
 
 <!-- Final CTA -->
-<section class="section-cta">
-  <div class="container">
-    <div class="cta-box text-center">
-      <h2 class="fw-bold mb-3">Probá JornadaGo ahora</h2>
-      <p class="mb-4">
+<section class="bg-white pb-20">
+  <div class="mx-auto max-w-7xl px-4">
+    <div
+      class="rounded-3xl bg-linear-to-br from-blue-900 to-sky-500 px-8 py-14 text-center text-white sm:px-12"
+    >
+      <h2 class="mb-4 text-4xl font-bold">Probá JornadaGo ahora</h2>
+      <p class="mx-auto mb-8 max-w-md text-sky-100">
         Entrá a la demo y descubrí lo simple que es controlar la jornada laboral de tu equipo.
       </p>
-      <a class="btn btn-light btn-lg rounded-pill px-4" routerLink="/login">
-        <svg lucideCircleArrowRight class="h-5 w-5 me-2"></svg>Empezar demo
+      <a
+        class="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-base font-semibold text-indigo-900 transition-colors hover:bg-sky-50"
+        routerLink="/login"
+      >
+        <svg lucideCircleArrowRight class="h-5 w-5"></svg>Empezar demo
       </a>
     </div>
   </div>
 </section>
 
 <!-- Footer -->
-<footer class="landing-footer py-4">
-  <div
-    class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2"
-  >
-    <span class="landing-brand">
-      <svg lucideMapPin class="h-5 w-5"></svg> Jornada<span class="text-primary">Go</span>
+<footer class="landing-footer bg-slate-900 py-6">
+  <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 md:flex-row">
+    <span class="landing-brand flex items-center gap-2 text-lg font-bold text-white">
+      <svg lucideMapPin class="h-5 w-5"></svg> Jornada<span class="text-indigo-400">Go</span>
     </span>
-    <small class="text-muted">&copy; 2026 JornadaGo. Todos los derechos reservados.</small>
+    <small class="text-slate-400">&copy; 2026 JornadaGo. Todos los derechos reservados.</small>
   </div>
 </footer>

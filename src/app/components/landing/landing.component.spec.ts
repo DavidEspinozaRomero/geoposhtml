@@ -60,9 +60,7 @@ describe('LandingComponent', () => {
 
   it('should open the first FAQ by default and toggle single-open', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const buttons = Array.from(
-      compiled.querySelectorAll('.accordion-button'),
-    ) as HTMLButtonElement[];
+    const buttons = Array.from(compiled.querySelectorAll('.faq-button')) as HTMLButtonElement[];
     const panels = Array.from(compiled.querySelectorAll('.faq-panel')) as HTMLElement[];
 
     expect(panels[0].classList.contains('open')).toBe(true);
