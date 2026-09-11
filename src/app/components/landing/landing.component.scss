@@ -186,6 +186,22 @@
   background: #fff;
 }
 
+// Accordion panels without Bootstrap JS: animate grid-template-rows 0fr -> 1fr.
+// `.accordion-button.collapsed` keeps the Bootstrap chevron rotating via CSS only.
+.faq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.25s ease;
+
+  &.open {
+    grid-template-rows: 1fr;
+  }
+
+  > * {
+    overflow: hidden;
+  }
+}
+
 .section-cta {
   padding: 0 0 5rem;
   background: #fff;

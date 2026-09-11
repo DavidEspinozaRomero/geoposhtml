@@ -57,4 +57,26 @@ describe('LandingComponent', () => {
     expect(toggler.getAttribute('aria-expanded')).toBe('false');
     expect(collapse.classList.contains('open')).toBe(false);
   });
+
+  it('should open the first FAQ by default and toggle single-open', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const buttons = Array.from(
+      compiled.querySelectorAll('.accordion-button'),
+    ) as HTMLButtonElement[];
+    const panels = Array.from(compiled.querySelectorAll('.faq-panel')) as HTMLElement[];
+
+    expect(panels[0].classList.contains('open')).toBe(true);
+    expect(panels[1].classList.contains('open')).toBe(false);
+    expect(buttons[0].getAttribute('aria-expanded')).toBe('true');
+
+    buttons[1].click();
+    fixture.detectChanges();
+    expect(panels[0].classList.contains('open')).toBe(false);
+    expect(panels[1].classList.contains('open')).toBe(true);
+    expect(buttons[1].getAttribute('aria-expanded')).toBe('true');
+
+    buttons[1].click();
+    fixture.detectChanges();
+    expect(panels[1].classList.contains('open')).toBe(false);
+  });
 });

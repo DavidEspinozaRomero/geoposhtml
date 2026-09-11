@@ -268,14 +268,16 @@
             <h3 class="accordion-header">
               <button
                 class="accordion-button"
+                [class.collapsed]="openFaq() !== 0"
                 type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#faq1"
+                [attr.aria-expanded]="openFaq() === 0"
+                aria-controls="faq1"
+                (click)="toggleFaq(0)"
               >
                 ¿Qué necesito para usarlo?
               </button>
             </h3>
-            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#landingFaq">
+            <div id="faq1" class="accordion-collapse faq-panel" [class.open]="openFaq() === 0">
               <div class="accordion-body">
                 Solamente una cuenta de administrador para configurar el equipo. Los empleados
                 acceden desde cualquier navegador con su usuario y contraseña.
@@ -285,15 +287,17 @@
           <div class="accordion-item">
             <h3 class="accordion-header">
               <button
-                class="accordion-button collapsed"
+                class="accordion-button"
+                [class.collapsed]="openFaq() !== 1"
                 type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#faq2"
+                [attr.aria-expanded]="openFaq() === 1"
+                aria-controls="faq2"
+                (click)="toggleFaq(1)"
               >
                 ¿La geolocalización es obligatoria?
               </button>
             </h3>
-            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#landingFaq">
+            <div id="faq2" class="accordion-collapse faq-panel" [class.open]="openFaq() === 1">
               <div class="accordion-body">
                 El fichaje registra la ubicación de cada marca. Así el administrador tiene evidencia
                 de dónde se realizó la entrada y la salida.
@@ -303,15 +307,17 @@
           <div class="accordion-item">
             <h3 class="accordion-header">
               <button
-                class="accordion-button collapsed"
+                class="accordion-button"
+                [class.collapsed]="openFaq() !== 2"
                 type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#faq3"
+                [attr.aria-expanded]="openFaq() === 2"
+                aria-controls="faq3"
+                (click)="toggleFaq(2)"
               >
                 ¿Puedo asignar varias empresas a un empleado?
               </button>
             </h3>
-            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#landingFaq">
+            <div id="faq3" class="accordion-collapse faq-panel" [class.open]="openFaq() === 2">
               <div class="accordion-body">
                 Sí. La planificación de jornadas te permite asignar empresas por cada día de la
                 semana, ideal para equipos que rotan de sede.
