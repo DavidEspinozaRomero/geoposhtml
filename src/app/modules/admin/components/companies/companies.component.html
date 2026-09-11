@@ -4,8 +4,6 @@
   <button
     type="button "
     class="btn btn-primary"
-    data-bs-toggle="modal"
-    data-bs-target="#companyModal"
     (click)="company.set(undefined)"
   >
     Agregar +
@@ -47,8 +45,6 @@
               <button
                 type="button"
                 class="btn btn-outline-primary btn-sm me-4 d-inline-flex align-items-center"
-                data-bs-toggle="modal"
-                data-bs-target="#companyModal"
                 (click)="editCompany(company)"
               >
                 <svg lucidePencil class="h-4 w-4"></svg>
@@ -76,4 +72,8 @@
   </section>
 </div>
 
-<app-company-modal [company]="company()" (saveForm)="updateCompany($event)"></app-company-modal>
+<app-company-modal
+  [company]="company()"
+  (saveForm)="updateCompany($event)"
+  (closeRequest)="company.set(undefined)"
+></app-company-modal>

@@ -1,19 +1,22 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { LucideInfo, LucideMapPin } from '@lucide/angular';
 
 import { Record } from '../../../../models';
 import { UtilsService } from '../../../../services/utils.service';
+import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.component';
 
 @Component({
   selector: 'app-record-modal',
   standalone: true,
-  imports: [DatePipe, LucideInfo, LucideMapPin],
+  imports: [DatePipe, LucideInfo, LucideMapPin, AppDialogComponent],
   templateUrl: './record-modal.component.html',
   styleUrl: './record-modal.component.scss',
 })
 export class RecordModalComponent {
-  @Input() record: Record | undefined;
+  record = input<Record | undefined>();
+  closeRequest = output<void>();
+  isOpen = computed(() => this.record() !== undefined);
 
   utilsService = inject(UtilsService);
 

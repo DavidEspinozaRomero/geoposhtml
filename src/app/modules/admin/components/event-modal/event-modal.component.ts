@@ -1,14 +1,14 @@
 import {
   Component,
-  ElementRef,
   EventEmitter,
-  Input,
   OnChanges,
   OnInit,
   Output,
   SimpleChanges,
+  computed,
   inject,
-  viewChild,
+  input,
+  output,
 } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -16,18 +16,20 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EventsService } from '../../../../services';
 import { CalendarEvent } from '../../../../models';
 import { UtilsService } from '../../../../services/utils.service';
+import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.component';
 
 @Component({
   selector: 'app-event-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass],
+  imports: [ReactiveFormsModule, NgClass, AppDialogComponent],
   templateUrl: './event-modal.component.html',
   styleUrl: './event-modal.component.scss',
 })
 export class EventModalComponent implements OnInit, OnChanges {
   @Output() eventSubmit = new EventEmitter<CalendarEvent>();
-  @Input() eventToEdit: CalendarEvent | undefined;
-  btnClose = viewChild<ElementRef<HTMLButtonElement>>('btnClose');
+  eventToEdit = input<CalendarEvent | undefined>();
+  closeRequest = output<void>();
+  isOpen = computed(() => this.eventToEdit() !== undefined);
 
   fb = inject(FormBuilder);
   eventsService = inject(EventsService);
@@ -49,8 +51,8 @@ export class EventModalComponent implements OnInit, OnChanges {
     });
   }
   ngOnChanges(_changes: SimpleChanges): void {
-    if (!this.eventToEdit) return;
-    this.eventForm.reset(this.eventToEdit);
+    if (!this.eventToEdit()) return;
+    this.eventForm.reset(this.eventToEdit());
   }
 
   createEvent(event: CalendarEvent) {
@@ -59,7 +61,7 @@ export class EventModalComponent implements OnInit, OnChanges {
       this.eventSubmit.emit(data);
     });
     this.eventForm.reset();
-    this.btnClose()?.nativeElement.click();
+    this.closeRequest.emit();
   }
 
   updateEvent(event: CalendarEvent) {
@@ -68,7 +70,7 @@ export class EventModalComponent implements OnInit, OnChanges {
       this.eventSubmit.emit(data);
     });
     this.eventForm.reset();
-    this.btnClose()?.nativeElement.click();
+    this.closeRequest.emit();
   }
 
   onSubmit() {

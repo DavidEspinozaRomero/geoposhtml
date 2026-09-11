@@ -48,8 +48,7 @@
         <button
           type="button"
           class="btn btn-primary btn-sm d-inline-flex align-items-center"
-          data-bs-toggle="modal"
-          data-bs-target="#recordsModal"
+          (click)="recordsOpen.set(true)"
         >
           <svg lucidePencil class="h-4 w-4"></svg>
         </button>
@@ -184,5 +183,11 @@
 <!--  agregar paginador 10 -->
 
 <!-- agregar modal para edicion de registros -->
-<app-record-modal [record]="selectedRecord()"></app-record-modal>
-<app-records-modal></app-records-modal>
+<app-record-modal
+  [record]="selectedRecord()"
+  (closeRequest)="selectedRecord.set(undefined)"
+></app-record-modal>
+<app-records-modal
+  [isOpen]="recordsOpen()"
+  (closeRequest)="recordsOpen.set(false)"
+></app-records-modal>

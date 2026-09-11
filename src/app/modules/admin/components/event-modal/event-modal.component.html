@@ -1,16 +1,10 @@
 <!-- Modal -->
-<div
-  class="modal fade"
-  id="eventModal"
-  tabindex="-1"
-  aria-labelledby="eventModalLabel"
-  aria-hidden="true"
->
+<app-dialog [open]="isOpen()" (closeRequest)="closeRequest.emit()">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header bg-primary text-bg-primary">
         <h1 class="modal-title fs-5" id="eventModalLabel">Evento</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" (click)="closeRequest.emit()" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <!-- crear formulario -->
@@ -111,11 +105,11 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #btnClose>
+        <button type="button" class="btn btn-secondary" (click)="closeRequest.emit()">
           Cerrar
         </button>
         <button type="button" class="btn btn-primary" (click)="onSubmit()">Guardar</button>
       </div>
     </div>
   </div>
-</div>
+</app-dialog>

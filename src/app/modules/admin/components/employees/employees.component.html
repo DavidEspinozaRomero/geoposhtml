@@ -4,8 +4,6 @@
   <button
     type="button "
     class="btn btn-primary"
-    data-bs-toggle="modal"
-    data-bs-target="#employeeModal"
     (click)="employee.set(undefined)"
   >
     Agregar +
@@ -103,8 +101,6 @@
                   <button
                     type="button"
                     class="btn btn-outline-primary btn-sm me-4 d-inline-flex align-items-center"
-                    data-bs-toggle="modal"
-                    data-bs-target="#employeeModal"
                     (click)="editEmployee(employee)"
                   >
                     <svg lucidePencil class="h-4 w-4"></svg>
@@ -151,4 +147,5 @@
 <app-employee-modal
   (saveForm)="updateEmployees($event)"
   [employee]="employee()"
+  (closeRequest)="employee.set(undefined)"
 ></app-employee-modal>

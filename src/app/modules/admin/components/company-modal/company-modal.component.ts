@@ -1,8 +1,6 @@
 import {
   Component,
-  ElementRef,
   inject,
-  viewChild,
   input,
   output,
   computed,
@@ -14,23 +12,25 @@ import { NgClass } from '@angular/common';
 import { CompaniesService } from '../../../../services/companies.service';
 import { Company } from '../../../../models';
 import { UtilsService } from '../../../../services/utils.service';
+import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.component';
 
 @Component({
   selector: 'app-company-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass],
+  imports: [ReactiveFormsModule, NgClass, AppDialogComponent],
   templateUrl: './company-modal.component.html',
   styleUrl: './company-modal.component.scss',
 })
 export class CompanyModalComponent {
   company = input<Company | undefined>();
   saveForm = output<Company>();
+  closeRequest = output<void>();
   modalTitle = computed(() => (this.company() ? 'Editar Compañía' : 'Nueva Compañía'));
+  isOpen = computed(() => this.company() !== undefined);
 
   fb = inject(FormBuilder);
   companiesService = inject(CompaniesService);
   utilsService = inject(UtilsService);
-  btnClose = viewChild<ElementRef<HTMLButtonElement>>('btnClose');
 
   companyForm = this.fb.nonNullable.group({
     id: [''],
@@ -89,7 +89,7 @@ export class CompanyModalComponent {
       .add(() => {
         this.config.loading = false;
         this.companyForm.reset();
-        this.btnClose()?.nativeElement.click();
+        this.closeRequest.emit();
       });
   }
 
@@ -103,7 +103,7 @@ export class CompanyModalComponent {
       .add(() => {
         this.config.loading = false;
         this.companyForm.reset();
-        this.btnClose()?.nativeElement.click();
+        this.closeRequest.emit();
       });
   }
 }

@@ -40,6 +40,7 @@ export class RecordsComponent implements OnInit {
 
   records = signal<Record[]>([]);
   selectedRecord = signal<Record | undefined>(undefined);
+  recordsOpen = signal(false);
 
   ngOnInit(): void {
     this.recordService.getRecords().subscribe({

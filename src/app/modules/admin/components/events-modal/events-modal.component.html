@@ -1,18 +1,12 @@
 <!-- Modal -->
-<div
-  class="modal fade"
-  id="eventsModal"
-  tabindex="-1"
-  aria-labelledby="eventsModalLabel"
-  aria-hidden="true"
->
+<app-dialog [open]="isOpen()" (closeRequest)="closeRequest.emit()">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header bg-primary text-bg-primary">
         <h1 class="modal-title fs-5" id="eventsModalLabel">
           Eventos del dia - {{ day | date: 'mediumDate' }}
         </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" (click)="closeRequest.emit()" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         @for (event of events; let i = $index; track i) {
@@ -23,10 +17,10 @@
         }
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #btnClose>
+        <button type="button" class="btn btn-secondary" (click)="closeRequest.emit()">
           Cerrar
         </button>
       </div>
     </div>
   </div>
-</div>
+</app-dialog>

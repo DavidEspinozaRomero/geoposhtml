@@ -1,29 +1,23 @@
 <!-- Modal -->
-<div
-  class="modal fade"
-  id="recordEmployeeModal"
-  tabindex="-1"
-  aria-labelledby="recordEmployeeModalLabel"
-  aria-hidden="true"
->
+<app-dialog [open]="isOpen()" (closeRequest)="closeRequest.emit()">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header bg-primary text-bg-primary">
         <h1 class="modal-title fs-5" id="recordEmployeeModalLabel">
-          Registro: {{ record?.companyName }} - {{ record?.employeeUsername }}
+          Registro: {{ record()?.companyName }} - {{ record()?.employeeUsername }}
         </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" (click)="closeRequest.emit()" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="p-3 mb-3 bg-secondary-subtle rounded">
           <p class="mb-0">
-            <strong>Inicio:</strong> {{ record?.geoStart?.timestamp | date: 'medium' }} <br />
-            <strong>Fin:</strong> {{ record?.geoEnd?.timestamp | date: 'medium' }} <br />
-            <strong>Incidencia Trabajador:</strong> {{ record?.incident ?? 'Sin incidencia' }}
+            <strong>Inicio:</strong> {{ record()?.geoStart?.timestamp | date: 'medium' }} <br />
+            <strong>Fin:</strong> {{ record()?.geoEnd?.timestamp | date: 'medium' }} <br />
+            <strong>Incidencia Trabajador:</strong> {{ record()?.incident ?? 'Sin incidencia' }}
           </p>
         </div>
 
-        @if (record?.geoStart) {
+        @if (record()?.geoStart) {
           <p>
             <strong>Geolocalización inicio:</strong>
             <svg
@@ -32,15 +26,15 @@
               class="text-primary h-4 w-4 me-2 align-middle"
               [title]="
                 'Precisión: ' +
-                record!.geoStart.accuracy.toFixed(2) +
+                record()!.geoStart.accuracy.toFixed(2) +
                 ' metros\nLatitud: ' +
-                record!.geoStart.latitude +
+                record()!.geoStart.latitude +
                 '\nLongitud: ' +
-                record!.geoStart.longitude
+                record()!.geoStart.longitude
               "
             ></svg>
             <a
-              [href]="getGoogleMapUrl(record!.geoStart)"
+              [href]="getGoogleMapUrl(record()!.geoStart)"
               target="_blank"
               rel="noopener noreferrer"
               class="btn btn-primary btn-sm"
@@ -50,7 +44,7 @@
           </p>
         }
 
-        @if (record?.geoEnd) {
+        @if (record()?.geoEnd) {
           <p>
             <strong>Geolocalización fin:</strong>
             <svg
@@ -59,15 +53,15 @@
               class="text-primary h-4 w-4 me-2 align-middle"
               [title]="
                 'Precisión: ' +
-                record!.geoEnd!.accuracy.toFixed(2) +
+                record()!.geoEnd!.accuracy.toFixed(2) +
                 ' metros\nLatitud: ' +
-                record!.geoEnd!.latitude +
+                record()!.geoEnd!.latitude +
                 '\nLongitud: ' +
-                record!.geoEnd!.longitude
+                record()!.geoEnd!.longitude
               "
             ></svg>
             <a
-              [href]="getGoogleMapUrl(record!.geoEnd!)"
+              [href]="getGoogleMapUrl(record()!.geoEnd!)"
               target="_blank"
               rel="noopener noreferrer"
               class="btn btn-primary btn-sm"
@@ -77,20 +71,20 @@
           </p>
         }
 
-        @if (record?.incidentAdmin) {
+        @if (record()?.incidentAdmin) {
           <div class="p-3 mb-3 bg-secondary-subtle rounded">
             <p class="mb-0">
               <strong>Incidencia Administrador: </strong>
-              {{ record!.incidentAdmin }}
+              {{ record()!.incidentAdmin }}
             </p>
           </div>
         }
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #btnClose>
+        <button type="button" class="btn btn-secondary" (click)="closeRequest.emit()">
           Cerrar
         </button>
       </div>
     </div>
   </div>
-</div>
+</app-dialog>

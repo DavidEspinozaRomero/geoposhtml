@@ -1,15 +1,15 @@
 import { NgClass } from '@angular/common';
 import {
   Component,
-  ElementRef,
   EventEmitter,
-  Input,
   OnChanges,
   Output,
   SimpleChanges,
+  computed,
   inject,
+  input,
+  output,
   signal,
-  viewChild,
 } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { LucideEye } from '@lucide/angular';
@@ -17,18 +17,21 @@ import { LucideEye } from '@lucide/angular';
 import { EmployeesService } from '../../../../services/employees.service';
 import { Employee } from '../../../../models/employee.model';
 import { UtilsService } from '../../../../services/utils.service';
+import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.component';
 
 @Component({
   selector: 'app-employee-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass, LucideEye],
+  imports: [ReactiveFormsModule, NgClass, LucideEye, AppDialogComponent],
   templateUrl: './employee-modal.component.html',
   styleUrl: './employee-modal.component.scss',
 })
 export class EmployeeModalComponent implements OnChanges {
-  // TODO: cambiar a  Signal input/output
-  @Input() employee: Employee | undefined;
+  employee = input<Employee | undefined>();
   @Output() saveForm = new EventEmitter<Employee>();
+  closeRequest = output<void>();
+  isOpen = computed(() => this.employee() !== undefined);
+
   fb = inject(FormBuilder);
   employeesService = inject(EmployeesService);
   utilsService = inject(UtilsService);
@@ -38,7 +41,6 @@ export class EmployeeModalComponent implements OnChanges {
     success: false,
   };
 
-  btnClose = viewChild<ElementRef<HTMLButtonElement>>('btnClose');
   employeeForm = this.fb.nonNullable.group({
     id: [''],
     name: ['', [Validators.required, Validators.minLength(3)]],
@@ -63,8 +65,8 @@ export class EmployeeModalComponent implements OnChanges {
   isHidenPassword = signal(true);
 
   ngOnChanges(_changes: SimpleChanges): void {
-    if (!this.employee) return;
-    this.employeeForm.reset(this.employee);
+    if (!this.employee()) return;
+    this.employeeForm.reset(this.employee());
   }
 
   onSubmit() {
@@ -106,7 +108,7 @@ export class EmployeeModalComponent implements OnChanges {
       })
       .add(() => {
         this.config.loading = false;
-        this.btnClose()?.nativeElement.click();
+        this.closeRequest.emit();
       });
     // TODO: agregar spinner mientras procesa la info
     // enviar mensaje de exito!
@@ -124,7 +126,7 @@ export class EmployeeModalComponent implements OnChanges {
         this.config.loading = false;
 
         this.employeeForm.reset();
-        this.btnClose()?.nativeElement.click();
+        this.closeRequest.emit();
       });
     // TODO: enviar mensaje de exito!
   }

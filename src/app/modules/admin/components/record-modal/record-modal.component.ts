@@ -1,11 +1,11 @@
 import {
   Component,
-  ElementRef,
-  Input,
   SimpleChanges,
+  computed,
   inject,
+  input,
   OnChanges,
-  viewChild,
+  output,
 } from '@angular/core';
 import { DatePipe, NgClass } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -13,17 +13,19 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Record } from '../../../../models';
 import { RecordService } from '../../../../services/record.service';
 import { UtilsService } from '../../../../services/utils.service';
+import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.component';
 
 @Component({
   selector: 'app-record-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass, DatePipe],
+  imports: [ReactiveFormsModule, NgClass, DatePipe, AppDialogComponent],
   templateUrl: './record-modal.component.html',
   styleUrl: './record-modal.component.scss',
 })
 export class RecordModalComponent implements OnChanges {
-  @Input() record: Record | undefined;
-  btnClose = viewChild<ElementRef<HTMLButtonElement>>('btnClose');
+  record = input<Record | undefined>();
+  closeRequest = output<void>();
+  isOpen = computed(() => this.record() !== undefined);
 
   fb = inject(FormBuilder);
   recordService = inject(RecordService);
@@ -34,8 +36,8 @@ export class RecordModalComponent implements OnChanges {
   });
 
   ngOnChanges(_changes: SimpleChanges): void {
-    if (!this.record) return;
-    this.recordForm.reset({ incidentAdmin: this.record?.incidentAdmin });
+    if (!this.record()) return;
+    this.recordForm.reset({ incidentAdmin: this.record()?.incidentAdmin });
   }
 
   onSubmit() {
@@ -44,15 +46,15 @@ export class RecordModalComponent implements OnChanges {
     // agregar loader
     const dataForm = structuredClone(this.recordForm.value);
 
-    if (!this.record?.id) return;
+    if (!this.record()?.id) return;
 
     this.recordService
-      .updateRecordIncidentByAdmin(this.record.id, dataForm.incidentAdmin!)
+      .updateRecordIncidentByAdmin(this.record()!.id, dataForm.incidentAdmin!)
       .subscribe(() => {
-        this.record!.incidentAdmin = dataForm.incidentAdmin;
+        this.record()!.incidentAdmin = dataForm.incidentAdmin;
       })
       .add(() => {
-        this.btnClose()?.nativeElement.click();
+        this.closeRequest.emit();
       }); // agregar loader
   }
 }

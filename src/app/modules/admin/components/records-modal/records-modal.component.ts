@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, input, output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import {
@@ -9,15 +9,19 @@ import {
 } from '../../../../services';
 import { NgClass } from '@angular/common';
 import { Company, Employee } from '../../../../models';
+import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.component';
 
 @Component({
   selector: 'app-records-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass],
+  imports: [ReactiveFormsModule, NgClass, AppDialogComponent],
   templateUrl: './records-modal.component.html',
   styleUrl: './records-modal.component.scss',
 })
 export class RecordsModalComponent implements OnInit {
+  isOpen = input(false);
+  closeRequest = output<void>();
+
   fb = inject(FormBuilder);
   recordService = inject(RecordService);
   employeesService = inject(EmployeesService);
