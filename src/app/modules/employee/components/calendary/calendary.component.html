@@ -4,24 +4,26 @@
 <div class="row align-items-center mb-3">
   <div class="col-auto">
     <button
-      class="btn btn-outline-primary btn-sm bi bi-caret-left-fill"
+      type="button"
+      class="btn btn-outline-primary btn-sm d-inline-flex align-items-center"
       (click)="changeMonth(-1)"
-      role="button"
-      tabindex="0"
     >
+      <svg lucideChevronLeft class="h-4 w-4"></svg>
       <span class="visually-hidden">Anterior</span>
     </button>
   </div>
   <div class="col">
-    <h3 class="mb-0">{{ monthLabel() | titlecase }}<i class="bi bi-calendar3 ms-2"></i></h3>
+    <h3 class="mb-0">
+      {{ monthLabel() | titlecase }}<svg lucideCalendarDays class="h-5 w-5 ms-2 align-middle"></svg>
+    </h3>
   </div>
   <div class="col-auto">
     <button
-      class="btn btn-outline-primary btn-sm bi bi-caret-right-fill"
+      type="button"
+      class="btn btn-outline-primary btn-sm d-inline-flex align-items-center"
       (click)="changeMonth(1)"
-      role="button"
-      tabindex="0"
     >
+      <svg lucideChevronRight class="h-4 w-4"></svg>
       <span class="visually-hidden">Siguiente</span>
     </button>
   </div>
@@ -72,7 +74,7 @@
                         title="Registros"
                         (click)="selectDay(day)"
                       >
-                        <i class="bi bi-clock"></i>
+                        <svg lucideClock class="h-4 w-4"></svg>
                       </button>
                     }
                     @if (day.events.length) {
@@ -82,7 +84,7 @@
                         title="{{ day.events[0].title }}"
                         (click)="selectDay(day)"
                       >
-                        <i class="bi bi-calendar-event"></i>
+                        <svg lucideCalendarCheck class="h-4 w-4"></svg>
                       </button>
                     }
                     @if (day.records.length && day.records[0].incident) {
@@ -92,7 +94,7 @@
                         title="Incidencia"
                         (click)="selectDay(day)"
                       >
-                        <i class="bi bi-exclamation-triangle"></i>
+                        <svg lucideTriangleAlert class="h-4 w-4"></svg>
                       </button>
                     }
                     @if (day.workday) {
@@ -102,7 +104,7 @@
                         title="Jornada"
                         (click)="selectDay(day)"
                       >
-                        <i class="bi bi-briefcase"></i>
+                        <svg lucideBriefcase class="h-4 w-4"></svg>
                       </button>
                     }
                   </div>

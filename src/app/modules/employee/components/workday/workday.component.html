@@ -37,8 +37,9 @@
 
       <p>
         Geolocalización inicial:
-        <i
-          class="text-primary bi bi-info-circle-fill me-2 pointer"
+        <svg
+          lucideInfo
+          class="text-primary h-4 w-4 me-2 align-middle cursor-pointer"
           [title]="
             'Precisión: ' +
             record()!.geoStart.accuracy.toFixed(2) +
@@ -48,14 +49,14 @@
             '\nLongitud: ' +
             record()!.geoStart.longitude
           "
-        ></i>
+        ></svg>
         <a
           [href]="getGoogleMapUrl(record()!.geoStart)"
           target="_blank"
           rel="noopener noreferrer"
           class="btn btn-primary btn-sm"
         >
-          Ver en el mapa <i class="bi bi-geo-alt-fill"></i>
+          Ver en el mapa <svg lucideMapPin class="h-4 w-4 ms-1 align-middle"></svg>
         </a>
       </p>
 
@@ -78,8 +79,9 @@
         @if (record()!.geoEnd) {
           <p>
             Geolocalización fin:
-            <i
-              class="text-primary bi bi-info-circle-fill me-2 pointer"
+            <svg
+              lucideInfo
+              class="text-primary h-4 w-4 me-2 align-middle cursor-pointer"
               [title]="
                 'Precisión: ' +
                 record()!.geoEnd!.accuracy.toFixed(2) +
@@ -89,14 +91,14 @@
                 '\nLongitud: ' +
                 record()!.geoEnd!.longitude
               "
-            ></i>
+            ></svg>
             <a
               [href]="getGoogleMapUrl(record()!.geoEnd!)"
               target="_blank"
               rel="noopener noreferrer"
               class="btn btn-primary btn-sm"
             >
-              Ver en el mapa <i class="bi bi-geo-alt-fill"></i>
+              Ver en el mapa <svg lucideMapPin class="h-4 w-4 ms-1 align-middle"></svg>
             </a>
           </p>
         }

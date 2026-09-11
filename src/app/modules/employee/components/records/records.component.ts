@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
+import { LucideEye, LucideUser, LucideUserCog } from '@lucide/angular';
 
 import { RecordService } from '../../../../services/record.service';
 import { Record } from '../../../../models';
@@ -10,7 +11,15 @@ import { Auth } from '../../../../services/auth';
 @Component({
   selector: 'app-records',
   standalone: true,
-  imports: [DatePipe, FilterDatePipe, FilterRecordEmployeeIncidentsPipe, RecordModalComponent],
+  imports: [
+    DatePipe,
+    FilterDatePipe,
+    FilterRecordEmployeeIncidentsPipe,
+    RecordModalComponent,
+    LucideEye,
+    LucideUser,
+    LucideUserCog,
+  ],
   templateUrl: './records.component.html',
   styleUrl: './records.component.scss',
 })

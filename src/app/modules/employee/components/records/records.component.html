@@ -59,26 +59,29 @@
         <td class="text-center">
           @if (record?.incident?.length || record?.incidentAdmin?.length) {
             @if (record?.incident?.length) {
-              <i class="btn btn-warning btn-sm bi bi-person me-2"></i>
+              <span class="btn btn-warning btn-sm me-2 d-inline-flex align-items-center">
+                <svg lucideUser class="h-4 w-4"></svg>
+              </span>
             }
             @if (record?.incidentAdmin?.length) {
-              <i class="btn btn-danger btn-sm bi bi-person-gear me-2"></i>
+              <span class="btn btn-danger btn-sm me-2 d-inline-flex align-items-center">
+                <svg lucideUserCog class="h-4 w-4"></svg>
+              </span>
             }
           } @else {
             <strong class="text-success"> No </strong>
           }
         </td>
         <td class="text-center">
-          <i
-            class="btn btn-primary btn-sm bi bi-eye"
+          <button
+            type="button"
+            class="btn btn-primary btn-sm d-inline-flex align-items-center"
             data-bs-toggle="modal"
             data-bs-target="#recordEmployeeModal"
             (click)="selectedRecord.set(record)"
-            role="button"
-            tabindex="0"
-            (keydown.enter)="selectedRecord.set(record)"
-            (keydown.space)="selectedRecord.set(record)"
-          ></i>
+          >
+            <svg lucideEye class="h-4 w-4"></svg>
+          </button>
         </td>
       </tr>
     }

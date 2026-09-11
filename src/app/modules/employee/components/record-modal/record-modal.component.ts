@@ -1,5 +1,6 @@
 import { Component, Input, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { LucideInfo, LucideMapPin } from '@lucide/angular';
 
 import { Record } from '../../../../models';
 import { UtilsService } from '../../../../services/utils.service';
@@ -7,7 +8,7 @@ import { UtilsService } from '../../../../services/utils.service';
 @Component({
   selector: 'app-record-modal',
   standalone: true,
-  imports: [DatePipe],
+  imports: [DatePipe, LucideInfo, LucideMapPin],
   templateUrl: './record-modal.component.html',
   styleUrl: './record-modal.component.scss',
 })
