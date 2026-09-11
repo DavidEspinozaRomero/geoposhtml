@@ -56,4 +56,23 @@ describe('RoadmapComponent', () => {
     const links = Array.from(compiled.querySelectorAll('a')).map((a) => a.getAttribute('href'));
     expect(links).toContain('/login');
   });
+
+  it('should toggle the mobile nav collapse', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const toggler = compiled.querySelector('.navbar-toggler') as HTMLButtonElement;
+    const collapse = compiled.querySelector('.roadmap-nav-collapse') as HTMLElement;
+
+    expect(toggler.getAttribute('aria-expanded')).toBe('false');
+    expect(collapse.classList.contains('open')).toBe(false);
+
+    toggler.click();
+    fixture.detectChanges();
+    expect(toggler.getAttribute('aria-expanded')).toBe('true');
+    expect(collapse.classList.contains('open')).toBe(true);
+
+    toggler.click();
+    fixture.detectChanges();
+    expect(toggler.getAttribute('aria-expanded')).toBe('false');
+    expect(collapse.classList.contains('open')).toBe(false);
+  });
 });

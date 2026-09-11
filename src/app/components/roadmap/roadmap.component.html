@@ -7,15 +7,18 @@
     <button
       class="navbar-toggler"
       type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#roadmapNav"
       aria-controls="roadmapNav"
-      aria-expanded="false"
+      [attr.aria-expanded]="navCollapsed()"
       aria-label="Toggle navigation"
+      (click)="navCollapsed.set(!navCollapsed())"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="roadmapNav">
+    <div
+      class="navbar-collapse roadmap-nav-collapse"
+      id="roadmapNav"
+      [class.open]="navCollapsed()"
+    >
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-2">
         <li class="nav-item">
           <a class="nav-link active" routerLink="/roadmap" aria-current="page">Roadmap</a>

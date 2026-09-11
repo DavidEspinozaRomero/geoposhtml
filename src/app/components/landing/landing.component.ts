@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   LucideBell,
@@ -34,6 +34,8 @@ import { SeoService } from '../../services/seo.service';
 })
 export class LandingComponent implements OnInit {
   private seo = inject(SeoService);
+
+  navCollapsed = signal(false);
 
   ngOnInit(): void {
     this.seo.updateMeta({
