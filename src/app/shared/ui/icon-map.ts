@@ -40,8 +40,8 @@ import {
  * equivalent component class. Consumed by templates via [lucideIcon] to
  * render menu icons and any dynamically-dispatched icon (REQ-005).
  *
- * Keys intentionally keep the bi-* name (without the prefix) so a grep for
- * `bi bi-` still finds nothing after migration while the mapping stays
+ * Keys intentionally keep the bi-* name (without the prefix) so the grep
+ * guard still finds nothing after migration while the mapping stays
  * auditable. Alias pairs (e.g. geo-alt / geo-alt-fill) share one Lucide
  * component; renames (e.g. info-circle-fill -> LucideInfo) lock the chosen
  * semantics.
