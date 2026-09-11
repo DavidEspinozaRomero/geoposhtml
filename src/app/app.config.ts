@@ -1,5 +1,6 @@
 import { ApplicationConfig, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withHashLocation } from '@angular/router';
+import { provideLucideConfig } from '@lucide/angular';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -13,5 +14,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withHashLocation()),
     provideClientHydration(),
     provideHttpClient(withInterceptors([authInterceptor])),
+    provideLucideConfig({ size: 16, strokeWidth: 2 }),
   ],
 };

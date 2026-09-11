@@ -1,0 +1,85 @@
+import {
+  LucideApple,
+  LucideBell,
+  LucideBriefcase,
+  LucideBuilding2,
+  LucideCalendarCheck,
+  LucideCalendarDays,
+  LucideCheck,
+  LucideChevronLeft,
+  LucideChevronRight,
+  LucideCircleArrowRight,
+  LucideCircleCheck,
+  LucideCircleHelp,
+  LucideCircleX,
+  LucideClock,
+  LucideDot,
+  LucideEye,
+  LucideFileChartColumn,
+  LucideFileDown,
+  LucideHouse,
+  LucideInfo,
+  LucideLayoutGrid,
+  LucideLogOut,
+  LucideMapPin,
+  LucideNotebookText,
+  LucidePartyPopper,
+  LucidePencil,
+  LucideRocket,
+  LucideShieldCheck,
+  LucideTrash2,
+  LucideTriangleAlert,
+  LucideUser,
+  LucideUserCog,
+  LucideUsers,
+  type LucideIcon,
+} from '@lucide/angular';
+
+/**
+ * Maps every Bootstrap Icons name used in the codebase to its Lucide
+ * equivalent component class. Consumed by templates via [lucideIcon] to
+ * render menu icons and any dynamically-dispatched icon (REQ-005).
+ *
+ * Keys intentionally keep the bi-* name (without the prefix) so a grep for
+ * `bi bi-` still finds nothing after migration while the mapping stays
+ * auditable. Alias pairs (e.g. geo-alt / geo-alt-fill) share one Lucide
+ * component; renames (e.g. info-circle-fill -> LucideInfo) lock the chosen
+ * semantics.
+ */
+export const iconMap = {
+  apple: LucideApple,
+  'arrow-right-circle': LucideCircleArrowRight,
+  balloon: LucidePartyPopper,
+  bell: LucideBell,
+  'box-arrow-left': LucideLogOut,
+  briefcase: LucideBriefcase,
+  building: LucideBuilding2,
+  'calendar-check': LucideCalendarCheck,
+  'calendar-event': LucideCalendarCheck,
+  calendar3: LucideCalendarDays,
+  'caret-left-fill': LucideChevronLeft,
+  'caret-right-fill': LucideChevronRight,
+  check: LucideCheck,
+  'check-circle-fill': LucideCircleCheck,
+  'circle-fill': LucideDot,
+  clock: LucideClock,
+  'exclamation-triangle': LucideTriangleAlert,
+  eye: LucideEye,
+  'file-earmark-arrow-down': LucideFileDown,
+  'file-earmark-bar-graph': LucideFileChartColumn,
+  'geo-alt': LucideMapPin,
+  'geo-alt-fill': LucideMapPin,
+  'grid-3x3-gap': LucideLayoutGrid,
+  'house-door': LucideHouse,
+  'info-circle-fill': LucideInfo,
+  'journal-text': LucideNotebookText,
+  pencil: LucidePencil,
+  people: LucideUsers,
+  person: LucideUser,
+  'person-gear': LucideUserCog,
+  'question-circle': LucideCircleHelp,
+  'rocket-takeoff': LucideRocket,
+  'shield-check': LucideShieldCheck,
+  trash: LucideTrash2,
+  'x-circle-fill': LucideCircleX,
+} satisfies Record<string, LucideIcon>;
