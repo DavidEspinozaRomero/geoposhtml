@@ -1,12 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { LucideCheck, LucideClock, LucideMapPin } from '@lucide/angular';
 
 import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-roadmap',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, LucideCheck, LucideClock, LucideMapPin],
   templateUrl: './roadmap.component.html',
   styleUrl: './roadmap.component.scss',
 })
