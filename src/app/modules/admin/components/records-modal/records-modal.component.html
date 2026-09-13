@@ -1,27 +1,45 @@
 <!-- Modal -->
 <app-dialog [open]="isOpen()" (closeRequest)="closeRequest.emit()">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-primary text-bg-primary">
-        <h1 class="modal-title fs-5" id="recordsModalLabel">Registros</h1>
-        <button type="button" class="btn-close" (click)="closeRequest.emit()" aria-label="Close"></button>
+    <div class="modal-content overflow-hidden rounded-xl bg-white shadow-xl">
+      <div
+        class="modal-header flex items-center justify-between gap-3 bg-indigo-600 px-5 py-4 text-white"
+      >
+        <h1 class="modal-title text-lg font-semibold" id="recordsModalLabel">Registros</h1>
+        <button
+          type="button"
+          class="rounded-md p-1.5 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+          (click)="closeRequest.emit()"
+          aria-label="Close"
+        >
+          <svg lucideX class="h-4 w-4"></svg>
+        </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body px-5 py-4">
         <form [formGroup]="recordsForm">
           <!-- input date -->
-          <div class="mb-3">
-            <div class="form-group">
-              <label class="form-label" for="dateInput"> Fecha: </label>
-              <input id="dateInput" class="form-control" type="date" formControlName="date" />
+          <div class="mb-4">
+            <div>
+              <label class="mb-1 block text-sm font-medium text-slate-600" for="dateInput">
+                Fecha:
+              </label>
+              <input
+                id="dateInput"
+                class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+                type="date"
+                formControlName="date"
+              />
             </div>
           </div>
 
           <!-- select company -->
-          <div class="mb-3">
-            <label class="form-label" for="companyIdSelect"> Compañias: </label>
+          <div class="mb-4">
+            <label class="mb-1 block text-sm font-medium text-slate-600" for="companyIdSelect">
+              Compañias:
+            </label>
             <select
               id="companyIdSelect"
-              class="form-select"
+              class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
               aria-label="lista de companias"
               formControlName="companyId"
             >
@@ -32,11 +50,13 @@
             </select>
           </div>
           <!-- select employee -->
-          <div class="mb-3">
-            <label class="form-label" for="employeeIdSelect"> Empleado: </label>
+          <div class="mb-4">
+            <label class="mb-1 block text-sm font-medium text-slate-600" for="employeeIdSelect">
+              Empleado:
+            </label>
             <select
               id="employeeIdSelect"
-              class="form-select"
+              class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
               aria-label="lista de empleados"
               formControlName="employeeId"
             >
@@ -56,28 +76,40 @@
             } -->
           <hr />
           <!-- input text incident Admin -->
-          <div class="form-floating">
+          <div class="space-y-1.5">
+            <label for="floatingTextarea" class="block text-sm font-medium text-slate-600"
+              >Incidencia Administrador</label
+            >
             <textarea
-              class="form-control"
+              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
               placeholder="Agregar una incidencia"
               formControlName="incidentAdmin"
               id="floatingTextarea"
-              [ngClass]="{
-                'is-invalid': utilsService.isValidControl(recordsForm, 'incidentAdmin'),
-              }"
+              [class.border-red-500]="utilsService.isValidControl(recordsForm, 'incidentAdmin')"
             ></textarea>
-            <label for="floatingTextarea">Incidencia Administrador</label>
           </div>
           @if (utilsService.isValidControl(recordsForm, 'incidentAdmin')) {
-            <small class="text-danger"> El incidente debe ser mayor de 3 caracteres </small>
+            <small class="mt-1 block text-xs text-red-600">
+              El incidente debe ser mayor de 3 caracteres
+            </small>
           }
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="closeRequest.emit()">
+      <div class="modal-footer flex justify-end gap-2 border-t border-slate-200 px-5 py-3">
+        <button
+          type="button"
+          class="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50"
+          (click)="closeRequest.emit()"
+        >
           Cerrar
         </button>
-        <button type="button" class="btn btn-primary" (click)="onSubmit()">Guardar</button>
+        <button
+          type="button"
+          class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
+          (click)="onSubmit()"
+        >
+          Guardar
+        </button>
       </div>
     </div>
   </div>

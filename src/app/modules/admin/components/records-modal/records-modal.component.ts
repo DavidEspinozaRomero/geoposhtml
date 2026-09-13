@@ -7,14 +7,14 @@ import {
   CompaniesService,
   RecordService,
 } from '../../../../services';
-import { NgClass } from '@angular/common';
+import { LucideX } from '@lucide/angular';
 import { Company, Employee } from '../../../../models';
 import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.component';
 
 @Component({
   selector: 'app-records-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass, AppDialogComponent],
+  imports: [ReactiveFormsModule, AppDialogComponent, LucideX],
   templateUrl: './records-modal.component.html',
   styleUrl: './records-modal.component.scss',
 })

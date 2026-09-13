@@ -7,8 +7,9 @@ import {
   OnChanges,
   output,
 } from '@angular/core';
-import { DatePipe, NgClass } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LucideX } from '@lucide/angular';
 
 import { Record } from '../../../../models';
 import { RecordService } from '../../../../services/record.service';
@@ -18,7 +19,7 @@ import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.componen
 @Component({
   selector: 'app-record-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass, DatePipe, AppDialogComponent],
+  imports: [ReactiveFormsModule, DatePipe, AppDialogComponent, LucideX],
   templateUrl: './record-modal.component.html',
   styleUrl: './record-modal.component.scss',
 })
