@@ -1,34 +1,37 @@
-<div class="p-3">
-  <h1>Reporte mensual</h1>
+<div class="p-6">
+  <h1 class="mb-4 text-2xl font-bold tracking-tight text-slate-900">Reporte mensual</h1>
 
-  <div class="card mt-3">
-    <div class="card-body">
-      <div class="row g-3 align-items-end">
-        <div class="col-md-4">
-          <label for="reportMonth" class="form-label">Mes</label>
+  <div class="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+    <div class="p-4">
+      <div class="grid grid-cols-1 items-end gap-4 md:grid-cols-2">
+        <div>
+          <label for="reportMonth" class="mb-1 block text-sm font-medium text-slate-600">Mes</label>
           <input
             id="reportMonth"
             type="month"
-            class="form-control"
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
             [ngModel]="month()"
             (ngModelChange)="onMonthChange($event)"
           />
-          <div class="form-text">
+          <div class="mt-1.5 block text-xs text-slate-500">
             El reporte descarga un archivo XLSX con el resumen del mes seleccionado.
           </div>
         </div>
-        <div class="col-md-4">
+        <div>
           <button
             type="button"
-            class="btn btn-primary"
+            class="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
             [disabled]="downloading() || !month()"
             (click)="downloadXlsx()"
           >
             @if (downloading()) {
-              <span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
+              <span
+                class="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
+                aria-hidden="true"
+              ></span>
               <span role="status">Descargando...</span>
             } @else {
-              <svg lucideFileDown class="h-4 w-4 me-1" aria-hidden="true"></svg>
+              <svg lucideFileDown class="h-4 w-4" aria-hidden="true"></svg>
               Descargar XLSX
             }
           </button>
@@ -36,7 +39,12 @@
       </div>
 
       @if (message()) {
-        <div class="alert alert-danger mt-3 mb-0" role="alert">{{ message() }}</div>
+        <div
+          class="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+          role="alert"
+        >
+          {{ message() }}
+        </div>
       }
     </div>
   </div>
