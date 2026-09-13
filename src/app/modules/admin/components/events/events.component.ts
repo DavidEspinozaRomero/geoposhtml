@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { DatePipe, UpperCasePipe } from '@angular/common';
+import { DatePipe, NgClass, UpperCasePipe } from '@angular/common';
 import { LucidePencil, LucideTrash2 } from '@lucide/angular';
 
 import { EventsService } from '../../../../services';
@@ -16,6 +16,7 @@ import { EventModalComponent } from '../event-modal/event-modal.component';
   standalone: true,
   imports: [
     DatePipe,
+    NgClass,
     UpperCasePipe,
     FilterByEventDatePipe,
     FilterByEventTitlePipe,
@@ -43,19 +44,19 @@ export class EventsComponent implements OnInit {
         const mapped = events.map((event: CalendarEvent) => {
           switch (event.eventType?.id) {
             case 1:
-              event.class = 'text-bg-primary';
+              event.class = 'bg-indigo-600 text-white';
               break;
             case 2:
-              event.class = 'text-bg-success';
+              event.class = 'bg-green-600 text-white';
               break;
             case 3:
-              event.class = 'text-bg-danger';
+              event.class = 'bg-red-600 text-white';
               break;
             case 4:
-              event.class = 'text-bg-warning';
+              event.class = 'bg-yellow-400 text-black';
               break;
             default:
-              event.class = 'text-bg-info';
+              event.class = 'bg-sky-500 text-white';
               break;
           }
           return event;

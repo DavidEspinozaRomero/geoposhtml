@@ -1,23 +1,38 @@
 <!-- Modal -->
 <app-dialog [open]="isOpen()" (closeRequest)="closeRequest.emit()">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-primary text-bg-primary">
-        <h1 class="modal-title fs-5" id="eventsModalLabel">
+    <div class="modal-content overflow-hidden rounded-xl bg-white shadow-xl">
+      <div
+        class="modal-header flex items-center justify-between gap-3 bg-indigo-600 px-5 py-4 text-white"
+      >
+        <h1 class="modal-title text-lg font-semibold" id="eventsModalLabel">
           Eventos del dia - {{ day | date: 'mediumDate' }}
         </h1>
-        <button type="button" class="btn-close" (click)="closeRequest.emit()" aria-label="Close"></button>
+        <button
+          type="button"
+          class="rounded-md p-1.5 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+          (click)="closeRequest.emit()"
+          aria-label="Close"
+        >
+          <svg lucideX class="h-4 w-4"></svg>
+        </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body px-5 py-4">
         @for (event of events; let i = $index; track i) {
-          <h3>{{ event.eventType.name }} - {{ event.title }}</h3>
-          <p>{{ event.description }}</p>
+          <h3 class="text-lg font-semibold text-slate-900">
+            {{ event.eventType.name }} - {{ event.title }}
+          </h3>
+          <p class="text-sm text-slate-600">{{ event.description }}</p>
         } @empty {
-          <h3>No hay eventos</h3>
+          <h3 class="text-lg font-semibold text-slate-900">No hay eventos</h3>
         }
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="closeRequest.emit()">
+      <div class="modal-footer flex justify-end gap-2 border-t border-slate-200 px-5 py-3">
+        <button
+          type="button"
+          class="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50"
+          (click)="closeRequest.emit()"
+        >
           Cerrar
         </button>
       </div>

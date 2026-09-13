@@ -1,54 +1,63 @@
 <!-- Modal -->
 <app-dialog [open]="isOpen()" (closeRequest)="closeRequest.emit()">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-primary text-bg-primary">
-        <h1 class="modal-title fs-5" id="eventModalLabel">Evento</h1>
-        <button type="button" class="btn-close" (click)="closeRequest.emit()" aria-label="Close"></button>
+    <div class="modal-content overflow-hidden rounded-xl bg-white shadow-xl">
+      <div
+        class="modal-header flex items-center justify-between gap-3 bg-indigo-600 px-5 py-4 text-white"
+      >
+        <h1 class="modal-title text-lg font-semibold" id="eventModalLabel">Evento</h1>
+        <button
+          type="button"
+          class="rounded-md p-1.5 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+          (click)="closeRequest.emit()"
+          aria-label="Close"
+        >
+          <svg lucideX class="h-4 w-4"></svg>
+        </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body px-5 py-4">
         <!-- crear formulario -->
         <form [formGroup]="eventForm">
-          <div class="mb-3">
-            <label for="titleInput" class="form-label">Título del evento</label>
+          <div class="mb-4">
+            <label for="titleInput" class="mb-1 block text-sm font-medium text-slate-600"
+              >Título del evento</label
+            >
             <input
               type="text"
               id="titleInput"
-              class="form-control"
+              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
               placeholder="Vacacions David"
               formControlName="title"
-              [ngClass]="{
-                'is-invalid': utilsService.isValidControl(eventForm, 'title'),
-              }"
+              [class.border-red-500]="utilsService.isValidControl(eventForm, 'title')"
             />
             @if (utilsService.isValidControl(eventForm, 'title')) {
-              <small class="text-danger">
+              <small class="mt-1 block text-xs text-red-600">
                 <!-- {{ eventForm.get("title")?.errors | json }} -->
                 El título debe ser mayor de 3 caracteres
               </small>
             }
           </div>
 
-          <div class="mb-3">
-            <label for="descriptionInput" class="form-label">Descripción</label>
+          <div class="mb-4">
+            <label for="descriptionInput" class="mb-1 block text-sm font-medium text-slate-600"
+              >Descripción</label
+            >
             <input
               type="text"
               id="descriptionInput"
-              class="form-control"
+              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
               placeholder="Vacaciones del año de David"
               formControlName="description"
-              [ngClass]="{
-                'is-invalid': utilsService.isValidControl(eventForm, 'description'),
-              }"
+              [class.border-red-500]="utilsService.isValidControl(eventForm, 'description')"
             />
             @if (utilsService.isValidControl(eventForm, 'description')) {
-              <small class="text-danger">
+              <small class="mt-1 block text-xs text-red-600">
                 <!-- {{ eventForm.get("name")?.errors | json }} -->
                 La descripción debe ser mayor de 3 caracteres
               </small>
             }
           </div>
-          <div class="mb-3">
+          <div class="mb-4">
             <!-- <label for="dateInput" class="form-label">Fecha del Evento</label>
             <input
               type="text"
@@ -60,34 +69,30 @@
                 'is-invalid': utilsService.isValidControl(eventForm, 'date')
               }"
             /> -->
-            <div class="form-group">
+            <div>
               <input
                 id="dateInput"
-                class="form-control"
+                class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
                 type="date"
                 formControlName="date"
-                [ngClass]="{
-                  'is-invalid': utilsService.isValidControl(eventForm, 'date'),
-                }"
+                [class.border-red-500]="utilsService.isValidControl(eventForm, 'date')"
               />
               <!-- <label for="inputDate"> Fecha </label> -->
             </div>
 
             @if (utilsService.isValidControl(eventForm, 'date')) {
-              <small class="text-danger">
+              <small class="mt-1 block text-xs text-red-600">
                 <!-- {{ eventForm.get("name")?.errors | json }} -->
                 La fecha debe ser válida
               </small>
             }
           </div>
-          <div class="mb-3">
+          <div class="mb-4">
             <select
-              class="form-select"
+              class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
               aria-label="tipos de eventos"
               formControlName="typeId"
-              [ngClass]="{
-                'is-invalid': utilsService.isValidControl(eventForm, 'typeId'),
-              }"
+              [class.border-red-500]="utilsService.isValidControl(eventForm, 'typeId')"
             >
               <option selected disabled value="">-- Seleccione tipo --</option>
               @for (eventType of eventTypes; track eventType.id) {
@@ -96,7 +101,7 @@
             </select>
 
             @if (utilsService.isValidControl(eventForm, 'typeId')) {
-              <small class="text-danger">
+              <small class="mt-1 block text-xs text-red-600">
                 <!-- {{ eventForm.get("name")?.errors | json }} -->
                 El tipo es requerido
               </small>
@@ -104,11 +109,21 @@
           </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="closeRequest.emit()">
+      <div class="modal-footer flex justify-end gap-2 border-t border-slate-200 px-5 py-3">
+        <button
+          type="button"
+          class="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50"
+          (click)="closeRequest.emit()"
+        >
           Cerrar
         </button>
-        <button type="button" class="btn btn-primary" (click)="onSubmit()">Guardar</button>
+        <button
+          type="button"
+          class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
+          (click)="onSubmit()"
+        >
+          Guardar
+        </button>
       </div>
     </div>
   </div>

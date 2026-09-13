@@ -10,8 +10,8 @@ import {
   input,
   output,
 } from '@angular/core';
-import { NgClass } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LucideX } from '@lucide/angular';
 
 import { EventsService } from '../../../../services';
 import { CalendarEvent } from '../../../../models';
@@ -21,7 +21,7 @@ import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.componen
 @Component({
   selector: 'app-event-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass, AppDialogComponent],
+  imports: [ReactiveFormsModule, AppDialogComponent, LucideX],
   templateUrl: './event-modal.component.html',
   styleUrl: './event-modal.component.scss',
 })

@@ -1,5 +1,14 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnChanges, SimpleChanges, computed, inject, input, output } from '@angular/core';
+import {
+  Component,
+  OnChanges,
+  SimpleChanges,
+  computed,
+  inject,
+  input,
+  output,
+} from '@angular/core';
+import { LucideX } from '@lucide/angular';
 
 import { EventsService } from '../../../../services/events.service';
 import { CalendarEvent } from '../../../../models';
@@ -8,7 +17,7 @@ import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.componen
 @Component({
   selector: 'app-events-modal',
   standalone: true,
-  imports: [DatePipe, AppDialogComponent],
+  imports: [DatePipe, AppDialogComponent, LucideX],
   templateUrl: './events-modal.component.html',
   styleUrl: './events-modal.component.scss',
 })
