@@ -1,6 +1,6 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 import { Component, computed, effect, inject, input, output, signal } from '@angular/core';
-import { LucideBuilding2 } from '@lucide/angular';
+import { LucideBuilding2, LucideX } from '@lucide/angular';
 
 import { CalendarDay, Company } from '../../../../models';
 import { CompaniesService } from '../../../../services/companies.service';
@@ -10,9 +10,8 @@ import { statusClasses } from '../../../../shared/ui/icon-map';
 @Component({
   selector: 'app-day-modal',
   standalone: true,
-  imports: [DatePipe, LucideBuilding2, AppDialogComponent],
+  imports: [DatePipe, NgClass, LucideBuilding2, AppDialogComponent, LucideX],
   templateUrl: './day-modal.component.html',
-  styleUrl: './day-modal.component.scss',
 })
 export class DayModalComponent {
   private readonly companiesService = inject(CompaniesService);

@@ -1,4 +1,4 @@
-import { DatePipe, KeyValuePipe, TitleCasePipe } from '@angular/common';
+import { DatePipe, KeyValuePipe, NgClass, TitleCasePipe } from '@angular/common';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import {
   LucideBriefcase,
@@ -16,6 +16,7 @@ import { CalendarDay, CalendarEmployee } from '../../../../models';
 import { EmptyComponent, LoadingComponent } from '../../../../components';
 import { DayModalComponent } from '../day-modal/day-modal.component';
 import { buildMonthGrid } from '../../../../utils/calendar-grid.util';
+import { statusClasses } from '../../../../shared/ui/icon-map';
 
 @Component({
   selector: 'app-calendar',
@@ -23,6 +24,7 @@ import { buildMonthGrid } from '../../../../utils/calendar-grid.util';
   imports: [
     DatePipe,
     KeyValuePipe,
+    NgClass,
     TitleCasePipe,
     LoadingComponent,
     EmptyComponent,
@@ -62,13 +64,7 @@ export class CalendarComponent implements OnInit {
   weeks = computed(() => buildMonthGrid(this.days()));
   selectedDay = signal<CalendarDay | null>(null);
 
-  statusColor: Record<string, string> = {
-    complete: 'success',
-    partial: 'warning',
-    absent: 'danger',
-    rest: 'secondary',
-    event: 'info',
-  };
+  readonly statusClassNames = statusClasses;
 
   weekDayLabels = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
 

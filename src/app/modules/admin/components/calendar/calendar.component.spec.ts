@@ -154,11 +154,11 @@ describe('CalendarComponent', () => {
     expect(component.selectedDay()).toBeNull();
   });
 
-  it('should have all status color mappings', () => {
-    expect(component.statusColor['complete']).toBe('success');
-    expect(component.statusColor['partial']).toBe('warning');
-    expect(component.statusColor['absent']).toBe('danger');
-    expect(component.statusColor['rest']).toBe('secondary');
-    expect(component.statusColor['event']).toBe('info');
+  it('should have all status class mappings', () => {
+    expect(component.statusClassNames['complete']).toBe('bg-green-600 text-white');
+    expect(component.statusClassNames['partial']).toBe('bg-yellow-400 text-black');
+    expect(component.statusClassNames['absent']).toBe('bg-red-600 text-white');
+    expect(component.statusClassNames['rest']).toBe('bg-gray-400 text-white');
+    expect(component.statusClassNames['event']).toBe('bg-blue-500 text-white');
   });
 });
