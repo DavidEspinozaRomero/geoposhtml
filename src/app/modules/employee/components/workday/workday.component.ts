@@ -1,4 +1,4 @@
-import { DatePipe, NgClass } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { LucideInfo, LucideMapPin } from '@lucide/angular';
 
@@ -13,7 +13,7 @@ import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angu
 @Component({
   selector: 'app-workday',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass, DatePipe, LucideInfo, LucideMapPin],
+  imports: [ReactiveFormsModule, DatePipe, LucideInfo, LucideMapPin],
   templateUrl: './workday.component.html',
   styleUrl: './workday.component.scss',
 })
