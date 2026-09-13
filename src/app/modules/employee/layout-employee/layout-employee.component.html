@@ -1,41 +1,55 @@
-<nav class="sidebar" aria-label="sidebar" [ngClass]="{ menu_extend: !colapse }">
-  <p
-    class="my-3 ps-3 text-white"
-    role="button"
-    aria-label="brand and sidebar toggle btn"
-    style="inline-size: max-content"
-    tabindex="0"
-    (click)="colapse = !colapse"
-    (keydown.enter)="colapse = !colapse"
-    (keydown.space)="colapse = !colapse"
+<div class="flex min-h-screen">
+  <nav
+    class="sidebar flex h-screen w-16 shrink-0 flex-col overflow-hidden bg-blue-700 transition-[width] duration-500"
+    aria-label="sidebar"
+    [class.w-40]="!colapse"
   >
-    <svg lucideApple class="h-5 w-5"></svg> <span class="ms-3">BRAND</span>
-  </p>
-  <ul class="nav d-block h-100">
-    @for (item of menu; let i_item = $index; track i_item) {
-      <li class="nav-item" role="button" [routerLink]="item.route" [routerLinkActive]="'hovered'">
-        <a class="nav-link">
-          <svg [lucideIcon]="item.icon" class="h-5 w-5"></svg>
-          <span class="ms-3"> {{ item.label | titlecase }} </span>
+    <p
+      class="my-4 flex cursor-pointer items-center gap-3 ps-3 text-white"
+      role="button"
+      aria-label="brand and sidebar toggle btn"
+      style="inline-size: max-content"
+      tabindex="0"
+      (click)="colapse = !colapse"
+      (keydown.enter)="colapse = !colapse"
+      (keydown.space)="colapse = !colapse"
+    >
+      <svg lucideApple class="h-5 w-5"></svg>
+      <span class="whitespace-nowrap" [class.hidden]="colapse">BRAND</span>
+    </p>
+    <ul class="m-0 flex h-full list-none flex-col gap-1 p-0">
+      @for (item of menu; let i_item = $index; track i_item) {
+        <li
+          class="nav-item relative"
+          role="button"
+          [routerLink]="item.route"
+          [routerLinkActive]="'hovered'"
+        >
+          <a class="flex w-full items-center gap-3 px-3 py-2 text-sm font-medium text-white">
+            <svg [lucideIcon]="item.icon" class="h-5 w-5 shrink-0"></svg>
+            <span class="whitespace-nowrap" [class.hidden]="colapse">
+              {{ item.label | titlecase }}
+            </span>
+          </a>
+        </li>
+      }
+
+      <li class="nav-item relative mt-auto">
+        <a
+          class="flex w-full cursor-pointer items-center gap-3 px-3 py-2 text-sm font-medium text-white"
+          tabindex="0"
+          (click)="logout()"
+          (keydown.enter)="logout()"
+          (keydown.space)="logout()"
+        >
+          <svg lucideLogOut class="h-5 w-5 shrink-0"></svg>
+          <span class="whitespace-nowrap" [class.hidden]="colapse">Log out</span>
         </a>
       </li>
-    }
+    </ul>
+  </nav>
 
-    <li class="nav-item mt-auto">
-      <a
-        class="nav-link"
-        tabindex="0"
-        (click)="logout()"
-        (keydown.enter)="logout()"
-        (keydown.space)="logout()"
-      >
-        <svg lucideLogOut class="h-5 w-5"></svg>
-        <span class="ms-3">Log out</span>
-      </a>
-    </li>
-  </ul>
-</nav>
-
-<main class="main p-3 vh-100" [ngClass]="{ menu_colapse: !colapse }">
-  <router-outlet></router-outlet>
-</main>
+  <main class="flex-1 overflow-y-auto p-6">
+    <router-outlet></router-outlet>
+  </main>
+</div>
