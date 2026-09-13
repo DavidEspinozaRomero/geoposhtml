@@ -1,5 +1,6 @@
 import { Component, computed, input, output } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
+import { LucideX } from '@lucide/angular';
 
 import { CalendarDay } from '../../../../models';
 import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.component';
@@ -8,9 +9,8 @@ import { statusClasses } from '../../../../shared/ui/icon-map';
 @Component({
   selector: 'app-calendary-modal',
   standalone: true,
-  imports: [DatePipe, AppDialogComponent],
+  imports: [DatePipe, NgClass, LucideX, AppDialogComponent],
   templateUrl: './calendary-modal.component.html',
-  styleUrl: './calendary-modal.component.scss',
 })
 export class CalendaryModalComponent {
   day = input<CalendarDay | null>(null);

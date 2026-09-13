@@ -49,7 +49,7 @@ describe('CalendaryModalComponent', () => {
     fixture.componentRef.setInput('day', day);
     fixture.whenStable();
     fixture.detectChanges();
-    const badge = fixture.nativeElement.querySelector('.badge');
+    const badge = fixture.nativeElement.querySelector('.status-badge');
     expect(badge.textContent.trim()).toBe('partial');
     expect(badge.classList.contains('bg-yellow-400')).toBe(true);
     expect(badge.classList.contains('text-black')).toBe(true);
@@ -60,7 +60,7 @@ describe('CalendaryModalComponent', () => {
     fixture.whenStable();
     fixture.detectChanges();
     const spy = vi.spyOn(component.closeRequest, 'emit');
-    const button = fixture.nativeElement.querySelector('.modal-footer .btn');
+    const button = fixture.nativeElement.querySelector('.modal-footer button');
     button.click();
     expect(spy).toHaveBeenCalled();
   });

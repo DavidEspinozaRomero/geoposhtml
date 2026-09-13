@@ -1,47 +1,75 @@
 <app-dialog [open]="isOpen()" (closeRequest)="closeRequest.emit()">
-  <div class="modal-dialog">
-    <div class="modal-content">
+  <div class="modal-dialog flex max-h-[90vh] flex-col">
+    <div class="modal-content overflow-hidden rounded-xl bg-white shadow-xl">
       @if (day(); as day) {
-        <div class="modal-header bg-primary text-bg-primary">
-          <h5 class="modal-title">{{ day.date | date: 'fullDate' }}</h5>
-          <button type="button" class="btn-close" (click)="closeRequest.emit()"></button>
+        <div
+          class="modal-header flex items-center justify-between gap-3 bg-indigo-600 px-5 py-4 text-white"
+        >
+          <h5 class="modal-title text-lg font-semibold">{{ day.date | date: 'fullDate' }}</h5>
+          <button
+            type="button"
+            class="rounded-md p-1.5 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+            (click)="closeRequest.emit()"
+            aria-label="Close"
+          >
+            <svg lucideX class="h-4 w-4"></svg>
+          </button>
         </div>
-        <div class="modal-body">
-          <p>
+        <div class="modal-body max-h-[70vh] overflow-y-auto px-5 py-4">
+          <p class="mb-4 text-sm text-slate-700">
             <strong>Estado:</strong>
-            <span class="badge" [class]="statusClasses[day.status]">
+            <span
+              class="status-badge inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold"
+              [ngClass]="statusClasses[day.status]"
+            >
               {{ day.status }}
             </span>
           </p>
 
           @if (day.workday; as workday) {
-            <p><strong>Jornada:</strong> Día {{ workday.day }}</p>
+            <p class="mb-1 text-sm text-slate-700">
+              <strong>Jornada:</strong> Día {{ workday.day }}
+            </p>
           }
 
           @if (day.records.length) {
-            <h6>Registros</h6>
+            <h6 class="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-500">
+              Registros
+            </h6>
             @for (record of day.records; track record.id) {
-              <ul class="list-unstyled">
-                <li>Entrada: {{ record.checkIn }}</li>
+              <ul class="list-none">
+                <li class="text-sm text-slate-700">Entrada: {{ record.checkIn }}</li>
                 @if (record.checkOut) {
-                  <li>Salida: {{ record.checkOut }}</li>
+                  <li class="text-sm text-slate-700">Salida: {{ record.checkOut }}</li>
                 }
                 @if (record.incident) {
-                  <li class="text-danger">Incidencia: {{ record.incident }}</li>
+                  <li class="text-sm text-red-600">Incidencia: {{ record.incident }}</li>
                 }
               </ul>
             }
           }
 
           @if (day.events.length) {
-            <h6>Eventos</h6>
+            <h6 class="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-500">
+              Eventos
+            </h6>
             @for (event of day.events; track event.id) {
-              <p>{{ event.eventType.name }} — {{ event.title }}</p>
+              <p class="text-sm text-slate-700">
+                <span
+                  class="inline-block rounded-full bg-sky-500 px-2 py-0.5 text-xs font-semibold text-white"
+                  >{{ event.eventType.name }}</span
+                >
+                {{ event.title }}
+              </p>
             }
           }
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeRequest.emit()">
+        <div class="modal-footer flex justify-end gap-2 border-t border-slate-200 px-5 py-3">
+          <button
+            type="button"
+            class="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50"
+            (click)="closeRequest.emit()"
+          >
             Cerrar
           </button>
         </div>
