@@ -1,13 +1,6 @@
-import {
-  Component,
-  inject,
-  input,
-  output,
-  computed,
-  effect,
-} from '@angular/core';
+import { Component, inject, input, output, computed, effect } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgClass } from '@angular/common';
+import { LucideX } from '@lucide/angular';
 
 import { CompaniesService } from '../../../../services/companies.service';
 import { Company } from '../../../../models';
@@ -17,7 +10,7 @@ import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.componen
 @Component({
   selector: 'app-company-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass, AppDialogComponent],
+  imports: [ReactiveFormsModule, AppDialogComponent, LucideX],
   templateUrl: './company-modal.component.html',
   styleUrl: './company-modal.component.scss',
 })
