@@ -25,7 +25,7 @@ describe('RoadmapComponent', () => {
   it('should render brand name and hero title', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.landing-brand')?.textContent).toContain('JornadaGo');
-    expect(compiled.querySelector('.hero-title')?.textContent).toContain('Roadmap');
+    expect(compiled.querySelector('.roadmap-hero h1')?.textContent).toContain('Roadmap');
   });
 
   it('should show the active Roadmap nav link', () => {
@@ -37,12 +37,12 @@ describe('RoadmapComponent', () => {
     expect(link?.textContent).toContain('Roadmap');
   });
 
-  it('should render six available features', () => {
+  it('should render seven available features', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const available = Array.from(compiled.querySelectorAll('.roadmap-card')).filter((card) =>
+    const available = Array.from(compiled.querySelectorAll('.timeline-card')).filter((card) =>
       card.textContent?.includes('Disponible'),
     );
-    expect(available.length).toBe(6);
+    expect(available.length).toBe(7);
   });
 
   it('should render two upcoming features', () => {
