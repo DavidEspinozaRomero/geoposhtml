@@ -2,14 +2,14 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { LucideApple, LucideDynamicIcon, LucideLogOut, type LucideIcon } from '@lucide/angular';
 
-import { NgClass, TitleCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import { Auth } from '../../../services/auth';
 import { iconMap } from '../../../shared/ui/icon-map';
 
 @Component({
   selector: 'app-layout-admin',
   standalone: true,
-  imports: [RouterModule, TitleCasePipe, NgClass, LucideDynamicIcon, LucideApple, LucideLogOut],
+  imports: [RouterModule, TitleCasePipe, LucideDynamicIcon, LucideApple, LucideLogOut],
   templateUrl: './layout-admin.component.html',
   styleUrl: './layout-admin.component.scss',
 })
