@@ -1,9 +1,9 @@
-<div class="mx-5 my-3 p-3 workday-container bg-light border border-light-subtle rounded">
-  <h1>Gestion Jornada Laboral</h1>
+<div class="mx-12 my-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
+  <h1 class="mb-4 text-2xl font-bold tracking-tight text-slate-900">Gestion Jornada Laboral</h1>
 
   <!-- Select para escoger empleado -->
   <select
-    class="form-select"
+    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
     aria-label="Seleccione empleado"
     (change)="getEmployee($any($event.target))"
   >
@@ -20,26 +20,61 @@
 </div>
 
 @if (employee()) {
-  <div class="mx-5 p-3 workday-container bg-light border border-light-subtle rounded">
-    <div class="row p-0 m-0">
-      <table class="table mb-0" aria-label="Tabla de Jornada Laboral">
+  <div class="mx-12 my-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
+    <div class="m-0 grid grid-cols-1 gap-4 p-0">
+      <table class="mb-0 w-full text-sm" aria-label="Tabla de Jornada Laboral">
         <thead>
           <tr class="text-center">
-            <th [ngClass]="{ 'text-primary': day === 0 }">Dom</th>
-            <th [ngClass]="{ 'text-primary': day === 1 }">Lun</th>
-            <th [ngClass]="{ 'text-primary': day === 2 }">Mar</th>
-            <th [ngClass]="{ 'text-primary': day === 3 }">Mie</th>
-            <th [ngClass]="{ 'text-primary': day === 4 }">Jue</th>
-            <th [ngClass]="{ 'text-primary': day === 5 }">Vie</th>
-            <th [ngClass]="{ 'text-primary': day === 6 }">Sab</th>
+            <th
+              [class.text-indigo-600]="day === 0"
+              class="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-500"
+            >
+              Dom
+            </th>
+            <th
+              [class.text-indigo-600]="day === 1"
+              class="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-500"
+            >
+              Lun
+            </th>
+            <th
+              [class.text-indigo-600]="day === 2"
+              class="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-500"
+            >
+              Mar
+            </th>
+            <th
+              [class.text-indigo-600]="day === 3"
+              class="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-500"
+            >
+              Mie
+            </th>
+            <th
+              [class.text-indigo-600]="day === 4"
+              class="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-500"
+            >
+              Jue
+            </th>
+            <th
+              [class.text-indigo-600]="day === 5"
+              class="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-500"
+            >
+              Vie
+            </th>
+            <th
+              [class.text-indigo-600]="day === 6"
+              class="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-500"
+            >
+              Sab
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr>
             @for (day of employee()!.workdays; let i_day = $index; track i_day) {
-              <td>
+              <td class="px-2 py-2 align-middle">
                 <select
-                  class="form-select"
+                  class="w-full rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
                   aria-label="Seleccione Empresa"
                   (change)="addCompany($any($event.target), day)"
                 >
@@ -57,41 +92,46 @@
           </tr>
           <tr>
             @for (workday of employee()!.workdays; let i_workday = $index; track i_workday) {
-              <td>
+              <td class="px-2 py-2 align-middle">
                 @for (
                   companyID of workday.companiesIDs;
                   let i_companyID = $index;
                   track i_companyID
                 ) {
-                  <span class="badge bg-primary me-1">
+                  <span
+                    class="me-1 inline-flex items-center gap-1 rounded-full bg-indigo-600 px-2 py-0.5 text-xs font-semibold text-white"
+                  >
                     {{ getCompanyById(companyID) }}
                     <svg
                       lucideCircleX
                       role="button"
                       tabindex="0"
-                      class="h-4 w-4 ms-1 align-middle"
+                      class="h-4 w-4 cursor-pointer"
                       (click)="removeCompany(workday, companyID)"
                       (keydown.enter)="removeCompany(workday, companyID)"
                       (keydown.space)="removeCompany(workday, companyID)"
                     ></svg>
                   </span>
                 } @empty {
-                  <span class="text-muted"> Sin asignación </span>
+                  <span class="text-sm text-slate-500"> Sin asignación </span>
                 }
               </td>
             }
           </tr>
         </tbody>
       </table>
-      <div class="text-end pe-0">
+      <div class="flex justify-end pe-0">
         <button
           type="button"
-          class="btn btn-primary mt-3 justify-content-end"
+          class="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
           (click)="onSubmit()"
           [disabled]="loading()"
         >
           @if (loading()) {
-            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+            <span
+              class="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
+              aria-hidden="true"
+            ></span>
             <span role="status">Guardando...</span>
           } @else {
             Guardar
@@ -101,7 +141,7 @@
     </div>
   </div>
 } @else {
-  <div class="alert alert-info mx-3" role="alert">
-    <h5 class="alert-heading">Seleccione un empleado</h5>
+  <div class="mx-4 rounded-lg border border-sky-200 bg-sky-50 px-4 py-3" role="alert">
+    <h5 class="mb-0 font-semibold text-sky-800">Seleccione un empleado</h5>
   </div>
 }

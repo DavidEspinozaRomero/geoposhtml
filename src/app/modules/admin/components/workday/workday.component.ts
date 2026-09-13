@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { UpperCasePipe, NgClass } from '@angular/common';
+import { UpperCasePipe } from '@angular/common';
 import { LucideCircleX } from '@lucide/angular';
 
 import { Company, Employee, Workday, WorkdaysResponse } from '../../../../models';
@@ -10,7 +10,7 @@ import { WordaysService } from '../../../../services/wordays.service';
 @Component({
   selector: 'app-workday',
   standalone: true,
-  imports: [NgClass, UpperCasePipe, LucideCircleX],
+  imports: [UpperCasePipe, LucideCircleX],
   templateUrl: './workday.component.html',
   styleUrl: './workday.component.scss',
 })
