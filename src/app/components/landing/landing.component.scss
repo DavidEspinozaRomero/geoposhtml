@@ -24,24 +24,22 @@
 }
 
 // FAQ accordion panels: same grid-rows transition (single-open behavior in TS).
-.faq-panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.25s ease;
 
-  &.open {
-    grid-template-rows: 1fr;
-  }
-
-  > * {
-    overflow: hidden;
-  }
+details::details-content {
+  block-size: 0;
+  transition:
+    block-size 0.5s ease,
+    content-visibility 0.5s;
+  transition-behavior: allow-discrete;
+}
+details[open]::details-content {
+  block-size: auto;
 }
 
 // FAQ chevron state: closed panels rotate the chevron (aria-driven).
 .faq-button {
   svg {
-    transition: transform 0.2s ease;
+    transition: transform 1s ease;
   }
 
   &[aria-expanded='false'] svg {

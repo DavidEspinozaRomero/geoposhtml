@@ -348,81 +348,65 @@
         ¿Dudas? Te las respondemos
       </h2>
     </div>
-    <div class="mx-auto max-w-3xl">
-      <div id="landingFaq" class="faq-list space-y-3">
-        <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-          <h3 class="faq-header">
-            <button
-              class="faq-button flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-base font-semibold text-slate-900 transition-colors hover:bg-slate-50"
-              type="button"
-              [attr.aria-expanded]="openFaq() === 0"
-              aria-controls="faq1"
-              (click)="toggleFaq(0)"
-            >
-              ¿Qué necesito para usarlo?
-              <svg
-                lucideChevronDown
-                class="h-5 w-5 shrink-0 text-slate-400"
-                aria-hidden="true"
-              ></svg>
-            </button>
-          </h3>
-          <div id="faq1" class="faq-panel" [class.open]="openFaq() === 0">
-            <div class="px-5 pb-5 text-sm leading-relaxed text-slate-600">
-              Solamente una cuenta de administrador para configurar el equipo. Los empleados acceden
-              desde cualquier navegador con su usuario y contraseña.
-            </div>
-          </div>
-        </div>
-        <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-          <h3 class="faq-header">
-            <button
-              class="faq-button flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-base font-semibold text-slate-900 transition-colors hover:bg-slate-50"
-              type="button"
-              [attr.aria-expanded]="openFaq() === 1"
-              aria-controls="faq2"
-              (click)="toggleFaq(1)"
-            >
-              ¿La geolocalización es obligatoria?
-              <svg
-                lucideChevronDown
-                class="h-5 w-5 shrink-0 text-slate-400"
-                aria-hidden="true"
-              ></svg>
-            </button>
-          </h3>
-          <div id="faq2" class="faq-panel" [class.open]="openFaq() === 1">
-            <div class="px-5 pb-5 text-sm leading-relaxed text-slate-600">
-              El fichaje registra la ubicación de cada marca. Así el administrador tiene evidencia
-              de dónde se realizó la entrada y la salida.
-            </div>
-          </div>
-        </div>
-        <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-          <h3 class="faq-header">
-            <button
-              class="faq-button flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-base font-semibold text-slate-900 transition-colors hover:bg-slate-50"
-              type="button"
-              [attr.aria-expanded]="openFaq() === 2"
-              aria-controls="faq3"
-              (click)="toggleFaq(2)"
-            >
-              ¿Puedo asignar varias empresas a un empleado?
-              <svg
-                lucideChevronDown
-                class="h-5 w-5 shrink-0 text-slate-400"
-                aria-hidden="true"
-              ></svg>
-            </button>
-          </h3>
-          <div id="faq3" class="faq-panel" [class.open]="openFaq() === 2">
-            <div class="px-5 pb-5 text-sm leading-relaxed text-slate-600">
-              Sí. La planificación de jornadas te permite asignar empresas por cada día de la
-              semana, ideal para equipos que rotan de sede.
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="mx-auto max-w-3xl space-y-3">
+      <details
+        name="faq"
+        open
+        class="group overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm open:shadow-md"
+      >
+        <summary
+          class="flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left text-base font-semibold text-slate-900 transition-colors hover:bg-slate-50 [&::-webkit-details-marker]:hidden"
+        >
+          ¿Qué necesito para usarlo?
+          <svg
+            lucideChevronDown
+            class="h-5 w-5 shrink-0 text-slate-400 transition-transform duration-200 group-open:rotate-180"
+            aria-hidden="true"
+          ></svg>
+        </summary>
+        <p class="px-5 pb-5 text-sm leading-relaxed text-slate-600">
+          Solamente una cuenta de administrador para configurar el equipo. Los empleados acceden
+          desde cualquier navegador con su usuario y contraseña.
+        </p>
+      </details>
+      <details
+        name="faq"
+        class="group overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm open:shadow-md"
+      >
+        <summary
+          class="flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left text-base font-semibold text-slate-900 transition-colors hover:bg-slate-50 [&::-webkit-details-marker]:hidden"
+        >
+          ¿La geolocalización es obligatoria?
+          <svg
+            lucideChevronDown
+            class="h-5 w-5 shrink-0 text-slate-400 transition-transform duration-200 group-open:rotate-180"
+            aria-hidden="true"
+          ></svg>
+        </summary>
+        <p class="px-5 pb-5 text-sm leading-relaxed text-slate-600">
+          El fichaje registra la ubicación de cada marca. Así el administrador tiene evidencia de
+          dónde se realizó la entrada y la salida.
+        </p>
+      </details>
+      <details
+        name="faq"
+        class="group overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm open:shadow-md"
+      >
+        <summary
+          class="flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left text-base font-semibold text-slate-900 transition-colors hover:bg-slate-50 [&::-webkit-details-marker]:hidden"
+        >
+          ¿Puedo asignar varias empresas a un empleado?
+          <svg
+            lucideChevronDown
+            class="h-5 w-5 shrink-0 text-slate-400 transition-transform duration-200 group-open:rotate-180"
+            aria-hidden="true"
+          ></svg>
+        </summary>
+        <p class="px-5 pb-5 text-sm leading-relaxed text-slate-600">
+          Sí. La planificación de jornadas te permite asignar empresas por cada día de la semana,
+          ideal para equipos que rotan de sede.
+        </p>
+      </details>
     </div>
   </div>
 </section>

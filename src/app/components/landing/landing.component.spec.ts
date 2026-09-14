@@ -58,23 +58,29 @@ describe('LandingComponent', () => {
     expect(collapse.classList.contains('open')).toBe(false);
   });
 
-  it('should open the first FAQ by default and toggle single-open', () => {
+  it('should render FAQ as native exclusive details accordion', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const buttons = Array.from(compiled.querySelectorAll('.faq-button')) as HTMLButtonElement[];
-    const panels = Array.from(compiled.querySelectorAll('.faq-panel')) as HTMLElement[];
+    const details = Array.from(compiled.querySelectorAll<HTMLElement>('details[name="faq"]'));
+    const summaries = Array.from(
+      compiled.querySelectorAll<HTMLElement>('details[name="faq"] > summary'),
+    );
 
-    expect(panels[0].classList.contains('open')).toBe(true);
-    expect(panels[1].classList.contains('open')).toBe(false);
-    expect(buttons[0].getAttribute('aria-expanded')).toBe('true');
+    expect(details.length).toBeGreaterThanOrEqual(3);
 
-    buttons[1].click();
-    fixture.detectChanges();
-    expect(panels[0].classList.contains('open')).toBe(false);
-    expect(panels[1].classList.contains('open')).toBe(true);
-    expect(buttons[1].getAttribute('aria-expanded')).toBe('true');
+    // First panel open by default
+    expect(details[0].hasAttribute('open')).toBe(true);
+    for (const d of details.slice(1)) {
+      expect(d.hasAttribute('open')).toBe(false);
+    }
 
-    buttons[1].click();
-    fixture.detectChanges();
-    expect(panels[1].classList.contains('open')).toBe(false);
+    // All panels share the same name → browser enforces exclusivity
+    for (const d of details) {
+      expect(d.getAttribute('name')).toBe('faq');
+    }
+
+    // Summary text content matches questions
+    expect(summaries[0].textContent).toContain('¿Qué necesito para usarlo?');
+    expect(summaries[1].textContent).toContain('¿La geolocalización es obligatoria?');
+    expect(summaries[2].textContent).toContain('¿Puedo asignar varias empresas a un empleado?');
   });
 });

@@ -41,12 +41,6 @@ export class LandingComponent implements OnInit {
 
   navCollapsed = signal(false);
 
-  openFaq = signal(0);
-
-  toggleFaq(index: number): void {
-    this.openFaq.set(this.openFaq() === index ? -1 : index);
-  }
-
   ngOnInit(): void {
     this.seo.updateMeta({
       description:
