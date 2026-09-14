@@ -44,3 +44,8 @@ Thumbs.db
 # agents / tools
 .atl
 .codegraph
+
+# Lighthouse gate runtime artifacts (transient, regenerated on each gate run)
+gate.log
+gate.err.log
+settle-status.json

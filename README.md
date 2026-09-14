@@ -5,7 +5,7 @@ Employee workday management frontend — check-in/out records, workday schedulin
 ## Stack
 
 - **Angular 21** — standalone components, lazy-loaded routes, signal-based state (no `zone.js`, zoneless change detection)
-- **Bootstrap 5** + **Bootstrap Icons** — UI
+- **Tailwind CSS** — UI (self-hosted, no CDN; migrated from Bootstrap 5)
 - **Vitest** — unit tests
 - **ESLint** + **Prettier** — linting and formatting (via Husky + lint-staged on commit)
 - **pnpm** — package manager
