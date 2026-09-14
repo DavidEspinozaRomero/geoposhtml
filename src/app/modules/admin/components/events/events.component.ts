@@ -44,7 +44,7 @@ export class EventsComponent implements OnInit {
         const mapped = events.map((event: CalendarEvent) => {
           switch (event.eventType?.id) {
             case 1:
-              event.class = 'bg-indigo-600 text-white';
+              event.class = 'bg-blue-600 text-white';
               break;
             case 2:
               event.class = 'bg-green-600 text-white';

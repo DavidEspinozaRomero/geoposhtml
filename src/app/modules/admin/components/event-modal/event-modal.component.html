@@ -3,7 +3,7 @@
   <div class="modal-dialog">
     <div class="modal-content overflow-hidden rounded-xl bg-white shadow-xl">
       <div
-        class="modal-header flex items-center justify-between gap-3 bg-indigo-600 px-5 py-4 text-white"
+        class="modal-header flex items-center justify-between gap-3 bg-blue-600 px-5 py-4 text-white"
       >
         <h1 class="modal-title text-lg font-semibold" id="eventModalLabel">Evento</h1>
         <button
@@ -25,7 +25,7 @@
             <input
               type="text"
               id="titleInput"
-              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
               placeholder="Vacacions David"
               formControlName="title"
               [class.border-red-500]="utilsService.isValidControl(eventForm, 'title')"
@@ -45,7 +45,7 @@
             <input
               type="text"
               id="descriptionInput"
-              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
               placeholder="Vacaciones del año de David"
               formControlName="description"
               [class.border-red-500]="utilsService.isValidControl(eventForm, 'description')"
@@ -72,7 +72,7 @@
             <div>
               <input
                 id="dateInput"
-                class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+                class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
                 type="date"
                 formControlName="date"
                 [class.border-red-500]="utilsService.isValidControl(eventForm, 'date')"
@@ -89,7 +89,7 @@
           </div>
           <div class="mb-4">
             <select
-              class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+              class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
               aria-label="tipos de eventos"
               formControlName="typeId"
               [class.border-red-500]="utilsService.isValidControl(eventForm, 'typeId')"
@@ -119,7 +119,7 @@
         </button>
         <button
           type="button"
-          class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
+          class="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
           (click)="onSubmit()"
         >
           Guardar

@@ -3,7 +3,7 @@
   <div class="modal-dialog">
     <div class="modal-content overflow-hidden rounded-xl bg-white shadow-xl">
       <div
-        class="modal-header flex items-center justify-between gap-3 bg-indigo-600 px-5 py-4 text-white"
+        class="modal-header flex items-center justify-between gap-3 bg-blue-600 px-5 py-4 text-white"
       >
         <h1 class="modal-title text-lg font-semibold" id="recordsModalLabel">Registros</h1>
         <button
@@ -25,7 +25,7 @@
               </label>
               <input
                 id="dateInput"
-                class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+                class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
                 type="date"
                 formControlName="date"
               />
@@ -39,7 +39,7 @@
             </label>
             <select
               id="companyIdSelect"
-              class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+              class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
               aria-label="lista de companias"
               formControlName="companyId"
             >
@@ -56,7 +56,7 @@
             </label>
             <select
               id="employeeIdSelect"
-              class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+              class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
               aria-label="lista de empleados"
               formControlName="employeeId"
             >
@@ -81,7 +81,7 @@
               >Incidencia Administrador</label
             >
             <textarea
-              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
               placeholder="Agregar una incidencia"
               formControlName="incidentAdmin"
               id="floatingTextarea"
@@ -105,7 +105,7 @@
         </button>
         <button
           type="button"
-          class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
+          class="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
           (click)="onSubmit()"
         >
           Guardar

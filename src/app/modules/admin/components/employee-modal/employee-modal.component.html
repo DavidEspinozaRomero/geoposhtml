@@ -24,7 +24,7 @@
             <input
               type="text"
               id="nameInput"
-              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
               placeholder="David"
               formControlName="name"
               [class.border-red-500]="utilsService.isValidControl(employeeForm, 'name')"
@@ -43,7 +43,7 @@
             <input
               type="text"
               id="usernameInput"
-              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
               placeholder="Deerhou"
               formControlName="username"
               [class.border-red-500]="utilsService.isValidControl(employeeForm, 'username')"
@@ -60,7 +60,7 @@
               >Contraseña</label
             >
             <div
-              class="flex overflow-hidden rounded-lg border border-slate-300 transition-colors focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/30"
+              class="flex overflow-hidden rounded-lg border border-slate-300 transition-colors focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/30"
             >
               <input
                 [type]="isHidenPassword() ? 'password' : 'text'"
@@ -96,7 +96,7 @@
             <input
               type="text"
               id="emailInput"
-              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
               placeholder="user@example.com"
               formControlName="email"
               [class.border-red-500]="utilsService.isValidControl(employeeForm, 'email')"
@@ -115,7 +115,7 @@
             <input
               type="text"
               id="dniInput"
-              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
               placeholder="12345678A"
               formControlName="dni"
               [class.border-red-500]="utilsService.isValidControl(employeeForm, 'dni')"
@@ -134,7 +134,7 @@
             <input
               type="text"
               id="addressInput"
-              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
               placeholder="Ciudad - Calle Falsa 123"
               formControlName="address"
               [class.border-red-500]="utilsService.isValidControl(employeeForm, 'address')"
@@ -153,7 +153,7 @@
             <input
               type="text"
               id="phoneInput"
-              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
               placeholder="123456780"
               formControlName="phone"
               [class.border-red-500]="utilsService.isValidControl(employeeForm, 'phone')"
@@ -172,7 +172,7 @@
             <input
               type="text"
               id="insuranceInput"
-              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
               placeholder="ABC123"
               formControlName="insurance"
               [class.border-red-500]="utilsService.isValidControl(employeeForm, 'insurance')"
@@ -188,7 +188,7 @@
             <div class="flex items-center gap-2">
               <input
                 id="isActiveInput"
-                class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                class="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
                 type="checkbox"
                 formControlName="isActive"
               />
@@ -209,7 +209,7 @@
         </button>
         <button
           type="button"
-          class="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+          class="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
           (click)="onSubmit()"
           [disabled]="config.loading"
         >
