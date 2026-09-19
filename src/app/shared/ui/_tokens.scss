@@ -1,0 +1,25 @@
+// Design-system tokens (WU01).
+//
+// Semantic palette + radii used by the shared primitives, exposed as CSS
+// custom properties so SCSS consumers (dialog panel, legacy sheets) can
+// reference named colors instead of raw hex values.
+//
+// This is a partial: import it where tokens are needed (the path depends on
+// the consumer location), or reference the custom properties directly when
+// the :root block is loaded by a consumer (WU02 design-system page imports
+// it).
+:root {
+  --app-color-primary: #2563eb; // blue-600
+  --app-color-primary-hover: #1d4ed8; // blue-700
+  --app-color-info: #3b82f6; // blue-500
+  --app-color-success: #16a34a; // green-600
+  --app-color-warning: #facc15; // yellow-400
+  --app-color-danger: #dc2626; // red-600
+  --app-color-neutral: #9ca3af; // gray-400
+  --app-color-surface: #ffffff;
+  --app-color-text: #334155; // slate-700
+  --app-color-text-light: #64748b; // slate-500
+  --app-color-border: #e2e8f0; // slate-200
+  --app-radius-lg: 0.5rem;
+  --app-radius-xl: 0.75rem;
+}

@@ -1,0 +1,394 @@
+<div class="mx-auto max-w-5xl px-4 py-10">
+  <!-- Header -->
+  <header class="mb-12">
+    <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Sistema de diseño</h1>
+    <p class="mt-2 max-w-2xl text-slate-600">
+      Playground interactivo de las primitivas compartidas: colores, tipografía, botones, badges,
+      inputs, cards, tabla, filtros y dialog. Todo construido con los tokens y directivas de
+      <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm">shared/ui</code>.
+    </p>
+  </header>
+
+  <div class="space-y-14">
+    <!-- Colores -->
+    <section aria-labelledby="ds-colores">
+      <h2
+        id="ds-colores"
+        class="mb-4 border-b border-slate-200 pb-2 text-xl font-bold text-slate-900"
+      >
+        Colores
+      </h2>
+      <p class="mb-4 text-sm text-slate-600">
+        Tokens semánticos de
+        <code class="rounded bg-slate-100 px-1 py-0.5 text-xs">_tokens.scss</code>
+        y su clase Tailwind equivalente.
+      </p>
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        @for (swatch of colorSwatches; track swatch.token) {
+          <div class="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
+            <div
+              class="h-16"
+              [class]="swatch.className"
+              [class.ring-1]="swatch.name === 'surface' || swatch.name === 'border'"
+              [class.ring-slate-300]="swatch.name === 'surface' || swatch.name === 'border'"
+            ></div>
+            <div class="px-3 py-2">
+              <p class="text-sm font-semibold text-slate-800">{{ swatch.name }}</p>
+              <p class="text-xs text-slate-500">{{ swatch.token }}</p>
+              <p class="text-xs text-slate-500">{{ swatch.hex }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- Tipografía -->
+    <section aria-labelledby="ds-tipografia">
+      <h2
+        id="ds-tipografia"
+        class="mb-4 border-b border-slate-200 pb-2 text-xl font-bold text-slate-900"
+      >
+        Tipografía
+      </h2>
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+          <p class="mb-2 text-sm font-semibold text-slate-800">Fuente</p>
+          <p class="text-sm text-slate-600">
+            La app usa la pila de fuentes por defecto de Tailwind (<code
+              class="rounded bg-slate-100 px-1 py-0.5 text-xs"
+              >font-sans</code
+            >):
+          </p>
+          <p class="mt-2 text-sm leading-relaxed text-slate-700">
+            ui-sans-serif, system-ui, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
+            Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;
+          </p>
+        </div>
+        <div>
+          @for (size of [1, 2, 3, 4, 5, 6, 7, 8]; track size) {
+            <div class="flex items-baseline gap-4 py-1">
+              <span class="w-20 shrink-0 text-xs text-slate-500">
+                {{
+                  size === 1
+                    ? 'xs'
+                    : size === 2
+                      ? 'sm'
+                      : size === 3
+                        ? 'base'
+                        : size === 4
+                          ? 'lg'
+                          : size === 5
+                            ? 'xl'
+                            : size === 6
+                              ? '2xl'
+                              : size === 7
+                                ? '3xl'
+                                : '4xl'
+                }}
+              </span>
+              <span
+                [class.text-xs]="size === 1"
+                [class.text-sm]="size === 2"
+                [class.text-base]="size === 3"
+                [class.text-lg]="size === 4"
+                [class.text-xl]="size === 5"
+                [class.text-2xl]="size === 6"
+                [class.text-3xl]="size === 7"
+                [class.text-4xl]="size === 8"
+                class="whitespace-nowrap text-slate-800"
+              >
+                JornadaGo
+              </span>
+            </div>
+          }
+          <div
+            class="mt-4 flex flex-wrap items-baseline gap-x-6 gap-y-2 border-t border-slate-200 pt-4"
+          >
+            <span class="w-20 shrink-0 text-xs text-slate-500">Pesos</span>
+            <span class="font-normal text-slate-700">Normal</span>
+            <span class="font-medium text-slate-700">Medium</span>
+            <span class="font-semibold text-slate-700">Semibold</span>
+            <span class="font-bold text-slate-700">Bold</span>
+            <span class="font-extrabold text-slate-700">Extrabold</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Botones -->
+    <section aria-labelledby="ds-botones">
+      <h2
+        id="ds-botones"
+        class="mb-4 border-b border-slate-200 pb-2 text-xl font-bold text-slate-900"
+      >
+        Botones
+      </h2>
+      <div class="mb-4 flex flex-wrap items-center gap-3">
+        <button
+          appBtn
+          variant="secondary"
+          size="sm"
+          (click)="buttonsDisabled.set(!buttonsDisabled())"
+        >
+          {{ buttonsDisabled() ? 'Habilitar botones' : 'Deshabilitar botones' }}
+        </button>
+        <span appBadge [variant]="buttonsDisabled() ? 'neutral' : 'success'">
+          {{ buttonsDisabled() ? 'Deshabilitados' : 'Habilitados' }}
+        </span>
+        <span appBadge variant="info">{{ clickCount() }} clics</span>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        @for (variant of btnVariants; track variant) {
+          <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+            <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
+              {{ variant }}
+            </p>
+            <div class="flex flex-col items-start gap-2">
+              @for (size of btnSizes; track size) {
+                <button
+                  appBtn
+                  [variant]="variant"
+                  [size]="size"
+                  [disabled]="buttonsDisabled()"
+                  (click)="incrementClicks()"
+                >
+                  {{ variant }} · {{ size }}
+                </button>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- Badges -->
+    <section aria-labelledby="ds-badges">
+      <h2
+        id="ds-badges"
+        class="mb-4 border-b border-slate-200 pb-2 text-xl font-bold text-slate-900"
+      >
+        Badges
+      </h2>
+      <div class="mb-4 flex flex-wrap items-center gap-2">
+        @for (variant of badgeVariants; track variant) {
+          <span appBadge [variant]="variant">{{ variant }}</span>
+        }
+      </div>
+      <p class="mb-2 text-sm text-slate-600">
+        Estados de día con
+        <code class="rounded bg-slate-100 px-1 py-0.5 text-xs">statusClasses</code>
+        (icon-map):
+      </p>
+      <div class="mb-2 flex flex-wrap items-center gap-2">
+        @for (key of statusKeys; track key) {
+          <span
+            class="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold"
+            [class]="statusClasses[key]"
+          >
+            {{ key }}
+          </span>
+        }
+      </div>
+      <p class="mb-2 text-sm text-slate-600">
+        Lo mismo con <code class="rounded bg-slate-100 px-1 py-0.5 text-xs">statusVariant</code> +
+        <code class="rounded bg-slate-100 px-1 py-0.5 text-xs">[appBadge]</code>:
+      </p>
+      <div class="flex flex-wrap items-center gap-2">
+        @for (key of statusKeys; track key) {
+          <span appBadge [variant]="statusVariant[key]">{{ key }}</span>
+        }
+      </div>
+    </section>
+
+    <!-- Inputs y form-field -->
+    <section aria-labelledby="ds-inputs">
+      <h2
+        id="ds-inputs"
+        class="mb-4 border-b border-slate-200 pb-2 text-xl font-bold text-slate-900"
+      >
+        Inputs y form-field
+      </h2>
+      <div class="mb-4 grid gap-6 md:grid-cols-2">
+        <app-form-field label="Nombre completo" hint="Solo letras y espacios.">
+          <input appInput type="text" placeholder="Ej: María López" />
+        </app-form-field>
+        <app-form-field label="Correo electrónico" [error]="emailError()">
+          <input
+            appInput
+            [hasError]="showError()"
+            type="email"
+            placeholder="ej: maria@empresa.com"
+          />
+        </app-form-field>
+        <app-form-field label="Empresa">
+          <select appSelect [hasError]="showError()">
+            <option>TechCorp</option>
+            <option>LogiTrans</option>
+            <option>Comercio Sur</option>
+          </select>
+        </app-form-field>
+      </div>
+      <div class="flex items-center gap-3">
+        <button appBtn variant="secondary" size="sm" (click)="showError.set(!showError())">
+          {{ showError() ? 'Quitar error' : 'Mostrar error' }}
+        </button>
+        <span appBadge [variant]="showError() ? 'danger' : 'neutral'">
+          {{ showError() ? 'Con error' : 'Sin error' }}
+        </span>
+      </div>
+    </section>
+
+    <!-- Cards -->
+    <section aria-labelledby="ds-cards">
+      <h2
+        id="ds-cards"
+        class="mb-4 border-b border-slate-200 pb-2 text-xl font-bold text-slate-900"
+      >
+        Cards
+      </h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div appCard>
+          <div appCardHeader>Resumen del mes</div>
+          <div appCardBody>
+            <p class="mb-3 text-sm leading-relaxed text-slate-600">
+              Header, body y bordes propios de la primitiva
+              <code class="rounded bg-slate-100 px-1 py-0.5 text-xs">[appCard]</code>.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span appBadge variant="success">Completo</span>
+              <span appBadge variant="warning">Parcial</span>
+              <span appBadge variant="danger">Ausente</span>
+            </div>
+          </div>
+        </div>
+        <div appCard>
+          <div appCardHeader class="text-blue-600">Asistencia</div>
+          <div appCardBody>
+            <p class="text-sm leading-relaxed text-slate-600">
+              Las clases del consumidor se combinan con las del host: acentos de color, espaciado y
+              composición siguen disponibles.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tabla -->
+    <section aria-labelledby="ds-tabla">
+      <h2
+        id="ds-tabla"
+        class="mb-4 border-b border-slate-200 pb-2 text-xl font-bold text-slate-900"
+      >
+        Tabla
+      </h2>
+      <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white shadow-sm">
+        <table appTable>
+          <thead>
+            <tr appTrHead>
+              <th appTh>Empleado</th>
+              <th appTh>Empresa</th>
+              <th appTh>Estado</th>
+              <th appTh>Jornada</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (employee of demoEmployees; track employee.name) {
+              <tr appTrBody>
+                <td appTd class="font-medium text-slate-800">{{ employee.name }}</td>
+                <td appTd>{{ employee.company }}</td>
+                <td appTd>
+                  <span appBadge [variant]="statusVariant[employee.status]">
+                    {{ employee.status }}
+                  </span>
+                </td>
+                <td appTd>{{ employee.hours }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Filtros -->
+    <section aria-labelledby="ds-filtros">
+      <h2
+        id="ds-filtros"
+        class="mb-4 border-b border-slate-200 pb-2 text-xl font-bold text-slate-900"
+      >
+        Filtros
+      </h2>
+      <div appFilterSection>
+        <div class="grid gap-4 md:grid-cols-3">
+          <div>
+            <label appFilterLabel>Empresa</label>
+            <select appSelect>
+              <option>Todas</option>
+              <option>TechCorp</option>
+              <option>LogiTrans</option>
+              <option>Comercio Sur</option>
+            </select>
+          </div>
+          <div>
+            <label appFilterLabel>Estado</label>
+            <select appSelect>
+              <option>Todos</option>
+              <option>Completo</option>
+              <option>Parcial</option>
+              <option>Ausente</option>
+            </select>
+          </div>
+          <div>
+            <label appFilterLabel>Buscar</label>
+            <input appInput type="search" placeholder="Nombre del empleado" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dialog -->
+    <section aria-labelledby="ds-dialog">
+      <h2
+        id="ds-dialog"
+        class="mb-4 border-b border-slate-200 pb-2 text-xl font-bold text-slate-900"
+      >
+        Dialog
+      </h2>
+      <p class="mb-4 text-sm text-slate-600">
+        Abre el modal reutilizando
+        <code class="rounded bg-slate-100 px-1 py-0.5 text-xs">&lt;app-dialog&gt;</code>. Cierra con
+        Esc, clic fuera del panel o el botón.
+      </p>
+      <button appBtn (click)="dialogOpen.set(true)">Abrir dialog</button>
+    </section>
+  </div>
+
+  <!-- Dialog demo -->
+  <app-dialog [open]="dialogOpen()" (closeRequest)="dialogOpen.set(false)">
+    <div class="flex max-h-[90vh] flex-col overflow-hidden rounded-xl bg-white shadow-xl">
+      <div class="flex items-center justify-between gap-3 bg-blue-600 px-5 py-4 text-white">
+        <h5 class="text-lg font-semibold">Nuevo empleado</h5>
+        <button
+          type="button"
+          class="rounded-md p-1.5 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+          (click)="dialogOpen.set(false)"
+          aria-label="Cerrar"
+        >
+          <svg lucideX class="h-4 w-4"></svg>
+        </button>
+      </div>
+      <div class="max-h-[70vh] overflow-y-auto px-5 py-4">
+        <p class="mb-3 text-sm leading-relaxed text-slate-700">
+          Contenido demo del dialog. El wrapper
+          <code class="rounded bg-slate-100 px-1 py-0.5 text-xs">&lt;app-dialog&gt;</code> maneja el
+          <code class="rounded bg-slate-100 px-1 py-0.5 text-xs">&lt;dialog&gt;</code> nativo y el
+          foco, y emite <code class="rounded bg-slate-100 px-1 py-0.5 text-xs">closeRequest</code>
+          para que el consumidor cierre.
+        </p>
+        <div class="flex justify-end gap-2">
+          <button appBtn variant="ghost" size="sm" (click)="dialogOpen.set(false)">Cancelar</button>
+          <button appBtn size="sm">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </app-dialog>
+</div>

@@ -1,0 +1,7 @@
+// NOTA: los tokens se cargan globalmente desde `styles.scss` (ver comentario
+// allí). Angular scopea los estilos de componentes (el `:root` del partial
+// compilado termina como `[_ngcontent-*]:root`, que no matchea `<html>`), así
+// que importarlos aquí no los haría efectivos en runtime.
+:host {
+  display: block;
+}

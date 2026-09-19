@@ -1,0 +1,11 @@
+<div class="space-y-1.5">
+  @if (label()) {
+    <label class="block text-sm font-medium text-slate-600">{{ label() }}</label>
+  }
+  <ng-content />
+  @if (error()) {
+    <p class="mt-1 text-xs font-medium text-red-600">{{ error() }}</p>
+  } @else if (hint()) {
+    <p class="mt-1 text-xs text-slate-500">{{ hint() }}</p>
+  }
+</div>

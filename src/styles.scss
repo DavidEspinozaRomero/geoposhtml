@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+// Design-system tokens (WU01). Global `:root`: aquí el selector sobrevive sin
+// scoping, a diferencia del SCSS de un componente (WU02).
+@use './app/shared/ui/tokens';
+
 @import 'tailwindcss';
 
 :root {

@@ -52,6 +52,11 @@ export class LayoutAdminComponent {
       label: 'calendar',
       route: '/administrator/calendar',
     },
+    {
+      icon: iconMap['grid-3x3-gap'],
+      label: 'design system',
+      route: '/design-system',
+    },
     // {
     //   icon: iconMap['question-circle'],
     //   label: 'help',

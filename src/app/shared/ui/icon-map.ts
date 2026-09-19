@@ -35,6 +35,8 @@ import {
   type LucideIcon,
 } from '@lucide/angular';
 
+import type { BadgeVariant } from './badge/badge.directive';
+
 /**
  * Maps every Bootstrap Icons name used in the codebase to its Lucide
  * equivalent component class. Consumed by templates via [lucideIcon] to
@@ -95,4 +97,18 @@ export const statusClasses: Record<string, string> = {
   absent: 'bg-red-600 text-white',
   rest: 'bg-gray-400 text-white',
   event: 'bg-blue-500 text-white',
+};
+
+/**
+ * Maps the same day-status keys to `BadgeVariant` values so consumers can
+ * render status badges with `[appBadge] [variant]="statusVariant[day.status]"`
+ * once migrated (WU01). Values mirror the `statusClasses` colors above; keep
+ * both in sync with the DayStatus union in models/calendar.model.ts.
+ */
+export const statusVariant: Record<string, BadgeVariant> = {
+  complete: 'success',
+  partial: 'warning',
+  absent: 'danger',
+  rest: 'neutral',
+  event: 'info',
 };

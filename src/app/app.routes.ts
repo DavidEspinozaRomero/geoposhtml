@@ -111,6 +111,14 @@ export const routes: Routes = [
       import('./components/roadmap/roadmap.component').then((m) => m.RoadmapComponent),
   },
   {
+    path: 'design-system',
+    title: 'Sistema de diseño',
+    loadComponent: () =>
+      import('./components/design-system/design-system-page.component').then(
+        (m) => m.DesignSystemPageComponent,
+      ),
+  },
+  {
     path: '**',
     loadComponent: () => import('./components/not-found/not-found').then((m) => m.NotFound),
   },
