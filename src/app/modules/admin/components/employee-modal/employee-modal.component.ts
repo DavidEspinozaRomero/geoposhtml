@@ -18,11 +18,19 @@ import { EmployeesService } from '../../../../services/employees.service';
 import { Employee } from '../../../../models/employee.model';
 import { UtilsService } from '../../../../services/utils.service';
 import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.component';
+import { AppBtnDirective, AppInputDirective } from '../../../../shared/ui';
 
 @Component({
   selector: 'app-employee-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass, LucideEye, AppDialogComponent],
+  imports: [
+    ReactiveFormsModule,
+    NgClass,
+    LucideEye,
+    AppDialogComponent,
+    AppBtnDirective,
+    AppInputDirective,
+  ],
   templateUrl: './employee-modal.component.html',
   styleUrl: './employee-modal.component.scss',
 })

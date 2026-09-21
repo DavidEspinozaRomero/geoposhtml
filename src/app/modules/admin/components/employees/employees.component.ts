@@ -8,6 +8,16 @@ import { FilterActiveEmployeesPipe } from '../../../../pipes/filter-active-emplo
 import { FilterCompanyEmployeePipe } from '../../../../pipes/filter-company-employee.pipe';
 import { EmployeeModalComponent } from '../employee-modal/employee-modal.component';
 import { EmptyComponent, LoadingComponent } from '../../../../components';
+import {
+  AppBtnDirective,
+  AppCardBodyDirective,
+  AppCardDirective,
+  AppCardHeaderDirective,
+  AppFilterLabelDirective,
+  AppFilterSectionDirective,
+  AppInputDirective,
+  AppSelectDirective,
+} from '../../../../shared/ui';
 
 @Component({
   selector: 'app-employees',
@@ -22,6 +32,14 @@ import { EmptyComponent, LoadingComponent } from '../../../../components';
     LucideDot,
     LucidePencil,
     LucideTrash2,
+    AppBtnDirective,
+    AppCardDirective,
+    AppCardHeaderDirective,
+    AppCardBodyDirective,
+    AppFilterSectionDirective,
+    AppFilterLabelDirective,
+    AppInputDirective,
+    AppSelectDirective,
   ],
   templateUrl: './employees.component.html',
   styleUrl: './employees.component.css',

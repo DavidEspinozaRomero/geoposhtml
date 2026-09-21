@@ -24,10 +24,10 @@
             <input
               type="text"
               id="nameInput"
-              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+              appInput
               placeholder="David"
               formControlName="name"
-              [class.border-red-500]="utilsService.isValidControl(employeeForm, 'name')"
+              [hasError]="!!utilsService.isValidControl(employeeForm, 'name')"
             />
             @if (utilsService.isValidControl(employeeForm, 'name')) {
               <small class="mt-1 block text-xs text-red-600">
@@ -43,10 +43,10 @@
             <input
               type="text"
               id="usernameInput"
-              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+              appInput
               placeholder="Deerhou"
               formControlName="username"
-              [class.border-red-500]="utilsService.isValidControl(employeeForm, 'username')"
+              [hasError]="!!utilsService.isValidControl(employeeForm, 'username')"
             />
             @if (utilsService.isValidControl(employeeForm, 'username')) {
               <small class="mt-1 block text-xs text-red-600">
@@ -96,10 +96,10 @@
             <input
               type="text"
               id="emailInput"
-              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+              appInput
               placeholder="user@example.com"
               formControlName="email"
-              [class.border-red-500]="utilsService.isValidControl(employeeForm, 'email')"
+              [hasError]="!!utilsService.isValidControl(employeeForm, 'email')"
             />
             @if (utilsService.isValidControl(employeeForm, 'email')) {
               <small class="mt-1 block text-xs text-red-600">
@@ -115,10 +115,10 @@
             <input
               type="text"
               id="dniInput"
-              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+              appInput
               placeholder="12345678A"
               formControlName="dni"
-              [class.border-red-500]="utilsService.isValidControl(employeeForm, 'dni')"
+              [hasError]="!!utilsService.isValidControl(employeeForm, 'dni')"
             />
             @if (utilsService.isValidControl(employeeForm, 'dni')) {
               <small class="mt-1 block text-xs text-red-600">
@@ -134,10 +134,10 @@
             <input
               type="text"
               id="addressInput"
-              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+              appInput
               placeholder="Ciudad - Calle Falsa 123"
               formControlName="address"
-              [class.border-red-500]="utilsService.isValidControl(employeeForm, 'address')"
+              [hasError]="!!utilsService.isValidControl(employeeForm, 'address')"
             />
             @if (utilsService.isValidControl(employeeForm, 'address')) {
               <small class="mt-1 block text-xs text-red-600">
@@ -153,10 +153,10 @@
             <input
               type="text"
               id="phoneInput"
-              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+              appInput
               placeholder="123456780"
               formControlName="phone"
-              [class.border-red-500]="utilsService.isValidControl(employeeForm, 'phone')"
+              [hasError]="!!utilsService.isValidControl(employeeForm, 'phone')"
             />
             @if (utilsService.isValidControl(employeeForm, 'phone')) {
               <small class="mt-1 block text-xs text-red-600">
@@ -172,10 +172,10 @@
             <input
               type="text"
               id="insuranceInput"
-              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+              appInput
               placeholder="ABC123"
               formControlName="insurance"
-              [class.border-red-500]="utilsService.isValidControl(employeeForm, 'insurance')"
+              [hasError]="!!utilsService.isValidControl(employeeForm, 'insurance')"
             />
             @if (utilsService.isValidControl(employeeForm, 'insurance')) {
               <small class="mt-1 block text-xs text-red-600">
@@ -207,12 +207,7 @@
         >
           Cerrar
         </button>
-        <button
-          type="button"
-          class="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
-          (click)="onSubmit()"
-          [disabled]="config.loading"
-        >
+        <button type="button" appBtn (click)="onSubmit()" [disabled]="config.loading">
           @if (config.loading) {
             <span
               class="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"

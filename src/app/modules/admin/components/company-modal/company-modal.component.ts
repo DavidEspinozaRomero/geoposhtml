@@ -6,11 +6,12 @@ import { CompaniesService } from '../../../../services/companies.service';
 import { Company } from '../../../../models';
 import { UtilsService } from '../../../../services/utils.service';
 import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.component';
+import { AppBtnDirective, AppInputDirective } from '../../../../shared/ui';
 
 @Component({
   selector: 'app-company-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, AppDialogComponent, LucideX],
+  imports: [ReactiveFormsModule, AppDialogComponent, LucideX, AppBtnDirective, AppInputDirective],
   templateUrl: './company-modal.component.html',
   styleUrl: './company-modal.component.scss',
 })

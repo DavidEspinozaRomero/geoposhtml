@@ -5,11 +5,32 @@ import { Company } from '../../../../models';
 import { CompaniesService } from '../../../../services/companies.service';
 import { CompanyModalComponent } from '../company-modal/company-modal.component';
 import { FilterKeyValuePipe } from '../../../../pipes/filter-key-value.pipe';
+import {
+  AppBtnDirective,
+  AppCardBodyDirective,
+  AppCardDirective,
+  AppCardHeaderDirective,
+  AppFilterLabelDirective,
+  AppFilterSectionDirective,
+  AppInputDirective,
+} from '../../../../shared/ui';
 
 @Component({
   selector: 'app-companies',
   standalone: true,
-  imports: [CompanyModalComponent, FilterKeyValuePipe, LucidePencil, LucideTrash2],
+  imports: [
+    CompanyModalComponent,
+    FilterKeyValuePipe,
+    LucidePencil,
+    LucideTrash2,
+    AppBtnDirective,
+    AppCardDirective,
+    AppCardHeaderDirective,
+    AppCardBodyDirective,
+    AppFilterSectionDirective,
+    AppFilterLabelDirective,
+    AppInputDirective,
+  ],
   templateUrl: './companies.component.html',
   styleUrl: './companies.component.scss',
 })

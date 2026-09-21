@@ -55,3 +55,12 @@ El usuario pidió "mejora la UI/UX de cada componente del admin module" y deriv�
 - Checks ejecutados: `pnpm exec ng test --watch=false --include=src/app/components/landing/landing.component.spec.ts` ✅ (1 file, 7/7 tests) y `pnpm exec prettier --check src/app/components/landing/landing.component.html src/app/components/landing/landing.component.spec.ts` ✅ después de normalizar ambos archivos.
 - Runtime harness: N/A; no hay navegador automatizado disponible en esta sesión. La navegación prevista es `/` → `/design-system` mediante el nuevo enlace público.
 - Estado actual: T3 completada en el commit `92f9a93` (`feat(landing): link public design system`). Siguiente unidad: T4, refactor de admin employees + companies hacia las primitivas compartidas.
+
+### Progreso WU T4 — primitivas compartidas en employees + companies
+
+- Ruta: delegated direct writer; el writer edita directamente el límite autorizado.
+- Boundary: `employees`, `companies`, `employee-modal` y `company-modal`, incluyendo sus specs.
+- Aceptación: reemplazar markup Tailwind duplicado por `appFilter`, `appInput`/`appSelect`, `appBtn`, `appCard`/`appCardBody`, conservar el comportamiento y los shells `AppDialog`.
+- Rollback boundary: revertir únicamente los doce archivos T4 y esta sección del documento; no tocar primitivas, servicios, validadores, rutas, layouts ni componentes ajenos.
+- Checks: baseline RED no aisló un fallo de aserción; el runner terminó con 12/12 tests y 1 error no controlado de red hacia `http://localhost:3000/companies`. Tras el refactor, el mismo resultado se mantuvo: compilación correcta, 12/12 tests pasaron y el error de red provocó exit code 1. `pnpm exec prettier --check` sobre los doce archivos fuente/spec pasó.
+- Estado actual: implementación T4 lista para commit; el fallo de red queda registrado como limitación preexistente del aislamiento de tests, no como fallo visual del refactor. Siguiente unidad: T5, admin workday + records.

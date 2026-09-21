@@ -1,23 +1,15 @@
 <div class="p-6">
   <h1 class="mb-4 text-2xl font-bold tracking-tight text-slate-900">Compañias</h1>
 
-  <button
-    type="button"
-    class="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
-    (click)="company.set(undefined)"
-  >
-    Agregar +
-  </button>
+  <button type="button" appBtn (click)="company.set(undefined)">Agregar +</button>
 
-  <section id="filters" class="mt-4 rounded-xl bg-sky-100 p-4">
+  <section id="filters" class="mt-4" appFilterSection>
     <div class="max-w-md space-y-1.5">
-      <label for="inputName" class="block text-sm font-medium text-slate-600">
-        Nombre de la Sociedad
-      </label>
+      <label for="inputName" appFilterLabel>Nombre de la Sociedad</label>
       <input
         id="inputName"
         type="text"
-        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+        appInput
         placeholder="Nombre de la Sociedad"
         value=""
         #inputName
@@ -33,25 +25,29 @@
         let i_company = $index;
         track i_company
       ) {
-        <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-          <div class="bg-blue-600 px-4 py-3 text-center font-semibold text-white">
+        <div appCard>
+          <div appCardHeader class="bg-blue-600 text-center text-white">
             <strong> {{ company.name }} </strong>
           </div>
-          <div class="p-4">
+          <div appCardBody>
             <h5 class="mb-2 font-semibold text-slate-900">
               {{ company.address }}
             </h5>
             <p class="flex gap-2 text-sm text-slate-600">
               <button
                 type="button"
-                class="inline-flex items-center justify-center rounded-md border border-blue-600 px-2.5 py-1.5 text-xs font-medium text-blue-600 transition-colors hover:bg-blue-50"
+                appBtn
+                variant="secondary"
+                size="sm"
                 (click)="editCompany(company)"
               >
                 <svg lucidePencil class="h-4 w-4"></svg>
               </button>
               <button
                 type="button"
-                class="inline-flex items-center justify-center rounded-md border border-red-600 px-2.5 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-50"
+                appBtn
+                variant="danger"
+                size="sm"
                 (click)="removeCompany(company, i_company)"
               >
                 <svg lucideTrash2 class="h-4 w-4"></svg>
