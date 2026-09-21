@@ -23,12 +23,7 @@
               <label class="mb-1 block text-sm font-medium text-slate-600" for="dateInput">
                 Fecha:
               </label>
-              <input
-                id="dateInput"
-                class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
-                type="date"
-                formControlName="date"
-              />
+              <input id="dateInput" appInput type="date" formControlName="date" />
             </div>
           </div>
 
@@ -39,7 +34,7 @@
             </label>
             <select
               id="companyIdSelect"
-              class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+              appSelect
               aria-label="lista de companias"
               formControlName="companyId"
             >
@@ -56,7 +51,7 @@
             </label>
             <select
               id="employeeIdSelect"
-              class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+              appSelect
               aria-label="lista de empleados"
               formControlName="employeeId"
             >
@@ -81,11 +76,11 @@
               >Incidencia Administrador</label
             >
             <textarea
-              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+              appInput
               placeholder="Agregar una incidencia"
               formControlName="incidentAdmin"
               id="floatingTextarea"
-              [class.border-red-500]="utilsService.isValidControl(recordsForm, 'incidentAdmin')"
+              [hasError]="!!utilsService.isValidControl(recordsForm, 'incidentAdmin')"
             ></textarea>
           </div>
           @if (utilsService.isValidControl(recordsForm, 'incidentAdmin')) {
@@ -103,13 +98,7 @@
         >
           Cerrar
         </button>
-        <button
-          type="button"
-          class="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
-          (click)="onSubmit()"
-        >
-          Guardar
-        </button>
+        <button type="button" appBtn (click)="onSubmit()">Guardar</button>
       </div>
     </div>
   </div>

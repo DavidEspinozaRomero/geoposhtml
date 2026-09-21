@@ -15,11 +15,19 @@ import { Record } from '../../../../models';
 import { RecordService } from '../../../../services/record.service';
 import { UtilsService } from '../../../../services/utils.service';
 import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.component';
+import { AppBtnDirective, AppInputDirective } from '../../../../shared/ui';
 
 @Component({
   selector: 'app-record-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, DatePipe, AppDialogComponent, LucideX],
+  imports: [
+    ReactiveFormsModule,
+    DatePipe,
+    AppDialogComponent,
+    LucideX,
+    AppBtnDirective,
+    AppInputDirective,
+  ],
   templateUrl: './record-modal.component.html',
   styleUrl: './record-modal.component.scss',
 })

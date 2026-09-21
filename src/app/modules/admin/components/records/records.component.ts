@@ -12,6 +12,16 @@ import {
 import { RecordModalComponent } from '../record-modal/record-modal.component';
 import { RecordsModalComponent } from '../records-modal/records-modal.component';
 import { UtilsService } from '../../../../services/utils.service';
+import {
+  AppBtnDirective,
+  AppInputDirective,
+  AppSelectDirective,
+  AppTableDirective,
+  AppTdDirective,
+  AppThDirective,
+  AppTrBodyDirective,
+  AppTrHeadDirective,
+} from '../../../../shared/ui';
 
 @Component({
   selector: 'app-records',
@@ -28,6 +38,14 @@ import { UtilsService } from '../../../../services/utils.service';
     LucidePencil,
     LucideUser,
     LucideUserCog,
+    AppBtnDirective,
+    AppInputDirective,
+    AppSelectDirective,
+    AppTableDirective,
+    AppTdDirective,
+    AppThDirective,
+    AppTrBodyDirective,
+    AppTrHeadDirective,
   ],
   templateUrl: './records.component.html',
   styleUrl: './records.component.scss',

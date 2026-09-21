@@ -2,13 +2,7 @@
 <!-- seccion de filtros -->
 <div class="grid grid-cols-1 items-end gap-4 md:grid-cols-3">
   <div>
-    <input
-      id="inputDate"
-      class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
-      type="date"
-      #inputDate
-      (change)="(inputDate)"
-    />
+    <input id="inputDate" appInput type="date" #inputDate (change)="(inputDate)" />
   </div>
   <div class="space-y-1.5">
     <label for="inputEmployee" class="block text-sm font-medium text-slate-600">
@@ -17,7 +11,7 @@
     <input
       id="inputEmployee"
       type="text"
-      class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+      appInput
       placeholder="Nombre o Usuario"
       #inputEmployee
       (keyup)="(inputEmployee)"
@@ -25,7 +19,7 @@
   </div>
   <div>
     <select
-      class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+      appSelect
       aria-label="Default select example"
       #inputIncidents
       (change)="(inputIncidents)"
@@ -37,61 +31,19 @@
   </div>
 </div>
 <!-- seccion de registros -->
-<table class="w-full text-sm" aria-label="Registros">
+<table appTable aria-label="Registros">
   <thead>
-    <tr class="border-b border-slate-200">
-      <th
-        scope="col"
-        class="px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500"
-      >
-        #
-      </th>
-      <th
-        scope="col"
-        class="px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500"
-      >
-        Usuario/Nombre
-      </th>
-      <th
-        scope="col"
-        class="px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500"
-      >
-        Empresa
-      </th>
-      <th
-        scope="col"
-        class="px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500"
-      >
-        Fecha Inicio
-      </th>
-      <th
-        scope="col"
-        class="px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500"
-      >
-        Fecha Fin
-      </th>
-      <th
-        scope="col"
-        class="px-3 py-2.5 text-center text-xs font-semibold uppercase tracking-wide text-slate-500"
-      >
-        Incidencias
-      </th>
-      <th
-        scope="col"
-        class="px-3 py-2.5 text-center text-xs font-semibold uppercase tracking-wide text-slate-500"
-      >
-        Ubicación
-      </th>
-      <th
-        scope="col"
-        class="px-3 py-2.5 text-center text-xs font-semibold uppercase tracking-wide text-slate-500"
-      >
+    <tr appTrHead>
+      <th appTh scope="col">#</th>
+      <th appTh scope="col">Usuario/Nombre</th>
+      <th appTh scope="col">Empresa</th>
+      <th appTh scope="col">Fecha Inicio</th>
+      <th appTh scope="col">Fecha Fin</th>
+      <th appTh scope="col" class="text-center">Incidencias</th>
+      <th appTh scope="col" class="text-center">Ubicación</th>
+      <th appTh scope="col" class="text-center">
         <span class="me-2">Acciones</span>
-        <button
-          type="button"
-          class="inline-flex items-center justify-center rounded-md border border-blue-600 px-2.5 py-1.5 text-xs font-medium text-blue-600 transition-colors hover:bg-blue-50"
-          (click)="recordsOpen.set(true)"
-        >
+        <button type="button" appBtn variant="secondary" size="sm" (click)="recordsOpen.set(true)">
           <svg lucidePencil class="h-4 w-4"></svg>
         </button>
       </th>
@@ -106,21 +58,21 @@
       let i_record = $index;
       track i_record
     ) {
-      <tr class="border-b border-slate-100 align-middle transition-colors hover:bg-slate-50">
-        <td class="px-3 py-2">{{ i_record + 1 }}</td>
-        <td class="px-3 py-2">
+      <tr appTrBody class="align-middle">
+        <td appTd>{{ i_record + 1 }}</td>
+        <td appTd>
           {{ record.employeeUsername }} -<small>
             {{ record.employeeName }}
           </small>
         </td>
-        <td class="px-3 py-2">{{ record.companyName }}</td>
-        <td class="px-3 py-2">
+        <td appTd>{{ record.companyName }}</td>
+        <td appTd>
           {{ record.geoStart.timestamp | date: 'EEE, MMM d, h:mm a' }}
         </td>
-        <td class="px-3 py-2">
+        <td appTd>
           {{ record.geoEnd?.timestamp | date: 'EEE, MMM d, h:mm a' }}
         </td>
-        <td class="px-3 py-2 text-center">
+        <td appTd class="text-center">
           @if (record?.incident?.length || record?.incidentAdmin?.length) {
             @if (record?.incident?.length) {
               <span
@@ -142,7 +94,7 @@
             <strong class="font-semibold text-green-600"> No </strong>
           }
         </td>
-        <td class="px-3 py-2 text-center">
+        <td appTd class="text-center">
           <div class="geoStart">
             <svg
               lucideInfo
@@ -206,10 +158,12 @@
             </a>
           </div>
         </td>
-        <td class="px-3 py-2 text-center">
+        <td appTd class="text-center">
           <button
             type="button"
-            class="inline-flex items-center justify-center rounded-md border border-blue-600 px-2.5 py-1.5 text-xs font-medium text-blue-600 transition-colors hover:bg-blue-50"
+            appBtn
+            variant="secondary"
+            size="sm"
             (click)="selectedRecord.set(record)"
           >
             <svg lucidePencil class="h-4 w-4"></svg>

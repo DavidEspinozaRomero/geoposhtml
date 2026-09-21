@@ -10,11 +10,19 @@ import {
 import { LucideX } from '@lucide/angular';
 import { Company, Employee } from '../../../../models';
 import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.component';
+import { AppBtnDirective, AppInputDirective, AppSelectDirective } from '../../../../shared/ui';
 
 @Component({
   selector: 'app-records-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, AppDialogComponent, LucideX],
+  imports: [
+    ReactiveFormsModule,
+    AppDialogComponent,
+    LucideX,
+    AppBtnDirective,
+    AppInputDirective,
+    AppSelectDirective,
+  ],
   templateUrl: './records-modal.component.html',
   styleUrl: './records-modal.component.scss',
 })
