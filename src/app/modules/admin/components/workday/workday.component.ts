@@ -6,13 +6,35 @@ import { Company, Employee, Workday, WorkdaysResponse } from '../../../../models
 import { EmployeesService } from '../../../../services/employees.service';
 import { CompaniesService } from '../../../../services/companies.service';
 import { WordaysService } from '../../../../services/wordays.service';
+import {
+  AppBadgeDirective,
+  AppBtnDirective,
+  AppCardDirective,
+  AppSelectDirective,
+  AppTableDirective,
+  AppTdDirective,
+  AppThDirective,
+  AppTrBodyDirective,
+  AppTrHeadDirective,
+} from '../../../../shared/ui';
 
 @Component({
   selector: 'app-workday',
   standalone: true,
-  imports: [UpperCasePipe, LucideCircleX],
+  imports: [
+    UpperCasePipe,
+    LucideCircleX,
+    AppBadgeDirective,
+    AppBtnDirective,
+    AppCardDirective,
+    AppSelectDirective,
+    AppTableDirective,
+    AppTdDirective,
+    AppThDirective,
+    AppTrBodyDirective,
+    AppTrHeadDirective,
+  ],
   templateUrl: './workday.component.html',
-  styleUrl: './workday.component.scss',
 })
 export class WorkdayComponent implements OnInit {
   employeesService = inject(EmployeesService);

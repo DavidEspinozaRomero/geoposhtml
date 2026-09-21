@@ -1,12 +1,8 @@
-<div class="mx-12 my-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
+<div appCard class="mx-12 my-4 p-4">
   <h1 class="mb-4 text-2xl font-bold tracking-tight text-slate-900">Gestion Jornada Laboral</h1>
 
   <!-- Select para escoger empleado -->
-  <select
-    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
-    aria-label="Seleccione empleado"
-    (change)="getEmployee($any($event.target))"
-  >
+  <select appSelect aria-label="Seleccione empleado" (change)="getEmployee($any($event.target))">
     <option hidden selected>-- Seleccione Empleado --</option>
     @for (emp of employees(); let i_employee = $index; track i_employee) {
       <option [value]="emp.id">
@@ -20,61 +16,26 @@
 </div>
 
 @if (employee()) {
-  <div class="mx-12 my-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
-    <div class="m-0 grid grid-cols-1 gap-4 p-0">
-      <table class="mb-0 w-full text-sm" aria-label="Tabla de Jornada Laboral">
+  <div appCard class="mx-12 my-4 p-4">
+    <div class="grid grid-cols-1 gap-4">
+      <table appTable aria-label="Tabla de Jornada Laboral">
         <thead>
-          <tr class="text-center">
-            <th
-              [class.text-blue-600]="day === 0"
-              class="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-500"
-            >
-              Dom
-            </th>
-            <th
-              [class.text-blue-600]="day === 1"
-              class="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-500"
-            >
-              Lun
-            </th>
-            <th
-              [class.text-blue-600]="day === 2"
-              class="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-500"
-            >
-              Mar
-            </th>
-            <th
-              [class.text-blue-600]="day === 3"
-              class="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-500"
-            >
-              Mie
-            </th>
-            <th
-              [class.text-blue-600]="day === 4"
-              class="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-500"
-            >
-              Jue
-            </th>
-            <th
-              [class.text-blue-600]="day === 5"
-              class="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-500"
-            >
-              Vie
-            </th>
-            <th
-              [class.text-blue-600]="day === 6"
-              class="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-500"
-            >
-              Sab
-            </th>
+          <tr appTrHead class="text-center">
+            <th appTh [class.text-blue-600]="day === 0" class="text-center">Dom</th>
+            <th appTh [class.text-blue-600]="day === 1" class="text-center">Lun</th>
+            <th appTh [class.text-blue-600]="day === 2" class="text-center">Mar</th>
+            <th appTh [class.text-blue-600]="day === 3" class="text-center">Mie</th>
+            <th appTh [class.text-blue-600]="day === 4" class="text-center">Jue</th>
+            <th appTh [class.text-blue-600]="day === 5" class="text-center">Vie</th>
+            <th appTh [class.text-blue-600]="day === 6" class="text-center">Sab</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr appTrBody class="align-middle">
             @for (day of employee()!.workdays; let i_day = $index; track i_day) {
-              <td class="px-2 py-2 align-middle">
+              <td appTd class="align-middle">
                 <select
-                  class="w-full rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+                  appSelect
                   aria-label="Seleccione Empresa"
                   (change)="addCompany($any($event.target), day)"
                 >
@@ -90,17 +51,15 @@
               </td>
             }
           </tr>
-          <tr>
+          <tr appTrBody class="align-middle">
             @for (workday of employee()!.workdays; let i_workday = $index; track i_workday) {
-              <td class="px-2 py-2 align-middle">
+              <td appTd class="align-middle">
                 @for (
                   companyID of workday.companiesIDs;
                   let i_companyID = $index;
                   track i_companyID
                 ) {
-                  <span
-                    class="me-1 inline-flex items-center gap-1 rounded-full bg-blue-600 px-2 py-0.5 text-xs font-semibold text-white"
-                  >
+                  <span appBadge class="me-1">
                     {{ getCompanyById(companyID) }}
                     <svg
                       lucideCircleX
@@ -120,13 +79,8 @@
           </tr>
         </tbody>
       </table>
-      <div class="flex justify-end pe-0">
-        <button
-          type="button"
-          class="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
-          (click)="onSubmit()"
-          [disabled]="loading()"
-        >
+      <div class="flex justify-end">
+        <button type="button" appBtn (click)="onSubmit()" [disabled]="loading()">
           @if (loading()) {
             <span
               class="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
