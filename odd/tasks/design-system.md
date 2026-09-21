@@ -16,7 +16,7 @@ Existe duplicación masiva de clases Tailwind en todos los componentes admin y e
 - **Página `/design-system`** a nivel raíz (lazy en `app.routes.ts`, junto a '' y /roadmap), standalone, en español, accesible desde menú admin + menú employee + landing.
 - **Refactor (ODD stacked-to-main)**:
   - **Batch admin A (WU01)**: `employees` + `companies` (+ sus **modals singular**: `employee-modal/`, `company-modal/` — NO plural).
-  - **Batch admin B (WU02)**: `workday` + `workday-modal/`.
+  - **Batch admin B (WU02)**: `workday` (NO tiene modal propio; el `day-modal/` de admin pertenece a calendar → batch C).
   - **Batch admin C (WU03)**: `records` + `records-modal/`, `events` + `events-modal/`, `calendar`.
   - **Batch admin D (WU04)**: `reports` + `reports-modal/`, `logs` + `logs-modal/`.
   - **Batch employee (WU05)**: `workday` (employee), `records`, `calendary`.
@@ -29,7 +29,7 @@ Existe duplicación masiva de clases Tailwind en todos los componentes admin y e
 2. T2 — Página `/design-system` (raíz) [WU01].
 3. T3 — Ruta `/design-system` en `app.routes.ts` + acceso desde menú admin + menú employee [WU02].
 4. T4 — Refactor admin batch A: employees + companies (+ modals **singular**) [WU03].
-5. T5 — Refactor admin batch B: workday + workday-modal [WU03].
+5. T5 — Refactor admin batch B: workday (✅ commit `7b455d1`; sin modal propio) [WU03].
 6. T6 — Refactor admin batch C: records + records-modal, events + events-modal, calendar [WU03].
 7. T7 — Refactor admin batch D: reports + reports-modal, logs + logs-modal [WU03].
 8. T8 — Refactor employee batch: workday, records, calendary [WU03].
@@ -46,6 +46,7 @@ Existe duplicación masiva de clases Tailwind en todos los componentes admin y e
 ## Estado / Notas
 - Forecast gate final: `PASS` — /design-system con 3 archivos + primitivas + build inicial ok. Gates por WU02 (PASS: barrel + 3 archivos + build 10.19s chunk lazy) y WU03 forecast-check (PASS: employees/companies + modales singular existentes, barrel 8 exports).
 - Interactivo: pausa + pregunta en cada gate. Stacked-to-main para el forecast.
+- **T5 (admin batch B) PASS**: workday refactorizado a primitivas (`7b455d1`, build 0 errores, scss eliminado). Descubrimiento de path: `workday-modal/` NO existe — workday no tiene modal; el `day-modal/` es de calendar (batch C). RDD ON (global): assess post-commit pendiente por slice.
 - Tareas pintadas en español. `tmp-wu*.ps1` gitignored (se limpian del repo).
 - **Miércoles ODD:** el forecast usa `odd/tasks` (Engram) para doc de tareas; los paths admin usan **sigular** modals (empleos/empresas employee-modal/company-modal).
 - Commit de sanity WU00: en HEAD (fail el forecast de semántica previo, corregido con WU01-verifier).
