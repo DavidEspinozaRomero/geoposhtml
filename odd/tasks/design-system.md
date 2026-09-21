@@ -54,4 +54,4 @@ El usuario pidió "mejora la UI/UX de cada componente del admin module" y deriv�
 - Aceptación: la navegación pública debe renderizar un enlace `routerLink="/design-system"` junto a Roadmap y la spec enfocada debe probar que se renderiza.
 - Checks ejecutados: `pnpm exec ng test --watch=false --include=src/app/components/landing/landing.component.spec.ts` ✅ (1 file, 7/7 tests) y `pnpm exec prettier --check src/app/components/landing/landing.component.html src/app/components/landing/landing.component.spec.ts` ✅ después de normalizar ambos archivos.
 - Runtime harness: N/A; no hay navegador automatizado disponible en esta sesión. La navegación prevista es `/` → `/design-system` mediante el nuevo enlace público.
-- Estado actual: T3 completada; el commit de esta work unit queda pendiente. Siguiente unidad: T4, refactor de admin employees + companies hacia las primitivas compartidas.
+- Estado actual: T3 completada en el commit `92f9a93` (`feat(landing): link public design system`). Siguiente unidad: T4, refactor de admin employees + companies hacia las primitivas compartidas.
