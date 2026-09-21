@@ -28,6 +28,15 @@ describe('LandingComponent', () => {
     expect(links).toContain('/login');
   });
 
+  it('should render a public design system navigation link', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const designSystemLink = Array.from(compiled.querySelectorAll('a')).find(
+      (a) => a.getAttribute('href') === '/design-system',
+    );
+
+    expect(designSystemLink?.textContent).toContain('Sistema de diseño');
+  });
+
   it('should render brand name and hero title', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.landing-brand')?.textContent).toContain('JornadaGo');

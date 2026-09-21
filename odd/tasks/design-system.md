@@ -47,3 +47,11 @@ El usuario pidió "mejora la UI/UX de cada componente del admin module" y deriv�
 - **Detección de paths**: la raíz real del repo es `C:\Proyectos\gestionEmpleadosHorarios\geoposhtml` (¡ojo con `gestionEmpleadosHorarios` vs `gestionEmpleadosHorarios`/`geoposhtml` vs `geoposhtml` — hay variantes en el historial). Usar SIEMPRE `C:\Proyectos\gestionEmpleadosHorarios\geoposhtml`.
 - **Contexto base**: app.routes.ts usa `LayoutAdminComponent` en `/administrator`, children: employees/companies/workdays/records/calendar/events/reports. Landing jerárquica igual para employee (`/employee`). Shared dialog existe (`shared/ui/dialog`).
 - **Forecast**: >400 líneas → entrega ODD chained-stacked-to-main (aprobado).
+
+### Progreso WU T3 — acceso público desde landing
+- T3: la ruta `/design-system` ya existía; faltaba el acceso desde la landing.
+- Ruta elegida: delegated direct writer, porque el trabajo toca dos archivos fuente no triviales; el límite de esta work unit es el acceso desde landing + su prueba.
+- Aceptación: la navegación pública debe renderizar un enlace `routerLink="/design-system"` junto a Roadmap y la spec enfocada debe probar que se renderiza.
+- Checks ejecutados: `pnpm exec ng test --watch=false --include=src/app/components/landing/landing.component.spec.ts` ✅ (1 file, 7/7 tests) y `pnpm exec prettier --check src/app/components/landing/landing.component.html src/app/components/landing/landing.component.spec.ts` ✅ después de normalizar ambos archivos.
+- Runtime harness: N/A; no hay navegador automatizado disponible en esta sesión. La navegación prevista es `/` → `/design-system` mediante el nuevo enlace público.
+- Estado actual: T3 completada; el commit de esta work unit queda pendiente. Siguiente unidad: T4, refactor de admin employees + companies hacia las primitivas compartidas.
