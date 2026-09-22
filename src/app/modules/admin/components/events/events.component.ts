@@ -10,6 +10,17 @@ import {
   FilterByEventTypePipe,
 } from '../../../../pipes';
 import { EventModalComponent } from '../event-modal/event-modal.component';
+import {
+  AppBtnDirective,
+  AppFilterLabelDirective,
+  AppInputDirective,
+  AppSelectDirective,
+  AppTableDirective,
+  AppTdDirective,
+  AppThDirective,
+  AppTrBodyDirective,
+  AppTrHeadDirective,
+} from '../../../../shared/ui';
 
 @Component({
   selector: 'app-events',
@@ -24,9 +35,17 @@ import { EventModalComponent } from '../event-modal/event-modal.component';
     EventModalComponent,
     LucidePencil,
     LucideTrash2,
+    AppBtnDirective,
+    AppFilterLabelDirective,
+    AppInputDirective,
+    AppSelectDirective,
+    AppTableDirective,
+    AppTdDirective,
+    AppThDirective,
+    AppTrBodyDirective,
+    AppTrHeadDirective,
   ],
   templateUrl: './events.component.html',
-  styleUrl: './events.component.css',
 })
 export class EventsComponent implements OnInit {
   eventsService = inject(EventsService);

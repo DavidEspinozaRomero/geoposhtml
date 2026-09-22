@@ -1,45 +1,26 @@
 <h1 class="mb-4 text-2xl font-bold tracking-tight text-slate-900">Eventos</h1>
 
 <!-- agregar evento -->
-<button
-  type="button"
-  class="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
-  (click)="selectedEvent.set(undefined)"
->
-  + Evento
-</button>
+<button type="button" appBtn (click)="selectedEvent.set(undefined)">+ Evento</button>
 
 <!-- filtros -->
 <div class="mt-4 grid grid-cols-1 items-end gap-4 md:grid-cols-3">
   <div>
-    <input
-      id="inputDate"
-      class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
-      type="date"
-      #inputDate
-      (change)="(inputDate)"
-    />
+    <input id="inputDate" appInput type="date" #inputDate (change)="(inputDate)" />
   </div>
   <div class="space-y-1.5">
-    <label for="inputEventTitle" class="block text-sm font-medium text-slate-600">
-      Título del evento
-    </label>
+    <label for="inputEventTitle" appFilterLabel>Título del evento</label>
     <input
       id="inputEventTitle"
       type="text"
-      class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+      appInput
       placeholder="Título del Evento"
       #inputEventTitle
       (keyup)="(inputEventTitle)"
     />
   </div>
   <div>
-    <select
-      class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
-      aria-label="tipos de eventos"
-      #inputEventType
-      (change)="(inputEventType)"
-    >
+    <select appSelect aria-label="tipos de eventos" #inputEventType (change)="(inputEventType)">
       <option selected value="">Todos</option>
       @for (type of eventTypes(); track type.id) {
         <option [value]="type.id">{{ type.name }}</option>
@@ -49,39 +30,14 @@
 </div>
 
 <!-- tabla mostrando los eventos -->
-<table class="mt-6 w-full text-sm" aria-label="Eventos">
+<table appTable class="mt-6" aria-label="Eventos">
   <thead>
-    <tr class="border-b border-slate-200">
-      <th
-        scope="col"
-        class="px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500"
-      >
-        #
-      </th>
-      <th
-        scope="col"
-        class="px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500"
-      >
-        Fecha
-      </th>
-      <th
-        scope="col"
-        class="px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500"
-      >
-        Tipo
-      </th>
-      <th
-        scope="col"
-        class="px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500"
-      >
-        Titulo
-      </th>
-      <th
-        scope="col"
-        class="px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500"
-      >
-        Acciones
-      </th>
+    <tr appTrHead>
+      <th appTh scope="col">#</th>
+      <th appTh scope="col">Fecha</th>
+      <th appTh scope="col">Tipo</th>
+      <th appTh scope="col">Titulo</th>
+      <th appTh scope="col">Acciones</th>
     </tr>
   </thead>
   <tbody>
@@ -93,10 +49,10 @@
       let i_event = $index;
       track i_event
     ) {
-      <tr class="border-b border-slate-100 transition-colors hover:bg-slate-50">
-        <td class="px-3 py-2">{{ i_event + 1 }}</td>
-        <td class="px-3 py-2">{{ event.date | date: 'mediumDate' }}</td>
-        <td class="px-3 py-2">
+      <tr appTrBody>
+        <td appTd>{{ i_event + 1 }}</td>
+        <td appTd>{{ event.date | date: 'mediumDate' }}</td>
+        <td appTd>
           <span
             class="status-badge inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold"
             [ngClass]="event.class"
@@ -104,19 +60,17 @@
             {{ event.eventType.name | uppercase }}
           </span>
         </td>
-        <td class="px-3 py-2">{{ event.title }}</td>
-        <td class="px-3 py-2">
-          <button
-            type="button"
-            class="me-2 inline-flex items-center justify-center gap-1 rounded-md bg-blue-600 px-2.5 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-blue-700"
-            (click)="selectedEvent.set(event)"
-          >
+        <td appTd>{{ event.title }}</td>
+        <td appTd>
+          <button type="button" appBtn size="sm" class="me-2" (click)="selectedEvent.set(event)">
             <svg lucidePencil class="h-4 w-4"></svg>
             <span class="sr-only">Editar</span>
           </button>
           <button
             type="button"
-            class="inline-flex items-center justify-center rounded-md bg-red-600 px-2.5 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-red-700"
+            appBtn
+            variant="danger"
+            size="sm"
             (click)="deleteEvent(event, i_event)"
           >
             <svg lucideTrash2 class="h-4 w-4"></svg>

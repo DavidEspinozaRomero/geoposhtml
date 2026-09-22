@@ -18,10 +18,7 @@
         <div class="modal-body max-h-[70vh] overflow-y-auto px-5 py-4">
           <p class="mb-4 text-sm text-slate-700">
             <strong>Estado:</strong>
-            <span
-              class="status-badge inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold"
-              [ngClass]="statusClasses[day.status]"
-            >
+            <span appBadge class="status-badge" [variant]="statusVariant[day.status]">
               {{ day.status }}
             </span>
           </p>

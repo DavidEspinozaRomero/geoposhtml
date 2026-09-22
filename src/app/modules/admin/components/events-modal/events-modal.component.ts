@@ -19,7 +19,6 @@ import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.componen
   standalone: true,
   imports: [DatePipe, AppDialogComponent, LucideX],
   templateUrl: './events-modal.component.html',
-  styleUrl: './events-modal.component.scss',
 })
 export class EventsModalComponent implements OnChanges {
   config = input<{ date: string; typeEvent: number }>();

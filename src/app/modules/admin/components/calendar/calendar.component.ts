@@ -1,4 +1,4 @@
-import { DatePipe, KeyValuePipe, NgClass, TitleCasePipe } from '@angular/common';
+import { DatePipe, KeyValuePipe, TitleCasePipe } from '@angular/common';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import {
   LucideBriefcase,
@@ -16,7 +16,13 @@ import { CalendarDay, CalendarEmployee } from '../../../../models';
 import { EmptyComponent, LoadingComponent } from '../../../../components';
 import { DayModalComponent } from '../day-modal/day-modal.component';
 import { buildMonthGrid } from '../../../../utils/calendar-grid.util';
-import { statusClasses } from '../../../../shared/ui/icon-map';
+import { statusClasses, statusVariant } from '../../../../shared/ui/icon-map';
+import {
+  AppBadgeDirective,
+  AppBtnDirective,
+  AppFilterLabelDirective,
+  AppSelectDirective,
+} from '../../../../shared/ui';
 
 @Component({
   selector: 'app-calendar',
@@ -24,7 +30,6 @@ import { statusClasses } from '../../../../shared/ui/icon-map';
   imports: [
     DatePipe,
     KeyValuePipe,
-    NgClass,
     TitleCasePipe,
     LoadingComponent,
     EmptyComponent,
@@ -36,6 +41,10 @@ import { statusClasses } from '../../../../shared/ui/icon-map';
     LucideChevronRight,
     LucideClock,
     LucideTriangleAlert,
+    AppBadgeDirective,
+    AppBtnDirective,
+    AppFilterLabelDirective,
+    AppSelectDirective,
   ],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss',
@@ -65,6 +74,7 @@ export class CalendarComponent implements OnInit {
   selectedDay = signal<CalendarDay | null>(null);
 
   readonly statusClassNames = statusClasses;
+  readonly statusVariant = statusVariant;
 
   weekDayLabels = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
 

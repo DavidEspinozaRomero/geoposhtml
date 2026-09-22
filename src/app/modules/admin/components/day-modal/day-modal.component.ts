@@ -1,16 +1,17 @@
-import { DatePipe, NgClass } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component, computed, effect, inject, input, output, signal } from '@angular/core';
 import { LucideBuilding2, LucideX } from '@lucide/angular';
 
 import { CalendarDay, Company } from '../../../../models';
 import { CompaniesService } from '../../../../services/companies.service';
 import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.component';
-import { statusClasses } from '../../../../shared/ui/icon-map';
+import { AppBadgeDirective } from '../../../../shared/ui';
+import { statusVariant } from '../../../../shared/ui/icon-map';
 
 @Component({
   selector: 'app-day-modal',
   standalone: true,
-  imports: [DatePipe, NgClass, LucideBuilding2, AppDialogComponent, LucideX],
+  imports: [DatePipe, AppBadgeDirective, LucideBuilding2, AppDialogComponent, LucideX],
   templateUrl: './day-modal.component.html',
 })
 export class DayModalComponent {
@@ -24,7 +25,7 @@ export class DayModalComponent {
   loadingCompanies = signal(false);
 
   isOpen = computed(() => this.day() !== null);
-  readonly statusClasses = statusClasses;
+  readonly statusVariant = statusVariant;
 
   private loadEffect = effect(() => {
     const day = this.day();
