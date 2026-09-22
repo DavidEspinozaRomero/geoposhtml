@@ -46,6 +46,7 @@ export class EmployeesComponent implements OnInit {
 
   employees = signal<Employee[]>([]);
   employee = signal<Employee | undefined>(undefined);
+  modalOpen = signal(false);
   loading = signal(false);
   success = signal(false);
 
@@ -69,11 +70,11 @@ export class EmployeesComponent implements OnInit {
     });
   }
 
-  removeEmployee(_employee: Employee, i_employee: number) {
-    this.employees.update((ems) => {
-      const copy = [...ems];
-      copy.splice(i_employee, 1);
-      return copy;
+  removeEmployee(employee: Employee) {
+    this.employeesService.removeEmployee(employee).subscribe({
+      next: () => {
+        this.employees.update((ems) => ems.filter((e) => e.id !== employee.id));
+      },
     });
   }
 
@@ -99,7 +100,18 @@ export class EmployeesComponent implements OnInit {
     });
   }
 
+  openCreate(): void {
+    this.employee.set(undefined);
+    this.modalOpen.set(true);
+  }
+
   editEmployee(employee: Employee) {
     this.employee.set(employee);
+    this.modalOpen.set(true);
+  }
+
+  closeModal(): void {
+    this.employee.set(undefined);
+    this.modalOpen.set(false);
   }
 }

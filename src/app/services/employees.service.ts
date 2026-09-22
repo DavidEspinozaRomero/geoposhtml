@@ -37,8 +37,9 @@ export class EmployeesService {
     return this.http.put<Employee>(URL, {});
   }
 
-  removeEmployee(_employee: Employee) {
-    // TODO: implement delete endpoint
+  removeEmployee(employee: Employee) {
+    const URL = `${this.#apiUrl}employees/${employee.id}`;
+    return this.http.delete<Employee>(URL);
   }
 
   checkWorkdays(workdays: Workday[] | undefined) {

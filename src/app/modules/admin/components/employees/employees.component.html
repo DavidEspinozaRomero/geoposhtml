@@ -1,7 +1,7 @@
 <div class="p-6">
   <h1 class="mb-4 text-2xl font-bold tracking-tight text-slate-900">Empleados</h1>
 
-  <button type="button " appBtn (click)="employee.set(undefined)">Agregar +</button>
+  <button type="button" appBtn (click)="openCreate()">Agregar +</button>
 
   <section id="filters" class="mt-4" appFilterSection>
     <div class="grid grid-cols-1 items-end gap-4 md:grid-cols-3">
@@ -58,8 +58,7 @@
               | filterEmployeeByNameUsername: inputName.value
               | filterCompanyEmployee: inputCompany.value
               | filterActiveEmployees: inputIsActive.value;
-            let i_employee = $index;
-            track i_employee
+            track employee.id
           ) {
             <div appCard>
               <div appCardHeader class="bg-blue-600 text-center text-white">
@@ -107,7 +106,7 @@
                       appBtn
                       variant="danger"
                       size="sm"
-                      (click)="removeEmployee(employee, i_employee)"
+                      (click)="removeEmployee(employee)"
                     >
                       <svg lucideTrash2 class="h-4 w-4"></svg>
                     </button>
@@ -136,5 +135,6 @@
 <app-employee-modal
   (saveForm)="updateEmployees($event)"
   [employee]="employee()"
-  (closeRequest)="employee.set(undefined)"
+  [open]="modalOpen()"
+  (closeRequest)="closeModal()"
 ></app-employee-modal>

@@ -2,10 +2,9 @@ import { NgClass } from '@angular/common';
 import {
   Component,
   EventEmitter,
-  OnChanges,
   Output,
-  SimpleChanges,
   computed,
+  effect,
   inject,
   input,
   output,
@@ -35,11 +34,12 @@ import { AppBtnDirective, AppInputDirective } from '../../../../shared/ui';
   templateUrl: './employee-modal.component.html',
   styleUrl: './employee-modal.component.scss',
 })
-export class EmployeeModalComponent implements OnChanges {
+export class EmployeeModalComponent {
   employee = input<Employee | undefined>();
+  open = input(false);
   @Output() saveForm = new EventEmitter<Employee>();
   closeRequest = output<void>();
-  isOpen = computed(() => this.employee() !== undefined);
+  isOpen = computed(() => this.open());
 
   fb = inject(FormBuilder);
   employeesService = inject(EmployeesService);
@@ -68,14 +68,19 @@ export class EmployeeModalComponent implements OnChanges {
       ],
     ],
     insurance: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
-    // companies: ['', [Validators.required, Validators.minLength(3)]],
     isActive: [true],
   });
   isHidenPassword = signal(true);
 
-  ngOnChanges(_changes: SimpleChanges): void {
-    if (!this.employee()) return;
-    this.employeeForm.reset(this.employee());
+  constructor() {
+    effect(() => {
+      const employee = this.employee();
+      if (employee) {
+        this.employeeForm.reset(employee);
+      } else {
+        this.employeeForm.reset();
+      }
+    });
   }
 
   onSubmit() {
@@ -95,7 +100,6 @@ export class EmployeeModalComponent implements OnChanges {
       phone: dataForm.phone!,
       insurance: dataForm.insurance!,
       isActive: dataForm.isActive!,
-      companies: [],
     };
 
     if (!dataForm.id) {
