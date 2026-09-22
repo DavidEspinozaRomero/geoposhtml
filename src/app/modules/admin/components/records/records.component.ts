@@ -59,6 +59,7 @@ export class RecordsComponent implements OnInit {
   records = signal<Record[]>([]);
   selectedRecord = signal<Record | undefined>(undefined);
   recordsOpen = signal(false);
+  modalOpen = signal(false);
 
   ngOnInit(): void {
     this.recordService.getRecords().subscribe({
@@ -66,5 +67,15 @@ export class RecordsComponent implements OnInit {
         this.records.set(records);
       },
     });
+  }
+
+  openEditRecord(record: Record): void {
+    this.selectedRecord.set(record);
+    this.modalOpen.set(true);
+  }
+
+  closeModal(): void {
+    this.selectedRecord.set(undefined);
+    this.modalOpen.set(false);
   }
 }

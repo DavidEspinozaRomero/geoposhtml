@@ -78,7 +78,7 @@
                         type="button"
                         class="icon-btn inline-flex items-center justify-center rounded-md border border-blue-600 text-blue-600 transition-colors hover:bg-blue-50"
                         title="Registros"
-                        (click)="selectDay(day)"
+                        (click)="openDay(day)"
                       >
                         <svg lucideClock class="h-4 w-4"></svg>
                       </button>
@@ -88,7 +88,7 @@
                         type="button"
                         class="icon-btn inline-flex items-center justify-center rounded-md border border-sky-500 text-sky-600 transition-colors hover:bg-sky-50"
                         title="{{ day.events[0].title }}"
-                        (click)="selectDay(day)"
+                        (click)="openDay(day)"
                       >
                         <svg lucideCalendarCheck class="h-4 w-4"></svg>
                       </button>
@@ -98,7 +98,7 @@
                         type="button"
                         class="icon-btn inline-flex items-center justify-center rounded-md border border-red-600 text-red-600 transition-colors hover:bg-red-50"
                         title="Incidencia"
-                        (click)="selectDay(day)"
+                        (click)="openDay(day)"
                       >
                         <svg lucideTriangleAlert class="h-4 w-4"></svg>
                       </button>
@@ -108,7 +108,7 @@
                         type="button"
                         class="icon-btn inline-flex items-center justify-center rounded-md border border-slate-400 text-slate-600 transition-colors hover:bg-slate-100"
                         title="Jornada"
-                        (click)="selectDay(day)"
+                        (click)="openDay(day)"
                       >
                         <svg lucideBriefcase class="h-4 w-4"></svg>
                       </button>
@@ -139,5 +139,6 @@
 <app-day-modal
   [day]="selectedDay()"
   [employeeId]="selectedEmployeeId() ?? 0"
-  (closeRequest)="selectedDay.set(null)"
+  [open]="modalOpen()"
+  (closeRequest)="closeModal()"
 ></app-day-modal>

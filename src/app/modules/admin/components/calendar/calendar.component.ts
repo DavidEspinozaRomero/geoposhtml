@@ -72,6 +72,7 @@ export class CalendarComponent implements OnInit {
   days = signal<CalendarDay[]>([]);
   weeks = computed(() => buildMonthGrid(this.days()));
   selectedDay = signal<CalendarDay | null>(null);
+  modalOpen = signal(false);
 
   readonly statusClassNames = statusClasses;
   readonly statusVariant = statusVariant;
@@ -103,7 +104,7 @@ export class CalendarComponent implements OnInit {
   onEmployeeChange(value: string) {
     const id = Number(value);
     this.selectedEmployeeId.set(id);
-    this.selectedDay.set(null);
+    this.closeModal();
     this.loadMonth();
   }
 
@@ -129,11 +130,17 @@ export class CalendarComponent implements OnInit {
 
   changeMonth(quantity: number) {
     this.now.update((d) => new Date(d.getFullYear(), d.getMonth() + quantity));
-    this.selectedDay.set(null);
+    this.closeModal();
     this.loadMonth();
   }
 
-  selectDay(day: CalendarDay) {
+  openDay(day: CalendarDay) {
     this.selectedDay.set(day);
+    this.modalOpen.set(true);
+  }
+
+  closeModal(): void {
+    this.selectedDay.set(null);
+    this.modalOpen.set(false);
   }
 }

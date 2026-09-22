@@ -38,6 +38,7 @@ export class CompaniesComponent implements OnInit {
   companiesService = inject(CompaniesService);
   companies = signal<Company[]>([]);
   company = signal<Company | undefined>(undefined);
+  modalOpen = signal(false);
 
   ngOnInit(): void {
     this.getAllCompanies();
@@ -51,8 +52,19 @@ export class CompaniesComponent implements OnInit {
     });
   }
 
+  openCreate(): void {
+    this.company.set(undefined);
+    this.modalOpen.set(true);
+  }
+
+  closeModal(): void {
+    this.company.set(undefined);
+    this.modalOpen.set(false);
+  }
+
   editCompany(company: Company) {
     this.company.set(company);
+    this.modalOpen.set(true);
   }
 
   removeCompany(company: Company, idx: number) {

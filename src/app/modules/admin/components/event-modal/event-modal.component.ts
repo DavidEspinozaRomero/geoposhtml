@@ -1,11 +1,10 @@
 import {
   Component,
   EventEmitter,
-  OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
   computed,
+  effect,
   inject,
   input,
   output,
@@ -25,11 +24,12 @@ import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.componen
   templateUrl: './event-modal.component.html',
   styleUrl: './event-modal.component.scss',
 })
-export class EventModalComponent implements OnInit, OnChanges {
+export class EventModalComponent implements OnInit {
   @Output() eventSubmit = new EventEmitter<CalendarEvent>();
   eventToEdit = input<CalendarEvent | undefined>();
+  open = input(false);
   closeRequest = output<void>();
-  isOpen = computed(() => this.eventToEdit() !== undefined);
+  isOpen = computed(() => this.open());
 
   fb = inject(FormBuilder);
   eventsService = inject(EventsService);
@@ -50,9 +50,15 @@ export class EventModalComponent implements OnInit, OnChanges {
       this.eventTypes = data;
     });
   }
-  ngOnChanges(_changes: SimpleChanges): void {
-    if (!this.eventToEdit()) return;
-    this.eventForm.reset(this.eventToEdit());
+
+  constructor() {
+    effect(() => {
+      if (this.eventToEdit()) {
+        this.eventForm.reset(this.eventToEdit());
+      } else {
+        this.eventForm.reset();
+      }
+    });
   }
 
   createEvent(event: CalendarEvent) {

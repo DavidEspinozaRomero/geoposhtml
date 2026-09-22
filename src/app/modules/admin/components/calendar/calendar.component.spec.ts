@@ -132,26 +132,29 @@ describe('CalendarComponent', () => {
 
   it('should clear selected day when changing employee', () => {
     component.onEmployeeChange('1');
-    component.selectDay(mockDays[0]);
+    component.openDay(mockDays[0]);
     expect(component.selectedDay()).not.toBeNull();
 
     component.onEmployeeChange('2');
     expect(component.selectedDay()).toBeNull();
   });
 
-  it('should select a day', () => {
+  it('should open the modal when selecting a day', () => {
     component.onEmployeeChange('1');
     expect(component.selectedDay()).toBeNull();
+    expect(component.modalOpen()).toBe(false);
 
-    component.selectDay(mockDays[0]);
+    component.openDay(mockDays[0]);
     expect(component.selectedDay()).toBe(mockDays[0]);
+    expect(component.modalOpen()).toBe(true);
   });
 
-  it('should deselect a day', () => {
+  it('should close the modal and deselect the day', () => {
     component.onEmployeeChange('1');
-    component.selectDay(mockDays[0]);
-    component.selectedDay.set(null);
+    component.openDay(mockDays[0]);
+    component.closeModal();
     expect(component.selectedDay()).toBeNull();
+    expect(component.modalOpen()).toBe(false);
   });
 
   it('should have all status class mappings', () => {

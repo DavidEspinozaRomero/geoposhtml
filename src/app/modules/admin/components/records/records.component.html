@@ -164,7 +164,7 @@
             appBtn
             variant="secondary"
             size="sm"
-            (click)="selectedRecord.set(record)"
+            (click)="openEditRecord(record)"
           >
             <svg lucidePencil class="h-4 w-4"></svg>
           </button>
@@ -179,7 +179,8 @@
 <!-- agregar modal para edicion de registros -->
 <app-record-modal
   [record]="selectedRecord()"
-  (closeRequest)="selectedRecord.set(undefined)"
+  [open]="modalOpen()"
+  (closeRequest)="closeModal()"
 ></app-record-modal>
 <app-records-modal
   [isOpen]="recordsOpen()"

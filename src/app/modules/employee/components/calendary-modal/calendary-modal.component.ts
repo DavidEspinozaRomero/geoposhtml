@@ -15,8 +15,9 @@ import { AppBadgeDirective } from '../../../../shared/ui';
 })
 export class CalendaryModalComponent {
   day = input<CalendarDay | null>(null);
+  open = input(false);
   closeRequest = output<void>();
 
-  isOpen = computed(() => this.day() !== null);
+  isOpen = computed(() => this.open());
   readonly statusVariant = statusVariant;
 }

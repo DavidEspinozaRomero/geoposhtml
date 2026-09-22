@@ -52,6 +52,7 @@ export class EventsComponent implements OnInit {
   events = signal<CalendarEvent[]>([]);
   eventTypes = signal<{ id: number; name: string }[]>([]);
   selectedEvent = signal<CalendarEvent | undefined>(undefined);
+  modalOpen = signal(false);
 
   ngOnInit(): void {
     this.initApis();
@@ -113,6 +114,21 @@ export class EventsComponent implements OnInit {
         this.events.update((evs) => evs.map((e) => (e.id === data.id ? data : e)));
       },
     });
+  }
+
+  openCreate(): void {
+    this.selectedEvent.set(undefined);
+    this.modalOpen.set(true);
+  }
+
+  editEvent(event: CalendarEvent) {
+    this.selectedEvent.set(event);
+    this.modalOpen.set(true);
+  }
+
+  closeModal(): void {
+    this.selectedEvent.set(undefined);
+    this.modalOpen.set(false);
   }
 
   deleteEvent(event: CalendarEvent, i_event: number) {

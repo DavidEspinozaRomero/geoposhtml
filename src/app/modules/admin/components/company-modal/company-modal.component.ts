@@ -17,10 +17,11 @@ import { AppBtnDirective, AppInputDirective } from '../../../../shared/ui';
 })
 export class CompanyModalComponent {
   company = input<Company | undefined>();
+  open = input(false);
   saveForm = output<Company>();
   closeRequest = output<void>();
   modalTitle = computed(() => (this.company() ? 'Editar Compañía' : 'Nueva Compañía'));
-  isOpen = computed(() => this.company() !== undefined);
+  isOpen = computed(() => this.open());
 
   fb = inject(FormBuilder);
   companiesService = inject(CompaniesService);

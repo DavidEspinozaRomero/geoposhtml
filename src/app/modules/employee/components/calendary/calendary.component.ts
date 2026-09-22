@@ -51,6 +51,7 @@ export class CalendaryComponent implements OnInit {
   days = signal<CalendarDay[]>([]);
   weeks = computed(() => buildMonthGrid(this.days()));
   selectedDay = signal<CalendarDay | null>(null);
+  modalOpen = signal(false);
 
   year = computed(() => this.now().getFullYear());
   month = computed(() => this.now().getMonth());
@@ -97,11 +98,17 @@ export class CalendaryComponent implements OnInit {
 
   changeMonth(quantity: number) {
     this.now.update((d) => new Date(d.getFullYear(), d.getMonth() + quantity));
-    this.selectedDay.set(null);
+    this.closeModal();
     this.loadMonth();
   }
 
-  selectDay(day: CalendarDay) {
+  openDay(day: CalendarDay) {
     this.selectedDay.set(day);
+    this.modalOpen.set(true);
+  }
+
+  closeModal(): void {
+    this.selectedDay.set(null);
+    this.modalOpen.set(false);
   }
 }

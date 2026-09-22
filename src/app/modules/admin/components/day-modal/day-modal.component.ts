@@ -19,12 +19,13 @@ export class DayModalComponent {
 
   day = input<CalendarDay | null>(null);
   employeeId = input<number>(0);
+  open = input(false);
   closeRequest = output<void>();
 
   companies = signal<Company[]>([]);
   loadingCompanies = signal(false);
 
-  isOpen = computed(() => this.day() !== null);
+  isOpen = computed(() => this.open());
   readonly statusVariant = statusVariant;
 
   private loadEffect = effect(() => {

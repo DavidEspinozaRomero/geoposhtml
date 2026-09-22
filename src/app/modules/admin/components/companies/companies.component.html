@@ -1,7 +1,7 @@
 <div class="p-6">
   <h1 class="mb-4 text-2xl font-bold tracking-tight text-slate-900">Compañias</h1>
 
-  <button type="button" appBtn (click)="company.set(undefined)">Agregar +</button>
+  <button type="button" appBtn (click)="openCreate()">Agregar +</button>
 
   <section id="filters" class="mt-4" appFilterSection>
     <div class="max-w-md">
@@ -72,6 +72,7 @@
 
 <app-company-modal
   [company]="company()"
+  [open]="modalOpen()"
   (saveForm)="updateCompany($event)"
-  (closeRequest)="company.set(undefined)"
+  (closeRequest)="closeModal()"
 ></app-company-modal>

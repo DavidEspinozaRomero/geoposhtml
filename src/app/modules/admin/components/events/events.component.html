@@ -1,7 +1,7 @@
 <h1 class="mb-4 text-2xl font-bold tracking-tight text-slate-900">Eventos</h1>
 
 <!-- agregar evento -->
-<button type="button" appBtn (click)="selectedEvent.set(undefined)">+ Evento</button>
+<button type="button" appBtn (click)="openCreate()">+ Evento</button>
 
 <!-- filtros -->
 <div class="mt-4 grid grid-cols-1 items-end gap-4 md:grid-cols-3">
@@ -62,7 +62,7 @@
         </td>
         <td appTd>{{ event.title }}</td>
         <td appTd>
-          <button type="button" appBtn size="sm" class="me-2" (click)="selectedEvent.set(event)">
+          <button type="button" appBtn size="sm" class="me-2" (click)="editEvent(event)">
             <svg lucidePencil class="h-4 w-4"></svg>
             <span class="sr-only">Editar</span>
           </button>
@@ -84,6 +84,7 @@
 <!-- modal para CRUD de evento -->
 <app-event-modal
   [eventToEdit]="selectedEvent()"
+  [open]="modalOpen()"
   (eventSubmit)="checkEvent($event)"
-  (closeRequest)="selectedEvent.set(undefined)"
+  (closeRequest)="closeModal()"
 ></app-event-modal>

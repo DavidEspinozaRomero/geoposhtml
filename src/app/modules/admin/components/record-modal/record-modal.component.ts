@@ -33,8 +33,9 @@ import { AppBtnDirective, AppInputDirective } from '../../../../shared/ui';
 })
 export class RecordModalComponent implements OnChanges {
   record = input<Record | undefined>();
+  open = input(false);
   closeRequest = output<void>();
-  isOpen = computed(() => this.record() !== undefined);
+  isOpen = computed(() => this.open());
 
   fb = inject(FormBuilder);
   recordService = inject(RecordService);

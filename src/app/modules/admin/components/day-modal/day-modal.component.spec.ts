@@ -37,16 +37,27 @@ describe('DayModalComponent', () => {
     expect(dialog.hasAttribute('open')).toBe(false);
   });
 
-  it('should open the dialog when a day is set', async () => {
+  it('should open the dialog when the open input is set with a day', async () => {
     fixture.componentRef.setInput('day', day);
+    fixture.componentRef.setInput('open', true);
     fixture.whenStable();
     fixture.detectChanges();
     const dialog = fixture.nativeElement.querySelector('dialog');
     expect(dialog.hasAttribute('open')).toBe(true);
   });
 
+  it('should not open from the day input alone (open is the single source of truth)', async () => {
+    fixture.componentRef.setInput('day', day);
+    fixture.whenStable();
+    fixture.detectChanges();
+    expect(component.isOpen()).toBe(false);
+    const dialog = fixture.nativeElement.querySelector('dialog');
+    expect(dialog.hasAttribute('open')).toBe(false);
+  });
+
   it('should render the status badge with Tailwind classes', async () => {
     fixture.componentRef.setInput('day', day);
+    fixture.componentRef.setInput('open', true);
     fixture.whenStable();
     fixture.detectChanges();
     const badge = fixture.nativeElement.querySelector('.status-badge');
@@ -57,6 +68,7 @@ describe('DayModalComponent', () => {
 
   it('should emit closeRequest when the footer button is clicked', async () => {
     fixture.componentRef.setInput('day', day);
+    fixture.componentRef.setInput('open', true);
     fixture.whenStable();
     fixture.detectChanges();
     const spy = vi.spyOn(component.closeRequest, 'emit');
@@ -65,11 +77,12 @@ describe('DayModalComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('should close the dialog when the day is cleared', async () => {
+  it('should close the dialog when the open input is cleared', async () => {
     fixture.componentRef.setInput('day', day);
+    fixture.componentRef.setInput('open', true);
     fixture.whenStable();
     fixture.detectChanges();
-    fixture.componentRef.setInput('day', null);
+    fixture.componentRef.setInput('open', false);
     fixture.whenStable();
     fixture.detectChanges();
     const dialog = fixture.nativeElement.querySelector('dialog');
