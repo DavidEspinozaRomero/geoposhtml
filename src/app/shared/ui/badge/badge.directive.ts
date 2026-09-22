@@ -1,7 +1,8 @@
 import { Directive, ElementRef, inject, input } from '@angular/core';
 import { bindDynamicClasses } from '../class-utils';
 
-export type BadgeVariant = 'primary' | 'success' | 'warning' | 'danger' | 'neutral' | 'info';
+export type BadgeVariant =
+  'primary' | 'success' | 'warning' | 'danger' | 'neutral' | 'info' | 'emerald';
 
 const BADGE_BASE_CLASSES =
   'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold';
@@ -18,12 +19,17 @@ const BADGE_VARIANT_CLASSES: Record<BadgeVariant, string> = {
   danger: 'bg-red-600 text-white',
   neutral: 'bg-gray-400 text-white',
   info: 'bg-blue-500 text-white',
+  emerald: 'bg-emerald-600 text-white',
 };
 
 /**
  * Shared badge primitive (WU01). Applied as `[appBadge]` on a `<span>` (or
  * any element). Variant color classes are owned by the directive; classes
  * added by the consumer are preserved.
+ *
+ * Unknown or `undefined` variants (e.g. a consumer passing
+ * `[variant]="statusVariant[day.status]"` with an unmapped status key) fall
+ * back to the `neutral` pair instead of crashing the class binding.
  */
 @Directive({
   selector: '[appBadge]',
@@ -33,11 +39,14 @@ const BADGE_VARIANT_CLASSES: Record<BadgeVariant, string> = {
   },
 })
 export class AppBadgeDirective {
-  /** Color/style preset. */
+  /** Color/style preset. Unknown values fall back to `neutral`. */
   readonly variant = input<BadgeVariant>('primary');
 
   constructor() {
     const host = inject(ElementRef<HTMLElement>);
-    bindDynamicClasses(host, () => BADGE_VARIANT_CLASSES[this.variant()]);
+    bindDynamicClasses(
+      host,
+      () => BADGE_VARIANT_CLASSES[this.variant()] ?? BADGE_VARIANT_CLASSES.neutral,
+    );
   }
 }

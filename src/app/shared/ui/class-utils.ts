@@ -9,12 +9,16 @@ import { effect, type ElementRef } from '@angular/core';
  * dependency, so the class set follows `input()` changes. The effect is
  * created in the caller's injection context, so Angular destroys it together
  * with the directive/component.
+ *
+ * The result is coerced defensively (`String(compute() ?? '')`), so a
+ * consumer lookup that returns `undefined` for an unknown key degrades to no
+ * classes instead of throwing a TypeError.
  */
 export function bindDynamicClasses(host: ElementRef<HTMLElement>, compute: () => string): void {
   let last = '';
 
   const sync = (): void => {
-    const next = compute().trim();
+    const next = String(compute() ?? '').trim();
     if (next === last) return;
 
     const nextList = next.split(/\s+/).filter(Boolean);

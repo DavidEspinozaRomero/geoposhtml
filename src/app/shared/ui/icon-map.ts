@@ -89,13 +89,15 @@ export const iconMap = {
 /**
  * Tailwind literal classes for the day-status badge in the day/calendary
  * modals (REQ-009). Values must stay in sync with the DayStatus union in
- * models/calendar.model.ts; the fallback 'secondary' guards unknown statuses.
+ * models/calendar.model.ts; the `secondary` catch-all key guards unknown
+ * statuses and mirrors the `rest` palette.
  */
 export const statusClasses: Record<string, string> = {
   complete: 'bg-green-600 text-white',
   partial: 'bg-yellow-400 text-black',
   absent: 'bg-red-600 text-white',
   rest: 'bg-gray-400 text-white',
+  secondary: 'bg-gray-400 text-white',
   event: 'bg-blue-500 text-white',
 };
 
@@ -103,12 +105,15 @@ export const statusClasses: Record<string, string> = {
  * Maps the same day-status keys to `BadgeVariant` values so consumers can
  * render status badges with `[appBadge] [variant]="statusVariant[day.status]"`
  * once migrated (WU01). Values mirror the `statusClasses` colors above; keep
- * both in sync with the DayStatus union in models/calendar.model.ts.
+ * both in sync with the DayStatus union in models/calendar.model.ts. Unknown
+ * keys resolve to `secondary` -> `neutral`, and the badge directive adds a
+ * final `neutral` fallback for anything still unmapped.
  */
 export const statusVariant: Record<string, BadgeVariant> = {
   complete: 'success',
   partial: 'warning',
   absent: 'danger',
   rest: 'neutral',
+  secondary: 'neutral',
   event: 'info',
 };

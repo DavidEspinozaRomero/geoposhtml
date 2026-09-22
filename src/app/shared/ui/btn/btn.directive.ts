@@ -56,7 +56,7 @@ export class AppBtnDirective {
   constructor() {
     const host = inject(ElementRef<HTMLElement>);
     bindDynamicClasses(host, () => {
-      const variant = BTN_VARIANT_CLASSES[this.variant()];
+      const variant = BTN_VARIANT_CLASSES[this.variant()] ?? BTN_VARIANT_CLASSES.primary;
       const size = BTN_SIZE_CLASSES[this.size()];
       return `${variant} ${size}`;
     });
