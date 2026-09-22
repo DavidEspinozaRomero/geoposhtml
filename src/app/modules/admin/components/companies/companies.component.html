@@ -4,7 +4,7 @@
   <button type="button" appBtn (click)="company.set(undefined)">Agregar +</button>
 
   <section id="filters" class="mt-4" appFilterSection>
-    <div class="max-w-md space-y-1.5">
+    <div class="max-w-md">
       <label for="inputName" appFilterLabel>Nombre de la Sociedad</label>
       <input
         id="inputName"
@@ -29,37 +29,39 @@
           <div appCardHeader class="bg-blue-600 text-center text-white">
             <strong> {{ company.name }} </strong>
           </div>
-          <div appCardBody>
-            <h5 class="mb-2 font-semibold text-slate-900">
+          <div class="px-4 py-2">
+            <h5 class="font-semibold text-slate-900">
               {{ company.address }}
             </h5>
-            <p class="flex gap-2 text-sm text-slate-600">
-              <button
-                type="button"
-                appBtn
-                variant="secondary"
-                size="sm"
-                (click)="editCompany(company)"
-              >
-                <svg lucidePencil class="h-4 w-4"></svg>
-              </button>
-              <button
-                type="button"
-                appBtn
-                variant="danger"
-                size="sm"
-                (click)="removeCompany(company, i_company)"
-              >
-                <svg lucideTrash2 class="h-4 w-4"></svg>
-              </button>
-            </p>
           </div>
           <ul class="divide-y divide-slate-100 border-t border-slate-200">
-            <li class="px-4 py-2 text-sm text-slate-600">
+            <li class="px-4 py-0.5 text-sm text-slate-600">
               <small> {{ company.cif }} </small>
             </li>
-            <li class="px-4 py-2 text-sm text-slate-600">
+            <li class="px-4 py-0.5 text-sm text-slate-600">
               <small> {{ company.account }} </small>
+            </li>
+            <li class="px-4 py-1 text-sm text-slate-600">
+              <p class="flex justify-center gap-2">
+                <button
+                  type="button"
+                  appBtn
+                  variant="secondary"
+                  size="sm"
+                  (click)="editCompany(company)"
+                >
+                  <svg lucidePencil class="h-4 w-4"></svg>
+                </button>
+                <button
+                  type="button"
+                  appBtn
+                  variant="danger"
+                  size="sm"
+                  (click)="removeCompany(company, i_company)"
+                >
+                  <svg lucideTrash2 class="h-4 w-4"></svg>
+                </button>
+              </p>
             </li>
           </ul>
         </div>
