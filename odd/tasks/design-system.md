@@ -35,6 +35,7 @@ Existe duplicación masiva de clases Tailwind en todos los componentes admin y e
 8. T8 — Refactor employee batch: workday ✅ + records ✅ + calendary ✅ + record-modal ✅ + calendary-modal ✅ [WU03].
 9. T9 — Refactor landing ✅ + roadmap ✅ (NO existe roadmap-page; design-system estable fuera de alcance) [WU03].
 10. T10 — Limpieza final: remover primitivas no usadas + doc ✅ — auditoría: **0 primitivas sin uso** (478 refs externas / 44 archivos; el playground `design-system` mantiene vivo el barrel completo: badge, btn, card, filter, form-field, icon-map, input, table, dialog). Árbol limpio, build exit 0. FEATURE COMPLETA (T1–T10).
+11. T11 — Follow-ups de advisories (3 slices) [WU04, slice 4] — pendiente.
 
 ## Criterios de aceptación
 - `ng build` (proxy = `npm run build`) verde sin errores.
