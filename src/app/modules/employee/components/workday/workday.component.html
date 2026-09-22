@@ -7,9 +7,9 @@
     <!-- empezar jornada -->
     <div class="mb-4 rounded-lg bg-slate-100 p-4">
       <select
-        class="w-full rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+        appSelect
         aria-label="lista de empresas"
-        [class.border-red-500]="isValid(companyIdForm)"
+        [hasError]="!!isValid(companyIdForm)"
         [formControl]="companyIdForm"
       >
         <option disabled selected value="">-- Seleccione Empresa --</option>
@@ -21,12 +21,7 @@
         <small class="mt-1 block text-xs text-red-600">Por favor seleccione una empresa</small>
       }
     </div>
-    <button
-      class="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
-      (click)="startWorkday()"
-    >
-      Empezar Jornada Laboral
-    </button>
+    <button type="button" appBtn (click)="startWorkday()">Empezar Jornada Laboral</button>
   } @else {
     <!-- finalizar jornada -->
     <div class="rounded-lg bg-slate-100 p-4">
@@ -79,11 +74,11 @@
             >Incidencia</label
           >
           <textarea
-            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+            appInput
             placeholder="Agregar una incidencia"
             [formControl]="incidentForm"
             id="floatingTextarea"
-            [class.border-red-500]="isValid(incidentForm)"
+            [hasError]="!!isValid(incidentForm)"
           ></textarea>
           @if (isValid(incidentForm)) {
             <small class="block text-xs text-red-600">
@@ -91,12 +86,7 @@
             </small>
           }
         </div>
-        <button
-          class="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
-          (click)="endWorkday()"
-        >
-          Finalizar Jornada
-        </button>
+        <button type="button" appBtn (click)="endWorkday()">Finalizar Jornada</button>
       } @else {
         @if (record()!.geoEnd) {
           <p class="mb-1 text-sm text-slate-700">
@@ -131,8 +121,11 @@
         <p class="mb-1 text-sm text-slate-700">Jornada finalizada</p>
         <div class="text-center">
           <button
+            type="button"
+            appBtn
+            variant="secondary"
+            size="sm"
             (click)="record.set(undefined)"
-            class="inline-flex items-center justify-center rounded-md border border-blue-600 px-2.5 py-1.5 text-xs font-medium text-blue-600 transition-colors hover:bg-blue-50"
           >
             Regresar
           </button>

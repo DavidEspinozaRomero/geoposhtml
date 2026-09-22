@@ -9,11 +9,20 @@ import { UtilsService } from '../../../../services/utils.service';
 import { Auth } from '../../../../services/auth';
 
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AppBtnDirective, AppInputDirective, AppSelectDirective } from '../../../../shared/ui';
 
 @Component({
   selector: 'app-workday',
   standalone: true,
-  imports: [ReactiveFormsModule, DatePipe, LucideInfo, LucideMapPin],
+  imports: [
+    ReactiveFormsModule,
+    DatePipe,
+    LucideInfo,
+    LucideMapPin,
+    AppBtnDirective,
+    AppInputDirective,
+    AppSelectDirective,
+  ],
   templateUrl: './workday.component.html',
   styleUrl: './workday.component.scss',
 })

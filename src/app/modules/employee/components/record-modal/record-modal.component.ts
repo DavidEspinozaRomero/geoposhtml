@@ -11,7 +11,6 @@ import { AppDialogComponent } from '../../../../shared/ui/dialog/dialog.componen
   standalone: true,
   imports: [DatePipe, LucideInfo, LucideMapPin, LucideX, AppDialogComponent],
   templateUrl: './record-modal.component.html',
-  styleUrl: './record-modal.component.scss',
 })
 export class RecordModalComponent {
   record = input<Record | undefined>();

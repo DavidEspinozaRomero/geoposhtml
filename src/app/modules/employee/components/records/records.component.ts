@@ -7,6 +7,16 @@ import { Record } from '../../../../models';
 import { FilterDatePipe, FilterRecordEmployeeIncidentsPipe } from '../../../../pipes';
 import { RecordModalComponent } from '../record-modal/record-modal.component';
 import { Auth } from '../../../../services/auth';
+import {
+  AppBtnDirective,
+  AppInputDirective,
+  AppSelectDirective,
+  AppTableDirective,
+  AppTdDirective,
+  AppThDirective,
+  AppTrBodyDirective,
+  AppTrHeadDirective,
+} from '../../../../shared/ui';
 
 @Component({
   selector: 'app-records',
@@ -19,9 +29,16 @@ import { Auth } from '../../../../services/auth';
     LucideEye,
     LucideUser,
     LucideUserCog,
+    AppBtnDirective,
+    AppInputDirective,
+    AppSelectDirective,
+    AppTableDirective,
+    AppTdDirective,
+    AppThDirective,
+    AppTrBodyDirective,
+    AppTrHeadDirective,
   ],
   templateUrl: './records.component.html',
-  styleUrl: './records.component.scss',
 })
 export class RecordsComponent implements OnInit {
   auth = inject(Auth);
