@@ -30,7 +30,7 @@ Existe duplicación masiva de clases Tailwind en todos los componentes admin y e
 3. T3 — Ruta `/design-system` en `app.routes.ts` + acceso desde menú admin + menú employee [WU02].
 4. T4 — Refactor admin batch A: employees + companies (+ modals **singular**) [WU03].
 5. T5 — Refactor admin batch B: workday (✅ commit `7b455d1`; sin modal propio) [WU03].
-6. T6 — Refactor admin batch C: records + records-modal, events + events-modal, calendar [WU03].
+6. T6 — Refactor admin batch C: records ✅ + records-modal ✅, events ✅ + events-modal ✅, calendar ✅ (+ day-modal) [WU03] (commit `0bc2f42`).
 7. T7 — Refactor admin batch D: reports + reports-modal, logs + logs-modal [WU03].
 8. T8 — Refactor employee batch: workday, records, calendary [WU03].
 9. T9 — Refactor landing + roadmap (+ roadmap-page) [WU03].
@@ -53,3 +53,4 @@ Existe duplicación masiva de clases Tailwind en todos los componentes admin y e
 - PASAR de forecast a forecast: al delegar cada WU, forecast-check gate verifica paths en disco + barrel antes de delegar; verifier del worker verifica en disco+glob antes de reportar; build gate corre build real.
 - **Slice 1 REVIEWED (medium → deferido a slice → approved/burned)**: `review-1897b8f539a91ab9` (lens unique `review-reliability`, 608 líneas, 22 paths, base `96c0b312`); acknowledged `sha256:732c370a`, authority burned. Advisory no bloqueante (follow-up): R3-AdminRefactorUnproved (WARNING — sin assert nuevo para componentes admin refactorizados), R3-HasErrorContractUnverified (WARNING — equivalencia `[hasError]` depende de AppInputDirective fuera del candidato), R3-HostClassCompositionUntested (SUGGESTION — composición host-class de directivas sin smoke test).
 - Fix runtime reviewer: modelos review-* en config global → `opencode/big-pickle` (free; `deepseek-v4-flash-free` no existe en el runtime).
+- **T6 (admin batch C) PASS**: `0bc2f42` — events + events-modal + calendar + day-modal adoptaron primitivas; se borraron `events.component.css` y `events-modal.component.scss` (vacíos); specs intactos; build spot-check exit 0 (warning Sass pre-existente); ng test no lanza (runner roto conocido). RDD assess → **medium** (executable calendar.html), 10 paths / 173 líneas, base `1b4d90b` → **deferido a cierre de slice 2** (budget 400 no alcanzado).
