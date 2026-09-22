@@ -3,13 +3,27 @@ import { FormsModule } from '@angular/forms';
 import { LucideFileDown } from '@lucide/angular';
 
 import { ReportsService } from '../../../../services/reports.service';
+import {
+  AppBtnDirective,
+  AppCardDirective,
+  AppCardBodyDirective,
+  AppFilterLabelDirective,
+  AppInputDirective,
+} from '../../../../shared/ui';
 
 @Component({
   selector: 'app-reports',
   standalone: true,
-  imports: [FormsModule, LucideFileDown],
+  imports: [
+    FormsModule,
+    LucideFileDown,
+    AppBtnDirective,
+    AppCardDirective,
+    AppCardBodyDirective,
+    AppFilterLabelDirective,
+    AppInputDirective,
+  ],
   templateUrl: './reports.component.html',
-  styleUrl: './reports.component.scss',
 })
 export class ReportsComponent {
   private readonly reportsService = inject(ReportsService);
