@@ -32,7 +32,7 @@ Existe duplicación masiva de clases Tailwind en todos los componentes admin y e
 5. T5 — Refactor admin batch B: workday (✅ commit `7b455d1`; sin modal propio) [WU03].
 6. T6 — Refactor admin batch C: records ✅ + records-modal ✅, events ✅ + events-modal ✅, calendar ✅ (+ day-modal) [WU03] (commit `0bc2f42`).
 7. T7 — Refactor admin batch D: reports ✅ + logs ✅ (NO existen reports-modal/logs-modal, verificado) [WU03].
-8. T8 — Refactor employee batch: workday, records, calendary [WU03].
+8. T8 — Refactor employee batch: workday ✅ + records ✅ + calendary ✅ + record-modal ✅ + calendary-modal ✅ [WU03].
 9. T9 — Refactor landing + roadmap (+ roadmap-page) [WU03].
 10. T10 — Limpieza final: remover primitivas no usadas + doc [WU03].
 
@@ -55,3 +55,4 @@ Existe duplicación masiva de clases Tailwind en todos los componentes admin y e
 - Fix runtime reviewer: modelos review-* en config global → `opencode/big-pickle` (free; `deepseek-v4-flash-free` no existe en el runtime).
 - **T6 (admin batch C) PASS**: `0bc2f42` — events + events-modal + calendar + day-modal adoptaron primitivas; se borraron `events.component.css` y `events-modal.component.scss` (vacíos); specs intactos; build spot-check exit 0 (warning Sass pre-existente); ng test no lanza (runner roto conocido). RDD assess → **medium** (executable calendar.html), 10 paths / 173 líneas, base `1b4d90b` → **deferido a cierre de slice 2** (budget 400 no alcanzado).
 - **T7 (admin batch D) PASS**: `4f8d1a1` — reports (card/body/filterLabel/input/btn) + logs (placeholder; sin markup aplicable); se borraron `reports.component.scss` y `logs.component.css` (vacíos; **no existen reports-modal/logs-modal**); specs intactos; build spot-check exit 0; `npm test` 136/136 passed con 13 rechazos HttpErrorResponse ajenos (specs con fetch a localhost:3000 sin backend, ambiental). RDD assess → **medium**, 15 paths / 205 líneas base `1b4d90b` → **deferido**.
+- **T8 (employee batch) PASS**: `a1cbde4` — workday + records + calendary + record-modal + calendary-modal a primitivas; borrados `records.component.scss` y `record-modal.component.scss` (vacíos); modales chrome raw (record-modal body es read-only, sin markup convertible); `[hasError]` coerced con `!!` (misma forma que el util de admin); specs intactos; build spot-check exit 0; npm test exit 1 por 12 rechazos HttpErrorResponse ajenos (admin specs a localhost:3000, ambiental). RDD assess → **medium**, 26 paths / **386 líneas** base `1b4d90b` → **CIERRE DE SLICE 2** (budget 400 alcanzado) → preflight STATUS now.
