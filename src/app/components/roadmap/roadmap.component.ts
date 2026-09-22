@@ -3,11 +3,20 @@ import { RouterLink } from '@angular/router';
 import { LucideCheck, LucideClock, LucideMapPin, LucideMenu } from '@lucide/angular';
 
 import { SeoService } from '../../services/seo.service';
+import { AppBadgeDirective, AppCardDirective } from '../../shared/ui';
 
 @Component({
   selector: 'app-roadmap',
   standalone: true,
-  imports: [RouterLink, LucideCheck, LucideClock, LucideMapPin, LucideMenu],
+  imports: [
+    RouterLink,
+    AppBadgeDirective,
+    AppCardDirective,
+    LucideCheck,
+    LucideClock,
+    LucideMapPin,
+    LucideMenu,
+  ],
   templateUrl: './roadmap.component.html',
   styleUrl: './roadmap.component.scss',
 })

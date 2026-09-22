@@ -15,12 +15,15 @@ import {
 } from '@lucide/angular';
 
 import { SeoService } from '../../services/seo.service';
+import { AppBadgeDirective, AppCardDirective } from '../../shared/ui';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
   imports: [
     RouterLink,
+    AppBadgeDirective,
+    AppCardDirective,
     LucideBell,
     LucideCalendarCheck,
     LucideChevronDown,
