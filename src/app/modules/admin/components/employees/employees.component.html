@@ -5,7 +5,7 @@
 
   <section id="filters" class="mt-4" appFilterSection>
     <div class="grid grid-cols-1 items-end gap-4 md:grid-cols-3">
-      <div class="space-y-1.5">
+      <div>
         <label for="inputName" appFilterLabel>Nombre/Usuario</label>
         <input
           id="inputName"
@@ -16,7 +16,7 @@
           (keyup)="(inputName)"
         />
       </div>
-      <div class="space-y-1.5">
+      <div>
         <label for="inputCompany" appFilterLabel>Empresa</label>
         <input
           id="inputCompany"
@@ -28,6 +28,7 @@
         />
       </div>
       <div>
+        <label for="inputIsActive" appFilterLabel>Estado</label>
         <select
           appSelect
           aria-label="Default select example"
@@ -64,63 +65,55 @@
               <div appCardHeader class="bg-blue-600 text-center text-white">
                 <strong> {{ employee.name }} </strong>
                 @if (employee.isActive) {
-                  <svg
-                    lucideDot
-                    role="button"
-                    tabindex="0"
-                    class="ms-1 inline-block h-4 w-4 align-middle text-green-600"
+                  <button
+                    class="size-3 rounded-full bg-green-600"
                     (click)="updateIsActiveEmployee(employee)"
-                    (keydown.enter)="updateIsActiveEmployee(employee)"
-                    (keydown.space)="updateIsActiveEmployee(employee)"
-                  ></svg>
+                  ></button>
                 } @else {
-                  <svg
-                    lucideDot
-                    role="button"
-                    tabindex="0"
-                    class="ms-1 inline-block h-4 w-4 align-middle text-red-600"
+                  <button
+                    class="size-3 rounded-full bg-red-600"
                     (click)="updateIsActiveEmployee(employee)"
-                    (keydown.enter)="updateIsActiveEmployee(employee)"
-                    (keydown.space)="updateIsActiveEmployee(employee)"
-                  ></svg>
+                  ></button>
                 }
               </div>
-              <div appCardBody>
-                <h5 class="mb-2 text-lg font-semibold text-slate-900">
+              <div class="px-4 py-1">
+                <h5 class="text-lg font-semibold text-slate-900">
                   {{ employee.username }}
                 </h5>
-                <p class="flex gap-2">
-                  <button
-                    type="button"
-                    appBtn
-                    variant="secondary"
-                    size="sm"
-                    (click)="editEmployee(employee)"
-                  >
-                    <svg lucidePencil class="h-4 w-4"></svg>
-                  </button>
-                  <button
-                    type="button"
-                    appBtn
-                    variant="danger"
-                    size="sm"
-                    (click)="removeEmployee(employee, i_employee)"
-                  >
-                    <svg lucideTrash2 class="h-4 w-4"></svg>
-                  </button>
-                </p>
               </div>
               <ul class="divide-y divide-slate-100 border-t border-slate-200">
-                <li class="px-4 py-1.5 text-sm text-slate-600">
+                <li class="px-4 py-0.5 text-slate-600">
                   <small> {{ employee.email }} </small>
                 </li>
-                <li class="px-4 py-1.5 text-sm text-slate-600">
+                <li class="px-4 py-0.5 text-slate-600">
                   <small> {{ employee.phone }} </small>
                 </li>
-                <li class="px-4 py-1.5 text-sm text-slate-600">
+                <li class="px-4 py-0.5 text-slate-600">
                   <small> {{ employee.address }} </small>
                 </li>
-                <li class="px-4 py-1.5 text-sm text-slate-600">
+                <li class="px-4 py-1.5">
+                  <p class="flex justify-center gap-2">
+                    <button
+                      type="button"
+                      appBtn
+                      variant="secondary"
+                      size="sm"
+                      (click)="editEmployee(employee)"
+                    >
+                      <svg lucidePencil class="h-4 w-4"></svg>
+                    </button>
+                    <button
+                      type="button"
+                      appBtn
+                      variant="danger"
+                      size="sm"
+                      (click)="removeEmployee(employee, i_employee)"
+                    >
+                      <svg lucideTrash2 class="h-4 w-4"></svg>
+                    </button>
+                  </p>
+                </li>
+                <!-- <li class="px-4 py-1.5 text-sm text-slate-600">
                   @for (company of employee.companies; let i_company = $index; track i_company) {
                     <small>
                       {{ company + (employee.companies!.length > i_company + 1 ? ' | ' : '') }}
@@ -128,7 +121,7 @@
                   } @empty {
                     <small> Sin asignar </small>
                   }
-                </li>
+                </li> -->
               </ul>
             </div>
           } @empty {
