@@ -12,7 +12,7 @@ import {
   signal,
 } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { LucideEye } from '@lucide/angular';
+import { LucideEye, LucideX } from '@lucide/angular';
 
 import { EmployeesService } from '../../../../services/employees.service';
 import { Employee } from '../../../../models/employee.model';
@@ -27,6 +27,7 @@ import { AppBtnDirective, AppInputDirective } from '../../../../shared/ui';
     ReactiveFormsModule,
     NgClass,
     LucideEye,
+    LucideX,
     AppDialogComponent,
     AppBtnDirective,
     AppInputDirective,

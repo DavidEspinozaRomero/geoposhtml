@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { LucideDot, LucidePencil, LucideTrash2 } from '@lucide/angular';
+import { LucidePencil, LucideTrash2 } from '@lucide/angular';
 
 import { Employee } from '../../../../models/employee.model';
 import { EmployeesService } from '../../../../services/employees.service';
@@ -10,7 +10,6 @@ import { EmployeeModalComponent } from '../employee-modal/employee-modal.compone
 import { EmptyComponent, LoadingComponent } from '../../../../components';
 import {
   AppBtnDirective,
-  AppCardBodyDirective,
   AppCardDirective,
   AppCardHeaderDirective,
   AppFilterLabelDirective,
@@ -29,13 +28,11 @@ import {
     EmployeeModalComponent,
     EmptyComponent,
     LoadingComponent,
-    LucideDot,
     LucidePencil,
     LucideTrash2,
     AppBtnDirective,
     AppCardDirective,
     AppCardHeaderDirective,
-    AppCardBodyDirective,
     AppFilterSectionDirective,
     AppFilterLabelDirective,
     AppInputDirective,
