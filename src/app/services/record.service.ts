@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 
 import { Record, PaginatedResponse } from '../models';
 import { environment } from '../../environments/environment';
@@ -33,16 +33,14 @@ export class RecordService {
   }
 
   getRecordsByEmployee(employeeID: number) {
-    const URL = `${this.#URL}records/by-employee/${employeeID}`;
-    return this.http.get<PaginatedResponse<Record>>(URL).pipe(
+    const URL = `${this.#URL}records/employee/${employeeID}`;
+    return this.http.get<Record[]>(URL).pipe(
+      tap(console.log),
       map((res) =>
-        res.data.map((record: any) => ({
+        res.map((record: any) => ({
           ...record,
-          employeeId: record.employeeId ?? record.employee?.id,
-          employeeName: record.employeeName ?? record.employee?.name,
-          employeeUsername: record.employeeUsername ?? record.employee?.username,
-          companyId: record.companyId ?? record.company?.id,
-          companyName: record.companyName ?? record.company?.name,
+          companyId: record.company?.id,
+          companyName: record.company?.name,
         })),
       ),
     );
