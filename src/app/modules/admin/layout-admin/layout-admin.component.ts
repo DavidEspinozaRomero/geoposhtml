@@ -41,28 +41,22 @@ export class LayoutAdminComponent {
       label: 'records',
       route: '/administrator/records',
     },
-    { icon: iconMap['balloon'], label: 'events', route: '/administrator/events' },
-    {
-      icon: iconMap['file-earmark-bar-graph'],
-      label: 'reports',
-      route: '/administrator/reports',
-    },
+    // { icon: iconMap['balloon'], label: 'events', route: '/administrator/events' },
     {
       icon: iconMap['calendar3'],
       label: 'calendar',
       route: '/administrator/calendar',
     },
     {
-      icon: iconMap['grid-3x3-gap'],
-      label: 'design system',
-      route: '/design-system',
+      icon: iconMap['file-earmark-bar-graph'],
+      label: 'reports',
+      route: '/administrator/reports',
     },
     // {
     //   icon: iconMap['question-circle'],
     //   label: 'help',
     //   route: '/administrator/help',
     // },
-    // { icon: iconMap['box-arrow-left'], label: 'log out' },
   ];
   colapse = true;
   //#endregion variables

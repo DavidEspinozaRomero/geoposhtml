@@ -32,11 +32,6 @@ export class LayoutEmployeeComponent {
       label: 'calendar',
       route: '/employee/calendary',
     },
-    {
-      icon: iconMap['grid-3x3-gap'],
-      label: 'design system',
-      route: '/design-system',
-    },
   ];
   colapse = true;
 
