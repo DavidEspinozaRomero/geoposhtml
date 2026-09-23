@@ -6,3 +6,9 @@ export interface CalendarEvent {
   eventType: { id: number; name: string };
   class?: string;
 }
+
+export interface EventType {
+  id: number;
+  name: string;
+  severity: string;
+}

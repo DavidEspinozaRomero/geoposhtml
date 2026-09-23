@@ -61,8 +61,8 @@ export class EventModalComponent implements OnInit {
     });
   }
 
-  createEvent(event: CalendarEvent) {
-    this.eventsService.createEvent(event).subscribe((data: CalendarEvent) => {
+  createEvent(event: any) {
+    this.eventsService.createEvent(event).subscribe((data: any) => {
       // agregar un emitter
       this.eventSubmit.emit(data);
     });
@@ -70,8 +70,8 @@ export class EventModalComponent implements OnInit {
     this.closeRequest.emit();
   }
 
-  updateEvent(event: CalendarEvent) {
-    this.eventsService.updateEvent(event).subscribe((data: CalendarEvent) => {
+  updateEvent(event: any) {
+    this.eventsService.updateEvent(event).subscribe((data: any) => {
       // agregar un emitter
       this.eventSubmit.emit(data);
     });
@@ -83,13 +83,10 @@ export class EventModalComponent implements OnInit {
     this.eventForm.markAllAsTouched();
     if (this.eventForm.invalid) return;
     const dataForm = structuredClone(this.eventForm.value);
-    const event: CalendarEvent = {
+    const event = {
       id: dataForm.id,
       title: dataForm.title!,
-      eventType: {
-        id: +dataForm.typeId!,
-        name: this.eventTypes.find((type) => type.id === +dataForm.typeId!)?.name ?? '',
-      },
+      eventType: +dataForm.typeId!,
       date: dataForm.date!,
       description: dataForm.description!,
     };
