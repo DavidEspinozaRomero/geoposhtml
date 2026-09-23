@@ -63,6 +63,9 @@
                 @if (record.incident) {
                   <li class="text-sm text-red-600">Incidencia: {{ record.incident }}</li>
                 }
+                @if (record.incidentAdmin) {
+                  <li class="text-sm text-red-600">Incidencia: {{ record.incidentAdmin }}</li>
+                }
               </ul>
             }
           }

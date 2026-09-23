@@ -5,6 +5,7 @@ export interface CalendarRecord {
   checkIn: string;
   checkOut: string | null;
   incident: string | null;
+  incidentAdmin: string | null;
   isActive: boolean;
 }
 
