@@ -6,9 +6,10 @@
 <!-- filtros -->
 <div class="mt-4 grid grid-cols-1 items-end gap-4 md:grid-cols-3">
   <div>
+    <label for="inputDate" appFilterLabel>Fecha</label>
     <input id="inputDate" appInput type="date" #inputDate (change)="(inputDate)" />
   </div>
-  <div class="space-y-1.5">
+  <div class="">
     <label for="inputEventTitle" appFilterLabel>Título del evento</label>
     <input
       id="inputEventTitle"
@@ -20,6 +21,7 @@
     />
   </div>
   <div>
+    <label for="inputEventType" appFilterLabel>Tipo de evento</label>
     <select appSelect aria-label="tipos de eventos" #inputEventType (change)="(inputEventType)">
       <option selected value="">Todos</option>
       @for (type of eventTypes(); track type.id) {
